@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -58,18 +60,12 @@ class _SplashScreenState extends State<SplashScreen>
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: Image.asset(
-                      'assets/images/Frame 37.png',
-                      width: 150,
-                    ),
+                    child: SvgPicture.asset(R.images.appLogoFram37, width: 150),
                   ),
                   Positioned(
                     bottom: 0,
                     left: 0,
-                    child: Image.asset(
-                      'assets/images/Frame 38.png',
-                      width: 150,
-                    ),
+                    child: SvgPicture.asset(R.images.appLogoFram38, width: 150),
                   ),
                 ],
               ),
@@ -79,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen>
           Center(
             child: ScaleTransition(
               scale: _logoAnimation,
-              child: Image.asset('assets/images/logo 1.png', width: 150),
+              child: Image.asset(R.images.appLogoPng, width: 150, height: 150),
             ),
           ),
         ],
