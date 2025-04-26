@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/home/view/home_screen.dart';
+import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -11,8 +12,8 @@ class AppRouter {
 
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      // case AppRoutes.lodinRouter:
-      //   return MaterialPageRoute(builder: (_) => LoginScreen());
+      case AppRoutes.navBarRoute:
+        return MaterialPageRoute(builder: (_) => NavBarScreen());
       default:
         return MaterialPageRoute(
           builder:
