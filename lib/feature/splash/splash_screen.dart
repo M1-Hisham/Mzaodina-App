@@ -36,8 +36,10 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
     Future.delayed(Duration(seconds: 3), () {
+ feature/home
       Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
-    });
+
+ 
   }
 
   @override
