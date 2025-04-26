@@ -7,6 +7,7 @@ class AppImages {
   String personIcon = "assets/icons/personIcon.svg";
   String personIconSelected = "assets/icons/personSelected.svg";
   String searchIcon = "assets/icons/searchIcon.svg";
+  String searchIconSelected = "assets/icons/searchIconSelected.svg";
   String homeIcon = "assets/icons/homeIcon.svg";
   String homeIconSelected = "assets/icons/homeIconSelected.svg";
 }

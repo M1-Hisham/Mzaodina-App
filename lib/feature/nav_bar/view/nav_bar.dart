@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/view/home_screen.dart';
-import 'package:mzaodina_app/feature/home/view/profile_screen.dart';
-import 'package:mzaodina_app/feature/home/view/search_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
+import 'package:mzaodina_app/feature/search/view/search_screen.dart';
 
-class NavBarSreen extends StatefulWidget {
-  const NavBarSreen({super.key});
+class NavBarScreen extends StatefulWidget {
+  const NavBarScreen({super.key});
 
   @override
-  State<NavBarSreen> createState() => _NavBarSreenState();
+  State<NavBarScreen> createState() => _NavBarScreenState();
 }
 
-class _NavBarSreenState extends State<NavBarSreen> {
+class _NavBarScreenState extends State<NavBarScreen> {
   int _currentIndex = 0;
 
   final List<Map<String, String>> _navItems = [
@@ -23,7 +23,7 @@ class _NavBarSreenState extends State<NavBarSreen> {
     },
     {
       'unselectedIcon': R.images.searchIcon,
-      'selectedIcon': R.images.searchIcon,
+      'selectedIcon': R.images.searchIconSelected,
       'label': 'البحث',
     },
     {

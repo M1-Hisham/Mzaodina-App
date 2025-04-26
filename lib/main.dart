@@ -13,13 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // locale: const Locale('ar'),
-      // supportedLocales: const [Locale('ar')],
-      //       localizationsDelegates:  [
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
+      locale: const Locale('ar'),
+      supportedLocales: const [Locale('ar')],
+      
       builder: (context, child) {
         return Directionality(textDirection: TextDirection.rtl, child: child!);
       },
