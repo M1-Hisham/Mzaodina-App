@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class AppThemeData {
-  final ThemeData theme = ThemeData(
-    primaryColor: R.colors.primaryColor,
-    scaffoldBackgroundColor: R.colors.backgroundColor,
-    hintColor: R.colors.hintTextColor,
+  final ThemeData themeLight = ThemeData(
+    primaryColor: R.colors.primaryColorLight,
+    scaffoldBackgroundColor: R.colors.backgroundColorLight,
+    hintColor: R.colors.hintTextColorLight,
+  );
+  final ThemeData themeDark = ThemeData(
+    primaryColor: R.colors.primaryColorLight,
+    scaffoldBackgroundColor: R.colors.backgroundColorLight,
+    hintColor: R.colors.hintTextColorLight,
   );
 }
