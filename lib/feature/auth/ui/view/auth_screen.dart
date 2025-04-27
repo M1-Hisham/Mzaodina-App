@@ -105,31 +105,6 @@ class AuthScreen extends StatelessWidget {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: cubit.showRegister,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color:
-                      state == AuthState.register
-                          ? R.colors.black
-                          : R.colors.transparent,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'انشاء حساب',
-                  style: TextStyle(
-                    color:
-                        state == AuthState.register
-                            ? R.colors.whiteLight
-                            : R.colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
               onTap: cubit.showLogin,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -146,6 +121,32 @@ class AuthScreen extends StatelessWidget {
                   style: TextStyle(
                     color:
                         state == AuthState.login
+                            ? R.colors.whiteLight
+                            : R.colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: GestureDetector(
+              onTap: cubit.showRegister,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color:
+                      state == AuthState.register
+                          ? R.colors.black
+                          : R.colors.transparent,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  'انشاء حساب',
+                  style: TextStyle(
+                    color:
+                        state == AuthState.register
                             ? R.colors.whiteLight
                             : R.colors.black,
                   ),

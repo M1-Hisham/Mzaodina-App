@@ -27,31 +27,34 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: heigth ?? 50,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: icon,
-        iconAlignment: IconAlignment.start,
-        style: OutlinedButton.styleFrom(
-          overlayColor: overlayColor ?? R.colors.primaryColorLight,
-          side: BorderSide(color: borderColor ?? Colors.transparent),
-          backgroundColor: backgroundColor ?? R.colors.primaryColorLight,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 8),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        width: double.infinity,
+        height: heigth ?? 50,
+        child: ElevatedButton.icon(
+          onPressed: onPressed,
+          icon: icon,
+          iconAlignment: IconAlignment.start,
+          style: OutlinedButton.styleFrom(
+            overlayColor: overlayColor ?? R.colors.primaryColorLight,
+            side: BorderSide(color: borderColor ?? Colors.transparent),
+            backgroundColor: backgroundColor ?? R.colors.primaryColorLight,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+            ),
           ),
-        ),
-        label: FittedBox(
-          child: Text(
-            text,
-            style:
-                textStyle ??
-                TextStyle(
-                  fontSize: 16,
-                  color: R.colors.whiteLight,
-                  fontWeight: FontWeight.w600,
-                ),
+          label: FittedBox(
+            child: Text(
+              text,
+              style:
+                  textStyle ??
+                  TextStyle(
+                    fontSize: 16,
+                    color: R.colors.whiteLight,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
           ),
         ),
       ),

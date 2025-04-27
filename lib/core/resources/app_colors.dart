@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   Color primaryColorLight = const Color(0xFF1D4ED8);
   Color backgroundColorLight = const Color(0xFFFFFFFF);
+  Color greyColor = const Color(0xFF131313);
   Color textColorLight = const Color(0xFF131313);
   Color whiteLight = const Color(0xFFFFFFFF);
   Color black = const Color(0xFF131313);
@@ -12,5 +13,9 @@ class AppColors {
   Color borderColorsLight = const Color(0xFFBECBE5);
   Color formIconColorLight = const Color(0xFF4A72E1);
   Color dividerColorLight = const Color(0xFFDBDBDB);
+  Color supTitleColor = const Color(0xffABC1FF);
+  Color redColor = const Color(0xffFF3A3A);
+  Color colorUnSelected = const Color(0xffDBE4FE);
+  Color greyColor2 = const Color(0xff4F4F4F);
   Color buttonColorLight = const Color(0xFFF7F7F7);
 }
