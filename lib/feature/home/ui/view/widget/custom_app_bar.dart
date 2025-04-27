@@ -1,18 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mzaodina_app/core/resources/app_colors.dart';
-import 'package:mzaodina_app/core/resources/app_text_styles.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: [CustomAppBar()]));
-  }
-}
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -31,7 +19,6 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
       child: SafeArea(
-
         bottom: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

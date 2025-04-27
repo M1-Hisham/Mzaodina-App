@@ -10,4 +10,6 @@ class AppImages {
   String searchIconSelected = "assets/icons/searchIconSelected.svg";
   String homeIcon = "assets/icons/homeIcon.svg";
   String homeIconSelected = "assets/icons/homeIconSelected.svg";
+  String notItemImage = "assets/images/notIemImage.svg";
+  String notItemImagePng = "assets/images/notItemImage.png";
 }

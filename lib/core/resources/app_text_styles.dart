@@ -49,4 +49,36 @@ class AppTextStyles {
 
     fontWeight: FontWeight.w500,
   );
+  TextStyle font14whiteW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 14,
+    color: R.colors.whiteLight,
+
+    fontWeight: FontWeight.w500,
+  );
+  TextStyle font14BlackW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 14,
+    color: R.colors.black,
+
+    fontWeight: FontWeight.w500,
+  );
+  TextStyle font12whiteW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 10,
+    color: R.colors.whiteLight,
+    height: 1.1,
+    fontWeight: FontWeight.w500,
+  );
+    TextStyle font22blackW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 22,
+    color: R.colors.textColorLight,
+    height: 1.1,
+    fontWeight: FontWeight.w500,
+  );
 }

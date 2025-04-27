@@ -45,6 +45,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_bloc: ^9.1.0
 
 
 dev_dependencies:
@@ -77,7 +78,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/images/
-    - assets/images/logo.svg
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
