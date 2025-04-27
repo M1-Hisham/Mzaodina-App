@@ -41,6 +41,7 @@ dependencies:
 
   # Splash screen for flutter
   flutter_native_splash: ^2.4.6
+  flutter_localization: ^0.3.2
 
 
 dev_dependencies:

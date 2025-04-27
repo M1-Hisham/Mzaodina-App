@@ -36,52 +36,59 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
     Future.delayed(Duration(seconds: 3), () {
- feature/home
       Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
+    });}
+    @override
+    void dispose() {
+      _controller.dispose();
+      super.dispose();
+    }
 
- 
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          FadeTransition(
-            opacity: _backgroundAnimation,
-            child: Container(
-              color: Colors.white,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: SvgPicture.asset(R.images.appLogoFram37, width: 150),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: SvgPicture.asset(R.images.appLogoFram38, width: 150),
-                  ),
-                ],
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            FadeTransition(
+              opacity: _backgroundAnimation,
+              child: Container(
+                color: Colors.white,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: SvgPicture.asset(
+                        R.images.appLogoFram37,
+                        width: 150,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: SvgPicture.asset(
+                        R.images.appLogoFram38,
+                        width: 150,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          Center(
-            child: ScaleTransition(
-              scale: _logoAnimation,
-              child: Image.asset(R.images.appLogoPng, width: 150, height: 150),
+            Center(
+              child: ScaleTransition(
+                scale: _logoAnimation,
+                child: Image.asset(
+                  R.images.appLogoPng,
+                  width: 150,
+                  height: 150,
+                ),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
   }
-}
+
