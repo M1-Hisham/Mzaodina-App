@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 
 class CustomTapView extends StatefulWidget {
@@ -39,39 +39,14 @@ class _CustomTapViewState extends State<CustomTapView> {
             child: TabBarView(
               children: [
                 Center(child: CustomNotItem()),
-                Center(child: Text('Page 2')),
-                Center(child: Text('Page 3')),
-                Center(child: Text('Page 4')),
+                Center(child: Text("")),
+                Center(child: Text("")),
+                Center(child: Text("")),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-class CustomNotItem extends StatelessWidget {
-  const CustomNotItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(R.images.notItemImagePng, width: 175, height: 170),
-        SizedBox(height: 20),
-        Text('لايوجد مزادات', style: R.textStyles.font22blackW500Light),
-      ],
-    );
-  }
-}
-
-class CustomTapViewItem extends StatelessWidget {
-  const CustomTapViewItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
