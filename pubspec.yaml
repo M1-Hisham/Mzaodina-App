@@ -45,6 +45,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_bloc: ^9.1.0
+  slide_countdown: ^2.0.2
+  circular_countdown_timer: ^0.2.4
+  flutter_timer_countdown: ^1.0.7
 
 
 dev_dependencies:
@@ -77,7 +81,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/images/
-    - assets/images/logo.svg
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

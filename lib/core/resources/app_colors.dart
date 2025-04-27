@@ -14,4 +14,6 @@ class AppColors {
   Color dividerColorLight = const Color(0xFFDBDBDB);
   Color supTitleColor = const Color(0xffABC1FF);
   Color redColor = const Color(0xffFF3A3A);
+  Color colorUnSelected = const Color(0xffDBE4FE);
+  Color greyColor2 = const Color(0xff4F4F4F);
 }
