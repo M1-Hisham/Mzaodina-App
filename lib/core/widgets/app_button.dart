@@ -24,7 +24,7 @@ class AppButton extends StatelessWidget {
     this.icon,
     this.borderColor,
     this.overlayColor,
-     this.textDirection,
+    this.textDirection,
   });
 
   @override
@@ -49,13 +49,7 @@ class AppButton extends StatelessWidget {
           label: FittedBox(
             child: Text(
               text,
-              style:
-                  textStyle ??
-                  TextStyle(
-                    fontSize: 16,
-                    color: R.colors.whiteLight,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: textStyle ?? R.textStyles.font14whiteW500Light,
             ),
           ),
         ),

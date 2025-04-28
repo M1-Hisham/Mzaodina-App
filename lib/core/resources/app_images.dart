@@ -14,4 +14,10 @@ class AppImages {
   String riyalImage = "assets/icons/riyalImage.svg";
   String phoneImagePng = "assets/images/phoneItem.png";
   String shareIcon = "assets/icons/shareIcon.svg";
+  String emailIcon = "assets/icons/email.svg";
+  String passwordIcon = "assets/icons/password.svg";
+  String googleIcon = "assets/icons/google.svg";
+  String appleIcon = "assets/icons/apple.svg";
+  String userNameIcon = "assets/icons/usericon.svg";
+
 }
