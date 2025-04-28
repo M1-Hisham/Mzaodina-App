@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
@@ -9,13 +10,13 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 20, right: 28, left: 28),
-      width: 402,
-      height: 160,
+      width: 402.w,
+      height: 160.h,
       decoration: BoxDecoration(
         color: R.colors.primaryColorLight,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
+        borderRadius:  BorderRadius.only(
+          bottomLeft: Radius.circular(30.r),
+          bottomRight: Radius.circular(30.r),
         ),
       ),
       child: SafeArea(
@@ -23,9 +24,9 @@ class CustomAppBar extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 25),
+            SizedBox(height: 25.h),
             Text('أهلاً وسهلاً,', style: R.textStyles.font18GreyW500Light),
-            SizedBox(height: 7),
+            SizedBox(height: 7.h),
             Row(
               children: [
                 Text(
@@ -40,8 +41,8 @@ class CustomAppBar extends StatelessWidget {
                       right: 0,
                       top: 0,
                       child: Container(
-                        width: 8,
-                        height: 8,
+                        width: 8.w,
+                        height: 8.h,
                         decoration: BoxDecoration(
                           color: R.colors.redColor,
                           shape: BoxShape.circle,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
@@ -60,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
                       right: 0,
                       child: SvgPicture.asset(
                         R.images.appLogoFram37,
-                        width: 150,
+                        width: 150.w,
                       ),
                     ),
                     Positioned(
@@ -68,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen>
                       left: 0,
                       child: SvgPicture.asset(
                         R.images.appLogoFram38,
-                        width: 150,
+                        width: 150.w,
                       ),
                     ),
                   ],
@@ -81,8 +82,8 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _logoAnimation,
                 child: Image.asset(
                   R.images.appLogoPng,
-                  width: 150,
-                  height: 150,
+                  width: 150.w,
+                  height: 150.h,
                 ),
               ),
             ),

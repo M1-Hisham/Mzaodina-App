@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 
@@ -24,7 +25,7 @@ class CustomTapItem extends StatelessWidget {
                 isSelected
                     ? R.colors.primaryColorLight
                     : R.colors.colorUnSelected,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           child: Text(
             item.title,
@@ -43,7 +44,7 @@ class CustomTapItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               decoration: BoxDecoration(
                 color: R.colors.greyColor2,
-                borderRadius: BorderRadius.circular(99),
+                borderRadius: BorderRadius.circular(99.r),
               ),
               child: Text(
                 item.counter,

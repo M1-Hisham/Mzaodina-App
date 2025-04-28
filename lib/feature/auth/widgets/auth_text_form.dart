@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class AuthTextForm extends StatelessWidget {
@@ -67,12 +68,12 @@ class AuthTextForm extends StatelessWidget {
         hintText: hintText,
         hintStyle:
             hintStyle ??
-            TextStyle(color: R.colors.hintTextColorLight, fontSize: 14),
+            TextStyle(color: R.colors.hintTextColorLight, fontSize: 14.sp),
 
         isDense: true,
         contentPadding:
             contentPadding ??
-            EdgeInsets.symmetric(horizontal: 20, vertical: 19),
+            EdgeInsets.symmetric(horizontal: 20.w, vertical: 19.h),
         suffixIcon: suffixIcon,
         hoverColor: hoverColor,
         filled: true,
@@ -84,21 +85,21 @@ class AuthTextForm extends StatelessWidget {
         //   borderRadius: BorderRadius.all(Radius.circular(10)),
         // ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(14)),
+          borderRadius:  BorderRadius.all(Radius.circular(14.r)),
           borderSide: BorderSide(color: R.colors.backgroundColorLight),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          borderRadius:  BorderRadius.all(Radius.circular(8.r)),
           borderSide: BorderSide(
             color: colorEnableBorder ?? R.colors.borderColorsLight,
           ),
         ),
-        errorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+        errorBorder:  OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
           borderSide: BorderSide(color: Colors.red),
         ),
-        focusedErrorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+        focusedErrorBorder:  OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
           borderSide: BorderSide(color: Colors.red),
         ),
         // disabledBorder: OutlineInputBorder(

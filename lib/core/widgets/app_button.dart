@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 /// Generic button widget
@@ -33,7 +34,7 @@ class AppButton extends StatelessWidget {
       textDirection: textDirection ?? TextDirection.ltr,
       child: SizedBox(
         width: double.infinity,
-        height: heigth ?? 50,
+        height: heigth ?? 50.h,
         child: ElevatedButton.icon(
           onPressed: onPressed,
           icon: icon,
@@ -43,7 +44,7 @@ class AppButton extends StatelessWidget {
             side: BorderSide(color: borderColor ?? Colors.transparent),
             backgroundColor: backgroundColor ?? R.colors.primaryColorLight,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
             ),
           ),
           label: FittedBox(

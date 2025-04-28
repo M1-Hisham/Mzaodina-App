@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
@@ -12,53 +13,53 @@ class RegisterFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding:  EdgeInsets.all(20.r),
       child: Form(
         child: Column(
           children: [
             AuthTextForm(
               hintText: 'اسم المستخدم',
               prefixIcon: Padding(
-                padding: const EdgeInsets.all(10),
+                padding:  EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.userNameIcon),
               ),
               keyboardType: TextInputType.name,
             ),
-            spacingV(15),
+            spacingV(15.h),
             AuthTextForm(
               hintText: 'رقم الهاتف',
               keyboardType: TextInputType.phone,
             ),
-            spacingV(15),
+            spacingV(15.h),
             AuthTextForm(
               hintText: 'البريد الالكتروني',
               prefixIcon: Padding(
-                padding: const EdgeInsets.all(10),
+                padding:  EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.emailIcon),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            spacingV(15),
+            spacingV(15.h),
             AuthTextForm(
               hintText: 'كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
-                padding: const EdgeInsets.all(10),
+                padding:  EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.passwordIcon),
               ),
               keyboardType: TextInputType.visiblePassword,
             ),
-            spacingV(15),
+            spacingV(15.h),
             AuthTextForm(
               hintText: 'تأكيد كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
-                padding: const EdgeInsets.all(10),
+                padding:  EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.passwordIcon),
               ),
               keyboardType: TextInputType.visiblePassword,
             ),
-            spacingV(20),
+            spacingV(20.h),
 
             Row(
               children: [
@@ -89,14 +90,14 @@ class RegisterFormScreen extends StatelessWidget {
                 ),
               ],
             ),
-            spacingV(10),
+            spacingV(10.h),
             AppButton(
               text: 'انشاء حساب',
               onPressed: () {
                 Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
               },
             ),
-            spacingV(10),
+            spacingV(10.h),
           ],
         ),
       ),

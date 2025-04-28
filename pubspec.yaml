@@ -50,6 +50,7 @@ dependencies:
   circular_countdown_timer: ^0.2.4
   flutter_timer_countdown: ^1.0.7
   percent_indicator: ^4.2.5
+  flutter_screenutil: ^5.9.3
 
 
 dev_dependencies:

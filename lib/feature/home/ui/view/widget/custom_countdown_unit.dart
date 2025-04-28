@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -25,15 +26,15 @@ class CountdownUnitWidget extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             CircularPercentIndicator(
-              radius: 20,
+              radius: 20.r,
               lineWidth: 5,
               percent: progress,
               progressColor: R.colors.primaryColorLight,
               backgroundColor: R.colors.colorBlue2,
               circularStrokeCap: CircularStrokeCap.round,
               center: Container(
-                width: 30,
-                height: 30,
+                width: 30.w,
+                height: 30.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: R.colors.whiteLight,
