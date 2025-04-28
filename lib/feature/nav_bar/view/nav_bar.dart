@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
+import 'package:mzaodina_app/feature/home/view/home_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
 import 'package:mzaodina_app/feature/search/view/search_screen.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
+import 'package:mzaodina_app/feature/home/view/home_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 

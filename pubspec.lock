@@ -33,14 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
-  bloc:
-    dependency: transitive
-    description:
-      name: bloc
-      sha256: "52c10575f4445c61dd9e0cafcc6356fdd827c4c64dd7945ef3c4105f6b6ac189"
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -57,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  circular_countdown_timer:
-    dependency: "direct main"
-    description:
-      name: circular_countdown_timer
-      sha256: "608d166c8c659af5740ffec8859e1429a4849b706675a529dc381ef40784697b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.4"
   clock:
     dependency: transitive
     description:
@@ -134,14 +118,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_bloc:
-    dependency: "direct main"
-    description:
-      name: flutter_bloc
-      sha256: "1046d719fbdf230330d3443187cc33cc11963d15c9089f6cc56faa42a4c5f0cc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.1.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -184,14 +160,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_timer_countdown:
-    dependency: "direct main"
-    description:
-      name: flutter_timer_countdown
-      sha256: "0c73e1593ad7949c007752199a17e7ed50bb581568743dbc32f061f49873219e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.7"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -309,14 +277,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -357,14 +317,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  pausable_timer:
-    dependency: transitive
-    description:
-      name: pausable_timer
-      sha256: "6ef1a95441ec3439de6fb63f39a011b67e693198e7dae14e20675c3c00e86074"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0+3"
   persistent_bottom_nav_bar_v2:
     dependency: "direct main"
     description:
@@ -405,14 +357,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.2"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      sha256: "489024f942069c2920c844ee18bb3d467c69e48955a4f32d1677f71be103e310"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.4"
   shared_preferences:
     dependency: transitive
     description:
@@ -474,14 +418,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  slide_countdown:
-    dependency: "direct main"
-    description:
-      name: slide_countdown
-      sha256: "363914f96389502467d4dc9c0f26e88f93df3d8e37de2d5ff05b16d981fe973d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   source_span:
     dependency: transitive
     description:

@@ -12,5 +12,4 @@ class AppThemeData {
     scaffoldBackgroundColor: R.colors.backgroundColorLight,
     hintColor: R.colors.hintTextColorLight,
   );
-  
 }

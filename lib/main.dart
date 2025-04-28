@@ -20,10 +20,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('ar'), 
-   
-      ],
+      supportedLocales: [Locale('ar')],
       builder: (context, child) {
         return Directionality(textDirection: TextDirection.rtl, child: child!);
       },
