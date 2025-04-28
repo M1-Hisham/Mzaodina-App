@@ -18,4 +18,6 @@ class AppColors {
   Color colorUnSelected = const Color(0xffDBE4FE);
   Color greyColor2 = const Color(0xff4F4F4F);
   Color buttonColorLight = const Color(0xFFF7F7F7);
+  Color colorBlue2 = const Color(0xFF6596FF);
+  Color greyColor3 = const Color(0xFF6D6D6D);
 }

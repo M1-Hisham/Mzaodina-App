@@ -41,6 +41,7 @@ class RegisterFormScreen extends StatelessWidget {
             ),
             spacingV(10),
             AppButton(
+               
               text: 'انشاء حساب',
               onPressed: () {
                 Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);

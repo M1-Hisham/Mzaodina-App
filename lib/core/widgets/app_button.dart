@@ -12,6 +12,7 @@ class AppButton extends StatelessWidget {
   final Color? overlayColor;
   final TextStyle? textStyle;
   final Widget? icon;
+  final TextDirection? textDirection;
   const AppButton({
     super.key,
     required this.text,
@@ -23,12 +24,13 @@ class AppButton extends StatelessWidget {
     this.icon,
     this.borderColor,
     this.overlayColor,
+     this.textDirection,
   });
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.ltr,
+      textDirection: textDirection ?? TextDirection.ltr,
       child: SizedBox(
         width: double.infinity,
         height: heigth ?? 50,

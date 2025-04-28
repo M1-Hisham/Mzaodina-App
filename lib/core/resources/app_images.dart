@@ -1,5 +1,4 @@
 class AppImages {
-  String appLogo = "assets/images/app-logo.svg";
   String appLogoPng = "assets/images/logo.png";
   String appLogoFram37 = "assets/images/Frame 37.svg";
   String appLogoFram38 = "assets/images/Frame 38.svg";
@@ -12,4 +11,7 @@ class AppImages {
   String homeIconSelected = "assets/icons/homeIconSelected.svg";
   String notItemImage = "assets/images/notIemImage.svg";
   String notItemImagePng = "assets/images/notItemImage.png";
+  String riyalImage = "assets/icons/riyalImage.svg";
+  String phoneImagePng = "assets/images/phoneItem.png";
+  String shareIcon = "assets/icons/shareIcon.svg";
 }

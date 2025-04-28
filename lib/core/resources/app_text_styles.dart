@@ -25,10 +25,10 @@ class AppTextStyles {
     height: 1.1,
     fontWeight: FontWeight.w600,
   );
-  TextStyle font12GreyW600Light = TextStyle(
+  TextStyle font12GreyW500Light = TextStyle(
     fontFamily: 'Rubik',
 
-    fontSize: 10,
+    fontSize: 12,
     color: R.colors.greyColor,
     height: 1.1,
     fontWeight: FontWeight.w500,
@@ -40,6 +40,14 @@ class AppTextStyles {
     color: R.colors.textColorLight,
     height: 1.1,
     fontWeight: FontWeight.w400,
+  );
+  TextStyle font16BlackW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 16,
+    color: R.colors.textColorLight,
+    height: 1.1,
+    fontWeight: FontWeight.w500,
   );
   TextStyle font18GreyW500Light = TextStyle(
     fontFamily: 'Rubik',
@@ -73,7 +81,7 @@ class AppTextStyles {
     height: 1.1,
     fontWeight: FontWeight.w500,
   );
-    TextStyle font22blackW500Light = TextStyle(
+  TextStyle font22blackW500Light = TextStyle(
     fontFamily: 'Rubik',
 
     fontSize: 22,

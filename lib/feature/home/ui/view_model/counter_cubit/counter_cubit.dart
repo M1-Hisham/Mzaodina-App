@@ -1,29 +1,41 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/core/helper/countdown_helper.dart';
 
 part 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
-  CounterCubit() : super(CounterInitial());
+  final DateTime eventTime;
+  Timer? _timer;
+  CounterCubit(this.eventTime) : super(CounterInitial()) {
+    _start();
+  }
 
-  void startCountdown(int totalMinutes) {
-    try {
-      final totalSeconds = totalMinutes * 60;
+  void _start() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      final diff = CountdownHelper.calculateDifference(eventTime);
 
-      final days = totalSeconds ~/ (24 * 3600);
-      final hours = (totalSeconds % (24 * 3600)) ~/ 3600;
-      final minutes = (totalSeconds % 3600) ~/ 60;
-      final seconds = totalSeconds % 60;
+      if (diff == Duration.zero) {
+        emit(CountdownFinished());
+        _timer?.cancel();
+      } else {
+        final breakdown = CountdownHelper.breakdown(diff);
+        emit(
+          CountdownRunning(
+            days: breakdown['days']!,
+            hours: breakdown['hours']!,
+            minutes: breakdown['minutes']!,
+            seconds: breakdown['seconds']!,
+          ),
+        );
+      }
+    });
+  }
 
-      emit(
-        CountdownLoaded(
-          days: days,
-          hours: hours,
-          minutes: minutes,
-          seconds: seconds,
-        ),
-      );
-    } catch (e) {
-      emit(CountdownError(e.toString()));
-    }
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
   }
 }
