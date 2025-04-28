@@ -1,0 +1,127 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/widgets/app_button.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_cloc_builder_countdown.dart';
+
+class CustomCardViewItem extends StatefulWidget {
+  const CustomCardViewItem({super.key});
+
+  @override
+  State<CustomCardViewItem> createState() => _CustomCardViewItemState();
+}
+
+class _CustomCardViewItemState extends State<CustomCardViewItem> {
+  DateTime eventTimeFromApi = DateTime.parse('2025-05-01 18:00:00');
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: R.colors.whiteLight,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: R.colors.textColorLight),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(R.images.phoneImagePng, width: 120, height: 158),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            'مزاد على ايفون 16 برو من ابل',
+                            style: R.textStyles.font16BlackW500Light,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        CustomBlocBuilderCountdown(eventTime: eventTimeFromApi),
+                        const SizedBox(height: 12),
+
+                        _buildCustomRowItem('السعر بالأسواق', '1,000.00'),
+                        _buildCustomRowItem('بداية المزاد', '600.00'),
+                        _buildCustomRowItem('انطلاق المزاد', '1,000.00'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: AppButton(
+                      text: 'عرض التفاصيل',
+                      onPressed: () {},
+                      backgroundColor: R.colors.primaryColorLight,
+                      borderRadius: 8,
+                      heigth: 40,
+                      textStyle: R.textStyles.font12GreyW500Light.copyWith(
+                        color: R.colors.whiteLight,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 11),
+                  Expanded(
+                    child: AppButton(
+                      textDirection: TextDirection.rtl,
+                      text: 'مشاركة',
+                      onPressed: () {},
+                      backgroundColor: R.colors.colorUnSelected,
+                      borderRadius: 8,
+                      heigth: 40,
+                      textStyle: R.textStyles.font14BlackW500Light.copyWith(
+                        color: R.colors.primaryColorLight,
+                      ),
+                      icon: SvgPicture.asset(
+                        R.images.shareIcon,
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+Widget _buildCustomRowItem(String title, String price) {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 6),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: R.textStyles.font12primaryW600Light.copyWith(
+            color: R.colors.greyColor3,
+          ),
+        ),
+        Spacer(),
+        Row(
+          children: [
+            Text(price, style: R.textStyles.font12primaryW600Light),
+            SvgPicture.asset(R.images.riyalImage),
+          ],
+        ),
+      ],
+    ),
+  );
+}

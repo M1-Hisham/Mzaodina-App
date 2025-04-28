@@ -84,7 +84,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                       style:
                           isSelected
                               ? R.textStyles.font12primaryW600Light
-                              : R.textStyles.font12GreyW600Light,
+                              : R.textStyles.font12GreyW500Light,
                     ),
                   ],
                 ),

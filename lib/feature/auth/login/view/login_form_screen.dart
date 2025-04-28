@@ -23,6 +23,7 @@ class LoginFormScreen extends StatelessWidget {
             AuthTextForm(hintText: 'كلمة المرور', isObscureText: true),
             spacingV(20),
             AppButton(
+           
               text: 'تسجيل الدخول',
               onPressed: () {
                 Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
@@ -60,6 +61,7 @@ class LoginFormScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: AppButton(
+                   
                     icon: Icon(
                       Icons.g_mobiledata,
                       size: 30,
@@ -80,6 +82,7 @@ class LoginFormScreen extends StatelessWidget {
                 spacingH(10),
                 Expanded(
                   child: AppButton(
+                   
                     icon: Icon(
                       Icons.apple,
                       size: 30,
