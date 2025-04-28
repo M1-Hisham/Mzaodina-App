@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/feature/auth/forgot-password/ui/forgot_password_screen.dart';
 import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
@@ -33,6 +34,7 @@ class AuthScreen extends StatelessWidget {
                         },
                       ),
                       Container(
+                        alignment: Alignment.bottomLeft,
                         decoration: BoxDecoration(
                           color: R.colors.whiteLight,
                           borderRadius: BorderRadius.only(
@@ -47,15 +49,19 @@ class AuthScreen extends StatelessWidget {
                               return Column(
                                 children: [
                                   spacingV(20),
-                                  _toggleButtons(
-                                    context.read<AuthCubit>(),
-                                    context.watch<AuthCubit>().state,
-                                  ),
+                                  state == AuthState.forgotPassword
+                                      ? const SizedBox.shrink()
+                                      : _toggleButtons(
+                                        context.read<AuthCubit>(),
+                                        context.watch<AuthCubit>().state,
+                                      ),
                                   spacingV(20),
                                   if (state == AuthState.login)
                                     LoginFormScreen(),
                                   if (state == AuthState.register)
                                     RegisterFormScreen(),
+                                  if (state == AuthState.forgotPassword)
+                                    ForgotPasswordScreen(),
                                 ],
                               );
                             },
@@ -85,6 +91,29 @@ class AuthScreen extends StatelessWidget {
                 "   \"اهلا بكم\nفي مزاودين",
                 style: R.textStyles.font34WhiteW500Light,
               ),
+            ),
+          );
+        } else if (state == AuthState.forgotPassword) {
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "نسيت كلمة المرور",
+                    style: R.textStyles.font34WhiteW500Light,
+                  ),
+                ),
+                spacingV(5),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "ادخل البريد الالكتروني",
+                    style: R.textStyles.font18GreyW500Light,
+                  ),
+                ),
+              ],
             ),
           );
         } else {
@@ -118,11 +147,11 @@ class AuthScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   'تسجيل الدخول',
-                  style: TextStyle(
+                  style: R.textStyles.font14whiteW500Light.copyWith(
                     color:
-                        state == AuthState.login
-                            ? R.colors.whiteLight
-                            : R.colors.black,
+                        state == AuthState.register
+                            ? R.colors.black
+                            : R.colors.whiteLight,
                   ),
                 ),
               ),
@@ -144,7 +173,7 @@ class AuthScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   'انشاء حساب',
-                  style: TextStyle(
+                  style: R.textStyles.font14whiteW500Light.copyWith(
                     color:
                         state == AuthState.register
                             ? R.colors.whiteLight
