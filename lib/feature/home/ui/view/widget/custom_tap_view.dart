@@ -19,20 +19,20 @@ class _CustomTapViewState extends State<CustomTapView>
   late TabController _tabController;
   DateTime eventTimeFromApi = DateTime.parse('2025-05-01 18:00:00');
 
- @override
-void initState() {
-  super.initState();
-  _tabController = TabController(length: 4, vsync: this);
-  _tabController.addListener(_handleTabSelection);
-}
-  void _handleTabSelection() {
-  if (_tabController.indexIsChanging == false) {
-    setState(() {
-      selectedIndex = _tabController.index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(_handleTabSelection);
   }
-}
 
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging == false) {
+      setState(() {
+        selectedIndex = _tabController.index;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -53,7 +53,7 @@ void initState() {
             dividerHeight: 0,
             indicatorColor: Colors.transparent,
             labelColor: R.colors.primaryColorLight,
-           
+
             tabs:
                 tapViewModel.map((item) {
                   var isSelected = tapViewModel.indexOf(item) == selectedIndex;
@@ -65,7 +65,7 @@ void initState() {
               controller: _tabController,
               children: [
                 Center(child: CustomNotItem()),
-                Center(),
+
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -73,6 +73,7 @@ void initState() {
                   ),
                 ),
                 Center(child: Text("")),
+                Center(),
               ],
             ),
           ),

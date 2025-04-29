@@ -1,13 +1,10 @@
 part of 'counter_cubit.dart';
 
-
 sealed class CounterState {
   const CounterState();
 }
 
 final class CounterInitial extends CounterState {}
-class CountdownLoading extends CounterState {}
-
 
 class CountdownRunning extends CounterState {
   final int days;
@@ -21,9 +18,6 @@ class CountdownRunning extends CounterState {
     required this.minutes,
     required this.seconds,
   });
-
-
 }
 
-class CountdownFinished extends CounterState {
-}
+class CountdownFinished extends CounterState {}

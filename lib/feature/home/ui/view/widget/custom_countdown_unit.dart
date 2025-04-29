@@ -7,12 +7,14 @@ class CountdownUnitWidget extends StatelessWidget {
   final int value;
   final String label;
   final int maxValue;
+  final Color progressColor;
+  final Color backgroundColor;
 
   const CountdownUnitWidget({
     super.key,
     required this.value,
     required this.label,
-    required this.maxValue,
+    required this.maxValue, required this.progressColor, required this.backgroundColor,
   });
 
   @override
@@ -29,8 +31,8 @@ class CountdownUnitWidget extends StatelessWidget {
               radius: 20.r,
               lineWidth: 5,
               percent: progress,
-              progressColor: R.colors.primaryColorLight,
-              backgroundColor: R.colors.colorBlue2,
+              progressColor: progressColor,
+              backgroundColor: backgroundColor,
               circularStrokeCap: CircularStrokeCap.round,
               center: Container(
                 width: 30.w,
