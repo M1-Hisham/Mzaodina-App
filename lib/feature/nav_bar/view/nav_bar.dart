@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
@@ -48,7 +49,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 15.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(_navItems.length, (index) {
@@ -69,7 +70,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                             isSelected
                                 ? R.colors.primaryColorLight
                                 : Colors.transparent,
-                        borderRadius: BorderRadius.circular(100),
+                        borderRadius: BorderRadius.circular(100.r),
                       ),
                       child: SvgPicture.asset(
                         isSelected
@@ -77,7 +78,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                             : _navItems[index]['unselectedIcon']!,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
 
                     Text(
                       _navItems[index]['label']!,

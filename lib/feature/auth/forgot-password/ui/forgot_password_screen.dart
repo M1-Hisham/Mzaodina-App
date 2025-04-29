@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
@@ -15,21 +16,21 @@ class ForgotPasswordScreen extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:  EdgeInsets.all(20.r),
           child: Form(
             child: Column(
               children: [
                 AuthTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding:  EdgeInsets.all(10.r),
                     child: SvgPicture.asset(R.images.emailIcon),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
-                spacingV(26),
+                spacingV(26.h),
                 AppButton(text: 'تحقق من الكود', onPressed: () {}),
-                spacingV(15),
+                spacingV(15.h),
                 GestureDetector(
                   onTap: () => context.read<AuthCubit>().showLogin(),
                   child: Align(
@@ -48,7 +49,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                spacingV(120),
+                spacingV(120.h),
               ],
             ),
           ),

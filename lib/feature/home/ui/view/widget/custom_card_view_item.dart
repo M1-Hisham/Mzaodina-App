@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
@@ -18,10 +19,10 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(8),
+          padding:  EdgeInsets.all(8.r),
           decoration: BoxDecoration(
             color: R.colors.whiteLight,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             border: Border.all(color: R.colors.textColorLight),
           ),
           child: Column(
@@ -32,22 +33,22 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(R.images.phoneImagePng, width: 120, height: 158),
-                  SizedBox(width: 16),
+                  Image.asset(R.images.phoneImagePng, width: 120.w, height: 158.h),
+                  SizedBox(width: 16.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          padding:  EdgeInsets.symmetric(vertical: 8.h),
                           child: Text(
                             'مزاد على ايفون 16 برو من ابل',
                             style: R.textStyles.font16BlackW500Light,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                         SizedBox(height: 12.h),
                         CustomBlocBuilderCountdown(eventTime: eventTimeFromApi),
-                        const SizedBox(height: 12),
+                         SizedBox(height: 12.h),
 
                         _buildCustomRowItem('السعر بالأسواق', '1,000.00'),
                         _buildCustomRowItem('بداية المزاد', '600.00'),
@@ -57,7 +58,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+               SizedBox(height: 16.h),
               Row(
                 children: [
                   Expanded(
@@ -66,29 +67,29 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                       text: 'عرض التفاصيل',
                       onPressed: () {},
                       backgroundColor: R.colors.primaryColorLight,
-                      borderRadius: 8,
-                      heigth: 40,
+                      borderRadius: 8.r,
+                      heigth: 40.h,
                       textStyle: R.textStyles.font12GreyW500Light.copyWith(
                         color: R.colors.whiteLight,
                       ),
                     ),
                   ),
-                  SizedBox(width: 11),
+                  SizedBox(width: 11.w),
                   Expanded(
                     child: AppButton(
                       textDirection: TextDirection.rtl,
                       text: 'مشاركة',
                       onPressed: () {},
                       backgroundColor: R.colors.colorUnSelected,
-                      borderRadius: 8,
-                      heigth: 40,
+                      borderRadius: 8.r,
+                      heigth: 40.h,
                       textStyle: R.textStyles.font14BlackW500Light.copyWith(
                         color: R.colors.primaryColorLight,
                       ),
                       icon: SvgPicture.asset(
                         R.images.shareIcon,
-                        width: 20,
-                        height: 20,
+                        width: 20.w,
+                        height: 20.h,
                       ),
                     ),
                   ),
@@ -104,7 +105,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
 
 Widget _buildCustomRowItem(String title, String price) {
   return Container(
-    padding: const EdgeInsets.symmetric(vertical: 6),
+    padding:  EdgeInsets.symmetric(vertical: 6.h),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/ui/forgot_password_screen.dart';
@@ -29,7 +30,7 @@ class AuthScreen extends StatelessWidget {
                       BlocBuilder<AuthCubit, AuthState>(
                         builder: (context, state) {
                           return Column(
-                            children: [_buildHeader(context), spacingV(20)],
+                            children: [_buildHeader(context), spacingV(20.h)],
                           );
                         },
                       ),
@@ -38,8 +39,8 @@ class AuthScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: R.colors.whiteLight,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
+                            topLeft: Radius.circular(30.r),
+                            topRight: Radius.circular(30.r),
                           ),
                         ),
                         child: Padding(
@@ -48,7 +49,7 @@ class AuthScreen extends StatelessWidget {
                             builder: (context, state) {
                               return Column(
                                 children: [
-                                  spacingV(20),
+                                  spacingV(20.h),
                                   state == AuthState.forgotPassword
                                       ? const SizedBox.shrink()
                                       : _toggleButtons(
@@ -95,7 +96,7 @@ class AuthScreen extends StatelessWidget {
           );
         } else if (state == AuthState.forgotPassword) {
           return Padding(
-            padding: const EdgeInsets.all(16),
+            padding:  EdgeInsets.all(16.r),
             child: Column(
               children: [
                 Align(
@@ -105,7 +106,7 @@ class AuthScreen extends StatelessWidget {
                     style: R.textStyles.font34WhiteW500Light,
                   ),
                 ),
-                spacingV(5),
+                spacingV(5.h),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -125,10 +126,10 @@ class AuthScreen extends StatelessWidget {
 
   Widget _toggleButtons(cubit, state) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin:  EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
         color: Color(0xFFE9EEFC),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(30.r),
       ),
       child: Row(
         children: [
@@ -142,7 +143,7 @@ class AuthScreen extends StatelessWidget {
                       state == AuthState.login
                           ? R.colors.black
                           : R.colors.transparent,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(30.r),
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -162,13 +163,13 @@ class AuthScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: cubit.showRegister,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
+                padding:  EdgeInsets.symmetric(vertical: 12.h),
                 decoration: BoxDecoration(
                   color:
                       state == AuthState.register
                           ? R.colors.black
                           : R.colors.transparent,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(30.r),
                 ),
                 alignment: Alignment.center,
                 child: Text(

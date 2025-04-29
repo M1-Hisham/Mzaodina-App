@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/router/route.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ScreenUtilInit(
+      designSize: Size(402, 874),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,10 +28,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('ar'), 
-   
-      ],
+      supportedLocales: [Locale('ar')],
       builder: (context, child) {
         return Directionality(textDirection: TextDirection.rtl, child: child!);
       },
