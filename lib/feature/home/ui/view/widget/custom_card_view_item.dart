@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_cloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 
 class CustomCardViewItem extends StatefulWidget {
   const CustomCardViewItem({super.key});
@@ -19,7 +20,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
     return Column(
       children: [
         Container(
-          padding:  EdgeInsets.all(8.r),
+          padding: EdgeInsets.all(8.r),
           decoration: BoxDecoration(
             color: R.colors.whiteLight,
             borderRadius: BorderRadius.circular(16.r),
@@ -33,32 +34,36 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(R.images.phoneImagePng, width: 120.w, height: 158.h),
+                  Image.asset(
+                    R.images.phoneImagePng,
+                    width: 120.w,
+                    height: 158.h,
+                  ),
                   SizedBox(width: 16.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding:  EdgeInsets.symmetric(vertical: 8.h),
+                          padding: EdgeInsets.symmetric(vertical: 8.h),
                           child: Text(
                             'مزاد على ايفون 16 برو من ابل',
                             style: R.textStyles.font16BlackW500Light,
                           ),
                         ),
-                         SizedBox(height: 12.h),
+                        SizedBox(height: 12.h),
                         CustomBlocBuilderCountdown(eventTime: eventTimeFromApi),
-                         SizedBox(height: 12.h),
+                        SizedBox(height: 12.h),
 
                         _buildCustomRowItem('السعر بالأسواق', '1,000.00'),
                         _buildCustomRowItem('بداية المزاد', '600.00'),
-                        _buildCustomRowItem('انطلاق المزاد', '1,000.00'),
+                        CustomIndcatorItem(),
                       ],
                     ),
                   ),
                 ],
               ),
-               SizedBox(height: 16.h),
+              SizedBox(height: 16.h),
               Row(
                 children: [
                   Expanded(
@@ -105,7 +110,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
 
 Widget _buildCustomRowItem(String title, String price) {
   return Container(
-    padding:  EdgeInsets.symmetric(vertical: 6.h),
+    padding: EdgeInsets.symmetric(vertical: 6.h),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
