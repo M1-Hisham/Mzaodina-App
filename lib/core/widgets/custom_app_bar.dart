@@ -34,6 +34,7 @@ class CustomAppBar extends StatelessWidget {
           ),
           Spacer(),
           Text(title, style: R.textStyles.font14BlackW500Light),
+          Spacer(),
           InkWell(
             onTap: () {
               Navigator.pop(context);

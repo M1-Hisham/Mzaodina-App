@@ -17,21 +17,28 @@ class HomeDetailsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: R.colors.whiteLight,
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Stack(
-            children: [
-              SingleChildScrollView(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              child: CustomAppBar(title: 'مزاد على ايفون 16 برو من ابل'),
+            ),
+
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomAppBar(title: 'مزاد على ايفون 16 برو من ابل'),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 57,
+                        horizontal: 41,
                         vertical: 8,
                       ),
-                      child: CustomIndcatorItem(title: 'نسبة انطلاق المزاد'),
+                      child: CustomIndcatorItem(
+                        title: 'نسبة انطلاق المزاد',
+                        showIndicator: true,
+                      ),
                     ),
 
                     const SizedBox(height: 8),
@@ -40,6 +47,7 @@ class HomeDetailsScreen extends StatelessWidget {
                     CustomTextMazadDetails(),
                     const SizedBox(height: 8),
                     CoustomRowItem(
+                      containerColor: R.colors.blackColor2,
                       title: 'سعر المنتج بالأسواق',
                       price: '1000.00 ',
                       style: R.textStyles.font14Grey3W500Light,
@@ -52,17 +60,46 @@ class HomeDetailsScreen extends StatelessWidget {
                       priceStyle: R.textStyles.font14primaryW500Light,
                     ),
                     CoustomRowItem(
+                      containerColor: R.colors.blackColor2,
+
                       title: 'رسوم تنظيم',
                       price: '30.00 ',
                       style: R.textStyles.font14Grey3W500Light,
                       priceStyle: R.textStyles.font14primaryW500Light,
                     ),
-                    CoustomRowItem(
+                    CustomIndcatorItem(
                       title: 'انطلاق المزاد',
-                      price: '30.00 ',
+                      showIndicator: false,
                       style: R.textStyles.font14Grey3W500Light,
-                      priceStyle: R.textStyles.font14primaryW500Light,
                     ),
+                    Container(
+                      color: R.colors.blackColor2,
+
+                      child: Row(
+                        children: [
+                          Text(
+                            'الحالة',
+                            style: R.textStyles.font14Grey3W500Light,
+                          ),
+                          Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: R.colors.primaryColorLight,
+                              borderRadius: BorderRadius.circular(99),
+                            ),
+                            child: Text(
+                              'قادم',
+                              style: R.textStyles.font12whiteW500Light,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     InkWell(
                       onTap:
                           () => showDialog<String>(
@@ -96,12 +133,11 @@ class HomeDetailsScreen extends StatelessWidget {
                                                       .font14BlackW500Light,
                                             ),
                                           ),
-                                          SizedBox(height: 12),
+                                          const SizedBox(height: 12),
                                           CustomElevatedButton(
                                             text: 'اغلاق',
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
+                                            onPressed:
+                                                () => Navigator.pop(context),
                                           ),
                                         ],
                                       ),
@@ -109,13 +145,12 @@ class HomeDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                           ),
-
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         child: Row(
                           children: [
                             SvgPicture.asset(R.images.taelimatIcon),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               'تعليمات المزاد',
                               style: R.textStyles.font16primaryW600Light,
@@ -124,9 +159,9 @@ class HomeDetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     CustomTextMazadDetails(),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:
@@ -134,18 +169,19 @@ class HomeDetailsScreen extends StatelessWidget {
                               .map((text) => CustomTextItem(text: text))
                               .toList(),
                     ),
-                    SizedBox(height: 200),
+                    const SizedBox(height: 80),
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomElevatedButton(
-                  text: 'الانضمام للمزاد',
-                  onPressed: () {},
-                ),
-              ),
-            ],
+            ),
+          ],
+        ),
+
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: CustomElevatedButton(
+            text: 'الانضمام للمزاد',
+            onPressed: () {},
           ),
         ),
       ),

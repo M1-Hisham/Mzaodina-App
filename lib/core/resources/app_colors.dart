@@ -25,4 +25,5 @@ class AppColors {
   Color greenColor = const Color(0xFF22C55E);
   Color greenColor2 = const Color(0xFF89F5B1);
   Color whiteColor2 = const Color(0xFFEFF3FF);
+  Color blackColor2 = const Color(0xFFF7F9FF);
 }

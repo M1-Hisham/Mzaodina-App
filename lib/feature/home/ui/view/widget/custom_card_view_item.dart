@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_cloc_builder_countdown.dart';
@@ -61,7 +62,10 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                         ),
                         CoustomRowItem(title: 'بداية المزاد', price: '600.00'),
 
-                        CustomIndcatorItem(title: 'انطلاق المزاد',),
+                        CustomIndcatorItem(
+                          title: 'انطلاق المزاد',
+                          showIndicator: true,
+                        ),
                       ],
                     ),
                   ),
@@ -74,7 +78,12 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                     flex: 2,
                     child: CustomElevatedButton(
                       text: 'عرض التفاصيل',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.homeDetailsRoute,
+                        );
+                      },
                       backgroundColor: R.colors.primaryColorLight,
                       borderRadius: 8.r,
                       heigth: 40.h,

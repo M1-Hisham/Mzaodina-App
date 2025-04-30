@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_card_view_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
@@ -70,15 +69,7 @@ class _CustomTapViewState extends State<CustomTapView>
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.homeDetailsRoute,
-                        );
-                      },
-                      child: CustomCardViewItem(),
-                    ),
+                    child: CustomCardViewItem(),
                   ),
                 ),
                 Center(child: Text("")),
