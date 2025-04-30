@@ -14,178 +14,175 @@ class HomeDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: R.colors.whiteLight,
-        body: Column(
-          children: [
-            Padding(
+    return Scaffold(
+      backgroundColor: R.colors.whiteLight,
+      body: Column(
+        children: [
+          SafeArea(
+            child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomAppBar(title: 'مزاد على ايفون 16 برو من ابل'),
             ),
+          ),
 
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 41,
-                        vertical: 8,
-                      ),
-                      child: CustomIndcatorItem(
-                        title: 'نسبة انطلاق المزاد',
-                        showIndicator: true,
-                      ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 41,
+                      vertical: 8,
                     ),
+                    child: CustomIndcatorItem(
+                      title: 'نسبة انطلاق المزاد',
+                      showIndicator: true,
+                    ),
+                  ),
 
-                    const SizedBox(height: 8),
-                    CustomCardImageDetails(),
-                    const SizedBox(height: 8),
-                    CustomTextMazadDetails(),
-                    const SizedBox(height: 8),
-                    CoustomRowItem(
-                      containerColor: R.colors.blackColor2,
-                      title: 'سعر المنتج بالأسواق',
-                      price: '1000.00 ',
-                      style: R.textStyles.font14Grey3W500Light,
-                      priceStyle: R.textStyles.font14primaryW500Light,
-                    ),
-                    CoustomRowItem(
-                      title: ' بداية المزاد',
-                      price: '600.00 ',
-                      style: R.textStyles.font14Grey3W500Light,
-                      priceStyle: R.textStyles.font14primaryW500Light,
-                    ),
-                    CoustomRowItem(
-                      containerColor: R.colors.blackColor2,
+                  const SizedBox(height: 8),
+                  CustomCardImageDetails(),
+                  const SizedBox(height: 8),
+                  CustomTextMazadDetails(),
+                  const SizedBox(height: 8),
+                  CoustomRowItem(
+                    containerColor: R.colors.blackColor2,
+                    title: 'سعر المنتج بالأسواق',
+                    price: '1000.00 ',
+                    style: R.textStyles.font14Grey3W500Light,
+                    priceStyle: R.textStyles.font14primaryW500Light,
+                  ),
+                  CoustomRowItem(
+                    title: ' بداية المزاد',
+                    price: '600.00 ',
+                    style: R.textStyles.font14Grey3W500Light,
+                    priceStyle: R.textStyles.font14primaryW500Light,
+                  ),
+                  CoustomRowItem(
+                    containerColor: R.colors.blackColor2,
 
-                      title: 'رسوم تنظيم',
-                      price: '30.00 ',
-                      style: R.textStyles.font14Grey3W500Light,
-                      priceStyle: R.textStyles.font14primaryW500Light,
-                    ),
-                    CustomIndcatorItem(
-                      title: 'انطلاق المزاد',
-                      showIndicator: false,
-                      style: R.textStyles.font14Grey3W500Light,
-                    ),
-                    Container(
-                      color: R.colors.blackColor2,
+                    title: 'رسوم تنظيم',
+                    price: '30.00 ',
+                    style: R.textStyles.font14Grey3W500Light,
+                    priceStyle: R.textStyles.font14primaryW500Light,
+                  ),
+                  CustomIndcatorItem(
+                    title: 'انطلاق المزاد',
+                    showIndicator: false,
+                    style: R.textStyles.font14Grey3W500Light,
+                  ),
+                  Container(
+                    color: R.colors.blackColor2,
 
+                    child: Row(
+                      children: [
+                        Text(
+                          'الحالة',
+                          style: R.textStyles.font14Grey3W500Light,
+                        ),
+                        Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: R.colors.primaryColorLight,
+                            borderRadius: BorderRadius.circular(99),
+                          ),
+                          child: Text(
+                            'قادم',
+                            style: R.textStyles.font12whiteW500Light,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap:
+                        () => showDialog<String>(
+                          context: context,
+                          builder:
+                              (BuildContext context) => Dialog(
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(18.0),
+                                  decoration: BoxDecoration(
+                                    color: R.colors.whiteLight,
+                                    borderRadius: BorderRadius.circular(22),
+                                  ),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Text(
+                                          'تعليمات المزاد',
+                                          style: R
+                                              .textStyles
+                                              .font18GreyW500Light
+                                              .copyWith(
+                                                color: R.colors.greyColor,
+                                              ),
+                                        ),
+                                        ...taelimatAlmazad.map(
+                                          (text) => CustomTextItem(
+                                            text: text,
+                                            style: R
+                                                .textStyles
+                                                .font12Grey3W500Light
+                                                .copyWith(height: 1.3),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        CustomElevatedButton(
+                                          text: 'اغلاق',
+                                          onPressed:
+                                              () => Navigator.pop(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                        ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Row(
                         children: [
+                          SvgPicture.asset(R.images.taelimatIcon),
+                          const SizedBox(width: 8),
                           Text(
-                            'الحالة',
-                            style: R.textStyles.font14Grey3W500Light,
-                          ),
-                          Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 12,
-                            ),
-                            decoration: BoxDecoration(
-                              color: R.colors.primaryColorLight,
-                              borderRadius: BorderRadius.circular(99),
-                            ),
-                            child: Text(
-                              'قادم',
-                              style: R.textStyles.font12whiteW500Light,
-                            ),
+                            'تعليمات المزاد',
+                            style: R.textStyles.font16primaryW600Light,
                           ),
                         ],
                       ),
                     ),
-
-                    InkWell(
-                      onTap:
-                          () => showDialog<String>(
-                            context: context,
-                            builder:
-                                (BuildContext context) => Dialog(
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.all(18.0),
-                                    decoration: BoxDecoration(
-                                      color: R.colors.whiteLight,
-                                      borderRadius: BorderRadius.circular(22),
-                                    ),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Text(
-                                            'تعليمات المزاد',
-                                            style: R
-                                                .textStyles
-                                                .font18GreyW500Light
-                                                .copyWith(
-                                                  color: R.colors.greyColor,
-                                                ),
-                                          ),
-                                          ...taelimatAlmazad.map(
-                                            (text) => CustomTextItem(
-                                              text: text,
-                                              style: R
-                                                  .textStyles
-                                                  .font12Grey3W500Light
-                                                  .copyWith(height: 1.3),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 12),
-                                          CustomElevatedButton(
-                                            text: 'اغلاق',
-                                            onPressed:
-                                                () => Navigator.pop(context),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                          ),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(R.images.taelimatIcon),
-                            const SizedBox(width: 8),
-                            Text(
-                              'تعليمات المزاد',
-                              style: R.textStyles.font16primaryW600Light,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextMazadDetails(),
-                    const SizedBox(height: 8),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          tafasilAlmazad
-                              .map((text) => CustomTextItem(text: text))
-                              .toList(),
-                    ),
-                    const SizedBox(height: 80),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 12),
+                  CustomTextMazadDetails(),
+                  const SizedBox(height: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                        tafasilAlmazad
+                            .map((text) => CustomTextItem(text: text))
+                            .toList(),
+                  ),
+                  const SizedBox(height: 80),
+                ],
               ),
             ),
-          ],
-        ),
-
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: CustomElevatedButton(
-            text: 'الانضمام للمزاد',
-            onPressed: () {},
           ),
-        ),
+        ],
+      ),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
+        child: CustomElevatedButton(text: 'الانضمام للمزاد', onPressed: () {}),
       ),
     );
   }
