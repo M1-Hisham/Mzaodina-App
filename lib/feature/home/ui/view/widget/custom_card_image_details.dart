@@ -27,8 +27,8 @@ class CustomCardImageDetails extends StatelessWidget {
                 height: 62.h,
                 width: 80.w,
                 decoration: BoxDecoration(
-                  border: Border.all(color: R.colors.whiteColor2, width: 2),
-                  color: R.colors.whiteColor2,
+                  border: Border.all(color: R.colors.whiteColor2, width: 1),
+                  color: R.colors.blackColor2,
 
                   borderRadius: BorderRadius.circular(11.r),
                 ),
@@ -46,7 +46,8 @@ class CustomCardImageDetails extends StatelessWidget {
                 height: 62.h,
                 width: 80.w,
                 decoration: BoxDecoration(
-                  color: R.colors.whiteColor2,
+                  border: Border.all(color: R.colors.whiteColor2, width: 1),
+                  color: R.colors.blackColor2,
                   borderRadius: BorderRadius.circular(11.r),
                 ),
                 child: Align(
@@ -63,7 +64,8 @@ class CustomCardImageDetails extends StatelessWidget {
                 height: 62.h,
                 width: 80.w,
                 decoration: BoxDecoration(
-                  color: R.colors.whiteColor2,
+                  border: Border.all(color: R.colors.whiteColor2, width: 1),
+                  color: R.colors.blackColor2,
 
                   borderRadius: BorderRadius.circular(11.r),
                 ),
@@ -81,7 +83,8 @@ class CustomCardImageDetails extends StatelessWidget {
                 height: 62.h,
                 width: 80.w,
                 decoration: BoxDecoration(
-                  color: R.colors.whiteColor2,
+                  border: Border.all(color: R.colors.whiteColor2, width: 1),
+                  color: R.colors.blackColor2,
 
                   borderRadius: BorderRadius.circular(11.r),
                 ),
