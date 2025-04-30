@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/home/ui/view/home_details_screen.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
@@ -15,6 +16,8 @@ class AppRouter {
 
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+         case AppRoutes.homeDetailsRoute:
+        return MaterialPageRoute(builder: (_) => HomeDetailsScreen());
       case AppRoutes.navBarRoute:
         return MaterialPageRoute(builder: (_) => NavBarScreen());
       case AppRoutes.authRouter:

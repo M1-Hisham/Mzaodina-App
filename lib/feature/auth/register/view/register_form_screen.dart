@@ -13,14 +13,14 @@ class RegisterFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(20.r),
+      padding: EdgeInsets.all(20.r),
       child: Form(
         child: Column(
           children: [
             AuthTextForm(
               hintText: 'اسم المستخدم',
               prefixIcon: Padding(
-                padding:  EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.userNameIcon),
               ),
               keyboardType: TextInputType.name,
@@ -34,7 +34,7 @@ class RegisterFormScreen extends StatelessWidget {
             AuthTextForm(
               hintText: 'البريد الالكتروني',
               prefixIcon: Padding(
-                padding:  EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.emailIcon),
               ),
               keyboardType: TextInputType.emailAddress,
@@ -44,7 +44,7 @@ class RegisterFormScreen extends StatelessWidget {
               hintText: 'كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
-                padding:  EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.passwordIcon),
               ),
               keyboardType: TextInputType.visiblePassword,
@@ -54,7 +54,7 @@ class RegisterFormScreen extends StatelessWidget {
               hintText: 'تأكيد كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
-                padding:  EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(10.r),
                 child: SvgPicture.asset(R.images.passwordIcon),
               ),
               keyboardType: TextInputType.visiblePassword,
@@ -91,7 +91,7 @@ class RegisterFormScreen extends StatelessWidget {
               ],
             ),
             spacingV(10.h),
-            AppButton(
+            CustomElevatedButton(
               text: 'انشاء حساب',
               onPressed: () {
                 Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);

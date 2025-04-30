@@ -19,5 +19,6 @@ class AppImages {
   String googleIcon = "assets/icons/google.svg";
   String appleIcon = "assets/icons/apple.svg";
   String userNameIcon = "assets/icons/usericon.svg";
-
+  String taelimatIcon = "assets/icons/taelimatIcon.svg";
+  String backIcon = "assets/icons/backIcon.svg";
 }

@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class CustomIndcatorItem extends StatelessWidget {
-  const CustomIndcatorItem({super.key});
+  final String title;
+  const CustomIndcatorItem({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomIndcatorItem extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            'انطلاق المزاد',
+            title,
             style: R.textStyles.font12primaryW600Light.copyWith(
               color: R.colors.greyColor3,
             ),

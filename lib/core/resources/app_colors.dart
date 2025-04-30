@@ -24,4 +24,5 @@ class AppColors {
   Color orangeColor2 = const Color(0xFFFFA770);
   Color greenColor = const Color(0xFF22C55E);
   Color greenColor2 = const Color(0xFF89F5B1);
+  Color whiteColor2 = const Color(0xFFEFF3FF);
 }

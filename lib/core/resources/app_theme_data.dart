@@ -6,6 +6,7 @@ class AppThemeData {
     primaryColor: R.colors.primaryColorLight,
     scaffoldBackgroundColor: R.colors.backgroundColorLight,
     hintColor: R.colors.hintTextColorLight,
+    
   );
   final ThemeData themeDark = ThemeData(
     primaryColor: R.colors.primaryColorLight,
