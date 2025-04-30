@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 /// Generic button widget
-class AppButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final double? heigth;
+  final double? width;
   final double? borderRadius;
   final Color? backgroundColor;
   final Color? borderColor;
@@ -14,7 +15,7 @@ class AppButton extends StatelessWidget {
   final TextStyle? textStyle;
   final Widget? icon;
   final TextDirection? textDirection;
-  const AppButton({
+  const CustomElevatedButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -25,7 +26,7 @@ class AppButton extends StatelessWidget {
     this.icon,
     this.borderColor,
     this.overlayColor,
-    this.textDirection,
+    this.textDirection, this.width,
   });
 
   @override
@@ -33,7 +34,7 @@ class AppButton extends StatelessWidget {
     return Directionality(
       textDirection: textDirection ?? TextDirection.ltr,
       child: SizedBox(
-        width: double.infinity,
+        width:width ?? double.infinity,
         height: heigth ?? 50.h,
         child: ElevatedButton.icon(
           onPressed: onPressed,

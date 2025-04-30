@@ -26,10 +26,34 @@ class AppTextStyles {
     height: 1.1..h,
     fontWeight: FontWeight.w600,
   );
+  TextStyle font16primaryW600Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 16.sp,
+    color: R.colors.primaryColorLight,
+    height: 1.1..h,
+    fontWeight: FontWeight.w600,
+  );
+  TextStyle font14primaryW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 14.sp,
+    color: R.colors.primaryColorLight,
+    height: 1.1..h,
+    fontWeight: FontWeight.w500,
+  );
   TextStyle font12Grey3W500Light = TextStyle(
     fontFamily: 'Rubik',
 
     fontSize: 12.sp,
+    color: R.colors.greyColor3,
+    height: 1.1.h,
+    fontWeight: FontWeight.w500,
+  );
+  TextStyle font14Grey3W500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 14.sp,
     color: R.colors.greyColor3,
     height: 1.1.h,
     fontWeight: FontWeight.w500,

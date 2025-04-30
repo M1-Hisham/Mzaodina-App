@@ -16,20 +16,20 @@ class ForgotPasswordScreen extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Padding(
-          padding:  EdgeInsets.all(20.r),
+          padding: EdgeInsets.all(20.r),
           child: Form(
             child: Column(
               children: [
                 AuthTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
-                    padding:  EdgeInsets.all(10.r),
+                    padding: EdgeInsets.all(10.r),
                     child: SvgPicture.asset(R.images.emailIcon),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 spacingV(26.h),
-                AppButton(text: 'تحقق من الكود', onPressed: () {}),
+                CustomElevatedButton(text: 'تحقق من الكود', onPressed: () {}),
                 spacingV(15.h),
                 GestureDetector(
                   onTap: () => context.read<AuthCubit>().showLogin(),

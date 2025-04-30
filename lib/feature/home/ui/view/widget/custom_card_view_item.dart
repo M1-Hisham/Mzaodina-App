@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
+import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_cloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 
@@ -54,10 +55,13 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                         SizedBox(height: 12.h),
                         CustomBlocBuilderCountdown(eventTime: eventTimeFromApi),
                         SizedBox(height: 12.h),
+                        CoustomRowItem(
+                          title: 'السعر بالأسواق',
+                          price: '1,000.00',
+                        ),
+                        CoustomRowItem(title: 'بداية المزاد', price: '600.00'),
 
-                        _buildCustomRowItem('السعر بالأسواق', '1,000.00'),
-                        _buildCustomRowItem('بداية المزاد', '600.00'),
-                        CustomIndcatorItem(),
+                        CustomIndcatorItem(title: 'انطلاق المزاد',),
                       ],
                     ),
                   ),
@@ -68,7 +72,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: AppButton(
+                    child: CustomElevatedButton(
                       text: 'عرض التفاصيل',
                       onPressed: () {},
                       backgroundColor: R.colors.primaryColorLight,
@@ -81,7 +85,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                   ),
                   SizedBox(width: 11.w),
                   Expanded(
-                    child: AppButton(
+                    child: CustomElevatedButton(
                       textDirection: TextDirection.rtl,
                       text: 'مشاركة',
                       onPressed: () {},
@@ -106,28 +110,4 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
       ],
     );
   }
-}
-
-Widget _buildCustomRowItem(String title, String price) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 6.h),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: R.textStyles.font12primaryW600Light.copyWith(
-            color: R.colors.greyColor3,
-          ),
-        ),
-        Spacer(),
-        Row(
-          children: [
-            Text(price, style: R.textStyles.font12primaryW600Light),
-            SvgPicture.asset(R.images.riyalImage),
-          ],
-        ),
-      ],
-    ),
-  );
 }

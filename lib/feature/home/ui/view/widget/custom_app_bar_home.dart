@@ -3,18 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+class CustomAppBarHome extends StatelessWidget {
+  const CustomAppBarHome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 20, right: 28, left: 28),
+      padding: EdgeInsets.only(top: 20, right: 28, left: 28, bottom: 31),
       width: 402.w,
       height: 160.h,
       decoration: BoxDecoration(
         color: R.colors.primaryColorLight,
-        borderRadius:  BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30.r),
           bottomRight: Radius.circular(30.r),
         ),
@@ -24,7 +24,8 @@ class CustomAppBar extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 25.h),
+            Spacer(),
+
             Text('أهلاً وسهلاً,', style: R.textStyles.font18GreyW500Light),
             SizedBox(height: 7.h),
             Row(

@@ -17,14 +17,14 @@ class LoginFormScreen extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Padding(
-          padding:  EdgeInsets.all(20.0.r),
+          padding: EdgeInsets.all(20.0.r),
           child: Form(
             child: Column(
               children: [
                 AuthTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
-                    padding:  EdgeInsets.all(10.r),
+                    padding: EdgeInsets.all(10.r),
                     child: SvgPicture.asset(R.images.emailIcon),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -34,13 +34,13 @@ class LoginFormScreen extends StatelessWidget {
                   hintText: 'كلمة المرور',
                   isObscureText: true,
                   prefixIcon: Padding(
-                    padding:  EdgeInsets.all(10.r),
+                    padding: EdgeInsets.all(10.r),
                     child: SvgPicture.asset(R.images.passwordIcon),
                   ),
                   keyboardType: TextInputType.visiblePassword,
                 ),
                 spacingV(20.h),
-                AppButton(
+                CustomElevatedButton(
                   text: 'تسجيل الدخول',
                   onPressed: () {
                     Navigator.pushReplacementNamed(
@@ -67,7 +67,7 @@ class LoginFormScreen extends StatelessWidget {
                   children: [
                     Expanded(child: Divider()),
                     Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                       child: Text('او'),
                     ),
                     Expanded(child: Divider(color: R.colors.dividerColorLight)),
@@ -78,7 +78,7 @@ class LoginFormScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: AppButton(
+                      child: CustomElevatedButton(
                         icon: SvgPicture.asset(R.images.googleIcon),
                         backgroundColor: R.colors.buttonColorLight,
                         text: 'تسجيل الدخول عبر جوجل',
@@ -94,7 +94,7 @@ class LoginFormScreen extends StatelessWidget {
                     ),
                     spacingH(10.w),
                     Expanded(
-                      child: AppButton(
+                      child: CustomElevatedButton(
                         icon: SvgPicture.asset(R.images.appleIcon),
                         backgroundColor: R.colors.buttonColorLight,
                         text: 'تسجيل الدخول عبر ابل',
