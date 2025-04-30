@@ -107,8 +107,10 @@ class HomeDetailsScreen extends StatelessWidget {
                             builder:
                                 (BuildContext context) => Dialog(
                                   child: Container(
+                                    width: double.infinity,
                                     padding: const EdgeInsets.all(18.0),
                                     decoration: BoxDecoration(
+                                      color: R.colors.whiteLight,
                                       borderRadius: BorderRadius.circular(22),
                                     ),
                                     child: SingleChildScrollView(
@@ -127,10 +129,10 @@ class HomeDetailsScreen extends StatelessWidget {
                                           ...taelimatAlmazad.map(
                                             (text) => CustomTextItem(
                                               text: text,
-                                              style:
-                                                  R
-                                                      .textStyles
-                                                      .font14BlackW500Light,
+                                              style: R
+                                                  .textStyles
+                                                  .font12Grey3W500Light
+                                                  .copyWith(height: 1.3),
                                             ),
                                           ),
                                           const SizedBox(height: 12),
