@@ -10,8 +10,6 @@ class CustomAppBarHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 20, right: 28, left: 28, bottom: 31),
-      width: 402.w,
-      height: 160.h,
       decoration: BoxDecoration(
         color: R.colors.primaryColorLight,
         borderRadius: BorderRadius.only(
@@ -24,8 +22,6 @@ class CustomAppBarHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Spacer(),
-
             Text('أهلاً وسهلاً,', style: R.textStyles.font18GreyW500Light),
             SizedBox(height: 7.h),
             Row(

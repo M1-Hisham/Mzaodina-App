@@ -11,6 +11,9 @@ void main() {
       designSize: Size(402, 874),
       minTextAdapt: true,
       splitScreenMode: true,
+      useInheritedMediaQuery: true,
+      ensureScreenSize: true,
+      enableScaleText: () => true,
       builder: (context, child) => MyApp(),
     ),
   );
