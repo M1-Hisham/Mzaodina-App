@@ -21,4 +21,14 @@ class AppImages {
   String userNameIcon = "assets/icons/usericon.svg";
   String taelimatIcon = "assets/icons/taelimatIcon.svg";
   String backIcon = "assets/icons/backIcon.svg";
+  String backIconNotBorser = "assets/icons/backIconNotBorser.svg";
+  String passwordAccountIcon = "assets/icons/passwordIcon.svg";
+  String accountIcon = "assets/icons/accountIcon.svg";
+  String settingIcon = "assets/icons/settingIcon.svg";
+  String instaIcon = "assets/icons/instaIcon.svg";
+  String tiktokIcon = "assets/icons/tiktokIcon.svg";
+  String whatsIcon = "assets/icons/whatsIcon.svg";
+  String xIcon = "assets/icons/xIcon.svg";
+  String logoutImage = "assets/icons/logoutImage.svg";
+  String snapIcon = "assets/icons/snapIcon.svg";
 }
