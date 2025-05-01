@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
+import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/view/widgets/enter_the_phone_number.dart';
+import 'package:mzaodina_app/feature/auth/register/view/widgets/select_country.dart';
 import 'package:mzaodina_app/feature/auth/widgets/auth_text_form.dart';
+
+import '../../../../core/widgets/check-box/view/custom_check_box.dart';
 
 class RegisterFormScreen extends StatelessWidget {
   const RegisterFormScreen({super.key});
@@ -26,10 +32,9 @@ class RegisterFormScreen extends StatelessWidget {
               keyboardType: TextInputType.name,
             ),
             spacingV(15.h),
-            AuthTextForm(
-              hintText: 'رقم الهاتف',
-              keyboardType: TextInputType.phone,
-            ),
+            SelectCountry(),
+            spacingV(15.h),
+            EnterThePhoneNumber(),
             spacingV(15.h),
             AuthTextForm(
               hintText: 'البريد الالكتروني',
@@ -63,12 +68,9 @@ class RegisterFormScreen extends StatelessWidget {
 
             Row(
               children: [
-                Checkbox(
-                  checkColor: R.colors.whiteLight,
-                  activeColor: R.colors.primaryColorLight,
-                  side: BorderSide(color: R.colors.borderColorsLight),
-                  value: true,
-                  onChanged: (value) {},
+                BlocProvider(
+                  create: (context) => CheckboxCubit(initialValue: false),
+                  child: const CustomCheckbox(),
                 ),
                 GestureDetector(
                   onTap: () {},

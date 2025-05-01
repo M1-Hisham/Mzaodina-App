@@ -21,4 +21,5 @@ class AppImages {
   String userNameIcon = "assets/icons/usericon.svg";
   String taelimatIcon = "assets/icons/taelimatIcon.svg";
   String backIcon = "assets/icons/backIcon.svg";
+  String dropDownIcon = "assets/icons/drop down.svg";
 }

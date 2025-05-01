@@ -26,6 +26,7 @@ class AuthTextForm extends StatelessWidget {
   final int? maxLines;
   final FormFieldSetter<String>? onSaved;
   final Key? valueKey;
+  final Function()? onTap;
 
   const AuthTextForm({
     super.key,
@@ -52,6 +53,7 @@ class AuthTextForm extends StatelessWidget {
     this.isclickable,
     this.disabledBorder,
     this.initialValue,
+    this.onTap,
   });
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,8 @@ class AuthTextForm extends StatelessWidget {
       key: valueKey,
       initialValue: initialValue,
       enabled: isclickable,
+      readOnly: isclickable ?? false,
+      onTap: onTap,
       onFieldSubmitted:
           (value) => FocusScope.of(context).requestFocus(nextFocusNode),
       focusNode: focusNode,
@@ -68,13 +72,19 @@ class AuthTextForm extends StatelessWidget {
         hintText: hintText,
         hintStyle:
             hintStyle ??
-            TextStyle(color: R.colors.hintTextColorLight, fontSize: 14.sp),
+            TextStyle(
+              color: R.colors.hintTextColorLight,
+              fontSize: 14,
+              // fontFamily: 'Rubik',
+              fontWeight: FontWeight.w500,
+            ),
 
         isDense: true,
         contentPadding:
             contentPadding ??
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 19.h),
         suffixIcon: suffixIcon,
+        suffixIconConstraints: BoxConstraints(minWidth: 14.w, minHeight: 8.h),
         hoverColor: hoverColor,
         filled: true,
         fillColor: fillColor ?? R.colors.formColorLight,
@@ -85,20 +95,20 @@ class AuthTextForm extends StatelessWidget {
         //   borderRadius: BorderRadius.all(Radius.circular(10)),
         // ),
         focusedBorder: OutlineInputBorder(
-          borderRadius:  BorderRadius.all(Radius.circular(14.r)),
-          borderSide: BorderSide(color: R.colors.backgroundColorLight),
+          borderRadius: BorderRadius.all(Radius.circular(14.r)),
+          borderSide: BorderSide(color: R.colors.borderColorsLight),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius:  BorderRadius.all(Radius.circular(8.r)),
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
           borderSide: BorderSide(
             color: colorEnableBorder ?? R.colors.borderColorsLight,
           ),
         ),
-        errorBorder:  OutlineInputBorder(
+        errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           borderSide: BorderSide(color: Colors.red),
         ),
-        focusedErrorBorder:  OutlineInputBorder(
+        focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           borderSide: BorderSide(color: Colors.red),
         ),
