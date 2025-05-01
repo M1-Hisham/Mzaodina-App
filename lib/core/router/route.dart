@@ -6,6 +6,7 @@ import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -20,6 +21,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomeDetailsScreen());
       case AppRoutes.navBarRoute:
         return MaterialPageRoute(builder: (_) => NavBarScreen());
+        case AppRoutes.aboutUsScreenRoute:
+        return MaterialPageRoute(builder: (_) => AboutUsScreen());
       case AppRoutes.authRouter:
         return MaterialPageRoute(
           builder:
