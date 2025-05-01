@@ -26,7 +26,8 @@ class CustomElevatedButton extends StatelessWidget {
     this.icon,
     this.borderColor,
     this.overlayColor,
-    this.textDirection, this.width,
+    this.textDirection,
+    this.width,
   });
 
   @override
@@ -34,13 +35,14 @@ class CustomElevatedButton extends StatelessWidget {
     return Directionality(
       textDirection: textDirection ?? TextDirection.ltr,
       child: SizedBox(
-        width:width ?? double.infinity,
+        width: width ?? double.infinity,
         height: heigth ?? 50.h,
         child: ElevatedButton.icon(
           onPressed: onPressed,
           icon: icon,
           iconAlignment: IconAlignment.start,
           style: OutlinedButton.styleFrom(
+            shadowColor: Colors.transparent,
             overlayColor: overlayColor ?? R.colors.primaryColorLight,
             side: BorderSide(color: borderColor ?? Colors.transparent),
             backgroundColor: backgroundColor ?? R.colors.primaryColorLight,

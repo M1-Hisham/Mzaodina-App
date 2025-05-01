@@ -96,7 +96,7 @@ class AuthScreen extends StatelessWidget {
           );
         } else if (state == AuthState.forgotPassword) {
           return Padding(
-            padding:  EdgeInsets.all(16.r),
+            padding: EdgeInsets.all(16.r),
             child: Column(
               children: [
                 Align(
@@ -126,7 +126,7 @@ class AuthScreen extends StatelessWidget {
 
   Widget _toggleButtons(cubit, state) {
     return Container(
-      margin:  EdgeInsets.symmetric(horizontal: 20.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
         color: Color(0xFFE9EEFC),
         borderRadius: BorderRadius.circular(30.r),
@@ -163,7 +163,7 @@ class AuthScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: cubit.showRegister,
               child: Container(
-                padding:  EdgeInsets.symmetric(vertical: 12.h),
+                padding: EdgeInsets.symmetric(vertical: 12.h),
                 decoration: BoxDecoration(
                   color:
                       state == AuthState.register

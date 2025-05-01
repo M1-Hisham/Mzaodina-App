@@ -21,6 +21,7 @@ class AppImages {
   String userNameIcon = "assets/icons/usericon.svg";
   String taelimatIcon = "assets/icons/taelimatIcon.svg";
   String backIcon = "assets/icons/backIcon.svg";
+
   String backIconNotBorser = "assets/icons/backIconNotBorser.svg";
   String passwordAccountIcon = "assets/icons/passwordIcon.svg";
   String accountIcon = "assets/icons/accountIcon.svg";
@@ -31,4 +32,6 @@ class AppImages {
   String xIcon = "assets/icons/xIcon.svg";
   String logoutImage = "assets/icons/logoutImage.svg";
   String snapIcon = "assets/icons/snapIcon.svg";
+
+  String dropDownIcon = "assets/icons/drop down.svg";
 }
