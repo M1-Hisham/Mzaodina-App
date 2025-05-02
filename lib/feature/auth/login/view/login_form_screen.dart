@@ -7,7 +7,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
-import 'package:mzaodina_app/feature/auth/widgets/auth_text_form.dart';
+import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 
 class LoginFormScreen extends StatelessWidget {
   const LoginFormScreen({super.key});
@@ -21,7 +21,7 @@ class LoginFormScreen extends StatelessWidget {
           child: Form(
             child: Column(
               children: [
-                AuthTextForm(
+                CustomTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
                     padding: EdgeInsets.all(10.r),
@@ -30,7 +30,7 @@ class LoginFormScreen extends StatelessWidget {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 spacingV(15.h),
-                AuthTextForm(
+                CustomTextForm(
                   hintText: 'كلمة المرور',
                   isObscureText: true,
                   prefixIcon: Padding(

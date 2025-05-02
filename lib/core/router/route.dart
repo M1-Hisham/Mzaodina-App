@@ -7,6 +7,8 @@ import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/about_us_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/account_details_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/change_password_screen.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -17,12 +19,16 @@ class AppRouter {
 
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
-         case AppRoutes.homeDetailsRoute:
+      case AppRoutes.homeDetailsRoute:
         return MaterialPageRoute(builder: (_) => HomeDetailsScreen());
       case AppRoutes.navBarRoute:
         return MaterialPageRoute(builder: (_) => NavBarScreen());
-        case AppRoutes.aboutUsScreenRoute:
+      case AppRoutes.aboutUsScreenRoute:
         return MaterialPageRoute(builder: (_) => AboutUsScreen());
+      case AppRoutes.accountDetailsScreenRoute:
+        return MaterialPageRoute(builder: (_) => AccountDetailsScreen());
+      case AppRoutes.changePasswordScreenRoute:
+        return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
       case AppRoutes.authRouter:
         return MaterialPageRoute(
           builder:

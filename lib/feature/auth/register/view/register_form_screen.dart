@@ -9,7 +9,7 @@ import 'package:mzaodina_app/core/widgets/app_button.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/view/widgets/enter_the_phone_number.dart';
 import 'package:mzaodina_app/feature/auth/register/view/widgets/select_country.dart';
-import 'package:mzaodina_app/feature/auth/widgets/auth_text_form.dart';
+import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 
 import '../../../../core/widgets/check-box/view/custom_check_box.dart';
 
@@ -23,7 +23,7 @@ class RegisterFormScreen extends StatelessWidget {
       child: Form(
         child: Column(
           children: [
-            AuthTextForm(
+            CustomTextForm(
               hintText: 'اسم المستخدم',
               prefixIcon: Padding(
                 padding: EdgeInsets.all(10.r),
@@ -36,7 +36,7 @@ class RegisterFormScreen extends StatelessWidget {
             spacingV(15.h),
             EnterThePhoneNumber(),
             spacingV(15.h),
-            AuthTextForm(
+            CustomTextForm(
               hintText: 'البريد الالكتروني',
               prefixIcon: Padding(
                 padding: EdgeInsets.all(10.r),
@@ -45,7 +45,7 @@ class RegisterFormScreen extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
             ),
             spacingV(15.h),
-            AuthTextForm(
+            CustomTextForm(
               hintText: 'كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
@@ -55,7 +55,7 @@ class RegisterFormScreen extends StatelessWidget {
               keyboardType: TextInputType.visiblePassword,
             ),
             spacingV(15.h),
-            AuthTextForm(
+            CustomTextForm(
               hintText: 'تأكيد كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
