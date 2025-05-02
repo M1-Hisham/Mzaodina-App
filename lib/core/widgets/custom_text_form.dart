@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
-class AuthTextForm extends StatelessWidget {
+class CustomTextForm extends StatelessWidget {
   final String hintText;
   final String? initialValue;
   final bool? isObscureText;
@@ -28,7 +28,7 @@ class AuthTextForm extends StatelessWidget {
   final Key? valueKey;
   final Function()? onTap;
 
-  const AuthTextForm({
+  const CustomTextForm({
     super.key,
     required this.hintText,
     this.contentPadding,

@@ -5,7 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class SelectCountry extends StatefulWidget {
-  const SelectCountry({super.key});
+  final Color? color;
+  const SelectCountry({super.key, this.color,});
 
   @override
   State<SelectCountry> createState() => _SelectCountryState();
@@ -51,7 +52,7 @@ class _SelectCountryState extends State<SelectCountry> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8.r)),
 
-          color: R.colors.formColorLight,
+          color: widget.color ?? R.colors.formColorLight,
           border: Border.all(color: R.colors.borderColorsLight),
         ),
         child: Row(
@@ -59,7 +60,7 @@ class _SelectCountryState extends State<SelectCountry> {
           children: [
             Text(
               '${selectedCountry.name}  ${selectedCountry.flagEmoji}',
-              style: const TextStyle(fontSize: 18),
+              style:  const TextStyle(fontSize: 18),
             ),
             SvgPicture.asset(R.images.dropDownIcon, width: 14.w, height: 8.h),
           ],

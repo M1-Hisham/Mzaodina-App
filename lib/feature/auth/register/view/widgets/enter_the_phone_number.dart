@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/feature/auth/widgets/auth_text_form.dart';
+import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 
 class EnterThePhoneNumber extends StatefulWidget {
-  const EnterThePhoneNumber({super.key});
+  final TextStyle? hintStyle;
+  final Color? fillColor;
+  const EnterThePhoneNumber({super.key, this.hintStyle, this.fillColor});
 
   @override
   State<EnterThePhoneNumber> createState() => _EnterThePhoneNumberState();
@@ -35,12 +37,21 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
 
   @override
   Widget build(BuildContext context) {
-    return AuthTextForm(
+    return CustomTextForm(
       controller: _phoneNumberController,
       // autocorrect: false,
       // maxLength: 10,
       keyboardType: TextInputType.number,
       hintText: 'رقم الهاتف',
+      fillColor: widget.fillColor ?? R.colors.formColorLight,
+      hintStyle:
+          widget.hintStyle ??
+          TextStyle(
+            color: R.colors.hintTextColorLight,
+            fontSize: 14,
+            // fontFamily: 'Rubik',
+            fontWeight: FontWeight.w500,
+          ),
       prefixIcon: Container(
         padding: const EdgeInsets.all(10),
         child: InkWell(

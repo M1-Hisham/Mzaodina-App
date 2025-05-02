@@ -27,7 +27,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap:
+                    () => Navigator.pushNamed(
+                      context,
+                      AppRoutes.accountDetailsScreenRoute,
+                    ),
 
                 child: CustomAccountListTile(
                   title: 'معلومات الحساب',
@@ -41,8 +45,11 @@ class ProfileScreen extends StatelessWidget {
                 indent: 14,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
-
+                onTap:
+                    () => Navigator.pushNamed(
+                      context,
+                      AppRoutes.changePasswordScreenRoute,
+                    ),
                 child: CustomAccountListTile(
                   title: 'تغير كلمة المرور',
                   leading: SvgPicture.asset(R.images.passwordAccountIcon),
@@ -90,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
               InkWell(
                 onTap: () => debugPrint('تواصل معنا على تويتر'),
 
-                child: CustomAccountListTile(title: 'الشروط والاحكام'),
+                child: CustomAccountListTile(title: 'سياسة الخصوصية'),
               ),
               Divider(
                 color: R.colors.colorUnSelected,
@@ -113,7 +120,47 @@ class ProfileScreen extends StatelessWidget {
                 backgroundColor: R.colors.redColor3,
                 text: 'تسجيل الخروج',
 
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 24.h,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 130.w,
+                              height: 5.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: R.colors.greyColor3,
+                              ),
+                            ),
+                            SizedBox(height: 24),
+                            Text(
+                              'تسجيل الخروج',
+                              style: R.textStyles.font14BlackW500Light.copyWith(
+                                color: R.colors.redColor,
+                              ),
+                            ),
+                            SizedBox(height: 24),
+                            CustomElevatedButton(
+                              text: 'اغلاق',
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            SizedBox(height: 24),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
                 icon: SvgPicture.asset(R.images.logoutImage),
               ),
               SizedBox(height: 24),

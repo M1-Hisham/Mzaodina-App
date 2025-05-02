@@ -18,6 +18,14 @@ class AppTextStyles {
     height: 1.1..h,
     fontWeight: FontWeight.w600,
   );
+    TextStyle font18blackW500Light = TextStyle(
+    fontFamily: 'Rubik',
+
+    fontSize: 18.sp,
+    color: R.colors.black,
+    height: 1.1..h,
+    fontWeight: FontWeight.w500,
+  );
   TextStyle font12primaryW600Light = TextStyle(
     fontFamily: 'Rubik',
 

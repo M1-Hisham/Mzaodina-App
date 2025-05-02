@@ -106,47 +106,7 @@ class HomeDetailsScreen extends StatelessWidget {
                         () => showDialog<String>(
                           context: context,
                           builder:
-                              (BuildContext context) => Dialog(
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(18.0),
-                                  decoration: BoxDecoration(
-                                    color: R.colors.whiteLight,
-                                    borderRadius: BorderRadius.circular(22),
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text(
-                                          'تعليمات المزاد',
-                                          style: R
-                                              .textStyles
-                                              .font18GreyW500Light
-                                              .copyWith(
-                                                color: R.colors.greyColor,
-                                              ),
-                                        ),
-                                        ...taelimatAlmazad.map(
-                                          (text) => CustomTextItem(
-                                            text: text,
-                                            style: R
-                                                .textStyles
-                                                .font12Grey3W500Light
-                                                .copyWith(height: 1.3),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 12),
-                                        CustomElevatedButton(
-                                          text: 'اغلاق',
-                                          onPressed:
-                                              () => Navigator.pop(context),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              (BuildContext context) => CustomDialogItem(),
                         ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -183,6 +143,57 @@ class HomeDetailsScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
         child: CustomElevatedButton(text: 'الانضمام للمزاد', onPressed: () {}),
+      ),
+    );
+  }
+}
+
+class CustomDialogItem extends StatelessWidget {
+  const CustomDialogItem({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(18.0),
+        decoration: BoxDecoration(
+          color: R.colors.whiteLight,
+          borderRadius: BorderRadius.circular(22),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'تعليمات المزاد',
+                style: R
+                    .textStyles
+                    .font18GreyW500Light
+                    .copyWith(
+                      color: R.colors.greyColor,
+                    ),
+              ),
+              ...taelimatAlmazad.map(
+                (text) => CustomTextItem(
+                  text: text,
+                  style: R
+                      .textStyles
+                      .font12Grey3W500Light
+                      .copyWith(height: 1.3),
+                ),
+              ),
+              const SizedBox(height: 12),
+              CustomElevatedButton(
+                text: 'اغلاق',
+                onPressed:
+                    () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
