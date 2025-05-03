@@ -27,7 +27,7 @@ class AppColors {
   Color whiteColor2 = const Color(0xFFEFF3FF);
   Color blackColor2 = const Color(0xFFF7F9FF);
   Color blackColor3 = const Color(0xFFF6F6F6);
-  Color redColor2 = const Color(0xFFF32828);
+  Color redColor2 = const Color(0xFFF62525);
   Color greyColor4 = const Color(0xFF626262);
   Color redColor3 = const Color(0x1AF62525);
 }

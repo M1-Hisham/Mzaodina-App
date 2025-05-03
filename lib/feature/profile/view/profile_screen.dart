@@ -15,12 +15,12 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: R.colors.whiteLight,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             children: [
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
 
                 child: SafeArea(
                   child: CustomAppBarTitle(title: 'محمد القحطانى'),
@@ -40,9 +40,9 @@ class ProfileScreen extends StatelessWidget {
               ),
               Divider(
                 color: R.colors.colorUnSelected,
-                height: 1,
-                endIndent: 14,
-                indent: 14,
+                height: 1.h,
+                endIndent: 14.w,
+                indent: 14.w,
               ),
               InkWell(
                 onTap:
@@ -57,19 +57,21 @@ class ProfileScreen extends StatelessWidget {
               ),
               Divider(
                 color: R.colors.colorUnSelected,
-                height: 1,
-                endIndent: 14,
-                indent: 14,
+                height: 1.h,
+                endIndent: 14.w,
+                indent: 14.w,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.settingScreennRoute);
+                },
 
                 child: CustomAccountListTile(
                   title: 'الاعدادات',
                   leading: SvgPicture.asset(R.images.settingIcon),
                 ),
               ),
-              SizedBox(height: 18),
+              SizedBox(height: 18.h),
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, AppRoutes.aboutUsScreenRoute);
@@ -79,38 +81,53 @@ class ProfileScreen extends StatelessWidget {
               ),
               Divider(
                 color: R.colors.colorUnSelected,
-                height: 1,
-                endIndent: 14,
-                indent: 14,
+                height: 1.h,
+                endIndent: 14.w,
+                indent: 14.w,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.termsAndConditionsScreenRoute,
+                  );
+                },
 
                 child: CustomAccountListTile(title: 'الشروط والاحكام'),
               ),
               Divider(
                 color: R.colors.colorUnSelected,
-                height: 1,
-                endIndent: 14,
-                indent: 14,
+                height: 1.h,
+                endIndent: 14.w,
+                indent: 14.w,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.privacyPolicyScreenRoute,
+                  );
+                },
 
                 child: CustomAccountListTile(title: 'سياسة الخصوصية'),
               ),
               Divider(
                 color: R.colors.colorUnSelected,
-                height: 1,
-                endIndent: 14,
-                indent: 14,
+                height: 1.h,
+                endIndent: 14.w,
+                indent: 14.w,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.shippingAndReturnPolicyScreenRoute,
+                  );
+                },
 
                 child: CustomAccountListTile(title: 'سياسة الشحن والاسترجاع'),
               ),
-              SizedBox(height: 18),
+              SizedBox(height: 18.h),
 
               CustomElevatedButton(
                 textStyle: R.textStyles.font14Grey3W500Light.copyWith(
@@ -140,21 +157,21 @@ class ProfileScreen extends StatelessWidget {
                                 color: R.colors.greyColor3,
                               ),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                             Text(
                               'تسجيل الخروج',
                               style: R.textStyles.font14BlackW500Light.copyWith(
                                 color: R.colors.redColor,
                               ),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                             CustomElevatedButton(
                               text: 'اغلاق',
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                           ],
                         ),
                       );
@@ -163,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(R.images.logoutImage),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 24.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -178,19 +195,19 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
                         child: SvgPicture.asset(R.images.xIcon),
                       ),
-                      SizedBox(width: 18),
+                      SizedBox(width: 18.h),
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
                         child: SvgPicture.asset(R.images.tiktokIcon),
                       ),
-                      SizedBox(width: 18),
+                      SizedBox(width: 18.h),
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
                         child: SvgPicture.asset(R.images.instaIcon),
                       ),
-                      SizedBox(width: 18),
+                      SizedBox(width: 18.h),
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
@@ -202,14 +219,14 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
                         child: Container(
-                          width: 136,
+                          width: 136.w,
                           decoration: BoxDecoration(
                             color: R.colors.greenColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 16,
+                            vertical: 10.h,
+                            horizontal: 16.w,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -9,14 +9,20 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_cloc_builder_cou
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 
 class CustomCardViewItem extends StatefulWidget {
-  const CustomCardViewItem({super.key});
+  final Color progressColor;
+  final Color backgroundColor;
+  const CustomCardViewItem({
+    super.key,
+    required this.progressColor,
+    required this.backgroundColor,
+  });
 
   @override
   State<CustomCardViewItem> createState() => _CustomCardViewItemState();
 }
 
 class _CustomCardViewItemState extends State<CustomCardViewItem> {
-  DateTime eventTimeFromApi = DateTime.parse('2025-05-01 18:00:00');
+  DateTime eventTimeFromApi = DateTime.parse('2025-05-04 18:00:00');
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +60,11 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                           ),
                         ),
                         SizedBox(height: 12.h),
-                        CustomBlocBuilderCountdown(eventTime: eventTimeFromApi),
+                        CustomBlocBuilderCountdown(
+                          eventTime: eventTimeFromApi,
+                          progressColor: widget.progressColor,
+                          backgroundColor: widget.backgroundColor,
+                        ),
                         SizedBox(height: 12.h),
                         CoustomRowItem(
                           title: 'السعر بالأسواق',

@@ -6,10 +6,12 @@ import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 class CustomTapItem extends StatelessWidget {
   final TapViewModel item;
   final bool isSelected;
+  final Color selectedColor;
   const CustomTapItem({
     super.key,
     required this.item,
     required this.isSelected,
+    required this.selectedColor,
   });
 
   @override
@@ -19,15 +21,15 @@ class CustomTapItem extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
           decoration: BoxDecoration(
-            color:
-                isSelected
-                    ? R.colors.primaryColorLight
-                    : R.colors.colorUnSelected,
+            color: isSelected ? selectedColor : R.colors.colorUnSelected,
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: Text(
+            textAlign: TextAlign.center,
             item.title,
             style:
                 isSelected
@@ -36,7 +38,7 @@ class CustomTapItem extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: -5,
+          bottom: 9.h,
           left: 0,
           right: 0,
           child: Center(

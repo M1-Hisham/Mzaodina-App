@@ -14,7 +14,9 @@ class CountdownUnitWidget extends StatelessWidget {
     super.key,
     required this.value,
     required this.label,
-    required this.maxValue, required this.progressColor, required this.backgroundColor,
+    required this.maxValue,
+    required this.progressColor,
+    required this.backgroundColor,
   });
 
   @override
@@ -45,7 +47,7 @@ class CountdownUnitWidget extends StatelessWidget {
                   child: Text(
                     value.toString().padLeft(2, '0'),
                     style: R.textStyles.font14whiteW500Light.copyWith(
-                      color: R.colors.primaryColorLight,
+                      color: progressColor,
                     ),
                   ),
                 ),

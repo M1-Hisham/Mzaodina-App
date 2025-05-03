@@ -55,25 +55,62 @@ class _CustomTapViewState extends State<CustomTapView>
             labelColor: R.colors.primaryColorLight,
 
             tabs:
-                tapViewModel.map((item) {
-                  var isSelected = tapViewModel.indexOf(item) == selectedIndex;
-                  return CustomTapItem(item: item, isSelected: isSelected);
+                tapViewModel.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final item = entry.value;
+                  final isSelected = index == selectedIndex;
+                  final color =
+                      isSelected
+                          ? selectedTabColors[index]
+                          : Colors.grey.shade300;
+                  return CustomTapItem(
+                    item: item,
+                    isSelected: isSelected,
+                    selectedColor: color,
+                  );
                 }).toList(),
           ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                Center(child: CustomNotItem()),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CustomCardViewItem(
+                      progressColor: selectedTabColors[0],
+                      backgroundColor: R.colors.colorUnSelected,
+                    ),
+                  ),
+                ),
 
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomCardViewItem(),
+                    child: CustomCardViewItem(
+                      progressColor: selectedTabColors[1],
+                      backgroundColor: R.colors.orangeColor2,
+                    ),
                   ),
                 ),
-                Center(child: Text("")),
-                Center(),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CustomCardViewItem(
+                      progressColor: selectedTabColors[2],
+                      backgroundColor: R.colors.greenColor2,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CustomCardViewItem(
+                      progressColor: selectedTabColors[3],
+                      backgroundColor: R.colors.redColor3,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -82,3 +119,10 @@ class _CustomTapViewState extends State<CustomTapView>
     );
   }
 }
+
+final List<Color> selectedTabColors = [
+  R.colors.primaryColorLight,
+  R.colors.orangeColor,
+  R.colors.greenColor,
+  R.colors.redColor2,
+];
