@@ -8,51 +8,69 @@ class CustomAppBarHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 20, right: 28, left: 28, bottom: 31),
-      decoration: BoxDecoration(
-        color: R.colors.primaryColorLight,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30.r),
-          bottomRight: Radius.circular(30.r),
+    return Stack(
+      children: [
+        Container(
+          height: 160.h,
+          decoration: BoxDecoration(
+            color: R.colors.primaryColorLight,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30.r),
+              bottomRight: Radius.circular(30.r),
+            ),
+          ),
         ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('أهلاً وسهلاً,', style: R.textStyles.font18GreyW500Light),
-            SizedBox(height: 7.h),
-            Row(
+        Positioned(
+          top: 0,
+          right: 0,
+          child: SvgPicture.asset(R.images.appLogoFram39),
+        ),
+        SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 40.h,
+              right: 28,
+              left: 28,
+              bottom: 31,
+            ),
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '👋 فهد القحطاني',
-                  style: R.textStyles.font18WhiteW500Light,
-                ),
-                Spacer(),
-                Stack(
+                Text('أهلاً وسهلاً,', style: R.textStyles.font18GreyW500Light),
+                SizedBox(height: 7.h),
+                Row(
                   children: [
-                    SvgPicture.asset(R.images.iconNotiv),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: Container(
-                        width: 8.w,
-                        height: 8.h,
-                        decoration: BoxDecoration(
-                          color: R.colors.redColor,
-                          shape: BoxShape.circle,
+                    Text(
+                      '👋 فهد القحطاني',
+                      style: R.textStyles.font18WhiteW500Light,
+                    ),
+                    Spacer(),
+                    Stack(
+                      children: [
+                        SvgPicture.asset(R.images.iconNotiv),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            width: 8.w,
+                            height: 8.h,
+                            decoration: BoxDecoration(
+                              color: R.colors.redColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
