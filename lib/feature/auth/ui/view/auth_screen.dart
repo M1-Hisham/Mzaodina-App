@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/ui/forgot_password_screen.dart';
@@ -20,59 +21,79 @@ class AuthScreen extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         body: LayoutBuilder(
           builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    children: [
-                      Spacer(),
-                      BlocBuilder<AuthCubit, AuthState>(
-                        builder: (context, state) {
-                          return Column(
-                            children: [_buildHeader(context), spacingV(20.h)],
-                          );
-                        },
-                      ),
-                      Container(
-                        alignment: Alignment.bottomLeft,
-                        decoration: BoxDecoration(
-                          color: R.colors.whiteLight,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.r),
-                            topRight: Radius.circular(30.r),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: BlocBuilder<AuthCubit, AuthState>(
+            return Stack(
+              children: [
+                Positioned(
+                  top: 250,
+                  left: 0,
+                  child: SvgPicture.asset(R.images.appLogoFram40),
+                ),
+                SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: [
+                          Spacer(),
+                          BlocBuilder<AuthCubit, AuthState>(
                             builder: (context, state) {
                               return Column(
                                 children: [
+                                  _buildHeader(context),
                                   spacingV(20.h),
-                                  state == AuthState.forgotPassword
-                                      ? const SizedBox.shrink()
-                                      : _toggleButtons(
-                                        context.read<AuthCubit>(),
-                                        context.watch<AuthCubit>().state,
-                                      ),
-                                  spacingV(20),
-                                  if (state == AuthState.login)
-                                    LoginFormScreen(),
-                                  if (state == AuthState.register)
-                                    RegisterFormScreen(),
-                                  if (state == AuthState.forgotPassword)
-                                    ForgotPasswordScreen(),
                                 ],
                               );
                             },
                           ),
-                        ),
+
+                          Container(
+                            alignment: Alignment.bottomLeft,
+                            decoration: BoxDecoration(
+                              color: R.colors.whiteLight,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30.r),
+                                topRight: Radius.circular(30.r),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: BlocBuilder<AuthCubit, AuthState>(
+                                builder: (context, state) {
+                                  return Column(
+                                    children: [
+                                      spacingV(20.h),
+                                      state == AuthState.forgotPassword
+                                          ? const SizedBox.shrink()
+                                          : _toggleButtons(
+                                            context.read<AuthCubit>(),
+                                            context.watch<AuthCubit>().state,
+                                          ),
+                                      spacingV(20),
+                                      if (state == AuthState.login)
+                                        LoginFormScreen(),
+                                      if (state == AuthState.register)
+                                        RegisterFormScreen(),
+                                      if (state == AuthState.forgotPassword)
+                                        ForgotPasswordScreen(),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: SvgPicture.asset(R.images.appLogoFram39),
+                ),
+              ],
             );
           },
         ),

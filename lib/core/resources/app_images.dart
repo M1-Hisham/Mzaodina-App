@@ -2,6 +2,8 @@ class AppImages {
   String appLogoPng = "assets/images/logo.png";
   String appLogoFram37 = "assets/images/Frame 37.svg";
   String appLogoFram38 = "assets/images/Frame 38.svg";
+  String appLogoFram39 = "assets/images/Frame 39.svg";
+  String appLogoFram40 = "assets/images/Frame 40.svg";
   String iconNotiv = "assets/icons/notivIcon.svg";
   String personIcon = "assets/icons/personIcon.svg";
   String personIconSelected = "assets/icons/personSelected.svg";
