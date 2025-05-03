@@ -9,6 +9,10 @@ import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/change_password_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/privacy_policy_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/setting_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/shipping_and_return_policy_screen.dart';
+import 'package:mzaodina_app/feature/profile/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -29,6 +33,16 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => AccountDetailsScreen());
       case AppRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
+      case AppRoutes.termsAndConditionsScreenRoute:
+        return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
+      case AppRoutes.privacyPolicyScreenRoute:
+        return MaterialPageRoute(builder: (_) => PrivacyPolicyScreen());
+      case AppRoutes.settingScreennRoute:
+        return MaterialPageRoute(builder: (_) => SettingScreen());
+      case AppRoutes.shippingAndReturnPolicyScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => ShippingAndReturnPolicyScreen(),
+        );
       case AppRoutes.authRouter:
         return MaterialPageRoute(
           builder:

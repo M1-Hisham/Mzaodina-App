@@ -62,7 +62,9 @@ class ProfileScreen extends StatelessWidget {
                 indent: 14,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.settingScreennRoute);
+                },
 
                 child: CustomAccountListTile(
                   title: 'الاعدادات',
@@ -84,7 +86,12 @@ class ProfileScreen extends StatelessWidget {
                 indent: 14,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.termsAndConditionsScreenRoute,
+                  );
+                },
 
                 child: CustomAccountListTile(title: 'الشروط والاحكام'),
               ),
@@ -95,7 +102,12 @@ class ProfileScreen extends StatelessWidget {
                 indent: 14,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.privacyPolicyScreenRoute,
+                  );
+                },
 
                 child: CustomAccountListTile(title: 'سياسة الخصوصية'),
               ),
@@ -106,7 +118,12 @@ class ProfileScreen extends StatelessWidget {
                 indent: 14,
               ),
               InkWell(
-                onTap: () => debugPrint('تواصل معنا على تويتر'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.shippingAndReturnPolicyScreenRoute,
+                  );
+                },
 
                 child: CustomAccountListTile(title: 'سياسة الشحن والاسترجاع'),
               ),
