@@ -11,7 +11,7 @@ class CustomNotItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(R.images.notItemImagePng, width: 175.w, height: 170.h),
-        SizedBox(height: 20),
+        SizedBox(height: 20.h),
         Text('لايوجد مزادات', style: R.textStyles.font22blackW500Light),
       ],
     );

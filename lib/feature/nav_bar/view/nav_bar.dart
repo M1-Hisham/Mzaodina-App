@@ -41,13 +41,22 @@ class _NavBarScreenState extends State<NavBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: R.colors.whiteLight,
       body: _screens[_currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade300, width: 1),
-          ),
+          color: R.colors.whiteLight,
+          boxShadow: [
+            BoxShadow(
+              color: R.colors.greyColor.withOpacity(0.4),
+
+              offset: Offset(0, -1),
+              blurRadius: 10,
+              spreadRadius: 0,
+            ),
+          ],
         ),
+
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 15.h),
           child: Row(

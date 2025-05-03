@@ -6,8 +6,14 @@ import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cu
 
 class CustomBlocBuilderCountdown extends StatelessWidget {
   final DateTime eventTime;
-
-  const CustomBlocBuilderCountdown({super.key, required this.eventTime});
+  final Color progressColor;
+  final Color backgroundColor;
+  const CustomBlocBuilderCountdown({
+    super.key,
+    required this.eventTime,
+    required this.progressColor,
+    required this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +21,7 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
       create: (_) => CounterCubit(eventTime),
       child: BlocBuilder<CounterCubit, CounterState>(
         builder: (context, state) {
-          if (state is CountdownFinished) {
-            return const Text('انتهى الوقت!', style: TextStyle(fontSize: 24));
-          } else if (state is CountdownRunning) {
+          if (state is CountdownRunning) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -25,37 +29,72 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                   value: state.days,
                   label: 'يوم',
                   maxValue: 365,
-                  progressColor: R.colors.orangeColor,
-                  backgroundColor: R.colors.orangeColor2,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
                 ),
                 const SizedBox(width: 8),
                 CountdownUnitWidget(
                   value: state.hours,
                   label: 'ساعة',
                   maxValue: 24,
-                  progressColor: R.colors.orangeColor,
-                  backgroundColor: R.colors.orangeColor2,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
                 ),
                 const SizedBox(width: 8),
                 CountdownUnitWidget(
                   value: state.minutes,
                   label: 'دقيقة',
                   maxValue: 60,
-                  progressColor: R.colors.orangeColor,
-                  backgroundColor: R.colors.orangeColor2,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
                 ),
                 const SizedBox(width: 8),
                 CountdownUnitWidget(
                   value: state.seconds,
                   label: 'ثانية',
                   maxValue: 60,
-                  progressColor: R.colors.orangeColor,
-                  backgroundColor: R.colors.orangeColor2,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
                 ),
               ],
             );
           } else {
-            return const SizedBox.shrink();
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CountdownUnitWidget(
+                  value: 0,
+                  label: 'يوم',
+                  maxValue: 365,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+                SizedBox(width: 8),
+                CountdownUnitWidget(
+                  value: 0,
+                  label: 'ساعة',
+                  maxValue: 24,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+                SizedBox(width: 8),
+                CountdownUnitWidget(
+                  value: 0,
+                  label: 'دقيقة',
+                  maxValue: 60,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+                SizedBox(width: 8),
+                CountdownUnitWidget(
+                  value: 0,
+                  label: 'ثانية',
+                  maxValue: 60,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+              ],
+            );
           }
         },
       ),
