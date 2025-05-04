@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
 
 class CustomAppBarHome extends StatelessWidget {
   const CustomAppBarHome({super.key});
@@ -15,6 +16,7 @@ class CustomAppBarHome extends StatelessWidget {
           bottomLeft: Radius.circular(30.r),
           bottomRight: Radius.circular(30.r),
         ),
+
       ),
       child: Stack(
         children: [
@@ -35,27 +37,38 @@ class CustomAppBarHome extends StatelessWidget {
                     'أهلاً وسهلاً,',
                     style: R.textStyles.font18GreyW500Light,
                   ),
-                  SizedBox(height: 7.h),
-                  Row(
-                    children: [
-                      Text(
-                        '👋 فهد القحطاني',
-                        style: R.textStyles.font18WhiteW500Light,
-                      ),
-                      Spacer(),
-                      Stack(
-                        children: [
-                          SvgPicture.asset(R.images.iconNotiv),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            child: Container(
-                              width: 8.w,
-                              height: 8.h,
-                              decoration: BoxDecoration(
-                                color: R.colors.redColor,
-                                shape: BoxShape.circle,
+               
+
+       
+
+                SizedBox(height: 7.h),
+                Row(
+                  children: [
+                    Text(
+                      '👋 فهد القحطاني',
+                      style: R.textStyles.font18WhiteW500Light,
+                    ),
+                    Spacer(),
+                    Stack(
+                      children: [
+                        InkWell(
+                          onTap:
+                              () => Navigator.pushNamed(
+                                context,
+                                AppRoutes.notificationsScreenRoute,
                               ),
+                          child: SvgPicture.asset(R.images.iconNotiv),
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            width: 8.w,
+                            height: 8.h,
+                            decoration: BoxDecoration(
+                              color: R.colors.redColor,
+                              shape: BoxShape.circle,
+
                             ),
                           ),
                         ],

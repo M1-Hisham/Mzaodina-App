@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_details_screen.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
+import 'package:mzaodina_app/feature/home/ui/view/invoice_details_screen.dart';
+import 'package:mzaodina_app/feature/home/ui/view/notifications_screen.dart';
+import 'package:mzaodina_app/feature/home/ui/view/payment_details_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
@@ -37,8 +40,14 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
       case AppRoutes.privacyPolicyScreenRoute:
         return MaterialPageRoute(builder: (_) => PrivacyPolicyScreen());
-      case AppRoutes.settingScreennRoute:
+      case AppRoutes.settingScreenRoute:
         return MaterialPageRoute(builder: (_) => SettingScreen());
+      case AppRoutes.notificationsScreenRoute:
+        return MaterialPageRoute(builder: (_) => NotificationsScreen());
+      case AppRoutes.invoiceDetailsScreenRoute:
+        return MaterialPageRoute(builder: (_) => InvoiceDetailsScreen());
+      case AppRoutes.paymentDetailsScreenRoute:
+        return MaterialPageRoute(builder: (_) => PaymentDetailsScreen());
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
           builder: (_) => ShippingAndReturnPolicyScreen(),
