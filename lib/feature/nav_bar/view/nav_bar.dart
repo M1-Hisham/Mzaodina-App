@@ -48,17 +48,21 @@ class _NavBarScreenState extends State<NavBarScreen> {
           color: R.colors.whiteLight,
           boxShadow: [
             BoxShadow(
-              color: R.colors.greyColor.withOpacity(0.4),
-
-              offset: Offset(0, -1),
-              blurRadius: 10,
-              spreadRadius: 0,
+              // ignore: deprecated_member_use
+              color: R.colors.greyColor.withOpacity(0.1),
+              blurRadius: 20,
+              spreadRadius: 0.1,
             ),
           ],
         ),
 
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.h),
+          padding: EdgeInsets.only(
+            bottom: 32.h,
+            top: 10.h,
+            right: 20.w,
+            left: 20.w,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(_navItems.length, (index) {
@@ -71,7 +75,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 25,
+                        horizontal: 20,
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
