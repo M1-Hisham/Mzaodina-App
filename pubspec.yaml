@@ -52,6 +52,7 @@ dependencies:
   percent_indicator: ^4.2.5
   flutter_screenutil: ^5.9.3
   country_picker: ^2.0.27
+  google_fonts: ^6.2.1
 
 
 dev_dependencies:

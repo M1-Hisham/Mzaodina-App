@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           CustomAppBarHome(),
-          SizedBox(height: 20),
+          // SizedBox(height: 20),
           Expanded(child: CustomTapView()),
         ],
       ),

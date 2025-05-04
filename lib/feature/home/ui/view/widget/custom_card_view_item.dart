@@ -32,7 +32,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
           decoration: BoxDecoration(
             color: R.colors.whiteLight,
             borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: R.colors.textColorLight),
+            border: Border.all(color: R.colors.whiteColor2),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

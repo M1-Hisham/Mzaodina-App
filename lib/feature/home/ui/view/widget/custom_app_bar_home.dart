@@ -9,37 +9,38 @@ class CustomAppBarHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 160.h,
-          decoration: BoxDecoration(
-            color: R.colors.primaryColorLight,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30.r),
-              bottomRight: Radius.circular(30.r),
-            ),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: R.colors.primaryColorLight,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30.r),
+          bottomRight: Radius.circular(30.r),
         ),
-        Positioned(
-          top: 0,
-          right: 0,
-          child: SvgPicture.asset(R.images.appLogoFram39),
-        ),
-        SafeArea(
-          bottom: false,
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: 40.h,
-              right: 28,
-              left: 28,
-              bottom: 31,
-            ),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('أهلاً وسهلاً,', style: R.textStyles.font18GreyW500Light),
+      ),
+      child: Stack(
+        children: [
+          Positioned(top: 0, child: SvgPicture.asset(R.images.appLogoFram39)),
+          SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: 28.w,
+                left: 32.w,
+                top: 5.h,
+                bottom: 30.h,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'أهلاً وسهلاً,',
+                    style: R.textStyles.font18GreyW500Light,
+                  ),
+               
+
+       
+
                 SizedBox(height: 7.h),
                 Row(
                   children: [
@@ -67,18 +68,19 @@ class CustomAppBarHome extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: R.colors.redColor,
                               shape: BoxShape.circle,
+
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
