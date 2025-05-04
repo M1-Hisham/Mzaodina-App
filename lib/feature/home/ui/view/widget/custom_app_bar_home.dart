@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
 
 class CustomAppBarHome extends StatelessWidget {
   const CustomAppBarHome({super.key});
@@ -49,7 +50,14 @@ class CustomAppBarHome extends StatelessWidget {
                     Spacer(),
                     Stack(
                       children: [
-                        SvgPicture.asset(R.images.iconNotiv),
+                        InkWell(
+                          onTap:
+                              () => Navigator.pushNamed(
+                                context,
+                                AppRoutes.notificationsScreenRoute,
+                              ),
+                          child: SvgPicture.asset(R.images.iconNotiv),
+                        ),
                         Positioned(
                           right: 0,
                           top: 0,
