@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.settingScreennRoute);
+                  Navigator.pushNamed(context, AppRoutes.settingScreenRoute);
                 },
 
                 child: CustomAccountListTile(

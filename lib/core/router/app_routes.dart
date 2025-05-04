@@ -10,6 +10,10 @@ class AppRoutes {
   static const changePasswordScreenRoute = '/changePasswordScreen';
   static const termsAndConditionsScreenRoute = '/termsAndConditionsScreen';
   static const privacyPolicyScreenRoute = '/privacyPolicyScreen';
-  static const shippingAndReturnPolicyScreenRoute = '/ShippingAndReturnPolicyScreen';
-  static const settingScreennRoute = '/SettingScreen';
+  static const shippingAndReturnPolicyScreenRoute =
+      '/ShippingAndReturnPolicyScreen';
+  static const settingScreenRoute = '/SettingScreen';
+  static const notificationsScreenRoute = '/NotificationsScreen';
+  static const invoiceDetailsScreenRoute = '/InvoiceDetails';
+  static const paymentDetailsScreenRoute = '/PaymentDetailsScreen';
 }
