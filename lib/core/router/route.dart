@@ -9,13 +9,13 @@ import 'package:mzaodina_app/feature/home/ui/view/payment_details_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/about_us_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/account_details_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/change_password_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/privacy_policy_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/setting_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/shipping_and_return_policy_screen.dart';
-import 'package:mzaodina_app/feature/profile/view/terms_and_conditions_screen.dart';
+import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
+import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
+import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
+import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_screen.dart';
+import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
+import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
+import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
