@@ -19,50 +19,41 @@ class NotificationsScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 18,
-                          horizontal: 12,
-                        ),
-                        decoration: BoxDecoration(
-                          color: R.colors.blackColor3,
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: R.colors.blackColor3,
 
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'تم اختيارك للفوز – أكمل الآن واحتفل بجائزتك!',
-                              style: R.textStyles.font14BlackW500Light,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'تم اختيارك للفوز – أكمل الآن واحتفل بجائزتك!',
+                            style: R.textStyles.font14BlackW500Light,
+                          ),
+                          Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                AppRoutes.invoiceDetailsScreenRoute,
+                              );
+                            },
+                            child: Text(
+                              'اضغط',
+                              style: R.textStyles.font14primaryW500Light,
                             ),
-                            Spacer(),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.invoiceDetailsScreenRoute,
-                                );
-                              },
-                              child: Text(
-                                'اضغط',
-                                style: R.textStyles.font14primaryW500Light,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.only(top: 20),
 
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 18,
-                          horizontal: 12,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
                           color: R.colors.blackColor3,
                           borderRadius: BorderRadius.circular(8),
