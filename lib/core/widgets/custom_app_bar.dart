@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/core/widgets/app_button.dart';
+import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
