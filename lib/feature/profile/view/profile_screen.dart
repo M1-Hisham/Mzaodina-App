@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
-import 'package:mzaodina_app/feature/profile/view/widget/customAccountListTile.dart';
+import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -26,109 +26,148 @@ class ProfileScreen extends StatelessWidget {
                   child: CustomAppBarTitle(title: 'محمد القحطانى'),
                 ),
               ),
-              InkWell(
-                onTap:
-                    () => Navigator.pushNamed(
-                      context,
-                      AppRoutes.accountDetailsScreenRoute,
-                    ),
 
-                child: CustomAccountListTile(
-                  title: 'معلومات الحساب',
-                  leading: SvgPicture.asset(R.images.accountIcon),
+              //check if user is logged in or not
+              // user == null ?
+              // CustomBottonNotLogin(),
+              // :
+              //C1
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: R.colors.blackColor3,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: R.colors.blackColor3),
                 ),
-              ),
-              Divider(
-                color: R.colors.colorUnSelected,
-                height: 1.h,
-                endIndent: 14.w,
-                indent: 14.w,
-              ),
-              InkWell(
-                onTap:
-                    () => Navigator.pushNamed(
-                      context,
-                      AppRoutes.changePasswordScreenRoute,
-                    ),
-                child: CustomAccountListTile(
-                  title: 'تغير كلمة المرور',
-                  leading: SvgPicture.asset(R.images.passwordAccountIcon),
-                ),
-              ),
-              Divider(
-                color: R.colors.colorUnSelected,
-                height: 1.h,
-                endIndent: 14.w,
-                indent: 14.w,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.settingScreenRoute);
-                },
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap:
+                          () => Navigator.pushNamed(
+                            context,
+                            AppRoutes.accountDetailsScreenRoute,
+                          ),
 
-                child: CustomAccountListTile(
-                  title: 'الاعدادات',
-                  leading: SvgPicture.asset(R.images.settingIcon),
+                      child: CustomAccountListTile(
+                        title: 'معلومات الحساب',
+                        leading: SvgPicture.asset(R.images.accountIcon),
+                      ),
+                    ),
+                    Divider(
+                      color: R.colors.colorUnSelected,
+                      height: 1.h,
+                      endIndent: 14.w,
+                      indent: 14.w,
+                    ),
+                    InkWell(
+                      onTap:
+                          () => Navigator.pushNamed(
+                            context,
+                            AppRoutes.changePasswordScreenRoute,
+                          ),
+                      child: CustomAccountListTile(
+                        title: 'تغير كلمة المرور',
+                        leading: SvgPicture.asset(R.images.passwordAccountIcon),
+                      ),
+                    ),
+                    Divider(
+                      color: R.colors.colorUnSelected,
+                      height: 1.h,
+                      endIndent: 14.w,
+                      indent: 14.w,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.settingScreenRoute,
+                        );
+                      },
+
+                      child: CustomAccountListTile(
+                        title: 'الاعدادات',
+                        leading: SvgPicture.asset(R.images.settingIcon),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 18.h),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.aboutUsScreenRoute);
-                },
+              //C2
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: R.colors.blackColor3,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: R.colors.blackColor3),
+                ),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.aboutUsScreenRoute,
+                        );
+                      },
 
-                child: CustomAccountListTile(title: 'من نحن'),
-              ),
-              Divider(
-                color: R.colors.colorUnSelected,
-                height: 1.h,
-                endIndent: 14.w,
-                indent: 14.w,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.termsAndConditionsScreenRoute,
-                  );
-                },
+                      child: CustomAccountListTile(title: 'من نحن'),
+                    ),
+                    Divider(
+                      color: R.colors.colorUnSelected,
+                      height: 1.h,
+                      endIndent: 14.w,
+                      indent: 14.w,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.termsAndConditionsScreenRoute,
+                        );
+                      },
 
-                child: CustomAccountListTile(title: 'الشروط والاحكام'),
-              ),
-              Divider(
-                color: R.colors.colorUnSelected,
-                height: 1.h,
-                endIndent: 14.w,
-                indent: 14.w,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.privacyPolicyScreenRoute,
-                  );
-                },
+                      child: CustomAccountListTile(title: 'الشروط والاحكام'),
+                    ),
+                    Divider(
+                      color: R.colors.colorUnSelected,
+                      height: 1.h,
+                      endIndent: 14.w,
+                      indent: 14.w,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.privacyPolicyScreenRoute,
+                        );
+                      },
 
-                child: CustomAccountListTile(title: 'سياسة الخصوصية'),
-              ),
-              Divider(
-                color: R.colors.colorUnSelected,
-                height: 1.h,
-                endIndent: 14.w,
-                indent: 14.w,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.shippingAndReturnPolicyScreenRoute,
-                  );
-                },
+                      child: CustomAccountListTile(title: 'سياسة الخصوصية'),
+                    ),
+                    Divider(
+                      color: R.colors.colorUnSelected,
+                      height: 1.h,
+                      endIndent: 14.w,
+                      indent: 14.w,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.shippingAndReturnPolicyScreenRoute,
+                        );
+                      },
 
-                child: CustomAccountListTile(title: 'سياسة الشحن والاسترجاع'),
+                      child: CustomAccountListTile(
+                        title: 'سياسة الشحن والاسترجاع',
+                      ),
+                    ),
+                  ],
+                ),
               ),
+
               SizedBox(height: 18.h),
-
               CustomElevatedButton(
                 textStyle: R.textStyles.font14Grey3W500Light.copyWith(
                   color: R.colors.redColor2,
