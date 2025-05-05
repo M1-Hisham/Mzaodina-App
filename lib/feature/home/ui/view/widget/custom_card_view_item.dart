@@ -56,7 +56,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                           padding: EdgeInsets.symmetric(vertical: 8.h),
                           child: Text(
                             'مزاد على ايفون 16 برو من ابل',
-                            style: R.textStyles.font16BlackW500Light,
+                            style: R.textStyles.font16BlackW400Light,
                           ),
                         ),
                         SizedBox(height: 12.h),

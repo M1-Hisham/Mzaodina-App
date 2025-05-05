@@ -17,7 +17,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            CustomAppBarAccount(title: 'الاشعارات'),
+            CustomAppBarAccount(title: 'تفاصيل الفاتورة'),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -42,7 +42,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
                         Text(
                           textAlign: TextAlign.center,
                           'لقد تم اختيارك للفوز بالمنتج. لتحقيق شروط الفوز نود تذكيرك بأن لديك فاتورة متأخرة. نرجو منك تسديدها فى اقرب وقت ممكن. يرجى استخدام أدناه لاتمام عملية الدفع',
-                          style: R.textStyles.font16BlackW500Light,
+                          style: R.textStyles.font16BlackW400Light,
                         ),
                       ],
                     ),
@@ -121,6 +121,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        SizedBox(height: 27.h),
                       ],
                     ),
                   ],
