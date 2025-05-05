@@ -8,6 +8,8 @@ class CoustomRowItem extends StatelessWidget {
   final TextStyle? style;
   final TextStyle? priceStyle;
   final Color? containerColor;
+  final Color? textColor;
+  final Color? priceColor;
   const CoustomRowItem({
     super.key,
     required this.title,
@@ -15,6 +17,8 @@ class CoustomRowItem extends StatelessWidget {
     this.style,
     this.priceStyle,
     this.containerColor,
+    this.textColor,
+    this.priceColor,
   });
 
   @override
@@ -25,13 +29,24 @@ class CoustomRowItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(title, style: style ?? R.textStyles.font12Grey3W500Light),
+          Text(
+            title,
+            style:
+                style ??
+                R.textStyles.font12Grey3W500Light.copyWith(
+                  color: textColor ?? R.colors.greyColor3,
+                ),
+          ),
           Spacer(),
           Row(
             children: [
               Text(
                 price,
-                style: priceStyle ?? R.textStyles.font12primaryW600Light,
+                style:
+                    priceStyle ??
+                    R.textStyles.font12primaryW600Light.copyWith(
+                      color: priceColor ?? R.colors.primaryColorLight,
+                    ),
               ),
               SvgPicture.asset(R.images.riyalImage),
             ],

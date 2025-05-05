@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -14,7 +14,7 @@ class NotificationsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            CustomAppBarAccount(title: 'الاشعارات'),
+            _customAppBar(title: 'الإشعارات', context: context),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -78,6 +78,32 @@ class NotificationsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _customAppBar({required String title, context}) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12, top: 12),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text(title, style: R.textStyles.font18blackW500Light),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SvgPicture.asset(R.images.backIcon),
               ),
             ),
           ],
