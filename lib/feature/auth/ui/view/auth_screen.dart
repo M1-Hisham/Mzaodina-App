@@ -110,7 +110,7 @@ class AuthScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                "   \"اهلا بكم\nفي مزاودين",
+                "اهلا بكم\"\nفي مزاودين",
                 style: R.textStyles.font34WhiteW500Light,
               ),
             ),
