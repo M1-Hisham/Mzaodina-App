@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class CustomTextMazadDetails extends StatelessWidget {
-  const CustomTextMazadDetails({super.key});
+  final String title;
+  const CustomTextMazadDetails({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,7 @@ class CustomTextMazadDetails extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(
-            'تفاصيل المزاد',
-            style: R.textStyles.font16primaryW600Light,
-          ),
+          child: Text(title, style: R.textStyles.font16primaryW600Light),
         ),
         Container(
           width: 70.w,

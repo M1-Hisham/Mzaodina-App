@@ -46,7 +46,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   CustomCardImageDetails(),
                   const SizedBox(height: 8),
-                  CustomTextMazadDetails(),
+                  CustomTextMazadDetails(title: 'تفاصيل المزاد'),
                   const SizedBox(height: 8),
                   CoustomRowItem(
                     containerColor: R.colors.blackColor2,
@@ -123,7 +123,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  CustomTextMazadDetails(),
+                  CustomTextMazadDetails(title: 'تفاصيل المنتج'),
                   const SizedBox(height: 8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

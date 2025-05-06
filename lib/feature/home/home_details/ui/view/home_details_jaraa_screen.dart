@@ -44,7 +44,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   CustomCardImageDetails(),
                   const SizedBox(height: 8),
-                  CustomTextMazadDetails(),
+                  CustomTextMazadDetails(title: 'تفاصيل المزاد'),
                   const SizedBox(height: 8),
                   CoustomRowItem(
                     containerColor: R.colors.blackColor2,
@@ -149,7 +149,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   CustomElevatedButton(text: 'سجل المزايدة', onPressed: () {}),
                   const SizedBox(height: 12),
-                  CustomTextMazadDetails(),
+                  CustomTextMazadDetails(title: 'تفاصيل المنتج'),
                   const SizedBox(height: 8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
