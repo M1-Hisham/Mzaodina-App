@@ -10,6 +10,7 @@ import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.d
 import 'package:mzaodina_app/feature/auth/register/view/widgets/enter_the_phone_number.dart';
 import 'package:mzaodina_app/feature/auth/register/view/widgets/select_country.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
+import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 
 import '../../../../core/widgets/check-box/view/custom_check_box.dart';
 
@@ -73,7 +74,14 @@ class RegisterFormScreen extends StatelessWidget {
                   child: const CustomCheckbox(),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TermsAndConditionsScreen(),
+                      ),
+                    );
+                  },
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text.rich(
