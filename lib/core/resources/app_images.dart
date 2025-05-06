@@ -14,6 +14,8 @@ class AppImages {
   String notItemImage = "assets/images/notIemImage.svg";
   String notItemImagePng = "assets/images/notItemImage.png";
   String riyalImage = "assets/icons/riyalImage.svg";
+  String riyalwhiteIcont = "assets/icons/riyalwhiteIcont.svg";
+  String riyalPrimaryIcon = "assets/icons/riyalPrimaryIcon.svg";
   String phoneImagePng = "assets/images/phoneItem.png";
   String shareIcon = "assets/icons/shareIcon.svg";
   String emailIcon = "assets/icons/email.svg";
