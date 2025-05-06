@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/core/widgets/app_button.dart';
+import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/auth/register/view/widgets/enter_the_phone_number.dart';
 import 'package:mzaodina_app/feature/auth/register/view/widgets/select_country.dart';

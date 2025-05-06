@@ -49,7 +49,7 @@ class CustomIndcatorItem extends StatelessWidget {
             ),
           if (!showIndicator) Spacer(),
           Text(
-            '% ${(0.5 * 100).toStringAsFixed(0)}',
+            '${(0.5 * 100).toStringAsFixed(0)} %',
             style: R.textStyles.font12primaryW600Light.copyWith(fontSize: 16),
           ),
         ],
