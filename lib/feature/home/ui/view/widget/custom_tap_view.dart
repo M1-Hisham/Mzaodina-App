@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_muntahi_cart_view_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_qadim_card_view_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
@@ -97,7 +98,7 @@ class _CustomTapViewState extends State<CustomTapView>
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomQadimCardViewItem(),
+                    child: CustomMuntahiCardViewItem(),
                   ),
                 ),
               ],

@@ -5,19 +5,17 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 
-class CustomQadimCardViewItem extends StatefulWidget {
-  const CustomQadimCardViewItem({super.key});
+class CustomMuntahiCardViewItem extends StatefulWidget {
+  const CustomMuntahiCardViewItem({super.key});
 
   @override
-  State<CustomQadimCardViewItem> createState() =>
+  State<CustomMuntahiCardViewItem> createState() =>
       _CustomQadimCardViewItemState();
 }
 
-class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
-  DateTime eventTimeFromApi = DateTime.parse('2025-05-04 18:00:00');
+class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
+  DateTime eventTimeFromApi = DateTime.parse('2025-05-06 18:00:00');
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,25 +52,48 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                             style: R.textStyles.font16BlackW500Light,
                           ),
                         ),
-                        SizedBox(height: 12.h),
-                        CustomBlocBuilderCountdown(
-                          eventTime: eventTimeFromApi,
-                          progressColor: R.colors.primaryColorLight,
-                          backgroundColor: R.colors.colorUnSelected,
-                        ),
+
                         SizedBox(height: 12.h),
                         CoustomRowItem(
                           title: 'السعر بالأسواق',
                           price: '1,000.00  ',
                         ),
-                        CoustomRowItem(
-                          title: 'بداية المزاد',
-                          price: '600.00  ',
-                        ),
 
-                        CustomIndcatorItem(
-                          title: 'انطلاق المزاد',
-                          showIndicator: true,
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          color: R.colors.transparent,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'ترسية المزاد',
+                                style: R.textStyles.font12Grey3W500Light,
+                              ),
+                              Spacer(),
+                              Text(
+                                'انتظار دفع الفاتورة',
+                                style: R.textStyles.font12primaryW600Light,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          color: R.colors.transparent,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'المزاود',
+                                style: R.textStyles.font12Grey3W500Light,
+                              ),
+                              Spacer(),
+                              Text(
+                                'لايوجد',
+                                style: R.textStyles.font16primaryW600Light,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -89,7 +110,7 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          AppRoutes.homeDetailsQadimScreenRoute,
+                          AppRoutes.homeDetailsMuntahiScreenRoute,
                         );
                       },
                       backgroundColor: R.colors.primaryColorLight,

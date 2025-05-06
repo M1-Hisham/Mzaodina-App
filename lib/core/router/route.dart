@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
@@ -29,6 +30,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.homeDetailsQadimScreenRoute:
         return MaterialPageRoute(builder: (_) => HomeDetailsQadimScreen());
+      case AppRoutes.homeDetailsMuntahiScreenRoute:
+        return MaterialPageRoute(builder: (_) => HomeDetailsMuntahiScreen());
       case AppRoutes.homeDetailsSayantaliqScreenRoute:
         final args = settings.arguments as Map<String, DateTime>;
         return MaterialPageRoute(
