@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
@@ -31,7 +32,7 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                   progressColor: progressColor,
                   backgroundColor: backgroundColor,
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 10.w),
                 CountdownUnitWidget(
                   value: state.hours,
                   label: 'ساعة',
@@ -39,7 +40,7 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                   progressColor: progressColor,
                   backgroundColor: backgroundColor,
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 10.w),
                 CountdownUnitWidget(
                   value: state.minutes,
                   label: 'دقيقة',
@@ -47,7 +48,7 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                   progressColor: progressColor,
                   backgroundColor: backgroundColor,
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 10.w),
                 CountdownUnitWidget(
                   value: state.seconds,
                   label: 'ثانية',

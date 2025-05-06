@@ -4,7 +4,9 @@ class AppRoutes {
 
   static const homeRoute = '/HomeScreen';
   static const navBarRoute = '/NavBarScreen';
-  static const homeDetailsRoute = '/homeDetailsScreen';
+  static const homeDetailsQadimScreenRoute = '/homeDetailsQadimScreen';
+  static const homeDetailsSayantaliqScreenRoute =
+      '/HomeDetailsSayantaliqScreen';
   static const aboutUsScreenRoute = '/aboutUsScreen';
   static const accountDetailsScreenRoute = '/accountDetailsScreen';
   static const changePasswordScreenRoute = '/changePasswordScreen';

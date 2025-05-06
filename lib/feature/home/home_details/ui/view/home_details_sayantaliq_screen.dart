@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/app_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_card_image_details.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
+import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
-class HomeDetailsScreen extends StatelessWidget {
-  const HomeDetailsScreen({super.key});
+class HomeDetailsSayantaliqScreen extends StatelessWidget {
+  final DateTime eventTimeFromApi;
+  const HomeDetailsSayantaliqScreen({
+    super.key,
+    required this.eventTimeFromApi,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +39,11 @@ class HomeDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 41,
-                      vertical: 8,
-                    ),
-                    child: CustomIndcatorItem(
-                      title: 'نسبة انطلاق المزاد',
-                      showIndicator: true,
-                    ),
+                  const SizedBox(height: 10),
+                  CustomBlocBuilderCountdown(
+                    eventTime: eventTimeFromApi,
+                    progressColor: R.colors.orangeColor,
+                    backgroundColor: R.colors.orangeColor2,
                   ),
 
                   const SizedBox(height: 8),
@@ -68,10 +72,37 @@ class HomeDetailsScreen extends StatelessWidget {
                     style: R.textStyles.font14Grey3W500Light,
                     priceStyle: R.textStyles.font14primaryW500Light,
                   ),
-                  CustomIndcatorItem(
-                    title: 'انطلاق المزاد',
-                    showIndicator: false,
-                    style: R.textStyles.font14Grey3W500Light,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 6.h),
+                    color: R.colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'انطلاق المزاد',
+                          style: R.textStyles.font12Grey3W500Light,
+                        ),
+                        Spacer(),
+                        BlocProvider(
+                          create: (_) => CounterCubit(eventTimeFromApi),
+                          child: BlocBuilder<CounterCubit, CounterState>(
+                            builder: (context, state) {
+                              if (state is CountdownRunning) {
+                                return Text(
+                                  '0${state.hours}:${state.minutes}:${state.seconds}',
+                                  style: R.textStyles.font16primaryW600Light,
+                                );
+                              } else {
+                                return Text(
+                                  '00:00:00',
+                                  style: R.textStyles.font16primaryW600Light,
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     color: R.colors.blackColor2,
@@ -89,11 +120,11 @@ class HomeDetailsScreen extends StatelessWidget {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                            color: R.colors.primaryColorLight,
+                            color: R.colors.orangeColor,
                             borderRadius: BorderRadius.circular(99),
                           ),
                           child: Text(
-                            'قادم',
+                            'فى انتظار البدء',
                             style: R.textStyles.font12whiteW500Light,
                           ),
                         ),
@@ -105,8 +136,7 @@ class HomeDetailsScreen extends StatelessWidget {
                     onTap:
                         () => showDialog<String>(
                           context: context,
-                          builder:
-                              (BuildContext context) => CustomDialogItem(),
+                          builder: (BuildContext context) => CustomDialogItem(),
                         ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -139,19 +169,12 @@ class HomeDetailsScreen extends StatelessWidget {
           ),
         ],
       ),
-
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-        child: CustomElevatedButton(text: 'الانضمام للمزاد', onPressed: () {}),
-      ),
     );
   }
 }
 
 class CustomDialogItem extends StatelessWidget {
-  const CustomDialogItem({
-    super.key,
-  });
+  const CustomDialogItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -169,27 +192,22 @@ class CustomDialogItem extends StatelessWidget {
             children: <Widget>[
               Text(
                 'تعليمات المزاد',
-                style: R
-                    .textStyles
-                    .font18GreyW500Light
-                    .copyWith(
-                      color: R.colors.greyColor,
-                    ),
+                style: R.textStyles.font18GreyW500Light.copyWith(
+                  color: R.colors.greyColor,
+                ),
               ),
               ...taelimatAlmazad.map(
                 (text) => CustomTextItem(
                   text: text,
-                  style: R
-                      .textStyles
-                      .font12Grey3W500Light
-                      .copyWith(height: 1.3),
+                  style: R.textStyles.font12Grey3W500Light.copyWith(
+                    height: 1.3,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
               CustomElevatedButton(
                 text: 'اغلاق',
-                onPressed:
-                    () => Navigator.pop(context),
+                onPressed: () => Navigator.pop(context),
               ),
             ],
           ),
