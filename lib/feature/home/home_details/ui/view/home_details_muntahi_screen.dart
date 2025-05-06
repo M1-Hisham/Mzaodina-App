@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
@@ -7,17 +6,12 @@ import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
-import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
-class HomeDetailsSayantaliqScreen extends StatelessWidget {
-  final DateTime eventTimeFromApi;
-  const HomeDetailsSayantaliqScreen({
-    super.key,
-    required this.eventTimeFromApi,
-  });
+class HomeDetailsMuntahiScreen extends StatelessWidget {
+  const HomeDetailsMuntahiScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +32,6 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomBlocBuilderCountdown(
-                    eventTime: eventTimeFromApi,
-                    progressColor: R.colors.orangeColor,
-                    backgroundColor: R.colors.orangeColor2,
-                  ),
-
-                  const SizedBox(height: 8),
                   CustomCardImageDetails(),
                   const SizedBox(height: 8),
                   CustomTextMazadDetails(),
@@ -56,19 +43,44 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                     style: R.textStyles.font14Grey3W500Light,
                     priceStyle: R.textStyles.font14primaryW500Light,
                   ),
-                  CoustomRowItem(
-                    title: ' بداية المزاد',
-                    price: '600.00 ',
-                    style: R.textStyles.font14Grey3W500Light,
-                    priceStyle: R.textStyles.font14primaryW500Light,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 6.h),
+                    color: R.colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'مبلغ ترسية المزاد',
+                          style: R.textStyles.font14Grey3W500Light,
+                        ),
+                        Spacer(),
+                        Text(
+                          'انتظار دفع الفاتورة',
+                          style: R.textStyles.font12primaryW600Light,
+                        ),
+                      ],
+                    ),
                   ),
-                  CoustomRowItem(
-                    containerColor: R.colors.blackColor2,
-
-                    title: 'رسوم تنظيم',
-                    price: '30.00 ',
-                    style: R.textStyles.font14Grey3W500Light,
-                    priceStyle: R.textStyles.font14primaryW500Light,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 6.h),
+                    decoration: BoxDecoration(
+                      color: R.colors.blackColor2,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'المزاود',
+                          style: R.textStyles.font14Grey3W500Light,
+                        ),
+                        Spacer(),
+                        Text(
+                          'لايوجد',
+                          style: R.textStyles.font12primaryW600Light,
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -77,27 +89,13 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'انطلاق المزاد',
-                          style: R.textStyles.font12Grey3W500Light,
+                          'الدولة',
+                          style: R.textStyles.font14Grey3W500Light,
                         ),
                         Spacer(),
-                        BlocProvider(
-                          create: (_) => CounterCubit(eventTimeFromApi),
-                          child: BlocBuilder<CounterCubit, CounterState>(
-                            builder: (context, state) {
-                              if (state is CountdownRunning) {
-                                return Text(
-                                  '0${state.hours}:${state.minutes}:${state.seconds}',
-                                  style: R.textStyles.font16primaryW600Light,
-                                );
-                              } else {
-                                return Text(
-                                  '00:00:00',
-                                  style: R.textStyles.font16primaryW600Light,
-                                );
-                              }
-                            },
-                          ),
+                        Text(
+                          'لايوجد',
+                          style: R.textStyles.font12primaryW600Light,
                         ),
                       ],
                     ),
@@ -118,11 +116,11 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                            color: R.colors.orangeColor,
+                            color: R.colors.redColor,
                             borderRadius: BorderRadius.circular(99),
                           ),
                           child: Text(
-                            'فى انتظار البدء',
+                            'منتهي',
                             style: R.textStyles.font12whiteW500Light,
                           ),
                         ),
@@ -166,6 +164,20 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
+        child: CustomElevatedButton(
+          backgroundColor: R.colors.redColor,
+          text: 'سجل المزايدة',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const JoinTheAuction()),
+            );
+          },
+        ),
       ),
     );
   }

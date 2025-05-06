@@ -5,6 +5,7 @@ class AppRoutes {
   static const homeRoute = '/HomeScreen';
   static const navBarRoute = '/NavBarScreen';
   static const homeDetailsQadimScreenRoute = '/homeDetailsQadimScreen';
+  static const homeDetailsMuntahiScreenRoute = '/HomeDetailsMuntahiScreen';
   static const homeDetailsSayantaliqScreenRoute =
       '/HomeDetailsSayantaliqScreen';
   static const aboutUsScreenRoute = '/aboutUsScreen';

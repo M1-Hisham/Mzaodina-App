@@ -11,38 +11,35 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: 50.w,
-              maxWidth: 100.w,
-              minHeight: 35.h,
-              maxHeight: 40,
-            ),
-            child: CustomElevatedButton(
-              borderRadius: 8,
-              textDirection: TextDirection.rtl,
-              text: 'مشاركة',
-              onPressed: () {},
-              textStyle: R.textStyles.font12primaryW600Light,
-              backgroundColor: R.colors.colorUnSelected,
-              icon: SvgPicture.asset(R.images.shareIcon),
-            ),
+    return Row(
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: 50.w,
+            maxWidth: 100.w,
+            minHeight: 35.h,
+            maxHeight: 40,
           ),
-          Spacer(),
-          Text(title, style: R.textStyles.font14BlackW500Light),
-          Spacer(),
-          InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: SvgPicture.asset(R.images.backIcon),
+          child: CustomElevatedButton(
+            borderRadius: 8,
+            textDirection: TextDirection.rtl,
+            text: 'مشاركة',
+            onPressed: () {},
+            textStyle: R.textStyles.font12primaryW600Light,
+            backgroundColor: R.colors.colorUnSelected,
+            icon: SvgPicture.asset(R.images.shareIcon),
           ),
-        ],
-      ),
+        ),
+        Spacer(),
+        Text(title, style: R.textStyles.font14BlackW500Light),
+        Spacer(),
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SvgPicture.asset(R.images.backIcon),
+        ),
+      ],
     );
   }
 }
