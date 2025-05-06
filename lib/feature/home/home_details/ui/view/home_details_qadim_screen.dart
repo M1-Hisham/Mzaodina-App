@@ -5,6 +5,7 @@ import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
@@ -141,7 +142,15 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-        child: CustomElevatedButton(text: 'الانضمام للمزاد', onPressed: () {}),
+        child: CustomElevatedButton(
+          text: 'الانضمام للمزاد',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const JoinTheAuction()),
+            );
+          },
+        ),
       ),
     );
   }
