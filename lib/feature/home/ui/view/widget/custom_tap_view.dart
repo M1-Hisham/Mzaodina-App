@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_card_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_qadim_card_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 
 class CustomTapView extends StatefulWidget {
@@ -21,6 +22,7 @@ class _CustomTapViewState extends State<CustomTapView>
   @override
   void initState() {
     super.initState();
+    // BlocProvider.of<CounterCubit>(context);
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
   }
@@ -76,38 +78,26 @@ class _CustomTapViewState extends State<CustomTapView>
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomCardViewItem(
-                      progressColor: selectedTabColors[0],
-                      backgroundColor: R.colors.colorUnSelected,
-                    ),
+                    child: CustomQadimCardViewItem(),
                   ),
                 ),
 
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomCardViewItem(
-                      progressColor: selectedTabColors[1],
-                      backgroundColor: R.colors.orangeColor2,
-                    ),
+                    child: CustomSayantaliqCardViewItem(),
                   ),
                 ),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomCardViewItem(
-                      progressColor: selectedTabColors[2],
-                      backgroundColor: R.colors.greenColor2,
-                    ),
+                    child: CustomQadimCardViewItem(),
                   ),
                 ),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomCardViewItem(
-                      progressColor: selectedTabColors[3],
-                      backgroundColor: R.colors.redColor3,
-                    ),
+                    child: CustomQadimCardViewItem(),
                   ),
                 ),
               ],

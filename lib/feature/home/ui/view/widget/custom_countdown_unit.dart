@@ -9,6 +9,9 @@ class CountdownUnitWidget extends StatelessWidget {
   final int maxValue;
   final Color progressColor;
   final Color backgroundColor;
+  final double? radius;
+  final double? width;
+  final double? height;
 
   const CountdownUnitWidget({
     super.key,
@@ -17,6 +20,9 @@ class CountdownUnitWidget extends StatelessWidget {
     required this.maxValue,
     required this.progressColor,
     required this.backgroundColor,
+    this.radius,
+    this.width,
+    this.height,
   });
 
   @override
@@ -30,19 +36,20 @@ class CountdownUnitWidget extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             CircularPercentIndicator(
-              radius: 20.r,
+              radius: radius ?? 20.r,
               lineWidth: 5,
               percent: progress,
               progressColor: progressColor,
               backgroundColor: backgroundColor,
               circularStrokeCap: CircularStrokeCap.round,
               center: Container(
-                width: 30.w,
-                height: 30.h,
+                width: width ?? 30.w,
+                height: height ?? 30.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: R.colors.whiteLight,
                 ),
+
                 child: Center(
                   child: Text(
                     value.toString().padLeft(2, '0'),
@@ -55,7 +62,7 @@ class CountdownUnitWidget extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         Text(
           label,
           style: R.textStyles.font12primaryW600Light.copyWith(

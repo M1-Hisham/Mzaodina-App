@@ -5,23 +5,18 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_cloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 
-class CustomCardViewItem extends StatefulWidget {
-  final Color progressColor;
-  final Color backgroundColor;
-  const CustomCardViewItem({
-    super.key,
-    required this.progressColor,
-    required this.backgroundColor,
-  });
+class CustomQadimCardViewItem extends StatefulWidget {
+  const CustomQadimCardViewItem({super.key});
 
   @override
-  State<CustomCardViewItem> createState() => _CustomCardViewItemState();
+  State<CustomQadimCardViewItem> createState() =>
+      _CustomQadimCardViewItemState();
 }
 
-class _CustomCardViewItemState extends State<CustomCardViewItem> {
+class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
   DateTime eventTimeFromApi = DateTime.parse('2025-05-04 18:00:00');
   @override
   Widget build(BuildContext context) {
@@ -62,15 +57,18 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                         SizedBox(height: 12.h),
                         CustomBlocBuilderCountdown(
                           eventTime: eventTimeFromApi,
-                          progressColor: widget.progressColor,
-                          backgroundColor: widget.backgroundColor,
+                          progressColor: R.colors.primaryColorLight,
+                          backgroundColor: R.colors.colorUnSelected,
                         ),
                         SizedBox(height: 12.h),
                         CoustomRowItem(
                           title: 'السعر بالأسواق',
-                          price: '1,000.00',
+                          price: '1,000.00  ',
                         ),
-                        CoustomRowItem(title: 'بداية المزاد', price: '600.00'),
+                        CoustomRowItem(
+                          title: 'بداية المزاد',
+                          price: '600.00  ',
+                        ),
 
                         CustomIndcatorItem(
                           title: 'انطلاق المزاد',
@@ -91,7 +89,7 @@ class _CustomCardViewItemState extends State<CustomCardViewItem> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          AppRoutes.homeDetailsRoute,
+                          AppRoutes.homeDetailsQadimScreenRoute,
                         );
                       },
                       backgroundColor: R.colors.primaryColorLight,

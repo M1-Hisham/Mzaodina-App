@@ -4,13 +4,13 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_card_image_details.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
-class HomeDetailsScreen extends StatelessWidget {
-  const HomeDetailsScreen({super.key});
+class HomeDetailsQadimScreen extends StatelessWidget {
+  const HomeDetailsQadimScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +105,7 @@ class HomeDetailsScreen extends StatelessWidget {
                     onTap:
                         () => showDialog<String>(
                           context: context,
-                          builder:
-                              (BuildContext context) => CustomDialogItem(),
+                          builder: (BuildContext context) => CustomDialogItem(),
                         ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -149,9 +148,7 @@ class HomeDetailsScreen extends StatelessWidget {
 }
 
 class CustomDialogItem extends StatelessWidget {
-  const CustomDialogItem({
-    super.key,
-  });
+  const CustomDialogItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -169,27 +166,22 @@ class CustomDialogItem extends StatelessWidget {
             children: <Widget>[
               Text(
                 'تعليمات المزاد',
-                style: R
-                    .textStyles
-                    .font18GreyW500Light
-                    .copyWith(
-                      color: R.colors.greyColor,
-                    ),
+                style: R.textStyles.font18GreyW500Light.copyWith(
+                  color: R.colors.greyColor,
+                ),
               ),
               ...taelimatAlmazad.map(
                 (text) => CustomTextItem(
                   text: text,
-                  style: R
-                      .textStyles
-                      .font12Grey3W500Light
-                      .copyWith(height: 1.3),
+                  style: R.textStyles.font12Grey3W500Light.copyWith(
+                    height: 1.3,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
               CustomElevatedButton(
                 text: 'اغلاق',
-                onPressed:
-                    () => Navigator.pop(context),
+                onPressed: () => Navigator.pop(context),
               ),
             ],
           ),
