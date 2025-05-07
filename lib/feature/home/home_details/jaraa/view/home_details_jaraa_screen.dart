@@ -5,6 +5,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/bids_dialog.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
@@ -14,8 +15,16 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 
 class HomeDetailsJaraaScreen extends StatelessWidget {
   final DateTime eventTimeFromApi;
-  const HomeDetailsJaraaScreen({super.key, required this.eventTimeFromApi});
-
+  HomeDetailsJaraaScreen({super.key, required this.eventTimeFromApi});
+  final List<Bid> bids = List.generate(
+    10,
+    (index) => Bid(
+      number: index + 1,
+      name: 'مزايد ${index + 1}',
+      amount: 1200,
+      dateTime: DateTime(2025, 4, 18, 15, 25),
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +125,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'جاري',
-                            style: R.textStyles.font12whiteW500Light,
+                            style: R.textStyles.font10whiteW500Light,
                           ),
                         ),
                       ],
@@ -147,7 +156,15 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                   CustomJaraaPriceCard(),
 
                   const SizedBox(height: 8),
-                  CustomElevatedButton(text: 'سجل المزايدة', onPressed: () {}),
+                  CustomElevatedButton(
+                    text: 'سجل المزايدة',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => BidsDialog(bids: bids),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 12),
                   CustomTextMazadDetails(title: 'تفاصيل المنتج'),
                   const SizedBox(height: 8),

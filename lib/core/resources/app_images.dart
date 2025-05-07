@@ -28,6 +28,8 @@ class AppImages {
   String backIcon = "assets/icons/backIcon.svg";
 
   String backIconNotBorser = "assets/icons/backIconNotBorser.svg";
+  String backButton = "assets/icons/backbutton.svg";
+  String forwardButton = "assets/icons/forwardbutton.svg";
   String passwordAccountIcon = "assets/icons/passwordIcon.svg";
   String accountIcon = "assets/icons/accountIcon.svg";
   String settingIcon = "assets/icons/settingIcon.svg";
