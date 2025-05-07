@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_jaraa_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_sayantaliq_screen.dart';

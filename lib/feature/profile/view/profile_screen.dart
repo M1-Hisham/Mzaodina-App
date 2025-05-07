@@ -272,7 +272,7 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'تواصل واتس أب',
-                                style: R.textStyles.font12whiteW500Light,
+                                style: R.textStyles.font10whiteW500Light,
                               ),
                               SvgPicture.asset(R.images.whatsIcon),
                             ],

@@ -114,7 +114,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'تواصل واتس أب',
-                                style: R.textStyles.font12whiteW500Light,
+                                style: R.textStyles.font10whiteW500Light,
                               ),
                               Spacer(),
                               SvgPicture.asset(R.images.whatsIcon),

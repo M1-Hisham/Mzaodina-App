@@ -30,4 +30,5 @@ class AppColors {
   Color redColor2 = const Color(0xFFF62525);
   Color greyColor4 = const Color(0xFF626262);
   Color redColor3 = const Color(0x1AF62525);
+  Color secondButton = const Color(0xFF8295CB);
 }

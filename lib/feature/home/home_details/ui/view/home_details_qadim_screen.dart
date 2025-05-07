@@ -95,7 +95,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'قادم',
-                            style: R.textStyles.font12whiteW500Light,
+                            style: R.textStyles.font10whiteW500Light,
                           ),
                         ),
                       ],
