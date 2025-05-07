@@ -27,7 +27,7 @@ class NavBarScreen extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<NavBarCubit, int>(
         builder: (context, state) {
           return Container(
-            height: 80,
+            height: 100.h,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
