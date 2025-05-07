@@ -13,6 +13,7 @@ import 'package:mzaodina_app/feature/notifications/payment/ui/view/payment_detai
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
+import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
 import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
@@ -51,7 +52,13 @@ class AppRouter {
               ),
         );
       case AppRoutes.navBarRoute:
-        return MaterialPageRoute(builder: (_) => NavBarScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => NavBarCubit(),
+                child: NavBarScreen(),
+              ),
+        );
       case AppRoutes.aboutUsScreenRoute:
         return MaterialPageRoute(builder: (_) => AboutUsScreen());
       case AppRoutes.accountDetailsScreenRoute:
