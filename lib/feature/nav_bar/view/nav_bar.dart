@@ -1,111 +1,120 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
+import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
 import 'package:mzaodina_app/feature/search/view/search_screen.dart';
 
-class NavBarScreen extends StatefulWidget {
+class NavBarScreen extends StatelessWidget {
   const NavBarScreen({super.key});
 
   @override
-  State<NavBarScreen> createState() => _NavBarScreenState();
-}
-
-class _NavBarScreenState extends State<NavBarScreen> {
-  int _currentIndex = 0;
-
-  final List<Map<String, String>> _navItems = [
-    {
-      'unselectedIcon': R.images.homeIcon,
-      'selectedIcon': R.images.homeIconSelected,
-      'label': 'الرئيسية',
-    },
-    {
-      'unselectedIcon': R.images.searchIcon,
-      'selectedIcon': R.images.searchIconSelected,
-      'label': 'البحث',
-    },
-    {
-      'unselectedIcon': R.images.personIcon,
-      'selectedIcon': R.images.personIconSelected,
-      'label': 'الحساب',
-    },
-  ];
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const SearchScreen(),
-    const ProfileScreen(),
-  ];
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: R.colors.whiteLight,
-      body: _screens[_currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: R.colors.whiteLight,
-          boxShadow: [
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: R.colors.greyColor.withOpacity(0.1),
-              blurRadius: 20,
-              spreadRadius: 0.1,
-            ),
-          ],
-        ),
+      backgroundColor: Colors.white,
 
-        child: Padding(
-          padding: EdgeInsets.only(
-            bottom: 32.h,
-            top: 10.h,
-            right: 20.w,
-            left: 20.w,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(_navItems.length, (index) {
-              bool isSelected = _currentIndex == index;
-              return GestureDetector(
-                onTap: () => setState(() => _currentIndex = index),
-
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color:
-                            isSelected
-                                ? R.colors.primaryColorLight
-                                : Colors.transparent,
-                        borderRadius: BorderRadius.circular(100.r),
-                      ),
-                      child: SvgPicture.asset(
-                        isSelected
-                            ? _navItems[index]['selectedIcon']!
-                            : _navItems[index]['unselectedIcon']!,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-
-                    Text(
-                      _navItems[index]['label']!,
-                      style:
-                          isSelected
-                              ? R.textStyles.font12primaryW600Light
-                              : R.textStyles.font12GreyW500Light,
-                    ),
-                  ],
+      body: BlocBuilder<NavBarCubit, int>(
+        builder: (context, state) {
+          return IndexedStack(
+            index: state,
+            children: const [HomeScreen(), SearchScreen(), ProfileScreen()],
+          );
+        },
+      ),
+      bottomNavigationBar: BlocBuilder<NavBarCubit, int>(
+        builder: (context, state) {
+          return Container(
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: R.colors.greyColor.withOpacity(0.1),
+                  blurRadius: 20,
+                  spreadRadius: 0.1,
                 ),
-              );
-            }),
-          ),
-        ),
+              ],
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              selectedLabelStyle: R.textStyles.font12primaryW600Light,
+              unselectedLabelStyle: R.textStyles.font12GreyW500Light,
+
+              currentIndex: state,
+              onTap: (value) {
+                BlocProvider.of<NavBarCubit>(context).changeTab(value);
+              },
+              items: [
+                BottomNavigationBarItem(
+                  activeIcon: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    margin: EdgeInsets.only(bottom: 5.h),
+
+                    decoration: BoxDecoration(
+                      color: R.colors.primaryColorLight,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: SvgPicture.asset(R.images.homeIconSelected),
+                  ),
+                  icon: Container(
+                    padding: EdgeInsets.only(bottom: 5.h),
+
+                    child: SvgPicture.asset(R.images.homeIcon),
+                  ),
+                  label: 'الرئيسية',
+                ),
+                BottomNavigationBarItem(
+                  activeIcon: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    margin: EdgeInsets.only(bottom: 5.h),
+                    decoration: BoxDecoration(
+                      color: R.colors.primaryColorLight,
+
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: SvgPicture.asset(R.images.searchIconSelected),
+                  ),
+                  icon: Container(
+                    padding: EdgeInsets.only(bottom: 5.h),
+
+                    child: SvgPicture.asset(R.images.searchIcon),
+                  ),
+                  label: 'البحث',
+                ),
+                BottomNavigationBarItem(
+                  activeIcon: Container(
+                    margin: EdgeInsets.only(bottom: 5.h),
+
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: R.colors.primaryColorLight,
+
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: SvgPicture.asset(R.images.personIconSelected),
+                  ),
+                  icon: Container(
+                    padding: EdgeInsets.only(bottom: 5.h),
+                    child: SvgPicture.asset(R.images.personIcon),
+                  ),
+                  label: 'الحساب',
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
