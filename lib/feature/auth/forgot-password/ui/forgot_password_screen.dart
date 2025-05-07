@@ -49,7 +49,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                spacingV(120.h),
               ],
             ),
           ),
