@@ -24,7 +24,12 @@ class AuthScreen extends StatelessWidget {
             return Stack(
               children: [
                 Positioned(
-                  top: 250,
+                  top: 0,
+                  right: 0,
+                  child: SvgPicture.asset(R.images.appLogoFram39),
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.3,
                   left: 0,
                   child: SvgPicture.asset(R.images.appLogoFram40),
                 ),
@@ -48,20 +53,25 @@ class AuthScreen extends StatelessWidget {
                             },
                           ),
 
-                          Container(
-                            alignment: Alignment.bottomLeft,
-                            decoration: BoxDecoration(
-                              color: R.colors.whiteLight,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30.r),
-                                topRight: Radius.circular(30.r),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: BlocBuilder<AuthCubit, AuthState>(
-                                builder: (context, state) {
-                                  return Column(
+                          BlocBuilder<AuthCubit, AuthState>(
+                            builder: (context, state) {
+                              return Container(
+                                height:
+                                    state == AuthState.forgotPassword
+                                        ? MediaQuery.of(context).size.height *
+                                            0.6
+                                        : null,
+                                alignment: Alignment.bottomLeft,
+                                decoration: BoxDecoration(
+                                  color: R.colors.whiteLight,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.r),
+                                    topRight: Radius.circular(30.r),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Column(
                                     children: [
                                       spacingV(20.h),
                                       state == AuthState.forgotPassword
@@ -76,22 +86,20 @@ class AuthScreen extends StatelessWidget {
                                       if (state == AuthState.register)
                                         RegisterFormScreen(),
                                       if (state == AuthState.forgotPassword)
-                                        ForgotPasswordScreen(),
+                                        Align(
+                                          alignment: Alignment.topCenter,
+                                          child: ForgotPasswordScreen(),
+                                        ),
                                     ],
-                                  );
-                                },
-                              ),
-                            ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: SvgPicture.asset(R.images.appLogoFram39),
                 ),
               ],
             );
