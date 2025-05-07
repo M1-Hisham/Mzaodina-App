@@ -20,4 +20,6 @@ class AppRoutes {
   static const notificationsScreenRoute = '/NotificationsScreen';
   static const invoiceDetailsScreenRoute = '/InvoiceDetails';
   static const paymentDetailsScreenRoute = '/PaymentDetailsScreen';
+  static const completeShippingInformationScreenRoute =
+      '/CompleteShippingInformationScreen';
 }

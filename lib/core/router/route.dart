@@ -6,9 +6,10 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_munt
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
-import 'package:mzaodina_app/feature/home/notifications/view/widgets/invoice_details_screen.dart';
-import 'package:mzaodina_app/feature/home/notifications/view/notifications_screen.dart';
-import 'package:mzaodina_app/feature/home/notifications/view/payment_details_screen.dart';
+import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view/invoice_details_screen.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view/notifications_screen.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view/payment_details_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
@@ -69,6 +70,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => InvoiceDetailsScreen());
       case AppRoutes.paymentDetailsScreenRoute:
         return MaterialPageRoute(builder: (_) => PaymentDetailsScreen());
+      case AppRoutes.completeShippingInformationScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => CompleteShippingInformationScreen(),
+        );
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
           builder: (_) => ShippingAndReturnPolicyScreen(),
