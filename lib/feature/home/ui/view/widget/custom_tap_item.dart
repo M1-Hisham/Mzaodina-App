@@ -50,7 +50,7 @@ class CustomTapItem extends StatelessWidget {
               ),
               child: Text(
                 item.counter,
-                style: R.textStyles.font12whiteW500Light,
+                style: R.textStyles.font10whiteW500Light,
               ),
             ),
           ),

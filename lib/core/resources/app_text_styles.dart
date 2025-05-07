@@ -140,7 +140,7 @@ class AppTextStyles {
       fontWeight: FontWeight.w500,
     ),
   );
-  TextStyle font12whiteW500Light = GoogleFonts.rubik(
+  TextStyle font10whiteW500Light = GoogleFonts.rubik(
     textStyle: TextStyle(
       fontSize: 10.sp,
       color: R.colors.whiteLight,

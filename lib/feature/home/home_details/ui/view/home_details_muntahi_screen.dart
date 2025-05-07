@@ -5,13 +5,23 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/bids_dialog.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
 class HomeDetailsMuntahiScreen extends StatelessWidget {
-  const HomeDetailsMuntahiScreen({super.key});
+  HomeDetailsMuntahiScreen({super.key});
+
+  final List<Bid> bids = List.generate(
+    10,
+    (index) => Bid(
+      number: index + 1,
+      name: 'مزايد ${index + 1}',
+      amount: 1200,
+      dateTime: DateTime(2025, 4, 18, 15, 25),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +131,7 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'منتهي',
-                            style: R.textStyles.font12whiteW500Light,
+                            style: R.textStyles.font10whiteW500Light,
                           ),
                         ),
                       ],
@@ -172,9 +182,9 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
           backgroundColor: R.colors.redColor,
           text: 'سجل المزايدة',
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const JoinTheAuction()),
+            showDialog(
+              context: context,
+              builder: (context) => BidsDialog(bids: bids),
             );
           },
         ),

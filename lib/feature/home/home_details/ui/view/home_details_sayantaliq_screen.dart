@@ -123,7 +123,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'فى انتظار البدء',
-                            style: R.textStyles.font12whiteW500Light,
+                            style: R.textStyles.font10whiteW500Light,
                           ),
                         ),
                       ],
