@@ -19,104 +19,106 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: List.generate(values.length, (index) {
-            final isSelected = selectedIndex == index;
-            final value = values[index];
-
-            return Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                    selectedValue = value;
-                  });
-                },
-                child:
-                    isSelected
-                        ? SelectedButton(label: value.toString())
-                        : UnselectedButton(label: value.toString()),
-              ),
-            );
-          }),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          'تنبية : الفاتورة ستصلك بعد انتهاء المزاد',
-          style: R.textStyles.font14Grey400Light.copyWith(
-            color: R.colors.redColor,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: List.generate(values.length, (index) {
+              final isSelected = selectedIndex == index;
+              final value = values[index];
+      
+              return Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                      selectedValue = value;
+                    });
+                  },
+                  child:
+                      isSelected
+                          ? SelectedButton(label: value.toString())
+                          : UnselectedButton(label: value.toString()),
+                ),
+              );
+            }),
           ),
-        ),
-        const SizedBox(height: 24),
-        CustomElevatedButton(
-          text: 'زاود',
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) {
-                return AlertDialog(
-                  backgroundColor: R.colors.whiteLight,
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28),
-                    child: FittedBox(
-                      child: Row(
-                        children: [
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: ' هل متأكد من المزايده بهذا المبلغ  ',
-                                  style: R.textStyles.font18blackW500Light,
-                                ),
-
-                                TextSpan(
-                                  text: '$selectedValue ',
-                                  style: R.textStyles.font18primaryW500Light,
-                                ),
-                              ],
+          const SizedBox(height: 10),
+          Text(
+            'تنبية : الفاتورة ستصلك بعد انتهاء المزاد',
+            style: R.textStyles.font14Grey400Light.copyWith(
+              color: R.colors.redColor,
+            ),
+          ),
+          const SizedBox(height: 24),
+          CustomElevatedButton(
+            text: 'زاود',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    backgroundColor: R.colors.whiteLight,
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 28),
+                      child: FittedBox(
+                        child: Row(
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: ' هل متأكد من المزايده بهذا المبلغ  ',
+                                    style: R.textStyles.font18blackW500Light,
+                                  ),
+      
+                                  TextSpan(
+                                    text: '$selectedValue ',
+                                    style: R.textStyles.font18primaryW500Light,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          SvgPicture.asset(R.images.riyalPrimaryIcon),
-                        ],
+                            SvgPicture.asset(R.images.riyalPrimaryIcon),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  actions: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomElevatedButton(
-                            text: 'نعم',
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                    actions: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomElevatedButton(
+                              text: 'نعم',
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 30.w),
-                        Expanded(
-                          child: CustomElevatedButton(
-                            backgroundColor: R.colors.blackColor3,
-
-                            text: 'لا',
-                            textStyle: R.textStyles.font14BlackW500Light,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                          SizedBox(width: 30.w),
+                          Expanded(
+                            child: CustomElevatedButton(
+                              backgroundColor: R.colors.blackColor3,
+      
+                              text: 'لا',
+                              textStyle: R.textStyles.font14BlackW500Light,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          backgroundColor: R.colors.greenColor,
-        ),
-      ],
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            backgroundColor: R.colors.greenColor,
+          ),
+        ],
+      ),
     );
   }
 }
