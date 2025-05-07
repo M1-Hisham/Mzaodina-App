@@ -42,13 +42,13 @@ class NavBarScreen extends StatelessWidget {
               backgroundColor: Colors.white,
               selectedLabelStyle: R.textStyles.font12primaryW600Light,
               unselectedLabelStyle: R.textStyles.font12GreyW500Light,
-
               currentIndex: state,
               onTap: (value) {
                 BlocProvider.of<NavBarCubit>(context).changeTab(value);
               },
               items: [
                 BottomNavigationBarItem(
+                  
                   activeIcon: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
