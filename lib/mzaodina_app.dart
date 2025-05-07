@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
@@ -22,11 +23,7 @@ class MzaodinaApp extends StatelessWidget {
       },
       title: 'Mzaodina',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: R.colors.primaryColorLight,
-        ),
-      ),
+      theme: R.themeData.themeLight,
       initialRoute: AppRoutes.splasahRouter,
       onGenerateRoute: AppRouter.generateRoute,
     );
