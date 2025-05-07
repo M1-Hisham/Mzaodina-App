@@ -27,11 +27,11 @@ class NavBarScreen extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<NavBarCubit, int>(
         builder: (context, state) {
           return Container(
-            height: 100.h,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
+                  // ignore: deprecated_member_use
                   color: R.colors.greyColor.withOpacity(0.1),
                   blurRadius: 20,
                   spreadRadius: 0.1,
@@ -39,83 +39,66 @@ class NavBarScreen extends StatelessWidget {
               ],
             ),
             child: BottomNavigationBar(
+              selectedFontSize: 12.sp,
+              unselectedFontSize: 12.sp,
               backgroundColor: Colors.white,
               selectedLabelStyle: R.textStyles.font12primaryW600Light,
-              unselectedLabelStyle: R.textStyles.font12GreyW500Light,
+              unselectedLabelStyle: R.textStyles.font12GreyW500Light.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
               currentIndex: state,
               onTap: (value) {
                 BlocProvider.of<NavBarCubit>(context).changeTab(value);
               },
               items: [
-                BottomNavigationBarItem(
-                  
-                  activeIcon: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    margin: EdgeInsets.only(bottom: 5.h),
-
-                    decoration: BoxDecoration(
-                      color: R.colors.primaryColorLight,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: SvgPicture.asset(R.images.homeIconSelected),
-                  ),
-                  icon: Container(
-                    padding: EdgeInsets.only(bottom: 5.h),
-
-                    child: SvgPicture.asset(R.images.homeIcon),
-                  ),
-                  label: 'الرئيسية',
+                _buildBottomNavigationBarItem(
+                  'الرئيسية',
+                  R.images.homeIconSelected,
+                  R.images.homeIcon,
                 ),
-                BottomNavigationBarItem(
-                  activeIcon: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    margin: EdgeInsets.only(bottom: 5.h),
-                    decoration: BoxDecoration(
-                      color: R.colors.primaryColorLight,
-
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: SvgPicture.asset(R.images.searchIconSelected),
-                  ),
-                  icon: Container(
-                    padding: EdgeInsets.only(bottom: 5.h),
-
-                    child: SvgPicture.asset(R.images.searchIcon),
-                  ),
-                  label: 'البحث',
+                _buildBottomNavigationBarItem(
+                  'البحث',
+                  R.images.searchIconSelected,
+                  R.images.searchIcon,
                 ),
-                BottomNavigationBarItem(
-                  activeIcon: Container(
-                    margin: EdgeInsets.only(bottom: 5.h),
-
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: R.colors.primaryColorLight,
-
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: SvgPicture.asset(R.images.personIconSelected),
-                  ),
-                  icon: Container(
-                    padding: EdgeInsets.only(bottom: 5.h),
-                    child: SvgPicture.asset(R.images.personIcon),
-                  ),
-                  label: 'الحساب',
+                _buildBottomNavigationBarItem(
+                  'الحساب',
+                  R.images.personIconSelected,
+                  R.images.personIcon,
                 ),
               ],
             ),
           );
         },
       ),
+    );
+  }
+
+  BottomNavigationBarItem _buildBottomNavigationBarItem(
+    String title,
+    String selectedIcon,
+    String unselectedIcon,
+  ) {
+    return BottomNavigationBarItem(
+      activeIcon: Padding(
+        padding: const EdgeInsets.all(3),
+        child: Container(
+          margin: EdgeInsets.only(bottom: 5.h),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: R.colors.primaryColorLight,
+
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: SvgPicture.asset(selectedIcon),
+        ),
+      ),
+      icon: Container(
+        margin: EdgeInsets.only(bottom: 5.h),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: SvgPicture.asset(unselectedIcon),
+      ),
+      label: title,
     );
   }
 }

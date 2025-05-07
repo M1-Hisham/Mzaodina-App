@@ -35,9 +35,12 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return Directionality(textDirection: TextDirection.rtl, child: child!);
       },
-      title: 'Mzaodina', 
+      title: 'Mzaodina',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         colorScheme: ColorScheme.fromSeed(
           seedColor: R.colors.primaryColorLight,
         ),
