@@ -26,7 +26,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
           children: List.generate(values.length, (index) {
             final isSelected = selectedIndex == index;
             final value = values[index];
-
+    
             return Expanded(
               child: GestureDetector(
                 onTap: () {
@@ -71,7 +71,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
                                   text: ' هل متأكد من المزايده بهذا المبلغ  ',
                                   style: R.textStyles.font18blackW500Light,
                                 ),
-
+    
                                 TextSpan(
                                   text: '$selectedValue ',
                                   style: R.textStyles.font18primaryW500Light,
@@ -99,7 +99,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
                         Expanded(
                           child: CustomElevatedButton(
                             backgroundColor: R.colors.blackColor3,
-
+    
                             text: 'لا',
                             textStyle: R.textStyles.font14BlackW500Light,
                             onPressed: () {
