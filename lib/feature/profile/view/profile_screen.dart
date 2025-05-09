@@ -5,6 +5,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -237,7 +238,22 @@ class ProfileScreen extends StatelessWidget {
                   Row(
                     children: [
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse('https://x.com/Mzaodin'),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse('https://x.com/Mzaodin'),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
                         child: SvgPicture.asset(
                           R.images.xIcon,
                           width: 25.w,
@@ -246,8 +262,22 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse('https://www.tiktok.com/@mzaodin'),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse('https://www.tiktok.com/@mzaodin'),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
                         child: SvgPicture.asset(
                           R.images.tiktokIcon,
                           width: 25.w,
@@ -256,18 +286,51 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse(
+                              'https://www.instagram.com/mzaodin/?hl=ar',
+                            ),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse(
+                                'https://www.instagram.com/mzaodin/?hl=ar',
+                              ),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
                         child: SvgPicture.asset(
                           R.images.instaIcon,
                           width: 25.w,
                           height: 25.h,
                         ),
                       ),
+
                       SizedBox(width: 18.h),
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse('https://www.snapchat.com/add/mzaodin'),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse('https://www.snapchat.com/add/mzaodin'),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
                         child: SvgPicture.asset(
                           R.images.snapIcon,
                           width: 25.w,
@@ -277,8 +340,22 @@ class ProfileScreen extends StatelessWidget {
                       Spacer(),
 
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
+                        // onTap: () {
+                        //   if (await canLaunchUrl(
+                        //     Uri.parse('https://www.instagram.com/'),
+                        //   )) {
+                        //     // Check if the URL can be launched
+                        //     await launchUrl(
+                        //       Uri.parse('https://www.tiktok.com/@mzaodin'),
+                        //       mode: LaunchMode.externalApplication,
+                        //     ); // Launch the URL
+                        //   } else {
+                        //     // Handle the error if the URL cannot be launched
+                        //     debugPrint('Could not launch URL');
+                        //     SnackBar(content: Text('Could not launch URL'));
+                        //     // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                        //   }
+                        // },
                         child: Container(
                           width: 136.w,
                           decoration: BoxDecoration(
