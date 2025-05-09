@@ -47,7 +47,15 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
-                    child: CustomCardImageDetails(),
+                    child: CustomCardImageDetails(
+                      initialImages: [
+                        R.images.phoneImagePng,
+                        R.images.phoneImagePng1,
+                        R.images.phoneImagePng2,
+                        R.images.phoneImagePng3,
+                        R.images.phoneImagePng4,
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Padding(

@@ -51,7 +51,15 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 8),
-                  CustomCardImageDetails(),
+                  CustomCardImageDetails(
+                    initialImages: [
+                      R.images.phoneImagePng,
+                      R.images.phoneImagePng1,
+                      R.images.phoneImagePng2,
+                      R.images.phoneImagePng3,
+                      R.images.phoneImagePng4,
+                    ],
+                  ),
                   const SizedBox(height: 8),
                   CustomTextMazadDetails(title: 'تفاصيل المزاد'),
                   const SizedBox(height: 8),
