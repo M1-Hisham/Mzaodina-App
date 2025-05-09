@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/view_model/image_switcher_cubit/image_switcher_cubit.dart';
 
@@ -27,7 +28,7 @@ class _ImageSwitcherView extends StatelessWidget {
       child: Column(
         children: [
           const _MainImageView(),
-          const SizedBox(height: 18),
+          SizedBox(height: 18.h),
           const _ThumbnailsRow(),
         ],
       ),
@@ -52,7 +53,7 @@ class _MainImageView extends StatelessWidget {
           child: Image.asset(
             state.images[0],
             width: double.infinity,
-            height: 158,
+            height: 180.h,
             fit: BoxFit.contain,
           ),
         );
@@ -104,26 +105,22 @@ class _ThumbnailItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.read<ImageSwitcherCubit>().switchImages(index),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 9),
-        height: 62,
-        width: 80,
+        margin: EdgeInsets.symmetric(horizontal: 6.w),
+        height: 80.h,
+        width: 75.w,
         decoration: BoxDecoration(
           border: Border.all(
             color:
                 isSelected ? R.colors.primaryColorLight : R.colors.whiteColor2,
-            width: 1,
+            width: 1.w,
           ),
-          color: R.colors.blackColor2,
+          // color: R.colors.blackColor2,
           borderRadius: BorderRadius.circular(11),
         ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Image.asset(
-            imagePath,
-            width: 43,
-            height: 39,
-            fit: BoxFit.contain,
+        child: Expanded(
+          child: Align(
+            alignment: Alignment.center,
+            child: Image.asset(imagePath, fit: BoxFit.contain),
           ),
         ),
       ),
