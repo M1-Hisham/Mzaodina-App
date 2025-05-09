@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
@@ -38,57 +39,111 @@ class JoinTheAuction extends StatelessWidget {
               const SizedBox(height: 20),
               CustomElevatedButton(
                 text: 'تاكيد دفع الرسوم التنظيمية',
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) {
-                      return AlertDialog(
-                        backgroundColor: R.colors.whiteLight,
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28),
-                          child: FittedBox(
-                            child: Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'تم الاشتراك  ',
-                                    style: R.textStyles.font22blackW500Light,
-                                  ),
-                                  TextSpan(
-                                    text: 'فى المزاد ',
-                                    style: R.textStyles.font22blackW500Light
-                                        .copyWith(
-                                          color: R.colors.primaryColorLight,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: 'بنجاح',
-                                    style: R.textStyles.font22blackW500Light,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        actions: [
-                          SizedBox(height: 18),
-                          CustomElevatedButton(
-                            text: 'اغلاق',
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
+                onPressed: () => _showAuctionSuccessDialog(context),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _showAuctionSuccessDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: Center(
+              child: Container(
+                width: double.infinity,
+
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: R.colors.whiteLight,
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'لاتغلق النافذه',
+                      style: R.textStyles.font18blackW500Light,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20.h),
+                    Image.asset(
+                      'assets/icons/loadingJsonIcon.gif',
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+    );
+
+    bool isCancelled = false;
+    await Future.delayed(const Duration(seconds: 5)).catchError((_) {
+      isCancelled = true;
+    });
+
+    if (!isCancelled && context.mounted) {
+      Navigator.of(context).pop();
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder:
+            (_) => AlertDialog(
+              backgroundColor: R.colors.whiteLight,
+              contentPadding: EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(22),
+              ),
+              title: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'تم الاشتراك ',
+                            style: R.textStyles.font22blackW500Light,
+                          ),
+                          TextSpan(
+                            text: 'في المزاد ',
+                            style: R.textStyles.font22blackW500Light.copyWith(
+                              color: R.colors.primaryColorLight,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'بنجاح',
+                            style: R.textStyles.font22blackW500Light,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  CustomElevatedButton(
+                    text: 'اغلاق',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+      );
+    }
   }
 
   Widget _warning() {

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_jaraa_card_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_muntahi_cart_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_qadim_card_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/custom_jaraa_card_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/view/widget/custom_muntahi_cart_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/view/widget/custom_qadim_card_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/view/widget/custom_sayantaliq_cart_virew_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 
 class CustomTapView extends StatefulWidget {

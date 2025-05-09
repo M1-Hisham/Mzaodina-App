@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class CountdownUnitWidget extends StatelessWidget {
   final int value;
@@ -9,67 +7,81 @@ class CountdownUnitWidget extends StatelessWidget {
   final int maxValue;
   final Color progressColor;
   final Color backgroundColor;
-  final double? radius;
-  final double? width;
-  final double? height;
-
+  final double sizeFactor;
   const CountdownUnitWidget({
     super.key,
     required this.value,
     required this.label,
     required this.maxValue,
-    required this.progressColor,
-    required this.backgroundColor,
-    this.radius,
-    this.width,
-    this.height,
+    this.progressColor = Colors.blue,
+    this.backgroundColor = Colors.grey,
+    this.sizeFactor = 0.9,
   });
 
   @override
   Widget build(BuildContext context) {
-    double progress = 1 - (value / maxValue);
+    double progress =
+        1 -
+        (value /
+            maxValue); //ده علشا ن المؤشر يبدأ مليان وينتهي فاضي لو عاوز العكس استخدم اما لو عاوز العكس استخدم value / maxValue ع طول
+
     progress = progress.clamp(0.0, 1.0);
 
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            CircularPercentIndicator(
-              radius: radius ?? 20.r,
-              lineWidth: 5,
-              percent: progress,
-              progressColor: progressColor,
-              backgroundColor: backgroundColor,
-              circularStrokeCap: CircularStrokeCap.round,
-              center: Container(
-                width: width ?? 30.w,
-                height: height ?? 30.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: R.colors.whiteLight,
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // استخدام أصغر بعد (عرض أو ارتفاع) لضمان التناسب
+        final minDimension =
+            constraints.maxWidth > constraints.maxHeight
+                ? constraints.maxHeight
+                : constraints.maxWidth;
 
-                child: Center(
-                  child: Text(
-                    value.toString().padLeft(2, '0'),
-                    style: R.textStyles.font14whiteW500Light.copyWith(
+        // حساب القطر بناء على المساحة المتاحة
+        final diameter = minDimension * sizeFactor;
+
+        // سماكة المؤشر
+        final strokeWidth = diameter * 0.1;
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: diameter,
+              height: diameter,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: diameter,
+                    height: diameter,
+                    child: CircularProgressIndicator(
+                      value: progress,
+                      strokeWidth: strokeWidth,
                       color: progressColor,
+                      backgroundColor: backgroundColor,
                     ),
                   ),
-                ),
+
+                  Center(
+                    child: Text(
+                      value.toString().padLeft(2, '0'),
+                      style: R.textStyles.font14whiteW500Light.copyWith(
+                        color: progressColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              label,
+              style: R.textStyles.font12primaryW600Light.copyWith(
+                color: R.colors.black,
               ),
             ),
           ],
-        ),
-        const SizedBox(height: 12),
-        Text(
-          label,
-          style: R.textStyles.font12primaryW600Light.copyWith(
-            color: R.colors.black,
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

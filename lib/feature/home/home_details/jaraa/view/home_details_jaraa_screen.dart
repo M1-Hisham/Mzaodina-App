@@ -6,10 +6,10 @@ import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/bids_dialog.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_jaraa_price_card.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/custom_jaraa_price_card.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
@@ -44,10 +44,16 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomBlocBuilderCountdown(
-                    eventTime: eventTimeFromApi,
-                    progressColor: R.colors.greenColor,
-                    backgroundColor: R.colors.greenColor2,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40.w,
+                      vertical: 12,
+                    ),
+                    child: CustomBlocBuilderCountdown(
+                      eventTime: eventTimeFromApi,
+                      progressColor: R.colors.greenColor,
+                      backgroundColor: R.colors.greenColor2,
+                    ),
                   ),
 
                   const SizedBox(height: 8),
@@ -136,7 +142,9 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                     onTap:
                         () => showDialog<String>(
                           context: context,
-                          builder: (BuildContext context) => CustomDialogItem(),
+                          builder:
+                              (BuildContext context) =>
+                                  CustomDialogTaelimatItem(),
                         ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),

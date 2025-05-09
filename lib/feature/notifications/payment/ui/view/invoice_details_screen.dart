@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view/widgets/countdown_timer_invoice.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
 class InvoiceDetailsScreen extends StatelessWidget {
@@ -72,10 +73,9 @@ class InvoiceDetailsScreen extends StatelessWidget {
                               'دقيقة',
                               style: R.textStyles.font14Grey3W500Light,
                             ),
-                            Text(
-                              ' 30:00',
-                              style: R.textStyles.font16primaryW600Light,
-                            ),
+                            CountdownTimerInvoice(
+                              initialDuration: const Duration(minutes: 30),
+                            ), // بدء المؤقت من 30 دقيقة
                           ],
                         ),
                       ],
