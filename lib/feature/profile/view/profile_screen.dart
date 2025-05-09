@@ -50,7 +50,11 @@ class ProfileScreen extends StatelessWidget {
 
                       child: CustomAccountListTile(
                         title: 'معلومات الحساب',
-                        leading: SvgPicture.asset(R.images.accountIcon),
+                        leading: SvgPicture.asset(
+                          R.images.accountIcon,
+                          width: 17.5.w,
+                          height: 17.5.w,
+                        ),
                       ),
                     ),
                     Divider(
@@ -67,14 +71,12 @@ class ProfileScreen extends StatelessWidget {
                           ),
                       child: CustomAccountListTile(
                         title: 'تغير كلمة المرور',
-                        leading: SvgPicture.asset(R.images.passwordAccountIcon),
+                        leading: SvgPicture.asset(
+                          R.images.passwordAccountIcon,
+                          width: 17.5.w,
+                          height: 17.5.w,
+                        ),
                       ),
-                    ),
-                    Divider(
-                      color: R.colors.colorUnSelected,
-                      height: 1.h,
-                      endIndent: 14.w,
-                      indent: 14.w,
                     ),
                     InkWell(
                       onTap: () {
@@ -86,7 +88,11 @@ class ProfileScreen extends StatelessWidget {
 
                       child: CustomAccountListTile(
                         title: 'الاعدادات',
-                        leading: SvgPicture.asset(R.images.settingIcon),
+                        leading: SvgPicture.asset(
+                          R.images.settingIcon,
+                          width: 17.5.w,
+                          height: 17.5.w,
+                        ),
                       ),
                     ),
                   ],
@@ -192,7 +198,7 @@ class ProfileScreen extends StatelessWidget {
                               width: 130.w,
                               height: 5.h,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
+                                borderRadius: BorderRadius.circular(100.r),
                                 color: R.colors.greyColor3,
                               ),
                             ),
@@ -205,7 +211,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
-                              text: 'اغلاق',
+                              text: 'الغاء',
                               onPressed: () {
                                 Navigator.pop(context);
                               },
@@ -232,25 +238,41 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
-                        child: SvgPicture.asset(R.images.xIcon),
+                        child: SvgPicture.asset(
+                          R.images.xIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
-                        child: SvgPicture.asset(R.images.tiktokIcon),
+                        child: SvgPicture.asset(
+                          R.images.tiktokIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
-                        child: SvgPicture.asset(R.images.instaIcon),
+                        child: SvgPicture.asset(
+                          R.images.instaIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
                         onTap: () => debugPrint('تواصل معنا على تويتر'),
 
-                        child: SvgPicture.asset(R.images.snapIcon),
+                        child: SvgPicture.asset(
+                          R.images.snapIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       Spacer(),
 
@@ -296,6 +318,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 24.h),
             ],
           ),
         ),

@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget {
             minWidth: 50.w,
             maxWidth: 100.w,
             minHeight: 35.h,
-            maxHeight: 40,
+            maxHeight: 40.h,
           ),
           child: CustomElevatedButton(
             borderRadius: 8,

@@ -10,7 +10,7 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/home_details_qadi
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_jaraa_price_card.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
 class HomeDetailsJaraaScreen extends StatelessWidget {

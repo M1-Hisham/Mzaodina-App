@@ -53,7 +53,11 @@ class CustomAppBarHome extends StatelessWidget {
                                   context,
                                   AppRoutes.notificationsScreenRoute,
                                 ),
-                            child: SvgPicture.asset(R.images.iconNotiv),
+                            child: SvgPicture.asset(
+                              R.images.iconNotiv,
+                              width: 26.w,
+                              height: 26.h,
+                            ),
                           ),
                           Positioned(
                             right: 0,

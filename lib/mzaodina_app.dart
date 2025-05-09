@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/router/route.dart';
@@ -11,6 +11,16 @@ class MzaodinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        ScreenUtil.init(
+          context,
+          designSize: const Size(402, 874),
+          minTextAdapt: true,
+          splitScreenMode: true,
+        );
+        ScreenUtil.enableScale(enableWH: () => true, enableText: () => true);
+        return Directionality(textDirection: TextDirection.rtl, child: child!);
+      },
       locale: const Locale('ar'),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -18,9 +28,6 @@ class MzaodinaApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [Locale('ar')],
-      builder: (context, child) {
-        return Directionality(textDirection: TextDirection.rtl, child: child!);
-      },
       title: 'Mzaodina',
       debugShowCheckedModeBanner: false,
       theme: R.themeData.themeLight,

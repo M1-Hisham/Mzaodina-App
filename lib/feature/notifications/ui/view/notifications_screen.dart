@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
@@ -20,11 +21,11 @@ class NotificationsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
                       decoration: BoxDecoration(
                         color: R.colors.blackColor3,
 
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
                         children: [
@@ -50,10 +51,9 @@ class NotificationsScreen extends StatelessWidget {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
-
+                      padding: EdgeInsets.only(top: 20.h),
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
                         decoration: BoxDecoration(
                           color: R.colors.blackColor3,
                           borderRadius: BorderRadius.circular(8),
@@ -89,7 +89,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget _customAppBar({required String title, context}) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 12, top: 12),
+        padding: EdgeInsets.symmetric(vertical: 12.h),
         child: Stack(
           alignment: Alignment.center,
           children: [
