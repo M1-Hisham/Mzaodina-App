@@ -6,7 +6,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 
 class SelectCountry extends StatefulWidget {
   final Color? color;
-  const SelectCountry({super.key, this.color,});
+  const SelectCountry({super.key, this.color});
 
   @override
   State<SelectCountry> createState() => _SelectCountryState();
@@ -48,7 +48,7 @@ class _SelectCountryState extends State<SelectCountry> {
         );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16.dg, horizontal: 12.dg),
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8.r)),
 
@@ -60,7 +60,7 @@ class _SelectCountryState extends State<SelectCountry> {
           children: [
             Text(
               '${selectedCountry.name}  ${selectedCountry.flagEmoji}',
-              style:  const TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 17.sp),
             ),
             SvgPicture.asset(R.images.dropDownIcon, width: 14.w, height: 8.h),
           ],

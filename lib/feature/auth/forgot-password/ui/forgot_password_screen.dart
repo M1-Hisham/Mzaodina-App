@@ -24,7 +24,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
                     padding: EdgeInsets.all(10.r),
-                    child: SvgPicture.asset(R.images.emailIcon),
+                    child: SvgPicture.asset(
+                      R.images.emailIcon,
+                      width: 23.w,
+                      height: 23.h,
+                    ),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
