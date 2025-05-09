@@ -77,30 +77,22 @@ class _CustomTapViewState extends State<CustomTapView>
             child: TabBarView(
               controller: _tabController,
               children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CustomQadimCardViewItem(),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomQadimCardViewItem(),
                 ),
 
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CustomSayantaliqCardViewItem(),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomSayantaliqCardViewItem(),
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CustomJaraaCardViewItem(),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomJaraaCardViewItem(),
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CustomMuntahiCardViewItem(),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomMuntahiCardViewItem(),
                 ),
               ],
             ),

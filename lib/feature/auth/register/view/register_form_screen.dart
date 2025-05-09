@@ -28,7 +28,11 @@ class RegisterFormScreen extends StatelessWidget {
               hintText: 'اسم المستخدم',
               prefixIcon: Padding(
                 padding: EdgeInsets.all(10.r),
-                child: SvgPicture.asset(R.images.userNameIcon),
+                child: SvgPicture.asset(
+                  R.images.userNameIcon,
+                  width: 23.w,
+                  height: 23.h,
+                ),
               ),
               keyboardType: TextInputType.name,
             ),
@@ -41,7 +45,11 @@ class RegisterFormScreen extends StatelessWidget {
               hintText: 'البريد الالكتروني',
               prefixIcon: Padding(
                 padding: EdgeInsets.all(10.r),
-                child: SvgPicture.asset(R.images.emailIcon),
+                child: SvgPicture.asset(
+                  R.images.emailIcon,
+                  width: 23.w,
+                  height: 23.h,
+                ),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -51,7 +59,11 @@ class RegisterFormScreen extends StatelessWidget {
               isObscureText: true,
               prefixIcon: Padding(
                 padding: EdgeInsets.all(10.r),
-                child: SvgPicture.asset(R.images.passwordIcon),
+                child: SvgPicture.asset(
+                  R.images.passwordIcon,
+                  width: 23.w,
+                  height: 23.h,
+                ),
               ),
               keyboardType: TextInputType.visiblePassword,
             ),
@@ -61,7 +73,11 @@ class RegisterFormScreen extends StatelessWidget {
               isObscureText: true,
               prefixIcon: Padding(
                 padding: EdgeInsets.all(10.r),
-                child: SvgPicture.asset(R.images.passwordIcon),
+                child: SvgPicture.asset(
+                  R.images.passwordIcon,
+                  width: 23.w,
+                  height: 23.h,
+                ),
               ),
               keyboardType: TextInputType.visiblePassword,
             ),

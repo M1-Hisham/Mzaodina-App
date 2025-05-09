@@ -16,7 +16,11 @@ class CustomAccountListTile extends StatelessWidget {
       minVerticalPadding: 0,
       minTileHeight: 0,
       minLeadingWidth: 0,
-      trailing: SvgPicture.asset(R.images.backIconNotBorser),
+      trailing: SvgPicture.asset(
+        R.images.backIconNotBorser,
+        width: 20.w,
+        height: 20.h,
+      ),
       title: Text(title, style: R.textStyles.font14Grey3W500Light),
       leading: leading,
     );

@@ -46,11 +46,8 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
       fillColor: widget.fillColor ?? R.colors.formColorLight,
       hintStyle:
           widget.hintStyle ??
-          TextStyle(
+          R.textStyles.font12Grey3W500Light.copyWith(
             color: R.colors.hintTextColorLight,
-            fontSize: 14,
-            // fontFamily: 'Rubik',
-            fontWeight: FontWeight.w500,
           ),
       prefixIcon: Container(
         padding: const EdgeInsets.all(10),
@@ -70,12 +67,12 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
           child: RichText(
             text: TextSpan(
               text: selectedCountry.flagEmoji,
-              style: TextStyle(fontSize: 20.sp),
+              style: TextStyle(fontSize: 28.r),
               children: [
                 TextSpan(
                   text: ' +${selectedCountry.phoneCode}   ',
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 22.r,
                     color: R.colors.textColorLight,
                   ),
                 ),
