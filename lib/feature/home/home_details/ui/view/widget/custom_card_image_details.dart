@@ -1,105 +1,131 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/view_model/image_switcher_cubit/image_switcher_cubit.dart';
 
 class CustomCardImageDetails extends StatelessWidget {
-  const CustomCardImageDetails({super.key});
+  final List<String> initialImages;
+
+  const CustomCardImageDetails({super.key, required this.initialImages});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ImageSwitcherCubit(initialImages),
+      child: const _ImageSwitcherView(),
+    );
+  }
+}
+
+class _ImageSwitcherView extends StatelessWidget {
+  const _ImageSwitcherView();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 8, right: 16, left: 16, bottom: 18),
-            child: Image.asset(
-              R.images.phoneImagePng,
-              width: double.infinity,
-              height: 158.h,
-            ),
+          const _MainImageView(),
+          const SizedBox(height: 18),
+          const _ThumbnailsRow(),
+        ],
+      ),
+    );
+  }
+}
+
+class _MainImageView extends StatelessWidget {
+  const _MainImageView();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ImageSwitcherCubit, ImageSwitcherState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: 8,
+            right: 16,
+            left: 16,
+            bottom: 18,
           ),
-          Row(
+          child: Image.asset(
+            state.images[0],
+            width: double.infinity,
+            height: 158,
+            fit: BoxFit.contain,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ThumbnailsRow extends StatelessWidget {
+  const _ThumbnailsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ImageSwitcherCubit, ImageSwitcherState>(
+      builder: (context, state) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 9.w),
-                height: 62.h,
-                width: 80.w,
-                decoration: BoxDecoration(
-                  border: Border.all(color: R.colors.whiteColor2, width: 1),
-                  color: R.colors.blackColor2,
-
-                  borderRadius: BorderRadius.circular(11.r),
+              for (int i = 1; i < state.images.length; i++)
+                _ThumbnailItem(
+                  imagePath: state.images[i],
+                  index: i,
+                  isSelected:
+                      state is ImageSwitcherUpdated && state.selectedIndex == i,
                 ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    R.images.phoneImagePng,
-                    width: 43,
-                    height: 39,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 9.w),
-                height: 62.h,
-                width: 80.w,
-                decoration: BoxDecoration(
-                  border: Border.all(color: R.colors.whiteColor2, width: 1),
-                  color: R.colors.blackColor2,
-                  borderRadius: BorderRadius.circular(11.r),
-                ),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Image.asset(
-                    R.images.phoneImagePng,
-                    width: 43,
-                    height: 39,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 9.w),
-                height: 62.h,
-                width: 80.w,
-                decoration: BoxDecoration(
-                  border: Border.all(color: R.colors.whiteColor2, width: 1),
-                  color: R.colors.blackColor2,
-
-                  borderRadius: BorderRadius.circular(11.r),
-                ),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Image.asset(
-                    R.images.phoneImagePng,
-                    width: 43,
-                    height: 39,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 9.w),
-                height: 62.h,
-                width: 80.w,
-                decoration: BoxDecoration(
-                  border: Border.all(color: R.colors.whiteColor2, width: 1),
-                  color: R.colors.blackColor2,
-
-                  borderRadius: BorderRadius.circular(11.r),
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    R.images.phoneImagePng,
-                    width: 43,
-                    height: 39,
-                  ),
-                ),
-              ),
             ],
           ),
-        ],
+        );
+      },
+    );
+  }
+}
+
+class _ThumbnailItem extends StatelessWidget {
+  final String imagePath;
+  final int index;
+  final bool isSelected;
+
+  const _ThumbnailItem({
+    required this.imagePath,
+    required this.index,
+    required this.isSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.read<ImageSwitcherCubit>().switchImages(index),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 9),
+        height: 62,
+        width: 80,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color:
+                isSelected ? R.colors.primaryColorLight : R.colors.whiteColor2,
+            width: 1,
+          ),
+          color: R.colors.blackColor2,
+          borderRadius: BorderRadius.circular(11),
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: Image.asset(
+            imagePath,
+            width: 43,
+            height: 39,
+            fit: BoxFit.contain,
+          ),
+        ),
       ),
     );
   }
