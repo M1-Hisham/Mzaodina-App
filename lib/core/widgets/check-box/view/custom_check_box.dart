@@ -12,6 +12,7 @@ class CustomCheckbox extends StatelessWidget {
     return BlocBuilder<CheckboxCubit, CheckboxState>(
       builder: (context, state) {
         return Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           checkColor: R.colors.whiteLight,
           activeColor: R.colors.primaryColorLight,
           side: BorderSide(color: R.colors.borderColorsLight),

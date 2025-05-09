@@ -5,6 +5,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -50,7 +51,11 @@ class ProfileScreen extends StatelessWidget {
 
                       child: CustomAccountListTile(
                         title: 'معلومات الحساب',
-                        leading: SvgPicture.asset(R.images.accountIcon),
+                        leading: SvgPicture.asset(
+                          R.images.accountIcon,
+                          width: 17.5.w,
+                          height: 17.5.w,
+                        ),
                       ),
                     ),
                     Divider(
@@ -67,14 +72,12 @@ class ProfileScreen extends StatelessWidget {
                           ),
                       child: CustomAccountListTile(
                         title: 'تغير كلمة المرور',
-                        leading: SvgPicture.asset(R.images.passwordAccountIcon),
+                        leading: SvgPicture.asset(
+                          R.images.passwordAccountIcon,
+                          width: 17.5.w,
+                          height: 17.5.w,
+                        ),
                       ),
-                    ),
-                    Divider(
-                      color: R.colors.colorUnSelected,
-                      height: 1.h,
-                      endIndent: 14.w,
-                      indent: 14.w,
                     ),
                     InkWell(
                       onTap: () {
@@ -86,7 +89,11 @@ class ProfileScreen extends StatelessWidget {
 
                       child: CustomAccountListTile(
                         title: 'الاعدادات',
-                        leading: SvgPicture.asset(R.images.settingIcon),
+                        leading: SvgPicture.asset(
+                          R.images.settingIcon,
+                          width: 17.5.w,
+                          height: 17.5.w,
+                        ),
                       ),
                     ),
                   ],
@@ -192,7 +199,7 @@ class ProfileScreen extends StatelessWidget {
                               width: 130.w,
                               height: 5.h,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
+                                borderRadius: BorderRadius.circular(100.r),
                                 color: R.colors.greyColor3,
                               ),
                             ),
@@ -205,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
-                              text: 'اغلاق',
+                              text: 'الغاء',
                               onPressed: () {
                                 Navigator.pop(context);
                               },
@@ -231,32 +238,124 @@ class ProfileScreen extends StatelessWidget {
                   Row(
                     children: [
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-                        child: SvgPicture.asset(R.images.xIcon),
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse('https://x.com/Mzaodin'),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse('https://x.com/Mzaodin'),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          R.images.xIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
-                        child: SvgPicture.asset(R.images.tiktokIcon),
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse('https://www.tiktok.com/@mzaodin'),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse('https://www.tiktok.com/@mzaodin'),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          R.images.tiktokIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       SizedBox(width: 18.h),
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
-                        child: SvgPicture.asset(R.images.instaIcon),
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse(
+                              'https://www.instagram.com/mzaodin/?hl=ar',
+                            ),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse(
+                                'https://www.instagram.com/mzaodin/?hl=ar',
+                              ),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          R.images.instaIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
+
                       SizedBox(width: 18.h),
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
-                        child: SvgPicture.asset(R.images.snapIcon),
+                        onTap: () async {
+                          if (await canLaunchUrl(
+                            Uri.parse('https://www.snapchat.com/add/mzaodin'),
+                          )) {
+                            // Check if the URL can be launched
+                            await launchUrl(
+                              Uri.parse('https://www.snapchat.com/add/mzaodin'),
+                              mode: LaunchMode.externalApplication,
+                            ); // Launch the URL
+                          } else {
+                            // Handle the error if the URL cannot be launched
+                            debugPrint('Could not launch URL');
+                            SnackBar(content: Text('Could not launch URL'));
+                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          R.images.snapIcon,
+                          width: 25.w,
+                          height: 25.h,
+                        ),
                       ),
                       Spacer(),
 
                       InkWell(
-                        onTap: () => debugPrint('تواصل معنا على تويتر'),
-
+                        // onTap: () {
+                        //   if (await canLaunchUrl(
+                        //     Uri.parse('https://www.instagram.com/'),
+                        //   )) {
+                        //     // Check if the URL can be launched
+                        //     await launchUrl(
+                        //       Uri.parse('https://www.tiktok.com/@mzaodin'),
+                        //       mode: LaunchMode.externalApplication,
+                        //     ); // Launch the URL
+                        //   } else {
+                        //     // Handle the error if the URL cannot be launched
+                        //     debugPrint('Could not launch URL');
+                        //     SnackBar(content: Text('Could not launch URL'));
+                        //     // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                        //   }
+                        // },
                         child: Container(
                           width: 136.w,
                           decoration: BoxDecoration(
@@ -296,6 +395,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 24.h),
             ],
           ),
         ),

@@ -24,8 +24,12 @@ class LoginFormScreen extends StatelessWidget {
                 CustomTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
-                    padding: EdgeInsets.all(10.r),
-                    child: SvgPicture.asset(R.images.emailIcon),
+                    padding: EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      R.images.emailIcon,
+                      width: 23.w,
+                      height: 23.h,
+                    ),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -35,7 +39,11 @@ class LoginFormScreen extends StatelessWidget {
                   isObscureText: true,
                   prefixIcon: Padding(
                     padding: EdgeInsets.all(10.r),
-                    child: SvgPicture.asset(R.images.passwordIcon),
+                    child: SvgPicture.asset(
+                      R.images.passwordIcon,
+                      width: 23.w,
+                      height: 23.h,
+                    ),
                   ),
                   keyboardType: TextInputType.visiblePassword,
                 ),

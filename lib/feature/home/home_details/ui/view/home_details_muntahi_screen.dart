@@ -7,7 +7,7 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/bids_dialog.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_textItem.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
 class HomeDetailsMuntahiScreen extends StatelessWidget {

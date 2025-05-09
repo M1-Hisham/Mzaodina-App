@@ -72,13 +72,9 @@ class CustomTextForm extends StatelessWidget {
         hintText: hintText,
         hintStyle:
             hintStyle ??
-            TextStyle(
+            R.textStyles.font12Grey3W500Light.copyWith(
               color: R.colors.hintTextColorLight,
-              fontSize: 14,
-              // fontFamily: 'Rubik',
-              fontWeight: FontWeight.w500,
             ),
-
         isDense: true,
         contentPadding:
             contentPadding ??

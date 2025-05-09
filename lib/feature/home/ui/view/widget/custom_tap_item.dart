@@ -43,14 +43,18 @@ class CustomTapItem extends StatelessWidget {
           right: 0,
           child: Center(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(horizontal: 5.h),
               decoration: BoxDecoration(
                 color: R.colors.greyColor2,
                 borderRadius: BorderRadius.circular(99.r),
               ),
-              child: Text(
-                item.counter,
-                style: R.textStyles.font10whiteW500Light,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  item.counter,
+                  style: R.textStyles.font10whiteW500Light,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
