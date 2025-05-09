@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class CountdownUnitWidget extends StatelessWidget {
@@ -39,14 +40,14 @@ class CountdownUnitWidget extends StatelessWidget {
         final diameter = minDimension * sizeFactor;
 
         // سماكة المؤشر
-        final strokeWidth = diameter * 0.1;
+        final strokeWidth = diameter * 0.08;
 
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              width: diameter,
-              height: diameter,
+              width: diameter.w,
+              height: diameter.h,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -72,7 +73,7 @@ class CountdownUnitWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: 5.h),
             Text(
               label,
               style: R.textStyles.font12primaryW600Light.copyWith(
