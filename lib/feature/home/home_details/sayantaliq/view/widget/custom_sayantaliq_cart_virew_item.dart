@@ -6,7 +6,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
 class CustomSayantaliqCardViewItem extends StatefulWidget {
@@ -19,7 +19,7 @@ class CustomSayantaliqCardViewItem extends StatefulWidget {
 
 class _CustomQadimCardViewItemState
     extends State<CustomSayantaliqCardViewItem> {
-  DateTime eventTimeFromApi = DateTime.parse('2025-05-06 18:00:00');
+  DateTime eventTimeFromApi = DateTime.parse('2025-05-09 18:00:00');
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

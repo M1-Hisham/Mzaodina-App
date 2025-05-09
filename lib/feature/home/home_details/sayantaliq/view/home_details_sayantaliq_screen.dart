@@ -7,7 +7,7 @@ import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_cloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
@@ -38,10 +38,16 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomBlocBuilderCountdown(
-                    eventTime: eventTimeFromApi,
-                    progressColor: R.colors.orangeColor,
-                    backgroundColor: R.colors.orangeColor2,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40.w,
+                      vertical: 12,
+                    ),
+                    child: CustomBlocBuilderCountdown(
+                      eventTime: eventTimeFromApi,
+                      progressColor: R.colors.orangeColor,
+                      backgroundColor: R.colors.orangeColor2,
+                    ),
                   ),
 
                   const SizedBox(height: 8),

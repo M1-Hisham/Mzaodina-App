@@ -26,7 +26,8 @@ class AppImages {
   String taelimatIcon = "assets/icons/taelimatIcon.svg";
   String taelimatIconPng = "assets/icons/taelimatIcon.png";
   String backIcon = "assets/icons/backIcon.svg";
-
+  String loadingIcon = "assets/icons/loadingIcon.svg";
+  String loadingJsonIcon = "assets/icons/loadingJsonIcon.gif";
   String backIconNotBorser = "assets/icons/backIconNotBorser.svg";
   String backButton = "assets/icons/backbutton.svg";
   String forwardButton = "assets/icons/forwardbutton.svg";
