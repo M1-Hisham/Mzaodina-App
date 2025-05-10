@@ -6,6 +6,7 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -340,22 +341,12 @@ class ProfileScreen extends StatelessWidget {
                       Spacer(),
 
                       InkWell(
-                        // onTap: () {
-                        //   if (await canLaunchUrl(
-                        //     Uri.parse('https://www.instagram.com/'),
-                        //   )) {
-                        //     // Check if the URL can be launched
-                        //     await launchUrl(
-                        //       Uri.parse('https://www.tiktok.com/@mzaodin'),
-                        //       mode: LaunchMode.externalApplication,
-                        //     ); // Launch the URL
-                        //   } else {
-                        //     // Handle the error if the URL cannot be launched
-                        //     debugPrint('Could not launch URL');
-                        //     SnackBar(content: Text('Could not launch URL'));
-                        //     // throw 'Could not launch'; // throw could be used to handle erroneous situations
-                        //   }
-                        // },
+                        onTap: () async {
+                          await launchUrlString(
+                            'https://wa.me/01507569512?text=Hello,\ni\'m coming from App Mzaodina',
+                            mode: LaunchMode.externalApplication,
+                          );
+                        },
                         child: Container(
                           width: 136.w,
                           decoration: BoxDecoration(
