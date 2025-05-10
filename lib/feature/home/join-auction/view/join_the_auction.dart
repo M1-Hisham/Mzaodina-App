@@ -60,7 +60,7 @@ class JoinTheAuction extends StatelessWidget {
               child: Container(
                 width: double.infinity,
 
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(20.r),
                 decoration: BoxDecoration(
                   color: R.colors.whiteLight,
                   borderRadius: BorderRadius.circular(22),
@@ -76,8 +76,8 @@ class JoinTheAuction extends StatelessWidget {
                     SizedBox(height: 20.h),
                     Image.asset(
                       'assets/icons/loadingJsonIcon.gif',
-                      width: 48,
-                      height: 48,
+                      width: 48.w,
+                      height: 48.h,
                       fit: BoxFit.contain,
                     ),
                   ],
@@ -101,7 +101,7 @@ class JoinTheAuction extends StatelessWidget {
         builder:
             (_) => AlertDialog(
               backgroundColor: R.colors.whiteLight,
-              contentPadding: EdgeInsets.all(20),
+              contentPadding: EdgeInsets.all(20.r),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(22),
               ),
