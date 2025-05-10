@@ -26,6 +26,15 @@ class _CustomTapViewState extends State<CustomTapView>
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
+
+    _tabController.animation?.addListener(() {
+      final newIndex = _tabController.animation!.value.round();
+      if (newIndex != selectedIndex) {
+        setState(() {
+          selectedIndex = newIndex;
+        });
+      }
+    });
   }
 
   void _handleTabSelection() {
@@ -44,60 +53,57 @@ class _CustomTapViewState extends State<CustomTapView>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          TabBar(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        TabBar(
+          controller: _tabController,
+          labelPadding: const EdgeInsets.all(0),
+          dividerHeight: 0,
+          indicatorColor: Colors.transparent,
+          labelColor: R.colors.primaryColorLight,
+
+          tabs:
+              tapViewModel.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
+                final isSelected = index == selectedIndex;
+                final color =
+                    isSelected
+                        ? selectedTabColors[index]
+                        : Colors.grey.shade300;
+                return CustomTapItem(
+                  item: item,
+                  isSelected: isSelected,
+                  selectedColor: color,
+                );
+              }).toList(),
+        ),
+        Expanded(
+          child: TabBarView(
             controller: _tabController,
-            labelPadding: const EdgeInsets.all(0),
-            dividerHeight: 0,
-            indicatorColor: Colors.transparent,
-            labelColor: R.colors.primaryColorLight,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomQadimCardViewItem(),
+              ),
 
-            tabs:
-                tapViewModel.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final item = entry.value;
-                  final isSelected = index == selectedIndex;
-                  final color =
-                      isSelected
-                          ? selectedTabColors[index]
-                          : Colors.grey.shade300;
-                  return CustomTapItem(
-                    item: item,
-                    isSelected: isSelected,
-                    selectedColor: color,
-                  );
-                }).toList(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomSayantaliqCardViewItem(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomJaraaCardViewItem(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomMuntahiCardViewItem(),
+              ),
+            ],
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CustomQadimCardViewItem(),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CustomSayantaliqCardViewItem(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CustomJaraaCardViewItem(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CustomMuntahiCardViewItem(),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
