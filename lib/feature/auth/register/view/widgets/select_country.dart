@@ -1,8 +1,8 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
 
 class SelectCountry extends StatefulWidget {
   final Color? color;
@@ -13,37 +13,37 @@ class SelectCountry extends StatefulWidget {
 }
 
 class _SelectCountryState extends State<SelectCountry> {
-  final TextEditingController _phoneNumberController = TextEditingController();
-
-  Country selectedCountry = Country(
-    phoneCode: '966',
-    countryCode: 'SA',
-    e164Sc: 0,
-    geographic: true,
-    level: 1,
-    name: 'Saudi Arabia',
-    example: '+966 5 5555 5555',
-    displayName: 'المملكة العربية السعودية',
-    displayNameNoCountryCode: 'SA',
-    e164Key: '',
-  );
-  @override
-  void dispose() {
-    _phoneNumberController.dispose();
-    super.dispose();
-  }
-
+  String? selectedCountryName;
+  String? selectedCountryFlag;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showCountryPicker(
+        showBottomSheet(
+          showDragHandle: true,
+          enableDrag: true,
+          backgroundColor: R.colors.whiteLight,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.r),
+              topRight: Radius.circular(40.r),
+            ),
+          ),
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height / 1.8,
+          ),
           context: context,
-          countryListTheme: CountryListThemeData(bottomSheetHeight: 550.h),
-          onSelect: (value) {
-            setState(() {
-              selectedCountry = value;
-            });
+          builder: (context) {
+            return CountriesAndCitiesView(
+              country: true,
+              onCountrySelected: (country) {
+                setState(() {
+                  selectedCountryName = country.name;
+                  selectedCountryFlag = country.flag;
+                });
+                Navigator.of(context).pop();
+              },
+            );
           },
         );
       },
@@ -59,7 +59,7 @@ class _SelectCountryState extends State<SelectCountry> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${selectedCountry.name}  ${selectedCountry.flagEmoji}',
+              '${selectedCountryFlag ?? ''} ${selectedCountryName ?? '🇸🇦 المملكة العربية السعودية'}',
               style: TextStyle(fontSize: 17.sp),
             ),
             SvgPicture.asset(R.images.dropDownIcon, width: 14.w, height: 8.h),

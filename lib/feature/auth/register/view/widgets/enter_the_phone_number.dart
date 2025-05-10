@@ -1,9 +1,9 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
+import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
 
 class EnterThePhoneNumber extends StatefulWidget {
   final TextStyle? hintStyle;
@@ -16,24 +16,8 @@ class EnterThePhoneNumber extends StatefulWidget {
 
 class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
   final TextEditingController _phoneNumberController = TextEditingController();
-
-  Country selectedCountry = Country(
-    phoneCode: '966',
-    countryCode: 'SA',
-    e164Sc: 0,
-    geographic: true,
-    level: 1,
-    name: 'Saudi Arabia',
-    example: '+966 5 5555 5555',
-    displayName: 'Saudi Arabia',
-    displayNameNoCountryCode: 'SA',
-    e164Key: '',
-  );
-  @override
-  void dispose() {
-    _phoneNumberController.dispose();
-    super.dispose();
-  }
+  String? selectedCountryCode;
+  String? selectedCountryFlag;
 
   @override
   Widget build(BuildContext context) {
@@ -53,29 +37,39 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
         padding: const EdgeInsets.all(10),
         child: InkWell(
           onTap: () {
-            showCountryPicker(
+            showBottomSheet(
+              showDragHandle: true,
+              enableDrag: true,
+              backgroundColor: R.colors.whiteLight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40.r),
+                  topRight: Radius.circular(40.r),
+                ),
+              ),
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height / 1.8,
+              ),
               context: context,
-              showPhoneCode: true,
-              countryListTheme: CountryListThemeData(bottomSheetHeight: 550.h),
-              onSelect: (value) {
-                setState(() {
-                  selectedCountry = value;
-                });
+              builder: (context) {
+                return CountriesAndCitiesView(
+                  onCountrySelected: (country) {
+                    setState(() {
+                      selectedCountryCode = country.dialCode;
+                      selectedCountryFlag = country.flag;
+                    });
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             );
           },
           child: RichText(
             text: TextSpan(
-              text: selectedCountry.flagEmoji,
-              style: TextStyle(fontSize: 28.r),
+              text:
+                  '${selectedCountryFlag ?? '🇸🇦'} ${selectedCountryCode ?? '+966'}  ',
+              style: R.textStyles.font16BlackW400Light.copyWith(height: 0),
               children: [
-                TextSpan(
-                  text: ' +${selectedCountry.phoneCode}   ',
-                  style: TextStyle(
-                    fontSize: 22.r,
-                    color: R.colors.textColorLight,
-                  ),
-                ),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   child: SvgPicture.asset(
