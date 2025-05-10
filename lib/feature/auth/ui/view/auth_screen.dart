@@ -65,8 +65,8 @@ class AuthScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: R.colors.whiteLight,
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30.r),
-                                    topRight: Radius.circular(30.r),
+                                    topLeft: Radius.circular(40.r),
+                                    topRight: Radius.circular(40.r),
                                   ),
                                 ),
                                 child: Padding(
@@ -166,7 +166,7 @@ class AuthScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: cubit.showLogin,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
+                padding: EdgeInsets.symmetric(vertical: 18.h),
                 decoration: BoxDecoration(
                   color:
                       state == AuthState.login
@@ -192,7 +192,7 @@ class AuthScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: cubit.showRegister,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 12.h),
+                padding: EdgeInsets.symmetric(vertical: 18.h),
                 decoration: BoxDecoration(
                   color:
                       state == AuthState.register

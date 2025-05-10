@@ -24,7 +24,7 @@ class LoginFormScreen extends StatelessWidget {
                 CustomTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(12.r),
                     child: SvgPicture.asset(
                       R.images.emailIcon,
                       width: 23.w,
@@ -38,7 +38,7 @@ class LoginFormScreen extends StatelessWidget {
                   hintText: 'كلمة المرور',
                   isObscureText: true,
                   prefixIcon: Padding(
-                    padding: EdgeInsets.all(10.r),
+                    padding: EdgeInsets.all(12.r),
                     child: SvgPicture.asset(
                       R.images.passwordIcon,
                       width: 23.w,
@@ -57,13 +57,13 @@ class LoginFormScreen extends StatelessWidget {
                     );
                   },
                 ),
-                spacingV(10.h),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    onPressed: () {
-                      context.read<AuthCubit>().showForgotPassword();
-                    },
+                spacingV(15.h),
+                InkWell(
+                  onTap: () {
+                    context.read<AuthCubit>().showForgotPassword();
+                  },
+                  child: Align(
+                    alignment: Alignment.centerLeft,
                     child: Text(
                       'هل نسيت كلمة المرور؟',
                       style: R.textStyles.font12primaryW600Light,
@@ -118,7 +118,6 @@ class LoginFormScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                spacingV(20.h),
               ],
             ),
           ),

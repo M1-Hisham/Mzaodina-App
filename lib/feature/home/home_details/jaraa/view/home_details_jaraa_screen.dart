@@ -45,8 +45,8 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 40.w,
-                      vertical: 12,
+                      horizontal: 35.w,
+                      vertical: 12.h,
                     ),
                     child: CustomBlocBuilderCountdown(
                       eventTime: eventTimeFromApi,

@@ -23,7 +23,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 CustomTextForm(
                   hintText: 'البريد الالكتروني',
                   prefixIcon: Padding(
-                    padding: EdgeInsets.all(10.r),
+                    padding: EdgeInsets.all(12.r),
                     child: SvgPicture.asset(
                       R.images.emailIcon,
                       width: 23.w,

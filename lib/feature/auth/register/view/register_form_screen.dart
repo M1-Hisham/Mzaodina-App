@@ -27,7 +27,7 @@ class RegisterFormScreen extends StatelessWidget {
             CustomTextForm(
               hintText: 'اسم المستخدم',
               prefixIcon: Padding(
-                padding: EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(12.r),
                 child: SvgPicture.asset(
                   R.images.userNameIcon,
                   width: 23.w,
@@ -44,7 +44,7 @@ class RegisterFormScreen extends StatelessWidget {
             CustomTextForm(
               hintText: 'البريد الالكتروني',
               prefixIcon: Padding(
-                padding: EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(12.r),
                 child: SvgPicture.asset(
                   R.images.emailIcon,
                   width: 23.w,
@@ -58,7 +58,7 @@ class RegisterFormScreen extends StatelessWidget {
               hintText: 'كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
-                padding: EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(12.r),
                 child: SvgPicture.asset(
                   R.images.passwordIcon,
                   width: 23.w,
@@ -72,7 +72,7 @@ class RegisterFormScreen extends StatelessWidget {
               hintText: 'تأكيد كلمة المرور',
               isObscureText: true,
               prefixIcon: Padding(
-                padding: EdgeInsets.all(10.r),
+                padding: EdgeInsets.all(12.r),
                 child: SvgPicture.asset(
                   R.images.passwordIcon,
                   width: 23.w,
@@ -81,8 +81,7 @@ class RegisterFormScreen extends StatelessWidget {
               ),
               keyboardType: TextInputType.visiblePassword,
             ),
-            spacingV(20.h),
-
+            spacingV(5.h),
             Row(
               children: [
                 BlocProvider(
@@ -123,7 +122,6 @@ class RegisterFormScreen extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
               },
             ),
-            spacingV(10.h),
           ],
         ),
       ),

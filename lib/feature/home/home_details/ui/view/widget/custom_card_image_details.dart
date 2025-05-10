@@ -178,7 +178,7 @@ class _MainImageView extends StatelessWidget {
           child: Image.asset(
             imagePath,
             width: double.infinity,
-            height: 180.h,
+            height: 210.h,
             fit: BoxFit.contain,
           ),
         );

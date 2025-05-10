@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
@@ -23,7 +22,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
         builder: (context, state) {
           if (state is CountdownRunning) {
             return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: CountdownUnitWidget(
@@ -34,8 +32,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                     backgroundColor: backgroundColor,
                   ),
                 ),
-
-                SizedBox(width: 7.w),
                 Expanded(
                   child: CountdownUnitWidget(
                     value: state.minutes,
@@ -45,7 +41,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                     backgroundColor: backgroundColor,
                   ),
                 ),
-                SizedBox(width: 7.w),
                 Expanded(
                   child: CountdownUnitWidget(
                     value: state.hours,
@@ -55,8 +50,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                     progressColor: progressColor,
                   ),
                 ),
-                SizedBox(width: 7.w),
-
                 Expanded(
                   child: CountdownUnitWidget(
                     value: state.days,
@@ -70,7 +63,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
             );
           } else {
             return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: CountdownUnitWidget(
@@ -81,7 +73,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                     backgroundColor: backgroundColor,
                   ),
                 ),
-                SizedBox(width: 8),
                 Expanded(
                   child: CountdownUnitWidget(
                     value: 0,
@@ -91,7 +82,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                     backgroundColor: backgroundColor,
                   ),
                 ),
-                SizedBox(width: 8),
                 Expanded(
                   child: CountdownUnitWidget(
                     value: 0,
@@ -101,9 +91,6 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
                     backgroundColor: backgroundColor,
                   ),
                 ),
-
-                SizedBox(width: 8),
-
                 Expanded(
                   child: CountdownUnitWidget(
                     value: 0,

@@ -16,7 +16,7 @@ class CountdownUnitWidget extends StatelessWidget {
     required this.maxValue,
     this.progressColor = Colors.blue,
     this.backgroundColor = Colors.grey,
-    this.sizeFactor = 0.9,
+    this.sizeFactor = 0.7,
   });
 
   @override
@@ -40,14 +40,14 @@ class CountdownUnitWidget extends StatelessWidget {
         final diameter = minDimension * sizeFactor;
 
         // سماكة المؤشر
-        final strokeWidth = diameter * 0.08;
+        final strokeWidth = diameter * 0.1;
 
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              width: diameter.w,
-              height: diameter.h,
+              // width: diameter.w,
+              // height: diameter.h,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -65,7 +65,7 @@ class CountdownUnitWidget extends StatelessWidget {
                   Center(
                     child: Text(
                       value.toString().padLeft(2, '0'),
-                      style: R.textStyles.font14whiteW500Light.copyWith(
+                      style: R.textStyles.font16BlackW400Light.copyWith(
                         color: progressColor,
                       ),
                     ),

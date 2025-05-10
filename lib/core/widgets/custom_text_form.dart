@@ -76,9 +76,7 @@ class CustomTextForm extends StatelessWidget {
               color: R.colors.hintTextColorLight,
             ),
         isDense: true,
-        contentPadding:
-            contentPadding ??
-            EdgeInsets.symmetric(horizontal: 20.w, vertical: 19.h),
+        contentPadding: contentPadding ?? EdgeInsets.all(14.r),
         suffixIcon: suffixIcon,
         suffixIconConstraints: BoxConstraints(minWidth: 14.w, minHeight: 8.h),
         hoverColor: hoverColor,

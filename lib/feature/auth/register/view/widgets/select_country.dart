@@ -48,7 +48,7 @@ class _SelectCountryState extends State<SelectCountry> {
         );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
+        padding: EdgeInsets.all(9.5.r),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8.r)),
 
