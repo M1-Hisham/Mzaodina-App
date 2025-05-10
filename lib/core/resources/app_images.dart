@@ -48,4 +48,6 @@ class AppImages {
 
   String dropDownIcon = "assets/icons/drop down.svg";
   String congratulationsImage = "assets/images/congratulations_image.png";
+  String checkBoxTrue = "assets/icons/checkBoxTrue.svg";
+  String checkBoxFalse = "assets/icons/checkBoxFalse.svg";
 }
