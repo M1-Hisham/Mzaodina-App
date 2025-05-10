@@ -24,7 +24,6 @@ class _CustomTapViewState extends State<CustomTapView>
   @override
   void initState() {
     super.initState();
-    // BlocProvider.of<CounterCubit>(context);
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(_handleTabSelection);
   }
