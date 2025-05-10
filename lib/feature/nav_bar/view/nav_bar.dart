@@ -6,7 +6,6 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
-import 'package:mzaodina_app/feature/search/view/search_screen.dart';
 
 class NavBarScreen extends StatelessWidget {
   const NavBarScreen({super.key});
@@ -20,7 +19,11 @@ class NavBarScreen extends StatelessWidget {
         builder: (context, state) {
           return IndexedStack(
             index: state,
-            children: const [HomeScreen(), SearchScreen(), ProfileScreen()],
+            children: const [
+              HomeScreen(),
+              // SearchScreen(),
+              ProfileScreen(),
+            ],
           );
         },
       ),
@@ -56,11 +59,11 @@ class NavBarScreen extends StatelessWidget {
                   R.images.homeIconSelected,
                   R.images.homeIcon,
                 ),
-                _buildBottomNavigationBarItem(
-                  'البحث',
-                  R.images.searchIconSelected,
-                  R.images.searchIcon,
-                ),
+                // _buildBottomNavigationBarItem(
+                //   'البحث',
+                //   R.images.searchIconSelected,
+                //   R.images.searchIcon,
+                // ),
                 _buildBottomNavigationBarItem(
                   'الحساب',
                   R.images.personIconSelected,
