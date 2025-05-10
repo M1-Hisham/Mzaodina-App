@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 import '../view-model/check_box_cubit.dart';
@@ -11,13 +13,16 @@ class CustomCheckbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CheckboxCubit, CheckboxState>(
       builder: (context, state) {
-        return Checkbox(
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          checkColor: R.colors.whiteLight,
-          activeColor: R.colors.primaryColorLight,
-          side: BorderSide(color: R.colors.borderColorsLight),
-          value: state.isChecked,
-          onChanged: (_) => context.read<CheckboxCubit>().toggle(),
+        return InkWell(
+          onTap: () => context.read<CheckboxCubit>().toggle(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+            child: SvgPicture.asset(
+              state.isChecked ? R.images.checkBoxTrue : R.images.checkBoxFalse,
+              height: 25.h,
+              width: 25.w,
+            ),
+          ),
         );
       },
     );
