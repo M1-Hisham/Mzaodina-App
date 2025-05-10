@@ -240,7 +240,8 @@ class _ThumbnailItem extends StatelessWidget {
         width: 75.w,
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? R.colors.greyColor3 : R.colors.whiteColor2,
+            color:
+                isSelected ? R.colors.primaryColorLight : R.colors.whiteColor2,
             width: 1.w,
           ),
           borderRadius: BorderRadius.circular(11),
