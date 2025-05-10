@@ -34,7 +34,6 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
 
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,7 +51,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
 
                   const SizedBox(height: 8),
                   CustomCardImageDetails(
-                    initialImages: [
+                    images: [
                       R.images.phoneImagePng,
                       R.images.phoneImagePng1,
                       R.images.phoneImagePng2,
@@ -61,31 +60,47 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  CustomTextMazadDetails(title: 'تفاصيل المزاد'),
-                  const SizedBox(height: 8),
-                  CoustomRowItem(
-                    containerColor: R.colors.blackColor2,
-                    title: 'سعر المنتج بالأسواق',
-                    price: '1000.00 ',
-                    style: R.textStyles.font14Grey3W500Light,
-                    priceStyle: R.textStyles.font14primaryW500Light,
-                  ),
-                  CoustomRowItem(
-                    title: ' بداية المزاد',
-                    price: '600.00 ',
-                    style: R.textStyles.font14Grey3W500Light,
-                    priceStyle: R.textStyles.font14primaryW500Light,
-                  ),
-                  CoustomRowItem(
-                    containerColor: R.colors.blackColor2,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
-                    title: 'رسوم تنظيم',
-                    price: '30.00 ',
-                    style: R.textStyles.font14Grey3W500Light,
-                    priceStyle: R.textStyles.font14primaryW500Light,
+                    child: CustomTextMazadDetails(title: 'تفاصيل المزاد'),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    color: R.colors.blackColor2,
+                    child: CoustomRowItem(
+                      title: 'سعر المنتج بالأسواق',
+                      price: '1000.00 ',
+                      style: R.textStyles.font14Grey3W500Light,
+                      priceStyle: R.textStyles.font14primaryW500Light,
+                    ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 6.h),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                    child: CoustomRowItem(
+                      title: ' بداية المزاد',
+                      price: '600.00 ',
+                      style: R.textStyles.font14Grey3W500Light,
+                      priceStyle: R.textStyles.font14primaryW500Light,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    color: R.colors.blackColor2,
+                    child: CoustomRowItem(
+                      title: 'رسوم تنظيم',
+                      price: '30.00 ',
+                      style: R.textStyles.font14Grey3W500Light,
+                      priceStyle: R.textStyles.font14primaryW500Light,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6.h,
+                      horizontal: 16,
+                    ),
                     color: R.colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -117,6 +132,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     color: R.colors.blackColor2,
 
                     child: Row(
@@ -153,7 +169,10 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                                   CustomDialogTaelimatItem(),
                         ),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 16,
+                      ),
                       child: Row(
                         children: [
                           SvgPicture.asset(R.images.taelimatIcon),
@@ -167,14 +186,22 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  CustomTextMazadDetails(title: 'تفاصيل المنتج'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                    child: CustomTextMazadDetails(title: 'تفاصيل المنتج'),
+                  ),
                   const SizedBox(height: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        tafasilAlmazad
-                            .map((text) => CustomTextItem(text: text))
-                            .toList(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          tafasilAlmazad
+                              .map((text) => CustomTextItem(text: text))
+                              .toList(),
+                    ),
                   ),
                   const SizedBox(height: 80),
                 ],
