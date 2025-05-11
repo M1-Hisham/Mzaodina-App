@@ -159,7 +159,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
+                  SizedBox(height: 22.h),
                   InkWell(
                     onTap:
                         () => showDialog<String>(
@@ -185,7 +185,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
@@ -26,6 +27,7 @@ class CustomDialogTaelimatItem extends StatelessWidget {
                   color: R.colors.greyColor,
                 ),
               ),
+              SizedBox(height: 12.h),
               ...taelimatAlmazad.map(
                 (text) => CustomTextItem(
                   text: text,
@@ -34,7 +36,7 @@ class CustomDialogTaelimatItem extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 23.h),
               CustomElevatedButton(
                 text: 'اغلاق',
                 onPressed: () => Navigator.pop(context),

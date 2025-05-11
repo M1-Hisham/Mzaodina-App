@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
@@ -129,7 +130,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
+                  SizedBox(height: 22.h),
                   InkWell(
                     onTap:
                         () => showDialog<String>(
@@ -156,7 +157,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
 

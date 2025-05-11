@@ -163,6 +163,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                     ),
                   ),
 
+                  SizedBox(height: 22.h),
                   InkWell(
                     onTap:
                         () => showDialog<String>(
@@ -188,7 +189,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 22.h),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
 

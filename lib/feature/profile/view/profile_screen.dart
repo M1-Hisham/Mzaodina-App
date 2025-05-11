@@ -31,76 +31,75 @@ class ProfileScreen extends StatelessWidget {
 
               //check if user is logged in or not
               // user == null ?
-              // CustomBottonNotLogin(),
+              CustomBottonNotLogin(),
               // :
               //C1
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: R.colors.blackColor3,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: R.colors.blackColor3),
-                ),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap:
-                          () => Navigator.pushNamed(
-                            context,
-                            AppRoutes.accountDetailsScreenRoute,
-                          ),
 
-                      child: CustomAccountListTile(
-                        title: 'معلومات الحساب',
-                        leading: SvgPicture.asset(
-                          R.images.accountIcon,
-                          width: 17.5.w,
-                          height: 17.5.w,
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      color: R.colors.colorUnSelected,
-                      height: 1.h,
-                      endIndent: 14.w,
-                      indent: 14.w,
-                    ),
-                    InkWell(
-                      onTap:
-                          () => Navigator.pushNamed(
-                            context,
-                            AppRoutes.changePasswordScreenRoute,
-                          ),
-                      child: CustomAccountListTile(
-                        title: 'تغير كلمة المرور',
-                        leading: SvgPicture.asset(
-                          R.images.passwordAccountIcon,
-                          width: 17.5.w,
-                          height: 17.5.w,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.settingScreenRoute,
-                        );
-                      },
-
-                      child: CustomAccountListTile(
-                        title: 'الاعدادات',
-                        leading: SvgPicture.asset(
-                          R.images.settingIcon,
-                          width: 17.5.w,
-                          height: 17.5.w,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 18.h),
+              // Container(
+              //   width: double.infinity,
+              //   decoration: BoxDecoration(
+              //     color: R.colors.blackColor3,
+              //     borderRadius: BorderRadius.circular(10),
+              //     border: Border.all(color: R.colors.blackColor3),
+              //   ),
+              //   child: Column(
+              //     children: [
+              //       InkWell(
+              //         onTap:
+              //             () => Navigator.pushNamed(
+              //               context,
+              //               AppRoutes.accountDetailsScreenRoute,
+              //             ),
+              //         child: CustomAccountListTile(
+              //           title: 'معلومات الحساب',
+              //           leading: SvgPicture.asset(
+              //             R.images.accountIcon,
+              //             width: 17.5.w,
+              //             height: 17.5.w,
+              //           ),
+              //         ),
+              //       ),
+              //       Divider(
+              //         color: R.colors.colorUnSelected,
+              //         height: 1.h,
+              //         endIndent: 14.w,
+              //         indent: 14.w,
+              //       ),
+              //       InkWell(
+              //         onTap:
+              //             () => Navigator.pushNamed(
+              //               context,
+              //               AppRoutes.changePasswordScreenRoute,
+              //             ),
+              //         child: CustomAccountListTile(
+              //           title: 'تغير كلمة المرور',
+              //           leading: SvgPicture.asset(
+              //             R.images.passwordAccountIcon,
+              //             width: 17.5.w,
+              //             height: 17.5.w,
+              //           ),
+              //         ),
+              //       ),
+              //       InkWell(
+              //         onTap: () {
+              //           Navigator.pushNamed(
+              //             context,
+              //             AppRoutes.settingScreenRoute,
+              //           );
+              //         },
+              //         child: CustomAccountListTile(
+              //           title: 'الاعدادات',
+              //           leading: SvgPicture.asset(
+              //             R.images.settingIcon,
+              //             width: 17.5.w,
+              //             height: 17.5.w,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              SizedBox(height: 30.h),
               //C2
               Container(
                 width: double.infinity,
@@ -343,7 +342,7 @@ class ProfileScreen extends StatelessWidget {
                       InkWell(
                         onTap: () async {
                           await launchUrlString(
-                            'https://wa.me/01507569512?text=Hello,\ni\'m coming from App Mzaodina',
+                            'https://wa.me/+966533576110?text=Hello,\ni\'m coming from App Mzaodina',
                             mode: LaunchMode.externalApplication,
                           );
                         },
@@ -426,7 +425,7 @@ class CustomBottonNotLogin extends StatelessWidget {
         color: R.colors.blackColor3,
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: EdgeInsets.all(14),
+      padding: EdgeInsets.all(14.r),
 
       child: Column(
         children: [
