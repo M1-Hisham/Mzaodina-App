@@ -13,10 +13,22 @@ class CustomJaraaPriceCard extends StatefulWidget {
 }
 
 class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
+  TextEditingController? controller;
   int selectedIndex = 0;
   int selectedValue = 5;
 
   final List<int> values = [5, 10, 50, 100];
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +58,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
         ),
         SizedBox(height: 10.h),
         CustomTextForm(
+          controller: controller,
           hintText: 'المبلغ الذي تريد المزايدة به',
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
@@ -80,7 +93,11 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
                                 ),
 
                                 TextSpan(
-                                  text: '$selectedValue ',
+                                  text:
+                                      (controller != null &&
+                                              controller!.text.isNotEmpty)
+                                          ? '${controller!.text} '
+                                          : '$selectedValue ',
                                   style: R.textStyles.font18primaryW500Light,
                                 ),
                               ],

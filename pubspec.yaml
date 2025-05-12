@@ -56,6 +56,7 @@ dependencies:
   firebase_core: ^3.13.0
   url_launcher: ^6.3.1
   uni_country_city_picker: ^1.0.2
+  share_plus: ^11.0.0
 
 
 dev_dependencies:

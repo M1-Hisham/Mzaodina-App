@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -24,7 +25,14 @@ class CustomAppBar extends StatelessWidget {
             borderRadius: 8,
             textDirection: TextDirection.rtl,
             text: 'مشاركة',
-            onPressed: () {},
+            onPressed: () {
+              SharePlus.instance.share(
+                ShareParams(
+                  title: 'Mzaodin',
+                  text: 'check out my website https://example.com',
+                ),
+              );
+            },
             textStyle: R.textStyles.font12primaryW600Light,
             backgroundColor: R.colors.colorUnSelected,
             icon: SvgPicture.asset(R.images.shareIcon),
