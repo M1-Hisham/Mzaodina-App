@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 
 class CustomJaraaPriceCard extends StatefulWidget {
   const CustomJaraaPriceCard({super.key});
@@ -26,7 +27,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
           children: List.generate(values.length, (index) {
             final isSelected = selectedIndex == index;
             final value = values[index];
-    
+
             return Expanded(
               child: GestureDetector(
                 onTap: () {
@@ -43,7 +44,13 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
             );
           }),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
+        CustomTextForm(
+          hintText: 'المبلغ الذي تريد المزايدة به',
+          textAlign: TextAlign.center,
+          keyboardType: TextInputType.number,
+        ),
+        SizedBox(height: 10.h),
         Text(
           'تنبية : الفاتورة ستصلك بعد انتهاء المزاد',
           style: R.textStyles.font14Grey400Light.copyWith(
@@ -71,7 +78,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
                                   text: ' هل متأكد من المزايده بهذا المبلغ  ',
                                   style: R.textStyles.font18blackW500Light,
                                 ),
-    
+
                                 TextSpan(
                                   text: '$selectedValue ',
                                   style: R.textStyles.font18primaryW500Light,
@@ -99,7 +106,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
                         Expanded(
                           child: CustomElevatedButton(
                             backgroundColor: R.colors.blackColor3,
-    
+
                             text: 'لا',
                             textStyle: R.textStyles.font14BlackW500Light,
                             onPressed: () {

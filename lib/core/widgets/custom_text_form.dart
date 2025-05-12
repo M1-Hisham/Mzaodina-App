@@ -4,6 +4,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 
 class CustomTextForm extends StatelessWidget {
   final String hintText;
+  final TextAlign? textAlign;
   final String? initialValue;
   final bool? isObscureText;
   final bool? isclickable;
@@ -54,6 +55,7 @@ class CustomTextForm extends StatelessWidget {
     this.disabledBorder,
     this.initialValue,
     this.onTap,
+    this.textAlign,
   });
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,7 @@ class CustomTextForm extends StatelessWidget {
       focusNode: focusNode,
       onSaved: onSaved,
       maxLines: maxLines ?? 1,
+      textAlign: textAlign ?? TextAlign.start,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle:
