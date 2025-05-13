@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
 
                 child: SafeArea(
-                  child: CustomAppBarTitle(title: 'محمد القحطانى'),
+                  child: CustomAppBarTitle(title: 'فهد القحطانى'),
                 ),
               ),
 

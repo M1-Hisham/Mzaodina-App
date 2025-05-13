@@ -8,6 +8,7 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CustomSayantaliqCardViewItem extends StatefulWidget {
   const CustomSayantaliqCardViewItem({super.key});
@@ -145,7 +146,14 @@ class _CustomQadimCardViewItemState
                       child: CustomElevatedButton(
                         textDirection: TextDirection.rtl,
                         text: 'مشاركة',
-                        onPressed: () {},
+                        onPressed: () {
+                          SharePlus.instance.share(
+                            ShareParams(
+                              title: 'Mzaodin',
+                              text: 'check out my website https://example.com',
+                            ),
+                          );
+                        },
                         backgroundColor: R.colors.colorUnSelected,
                         borderRadius: 8.r,
                         heigth: 40.h,
