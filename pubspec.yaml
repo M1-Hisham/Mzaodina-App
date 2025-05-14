@@ -57,6 +57,10 @@ dependencies:
   url_launcher: ^6.3.1
   uni_country_city_picker: ^1.0.2
   share_plus: ^11.0.0
+  retrofit: ^4.4.2
+  logger: ^2.5.0
+  json_annotation: ^4.9.0
+  dio: ^5.8.0+1
 
 
 dev_dependencies:
@@ -69,6 +73,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  retrofit_generator: ^9.2.0
+  build_runner: ^2.4.15
+  json_serializable: ^6.9.5
 flutter_native_splash:
   color: "#1D4ED8"
   android: true
