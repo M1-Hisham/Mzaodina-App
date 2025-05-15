@@ -23,8 +23,6 @@ import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_
 import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
-import 'package:mzaodina_app/feature/profile/view-model/cubit/profile_cubit.dart';
-import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -101,14 +99,6 @@ class AppRouter {
                   ),
                 ],
                 child: AuthScreen(),
-              ),
-        );
-      case AppRoutes.profileRoute:
-        return MaterialPageRoute(
-          builder:
-              (_) => BlocProvider(
-                create: (_) => ProfileCubit(),
-                child: ProfileScreen(),
               ),
         );
       default:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mzaodina_app/core/helper/user_session.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
@@ -18,375 +19,418 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
-
-                child: SafeArea(
-                  child: CustomAppBarTitle(title: 'فهد القحطانى'),
-                ),
-              ),
-
-              //check if user is logged in or not
-              // user == null ?
-              CustomBottonNotLogin(),
-              // :
-              //C1
-
-              // Container(
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     color: R.colors.blackColor3,
-              //     borderRadius: BorderRadius.circular(10),
-              //     border: Border.all(color: R.colors.blackColor3),
-              //   ),
-              //   child: Column(
-              //     children: [
-              //       InkWell(
-              //         onTap:
-              //             () => Navigator.pushNamed(
-              //               context,
-              //               AppRoutes.accountDetailsScreenRoute,
-              //             ),
-              //         child: CustomAccountListTile(
-              //           title: 'معلومات الحساب',
-              //           leading: SvgPicture.asset(
-              //             R.images.accountIcon,
-              //             width: 17.5.w,
-              //             height: 17.5.w,
-              //           ),
-              //         ),
-              //       ),
-              //       Divider(
-              //         color: R.colors.colorUnSelected,
-              //         height: 1.h,
-              //         endIndent: 14.w,
-              //         indent: 14.w,
-              //       ),
-              //       InkWell(
-              //         onTap:
-              //             () => Navigator.pushNamed(
-              //               context,
-              //               AppRoutes.changePasswordScreenRoute,
-              //             ),
-              //         child: CustomAccountListTile(
-              //           title: 'تغير كلمة المرور',
-              //           leading: SvgPicture.asset(
-              //             R.images.passwordAccountIcon,
-              //             width: 17.5.w,
-              //             height: 17.5.w,
-              //           ),
-              //         ),
-              //       ),
-              //       InkWell(
-              //         onTap: () {
-              //           Navigator.pushNamed(
-              //             context,
-              //             AppRoutes.settingScreenRoute,
-              //           );
-              //         },
-              //         child: CustomAccountListTile(
-              //           title: 'الاعدادات',
-              //           leading: SvgPicture.asset(
-              //             R.images.settingIcon,
-              //             width: 17.5.w,
-              //             height: 17.5.w,
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              SizedBox(height: 30.h),
-              //C2
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: R.colors.blackColor3,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: R.colors.blackColor3),
-                ),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.aboutUsScreenRoute,
-                        );
-                      },
-
-                      child: CustomAccountListTile(title: 'من نحن'),
+          child: FutureBuilder<bool>(
+            future: UserSession.isLoggedIn(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: R.colors.primaryColorLight,
+                  ),
+                );
+              }
+              final loggedIn = snapshot.data ?? false;
+              return Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 20.h,
+                      horizontal: 16.w,
                     ),
-                    Divider(
-                      color: R.colors.colorUnSelected,
-                      height: 1.h,
-                      endIndent: 14.w,
-                      indent: 14.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.termsAndConditionsScreenRoute,
-                        );
-                      },
 
-                      child: CustomAccountListTile(title: 'الشروط والاحكام'),
-                    ),
-                    Divider(
-                      color: R.colors.colorUnSelected,
-                      height: 1.h,
-                      endIndent: 14.w,
-                      indent: 14.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.privacyPolicyScreenRoute,
-                        );
-                      },
-
-                      child: CustomAccountListTile(title: 'سياسة الخصوصية'),
-                    ),
-                    Divider(
-                      color: R.colors.colorUnSelected,
-                      height: 1.h,
-                      endIndent: 14.w,
-                      indent: 14.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.shippingAndReturnPolicyScreenRoute,
-                        );
-                      },
-
-                      child: CustomAccountListTile(
-                        title: 'سياسة الشحن والاسترجاع',
+                    child: SafeArea(
+                      child: CustomAppBarTitle(
+                        title: loggedIn ? 'فهد القحطانى' : 'كزائر',
                       ),
                     ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 18.h),
-              CustomElevatedButton(
-                textStyle: R.textStyles.font14Grey3W500Light.copyWith(
-                  color: R.colors.redColor2,
-                ),
-                textDirection: TextDirection.rtl,
-                backgroundColor: R.colors.redColor3,
-                text: 'تسجيل الخروج',
-
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 24.h,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 130.w,
-                              height: 5.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100.r),
-                                color: R.colors.greyColor3,
-                              ),
-                            ),
-                            SizedBox(height: 24.h),
-                            Text(
-                              'تسجيل الخروج',
-                              style: R.textStyles.font14BlackW500Light.copyWith(
-                                color: R.colors.redColor,
-                              ),
-                            ),
-                            SizedBox(height: 24.h),
-                            CustomElevatedButton(
-                              text: 'الغاء',
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                            SizedBox(height: 24.h),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-                icon: SvgPicture.asset(R.images.logoutImage),
-              ),
-              SizedBox(height: 24.h),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'التواصل الاجتماعى',
-                    style: R.textStyles.font14Grey3W500Light,
                   ),
 
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          if (await canLaunchUrl(
-                            Uri.parse('https://x.com/Mzaodin'),
-                          )) {
-                            // Check if the URL can be launched
-                            await launchUrl(
-                              Uri.parse('https://x.com/Mzaodin'),
-                              mode: LaunchMode.externalApplication,
-                            ); // Launch the URL
-                          } else {
-                            // Handle the error if the URL cannot be launched
-                            debugPrint('Could not launch URL');
-                            SnackBar(content: Text('Could not launch URL'));
-                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
-                          }
-                        },
-                        child: SvgPicture.asset(
-                          R.images.xIcon,
-                          width: 25.w,
-                          height: 25.h,
+                  //check if user is logged in or not
+                  loggedIn
+                      ? // C1
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: R.colors.blackColor3,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: R.colors.blackColor3),
                         ),
-                      ),
-                      SizedBox(width: 18.h),
-                      InkWell(
-                        onTap: () async {
-                          if (await canLaunchUrl(
-                            Uri.parse('https://www.tiktok.com/@mzaodin'),
-                          )) {
-                            // Check if the URL can be launched
-                            await launchUrl(
-                              Uri.parse('https://www.tiktok.com/@mzaodin'),
-                              mode: LaunchMode.externalApplication,
-                            ); // Launch the URL
-                          } else {
-                            // Handle the error if the URL cannot be launched
-                            debugPrint('Could not launch URL');
-                            SnackBar(content: Text('Could not launch URL'));
-                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
-                          }
-                        },
-                        child: SvgPicture.asset(
-                          R.images.tiktokIcon,
-                          width: 25.w,
-                          height: 25.h,
-                        ),
-                      ),
-                      SizedBox(width: 18.h),
-                      InkWell(
-                        onTap: () async {
-                          if (await canLaunchUrl(
-                            Uri.parse(
-                              'https://www.instagram.com/mzaodin/?hl=ar',
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap:
+                                  () => Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.accountDetailsScreenRoute,
+                                  ),
+                              child: CustomAccountListTile(
+                                title: 'معلومات الحساب',
+                                leading: SvgPicture.asset(
+                                  R.images.accountIcon,
+                                  width: 17.5.w,
+                                  height: 17.5.w,
+                                ),
+                              ),
                             ),
-                          )) {
-                            // Check if the URL can be launched
-                            await launchUrl(
-                              Uri.parse(
-                                'https://www.instagram.com/mzaodin/?hl=ar',
+                            Divider(
+                              color: R.colors.colorUnSelected,
+                              height: 1.h,
+                              endIndent: 14.w,
+                              indent: 14.w,
+                            ),
+                            InkWell(
+                              onTap:
+                                  () => Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.changePasswordScreenRoute,
+                                  ),
+                              child: CustomAccountListTile(
+                                title: 'تغير كلمة المرور',
+                                leading: SvgPicture.asset(
+                                  R.images.passwordAccountIcon,
+                                  width: 17.5.w,
+                                  height: 17.5.w,
+                                ),
                               ),
-                              mode: LaunchMode.externalApplication,
-                            ); // Launch the URL
-                          } else {
-                            // Handle the error if the URL cannot be launched
-                            debugPrint('Could not launch URL');
-                            SnackBar(content: Text('Could not launch URL'));
-                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
-                          }
-                        },
-                        child: SvgPicture.asset(
-                          R.images.instaIcon,
-                          width: 25.w,
-                          height: 25.h,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.settingScreenRoute,
+                                );
+                              },
+                              child: CustomAccountListTile(
+                                title: 'الاعدادات',
+                                leading: SvgPicture.asset(
+                                  R.images.settingIcon,
+                                  width: 17.5.w,
+                                  height: 17.5.w,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
+                      )
+                      : CustomBottonNotLogin(),
+
+                  SizedBox(height: 30.h),
+                  //C2
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: R.colors.blackColor3,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: R.colors.blackColor3),
+                    ),
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.aboutUsScreenRoute,
+                            );
+                          },
+
+                          child: CustomAccountListTile(title: 'من نحن'),
+                        ),
+                        Divider(
+                          color: R.colors.colorUnSelected,
+                          height: 1.h,
+                          endIndent: 14.w,
+                          indent: 14.w,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.termsAndConditionsScreenRoute,
+                            );
+                          },
+
+                          child: CustomAccountListTile(
+                            title: 'الشروط والاحكام',
+                          ),
+                        ),
+                        Divider(
+                          color: R.colors.colorUnSelected,
+                          height: 1.h,
+                          endIndent: 14.w,
+                          indent: 14.w,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.privacyPolicyScreenRoute,
+                            );
+                          },
+
+                          child: CustomAccountListTile(title: 'سياسة الخصوصية'),
+                        ),
+                        Divider(
+                          color: R.colors.colorUnSelected,
+                          height: 1.h,
+                          endIndent: 14.w,
+                          indent: 14.w,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.shippingAndReturnPolicyScreenRoute,
+                            );
+                          },
+
+                          child: CustomAccountListTile(
+                            title: 'سياسة الشحن والاسترجاع',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 24.h),
+                  loggedIn
+                      ? Padding(
+                        padding: EdgeInsets.only(bottom: 24.h),
+                        child: CustomElevatedButton(
+                          textStyle: R.textStyles.font14Grey3W500Light.copyWith(
+                            color: R.colors.redColor2,
+                          ),
+                          textDirection: TextDirection.rtl,
+                          backgroundColor: R.colors.redColor3,
+                          text: 'تسجيل الخروج',
+
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                    vertical: 24.h,
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width: 130.w,
+                                        height: 5.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            100.r,
+                                          ),
+                                          color: R.colors.greyColor3,
+                                        ),
+                                      ),
+                                      SizedBox(height: 24.h),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          await UserSession.logout();
+                                          Navigator.pushReplacementNamed(
+                                            // ignore: use_build_context_synchronously
+                                            context,
+                                            AppRoutes.authRouter,
+                                          );
+                                        },
+                                        child: Text(
+                                          'تسجيل الخروج',
+                                          style: R
+                                              .textStyles
+                                              .font14BlackW500Light
+                                              .copyWith(
+                                                color: R.colors.redColor,
+                                              ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 24.h),
+                                      CustomElevatedButton(
+                                        text: 'الغاء',
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      SizedBox(height: 24.h),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: SvgPicture.asset(R.images.logoutImage),
+                        ),
+                      )
+                      : SizedBox.shrink(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'التواصل الاجتماعى',
+                        style: R.textStyles.font14Grey3W500Light,
                       ),
 
-                      SizedBox(width: 18.h),
-                      InkWell(
-                        onTap: () async {
-                          if (await canLaunchUrl(
-                            Uri.parse('https://www.snapchat.com/add/mzaodin'),
-                          )) {
-                            // Check if the URL can be launched
-                            await launchUrl(
-                              Uri.parse('https://www.snapchat.com/add/mzaodin'),
-                              mode: LaunchMode.externalApplication,
-                            ); // Launch the URL
-                          } else {
-                            // Handle the error if the URL cannot be launched
-                            debugPrint('Could not launch URL');
-                            SnackBar(content: Text('Could not launch URL'));
-                            // throw 'Could not launch'; // throw could be used to handle erroneous situations
-                          }
-                        },
-                        child: SvgPicture.asset(
-                          R.images.snapIcon,
-                          width: 25.w,
-                          height: 25.h,
-                        ),
-                      ),
-                      Spacer(),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              if (await canLaunchUrl(
+                                Uri.parse('https://x.com/Mzaodin'),
+                              )) {
+                                // Check if the URL can be launched
+                                await launchUrl(
+                                  Uri.parse('https://x.com/Mzaodin'),
+                                  mode: LaunchMode.externalApplication,
+                                ); // Launch the URL
+                              } else {
+                                // Handle the error if the URL cannot be launched
+                                debugPrint('Could not launch URL');
+                                SnackBar(content: Text('Could not launch URL'));
+                                // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                              }
+                            },
+                            child: SvgPicture.asset(
+                              R.images.xIcon,
+                              width: 25.w,
+                              height: 25.h,
+                            ),
+                          ),
+                          SizedBox(width: 18.h),
+                          InkWell(
+                            onTap: () async {
+                              if (await canLaunchUrl(
+                                Uri.parse('https://www.tiktok.com/@mzaodin'),
+                              )) {
+                                // Check if the URL can be launched
+                                await launchUrl(
+                                  Uri.parse('https://www.tiktok.com/@mzaodin'),
+                                  mode: LaunchMode.externalApplication,
+                                ); // Launch the URL
+                              } else {
+                                // Handle the error if the URL cannot be launched
+                                debugPrint('Could not launch URL');
+                                SnackBar(content: Text('Could not launch URL'));
+                                // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                              }
+                            },
+                            child: SvgPicture.asset(
+                              R.images.tiktokIcon,
+                              width: 25.w,
+                              height: 25.h,
+                            ),
+                          ),
+                          SizedBox(width: 18.h),
+                          InkWell(
+                            onTap: () async {
+                              if (await canLaunchUrl(
+                                Uri.parse(
+                                  'https://www.instagram.com/mzaodin/?hl=ar',
+                                ),
+                              )) {
+                                // Check if the URL can be launched
+                                await launchUrl(
+                                  Uri.parse(
+                                    'https://www.instagram.com/mzaodin/?hl=ar',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ); // Launch the URL
+                              } else {
+                                // Handle the error if the URL cannot be launched
+                                debugPrint('Could not launch URL');
+                                SnackBar(content: Text('Could not launch URL'));
+                                // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                              }
+                            },
+                            child: SvgPicture.asset(
+                              R.images.instaIcon,
+                              width: 25.w,
+                              height: 25.h,
+                            ),
+                          ),
 
-                      InkWell(
-                        onTap: () async {
-                          await launchUrlString(
-                            'https://wa.me/+966533576110?text=Hello,\ni\'m coming from App Mzaodina',
-                            mode: LaunchMode.externalApplication,
-                          );
-                        },
-                        child: Container(
-                          width: 136.w,
-                          decoration: BoxDecoration(
-                            color: R.colors.greenColor,
-                            borderRadius: BorderRadius.circular(8),
+                          SizedBox(width: 18.h),
+                          InkWell(
+                            onTap: () async {
+                              if (await canLaunchUrl(
+                                Uri.parse(
+                                  'https://www.snapchat.com/add/mzaodin',
+                                ),
+                              )) {
+                                // Check if the URL can be launched
+                                await launchUrl(
+                                  Uri.parse(
+                                    'https://www.snapchat.com/add/mzaodin',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ); // Launch the URL
+                              } else {
+                                // Handle the error if the URL cannot be launched
+                                debugPrint('Could not launch URL');
+                                SnackBar(content: Text('Could not launch URL'));
+                                // throw 'Could not launch'; // throw could be used to handle erroneous situations
+                              }
+                            },
+                            child: SvgPicture.asset(
+                              R.images.snapIcon,
+                              width: 25.w,
+                              height: 25.h,
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                            vertical: 10.h,
-                            horizontal: 16.w,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'تواصل واتس أب',
-                                style: R.textStyles.font10whiteW500Light,
+                          Spacer(),
+
+                          InkWell(
+                            onTap: () async {
+                              await launchUrlString(
+                                'https://wa.me/+966533576110?text=Hello,\ni\'m coming from App Mzaodina',
+                                mode: LaunchMode.externalApplication,
+                              );
+                            },
+                            child: Container(
+                              width: 136.w,
+                              decoration: BoxDecoration(
+                                color: R.colors.greenColor,
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              SvgPicture.asset(R.images.whatsIcon),
-                            ],
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 16.w,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'تواصل واتس أب',
+                                    style: R.textStyles.font10whiteW500Light,
+                                  ),
+                                  SvgPicture.asset(R.images.whatsIcon),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-              SizedBox(height: 24),
-              Column(
-                children: [
-                  Text(
-                    'الاصدار : 1.0.0',
-                    style: R.textStyles.font12Grey3W500Light,
+                  SizedBox(height: 24),
+                  Column(
+                    children: [
+                      Text(
+                        'الاصدار : 1.0.0',
+                        style: R.textStyles.font12Grey3W500Light,
+                      ),
+                      Text(
+                        'جميع الحقوق محفوظة لمنصة مزاود اين©2024',
+                        style: R.textStyles.font12Grey3W500Light,
+                      ),
+                    ],
                   ),
-                  Text(
-                    'جميع الحقوق محفوظة لمنصة مزاود اين©2024',
-                    style: R.textStyles.font12Grey3W500Light,
-                  ),
+                  SizedBox(height: 24.h),
                 ],
-              ),
-              SizedBox(height: 24.h),
-            ],
+              );
+            },
           ),
         ),
       ),
@@ -434,7 +478,16 @@ class CustomBottonNotLogin extends StatelessWidget {
             style: R.textStyles.font14Grey3W500Light,
           ),
           SizedBox(height: 17.h),
-          CustomElevatedButton(text: 'تسجيل الدخول', onPressed: () {}),
+          CustomElevatedButton(
+            text: 'تسجيل الدخول',
+            onPressed: () {
+              Navigator.pushNamed(
+                // ignore: use_build_context_synchronously
+                context,
+                AppRoutes.authRouter,
+              );
+            },
+          ),
         ],
       ),
     );
