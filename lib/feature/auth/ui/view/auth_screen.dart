@@ -82,9 +82,15 @@ class AuthScreen extends StatelessWidget {
                                           ),
                                       spacingV(20),
                                       if (state == AuthState.login)
-                                        LoginFormScreen(),
+                                        KeyedSubtree(
+                                          key: const ValueKey("login_form"),
+                                          child: LoginFormScreen(),
+                                        ),
                                       if (state == AuthState.register)
-                                        RegisterFormScreen(),
+                                        KeyedSubtree(
+                                          key: const ValueKey("register_form"),
+                                          child: RegisterFormScreen(),
+                                        ),
                                       if (state == AuthState.forgotPassword)
                                         Align(
                                           alignment: Alignment.topCenter,
