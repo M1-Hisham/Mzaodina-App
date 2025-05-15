@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,19 +8,25 @@ import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
+import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit_state.dart';
+import 'package:mzaodina_app/feature/auth/login/view-model/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 
 class LoginFormScreen extends StatelessWidget {
-  const LoginFormScreen({super.key});
+  LoginFormScreen({super.key});
 
+  final Map<String, dynamic> _formData = {};
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
+        final formKey = context.read<AuthCubit>().formKey;
         return Padding(
           padding: EdgeInsets.all(20.0.r),
           child: Form(
+            key: formKey,
             child: Column(
               children: [
                 CustomTextForm(
@@ -32,6 +40,15 @@ class LoginFormScreen extends StatelessWidget {
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'يرجى إدخال البريد الإلكتروني';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _formData['email'] = value;
+                  },
                 ),
                 spacingV(15.h),
                 CustomTextForm(
@@ -46,19 +63,60 @@ class LoginFormScreen extends StatelessWidget {
                     ),
                   ),
                   keyboardType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'يرجى إدخال كلمة المرور';
+                    } else if (value.length < 6) {
+                      return 'يجب أن تكون كلمة المرور 6 أحرف على الأقل';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _formData['password'] = value;
+                  },
                 ),
                 spacingV(20.h),
-                CustomElevatedButton(
-                  text: 'تسجيل الدخول',
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      AppRoutes.navBarRoute,
+                BlocConsumer<LoginCubit, LoginCubitState>(
+                  listener: (context, state) {
+                    if (state is LoginSuccess) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        AppRoutes.navBarRoute,
+                      );
+                    } else if (state is LoginError) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.message)));
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomElevatedButton(
+                      text:
+                          state is LoginLoading
+                              ? '...جاري الدخول'
+                              : 'تسجيل الدخول',
+                      onPressed:
+                          state is LoginLoading
+                              ? () {}
+                              : () {
+                                if (formKey.currentState!.validate()) {
+                                  formKey.currentState!.save();
+                                  log("Form Data: $_formData");
+                                  final body = LoginRequestBody(
+                                    email: _formData['email'],
+                                    //'testMH@gmail.com',
+                                    password: _formData['password'],
+                                    //'StorngPassword12!',
+                                  );
+                                  context.read<LoginCubit>().login(body);
+                                }
+                              },
                     );
                   },
                 ),
                 spacingV(15.h),
-                InkWell(
+                // Forgot password
+                GestureDetector(
                   onTap: () {
                     context.read<AuthCubit>().showForgotPassword();
                   },
@@ -82,6 +140,7 @@ class LoginFormScreen extends StatelessWidget {
                   ],
                 ),
                 spacingV(10.h),
+                // Google and Apple login buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
