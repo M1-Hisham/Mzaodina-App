@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mzaodina_app/core/helper/user_session.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 
@@ -40,9 +41,15 @@ class CustomAppBarHome extends StatelessWidget {
                   SizedBox(height: 7.h),
                   Row(
                     children: [
-                      Text(
-                        '👋 فهد القحطاني',
-                        style: R.textStyles.font18WhiteW500Light,
+                      FutureBuilder<bool>(
+                        future: UserSession.isLoggedIn(),
+                        builder: (context, snapshot) {
+                          bool loggedIn = snapshot.data ?? false;
+                          return Text(
+                            loggedIn ? '👋 فهد القحطاني' : '👋 كزائر',
+                            style: R.textStyles.font18WhiteW500Light,
+                          );
+                        },
                       ),
                       Spacer(),
                       Stack(
