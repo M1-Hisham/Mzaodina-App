@@ -11,12 +11,11 @@ class UserDataRepo {
 
   Future<Either<Failure, UserModel>> profileUserData() async {
     try {
-      final profileUserData =  await apiService.profileUserData();
+      final profileUserData = await apiService.profileUserData();
       return right(profileUserData);
+    } on DioException catch (dioError) {
+      return left(ServerFailure.fromDioError(dioError));
     } catch (e) {
-      if (e is DioException) {
-        return left(ServerFailure.fromDioError(e));
-      }
       return left(ServerFailure(e.toString()));
     }
   }

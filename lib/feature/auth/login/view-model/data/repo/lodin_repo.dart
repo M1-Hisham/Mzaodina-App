@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/constant/shared_preferences_key.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
@@ -27,9 +28,10 @@ class LoginRepo {
       }
 
       return Right(response);
+    } on DioException catch (dioError) {
+      return left(ServerFailure.fromDioError(dioError));
     } catch (e) {
-      log("Login error: $e");
-      return Left(ServerFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 }

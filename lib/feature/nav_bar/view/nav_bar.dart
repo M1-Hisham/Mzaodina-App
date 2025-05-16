@@ -26,8 +26,7 @@ class NavBarScreen extends StatelessWidget {
               HomeScreen(),
               // SearchScreen(),
               BlocProvider(
-                // final dio = await DioFactory.getDio();
-                create: (context) => getIt<UserDataCubit>(),
+                create: (context) => getIt<UserDataCubit>()..fetchUserData(),
                 child: ProfileScreen(),
               ),
             ],

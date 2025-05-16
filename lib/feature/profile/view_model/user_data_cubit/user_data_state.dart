@@ -15,3 +15,5 @@ final class UserDataError extends UserDataState {
   final String errMessage;
   UserDataError(this.errMessage);
 }
+
+class UserDataNotLoggedIn extends UserDataState {}
