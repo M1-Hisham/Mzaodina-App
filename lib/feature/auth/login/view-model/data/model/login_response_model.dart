@@ -1,21 +1,31 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'login_response_model.g.dart';
+
+@JsonSerializable()
 class LoginResponseModel {
-  String? accessToken;
-  String? tokenType;
-  int? expiresIn;
-  String? error;
-  LoginResponseModel({this.accessToken, this.tokenType, this.expiresIn});
-  LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    accessToken = json['access_token'];
-    tokenType = json['token_type'];
-    expiresIn = json['expires_in'];
-    error = json['error'];
-  }
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['access_token'] = accessToken;
-    data['token_type'] = tokenType;
-    data['expires_in'] = expiresIn;
-    data['error'] = error;
-    return data;
-  }
+  @JsonKey(name: 'access_token')
+  final String? accessToken;
+
+  @JsonKey(name: 'token_type')
+  final String? tokenType;
+
+  @JsonKey(name: 'expires_in')
+  final int? expiresIn;
+
+  final String? error;
+
+  LoginResponseModel({
+    this.accessToken,
+    this.tokenType,
+    this.expiresIn,
+    this.error,
+  });
+
+  /// ✅ Factory method to create an instance from JSON
+  factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseModelFromJson(json);
+
+  /// ✅ Method to convert the instance to JSON
+  Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);
 }

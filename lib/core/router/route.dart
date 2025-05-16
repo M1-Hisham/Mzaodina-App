@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
@@ -94,7 +95,7 @@ class AppRouter {
                 providers: [
                   BlocProvider<AuthCubit>(create: (_) => AuthCubit()),
                   BlocProvider(
-                    create: (_) => LoginCubit(),
+                    create: (_) => getIt<LoginCubit>(),
                     child: LoginFormScreen(),
                   ),
                 ],
