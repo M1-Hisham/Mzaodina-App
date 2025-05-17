@@ -40,13 +40,40 @@ class ServerFailure extends Failure {
   /// Factory constructor to handle server response errors
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['error']['message']);
+      if (response is Map<String, dynamic>) {
+        if (response.containsKey('error')) {
+          return ServerFailure(response['error']);
+        } else if (response.containsKey('message') &&
+            response['message'] is String) {
+          return ServerFailure(response['message']);
+        } else if (response.containsKey('message') &&
+            response.containsKey('errors')) {
+          final errors = response['errors'] as Map<String, dynamic>;
+          String combinedErrors = errors.entries
+              .map((entry) => '${entry.key}: ${entry.value.join(", ")}')
+              .join(" \n\n ");
+          return ServerFailure('${response['message']}  $combinedErrors');
+        }
+      }
+      return ServerFailure('Unknown Error');
+    } else if (statusCode == 422) {
+      if (response is Map<String, dynamic> && response.containsKey('errors')) {
+        final errors = response['errors'] as Map<String, dynamic>;
+        String combinedErrors = errors.entries
+            .map((entry) => '${entry.value.join("\n\n ")}')
+            .join(" \n\n ");
+        return ServerFailure(' $combinedErrors');
+        // return ServerFailure('${response['message']}  $combinedErrors');
+      }
+      return ServerFailure(
+        response['message'] ?? 'Unprocessable Content Error',
+      );
     } else if (statusCode == 404) {
       return ServerFailure('Your request not found, Please try later!');
     } else if (statusCode == 500) {
       return ServerFailure('Internal Server error, Please try later');
     } else {
-      return ServerFailure('Opps There was an Error, Please try again');
+      return ServerFailure('Oops! There was an Error, Please try again.');
     }
   }
 }

@@ -8,4 +8,5 @@ class ApiConstants {
   static const String register = "/auth/register";
   static const String logout = "/auth/logout"; 
   static const String profileUserData = "/user/data"; 
+  static const String changePassword = "/user/change/password"; 
 }
