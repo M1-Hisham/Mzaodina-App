@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
     Future.delayed(Duration(milliseconds: 1500), () {
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, AppRoutes.authRouter);
+      Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
     });
   }
 

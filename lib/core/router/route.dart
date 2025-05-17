@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
+import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/view/home_details_qadim_screen.dart';
@@ -21,6 +24,7 @@ import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_
 import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
+import 'package:mzaodina_app/feature/profile/view_model/change_password_cubit/change_password_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -64,7 +68,13 @@ class AppRouter {
       case AppRoutes.accountDetailsScreenRoute:
         return MaterialPageRoute(builder: (_) => AccountDetailsScreen());
       case AppRoutes.changePasswordScreenRoute:
-        return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ChangePasswordCubit>(),
+                child: ChangePasswordScreen(),
+              ),
+        );
       case AppRoutes.termsAndConditionsScreenRoute:
         return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
       case AppRoutes.privacyPolicyScreenRoute:
@@ -88,8 +98,16 @@ class AppRouter {
       case AppRoutes.authRouter:
         return MaterialPageRoute(
           builder:
-              (_) =>
-                  BlocProvider(create: (_) => AuthCubit(), child: AuthScreen()),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider<AuthCubit>(create: (_) => AuthCubit()),
+                  BlocProvider(
+                    create: (_) => getIt<LoginCubit>(),
+                    child: LoginFormScreen(),
+                  ),
+                ],
+                child: AuthScreen(),
+              ),
         );
       default:
         return MaterialPageRoute(

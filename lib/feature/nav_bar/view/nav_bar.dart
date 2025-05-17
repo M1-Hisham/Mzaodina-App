@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
+
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 class NavBarScreen extends StatelessWidget {
   const NavBarScreen({super.key});
@@ -19,10 +22,13 @@ class NavBarScreen extends StatelessWidget {
         builder: (context, state) {
           return IndexedStack(
             index: state,
-            children: const [
+            children: [
               HomeScreen(),
               // SearchScreen(),
-              ProfileScreen(),
+              BlocProvider(
+                create: (context) => getIt<UserDataCubit>()..fetchUserData(),
+                child: ProfileScreen(),
+              ),
             ],
           );
         },
