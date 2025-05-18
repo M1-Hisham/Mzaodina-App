@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
-import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/view/home_details_qadim_screen.dart';
@@ -104,6 +107,14 @@ class AppRouter {
                   BlocProvider(
                     create: (_) => getIt<LoginCubit>(),
                     child: LoginFormScreen(),
+                  ),
+                  BlocProvider(
+                    create: (_) => getIt<RegisterCubit>(),
+                    child: RegisterFormScreen(),
+                  ),
+                  BlocProvider(
+                    create: (_) => CountryCubit(),
+                    child: RegisterFormScreen(),
                   ),
                 ],
                 child: AuthScreen(),

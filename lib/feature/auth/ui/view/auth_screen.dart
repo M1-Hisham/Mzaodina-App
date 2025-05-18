@@ -5,8 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/ui/forgot_password_screen.dart';
-import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
-import 'package:mzaodina_app/feature/auth/register/view/register_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 
 class AuthScreen extends StatelessWidget {
