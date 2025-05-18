@@ -3,10 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/api/dio_factory.dart';
 import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/repo/change_password_repo.dart';
+import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/view-model/data/repo/lodin_repo.dart';
 import 'package:mzaodina_app/feature/profile/data/repo/user_data_repo.dart';
-import 'package:mzaodina_app/feature/profile/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 /// This is the dependency injection file for the app.

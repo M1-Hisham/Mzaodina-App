@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/change_password_model.dart';
+import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
-import 'package:mzaodina_app/feature/profile/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});

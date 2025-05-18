@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/change_password_model.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/repo/change_password_repo.dart';
+import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
+import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 
 part 'change_password_state.dart';
 
