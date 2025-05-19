@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
@@ -115,6 +116,9 @@ class AppRouter {
                   BlocProvider(
                     create: (_) => CountryCubit(),
                     child: RegisterFormScreen(),
+                  ),
+                  BlocProvider(
+                    create: (context) => CheckboxCubit(initialValue: false),
                   ),
                 ],
                 child: AuthScreen(),

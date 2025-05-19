@@ -14,7 +14,7 @@ RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) =>
       terms: json['terms'] as bool,
       country: json['country'] as String,
       phone: json['phone'] as String,
-      phone_code: json['phone_code'] as String,
+      phoneCode: json['phone_code'] as String,
     );
 
 Map<String, dynamic> _$RegisterModelToJson(RegisterModel instance) =>
@@ -25,5 +25,5 @@ Map<String, dynamic> _$RegisterModelToJson(RegisterModel instance) =>
       'terms': instance.terms,
       'country': instance.country,
       'phone': instance.phone,
-      'phone_code': instance.phone_code,
+      'phone_code': instance.phoneCode,
     };

@@ -10,7 +10,9 @@ class RegisterModel {
   final bool terms;
   final String country;
   final String phone;
-  final String phone_code;
+
+  @JsonKey(name: 'phone_code')
+  final String phoneCode;
 
   RegisterModel({
     required this.username,
@@ -19,7 +21,7 @@ class RegisterModel {
     required this.terms,
     required this.country,
     required this.phone,
-    required this.phone_code,
+    required this.phoneCode,
   });
 
   /// تحويل من JSON إلى كائن Dart

@@ -14,7 +14,11 @@ class CheckboxCubit extends Cubit<CheckboxState> {
   CheckboxCubit({bool initialValue = false})
     : super(CheckboxState(isChecked: initialValue));
 
-  void toggle() => emit(state.copyWith(isChecked: !state.isChecked));
+  void toggle() {
+  final newValue = !state.isChecked;
+  print('Checkbox toggled to $newValue');
+  emit(state.copyWith(isChecked: newValue));
+}
 
   void setValue(bool value) => emit(state.copyWith(isChecked: value));
 }

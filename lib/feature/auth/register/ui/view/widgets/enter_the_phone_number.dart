@@ -97,15 +97,20 @@ import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/c
 class EnterThePhoneNumber extends StatefulWidget {
   final TextStyle? hintStyle;
   final Color? fillColor;
-  const EnterThePhoneNumber({super.key, this.hintStyle, this.fillColor});
+
+  final TextEditingController? phoneNumberController;
+  const EnterThePhoneNumber({
+    super.key,
+    this.hintStyle,
+    this.fillColor,
+    this.phoneNumberController,
+  });
 
   @override
   State<EnterThePhoneNumber> createState() => _EnterThePhoneNumberState();
 }
 
 class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
-  final TextEditingController _phoneNumberController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CountryCubit, CountryState>(
@@ -119,7 +124,7 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
         }
 
         return CustomTextForm(
-          controller: _phoneNumberController,
+          controller: widget.phoneNumberController,
           keyboardType: TextInputType.number,
           hintText: 'رقم الهاتف',
           fillColor: widget.fillColor ?? R.colors.formColorLight,

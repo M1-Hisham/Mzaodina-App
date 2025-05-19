@@ -1,131 +1,103 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
-import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
-import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/enter_the_phone_number.dart';
-import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/select_country.dart';
-import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
-import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/custom_column_register_text_field.dart';
 
-import '../../../../../core/widgets/check-box/view/custom_check_box.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 
-class RegisterFormScreen extends StatelessWidget {
+class RegisterFormScreen extends StatefulWidget {
   const RegisterFormScreen({super.key});
 
+  @override
+  State<RegisterFormScreen> createState() => _RegisterFormScreenState();
+}
+
+class _RegisterFormScreenState extends State<RegisterFormScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(20.r),
       child: Form(
-        child: Column(
-          children: [
-            CustomTextForm(
-              hintText: 'اسم المستخدم',
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(12.r),
-                child: SvgPicture.asset(
-                  R.images.userNameIcon,
-                  width: 23.w,
-                  height: 23.h,
-                ),
+        key: _formKey,
+        child: BlocListener<RegisterCubit, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterLoading) {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder:
+                    (context) =>
+                        const Center(child: CircularProgressIndicator()),
+              );
+            } else if (state is RegisterSuccess) {
+              Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
+            } else if (state is RegisterError) {
+              Navigator.pop(context); // Close Dialog
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+          child: Column(
+            children: [
+              CustomColumnRegisterTextField(
+                usernameController: usernameController,
+                phoneController: phoneController,
+                emailController: emailController,
+                passwordController: passwordController,
+                confirmPasswordController: confirmPasswordController,
               ),
-              keyboardType: TextInputType.name,
-            ),
-            spacingV(15.h),
-            SelectCountry(),
-            spacingV(15.h),
-            EnterThePhoneNumber(),
-            spacingV(15.h),
-            CustomTextForm(
-              hintText: 'البريد الالكتروني',
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(12.r),
-                child: SvgPicture.asset(
-                  R.images.emailIcon,
-                  width: 23.w,
-                  height: 23.h,
-                ),
+
+              spacingV(10.h),
+              CustomElevatedButton(
+                text: 'انشاء حساب',
+                onPressed: () {
+                  final flag = context.read<CountryCubit>().flagSelected;
+                  final termsAccepted =
+                      context.read<CheckboxCubit>().state.isChecked;
+                  log('termsAccepted = $termsAccepted');
+                  final registerModel = RegisterModel(
+                    username: usernameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                    terms: termsAccepted,
+                    country: flag,
+                    phone: phoneController.text,
+                    phoneCode: flag,
+                  );
+                  log(registerModel.toString());
+                  if (_formKey.currentState!.validate()) {
+                    if (!termsAccepted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("يجب الموافقة على الشروط أولاً."),
+                        ),
+                      );
+                      return;
+                    }
+                    context.read<RegisterCubit>().register(registerModel);
+                  }
+                },
               ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            spacingV(15.h),
-            CustomTextForm(
-              hintText: 'كلمة المرور',
-              isObscureText: true,
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(12.r),
-                child: SvgPicture.asset(
-                  R.images.passwordIcon,
-                  width: 23.w,
-                  height: 23.h,
-                ),
-              ),
-              keyboardType: TextInputType.visiblePassword,
-            ),
-            spacingV(15.h),
-            CustomTextForm(
-              hintText: 'تأكيد كلمة المرور',
-              isObscureText: true,
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(12.r),
-                child: SvgPicture.asset(
-                  R.images.passwordIcon,
-                  width: 23.w,
-                  height: 23.h,
-                ),
-              ),
-              keyboardType: TextInputType.visiblePassword,
-            ),
-            spacingV(5.h),
-            Row(
-              children: [
-                BlocProvider(
-                  create: (context) => CheckboxCubit(initialValue: false),
-                  child: const CustomCheckbox(),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TermsAndConditionsScreen(),
-                      ),
-                    );
-                  },
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text.rich(
-                      TextSpan(
-                        text: 'الموافقة علي ',
-                        style: R.textStyles.font12Grey3W500Light,
-                        children: [
-                          TextSpan(
-                            text: 'الشروط والاحكام',
-                            style: R.textStyles.font12primaryW600Light,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            spacingV(10.h),
-            CustomElevatedButton(
-              text: 'انشاء حساب',
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-  
