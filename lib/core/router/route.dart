@@ -70,14 +70,21 @@ class AppRouter {
       case AppRoutes.aboutUsScreenRoute:
         return MaterialPageRoute(builder: (_) => AboutUsScreen());
       case AppRoutes.accountDetailsScreenRoute:
-        return MaterialPageRoute(builder: (_) => AccountDetailsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider<CountryCubit>(
+                create: (context) => CountryCubit(),
+
+                child: AccountDetailsScreen(),
+              ),
+        );
       case AppRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
                 create: (context) => getIt<ChangePasswordCubit>(),
                 child: ChangePasswordScreen(),
-              ),
+              ),             
         );
       case AppRoutes.termsAndConditionsScreenRoute:
         return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
@@ -113,10 +120,7 @@ class AppRouter {
                     create: (_) => getIt<RegisterCubit>(),
                     child: RegisterFormScreen(),
                   ),
-                  BlocProvider(
-                    create: (_) => CountryCubit(),
-                    child: RegisterFormScreen(),
-                  ),
+
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
                   ),
