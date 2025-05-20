@@ -8,9 +8,9 @@ import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit_state.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/login_request_body.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit_state.dart';
+import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 

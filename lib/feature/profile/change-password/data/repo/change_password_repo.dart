@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/change_password_model.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/password_update_response.dart';
+import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
+import 'package:mzaodina_app/feature/profile/data/model/password_update_response.dart';
 
 class ChangePasswordRepo {
   final ApiService apiService;

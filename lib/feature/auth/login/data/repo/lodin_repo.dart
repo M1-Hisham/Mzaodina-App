@@ -5,8 +5,8 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/constant/shared_preferences_key.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/core/helper/shaerd_pref_helper.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/login_request_body.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/login_response_model.dart';
+import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
+import 'package:mzaodina_app/feature/auth/login/data/model/login_response_model.dart';
 
 class LoginRepo {
   final ApiService apiService;

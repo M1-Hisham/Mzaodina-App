@@ -73,7 +73,7 @@ class ServerFailure extends Failure {
     } else if (statusCode == 500) {
       return ServerFailure('Internal Server error, Please try later');
     } else {
-      return ServerFailure('Oops! There was an Error, Please try again.');
+      return ServerFailure('Oops! There was an Error, Please try again =========.');
     }
   }
 }

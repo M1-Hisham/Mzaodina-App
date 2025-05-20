@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit_state.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/login_request_body.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/data/repo/lodin_repo.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit_state.dart';
+import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
+import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
 
 class LoginCubit extends Cubit<LoginCubitState> {
   final LoginRepo loginRepo;

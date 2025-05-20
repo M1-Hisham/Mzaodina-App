@@ -43,7 +43,9 @@ class ProfileScreen extends StatelessWidget {
               } else if (state is UserDataSuccess) {
                 return Column(
                   children: [
-                    _buildHeader(state.userModel.data?.email ?? 'فهد القحطاني'),
+                    _buildHeader(
+                      state.userModel.data?.username ?? 'فهد القحطاني',
+                    ),
                     CustomUserDataDetailsSection(),
                     SizedBox(height: 30.h),
                     CustomAppInformationSection(),
@@ -54,7 +56,13 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 );
               } else if (state is UserDataError) {
-                return Center(child: Text('حدث خطأ: ${state.errMessage}'));
+                return Column(
+                  children: [
+                    SizedBox(height: 200),
+                    Center(child: Text('حدث خطأ: ${state.errMessage}')),
+                    CustomLogoutBotton(),
+                  ],
+                );
               } else {
                 return const SizedBox.shrink();
               }

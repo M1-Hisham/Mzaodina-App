@@ -1,4 +1,4 @@
-import 'package:mzaodina_app/feature/auth/login/view-model/data/model/login_response_model.dart';
+import 'package:mzaodina_app/feature/auth/login/data/model/login_response_model.dart';
 
 abstract class LoginCubitState {}
 

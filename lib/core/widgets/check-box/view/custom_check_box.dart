@@ -14,7 +14,9 @@ class CustomCheckbox extends StatelessWidget {
     return BlocBuilder<CheckboxCubit, CheckboxState>(
       builder: (context, state) {
         return InkWell(
-          onTap: () => context.read<CheckboxCubit>().toggle(),
+          onTap: () {
+            context.read<CheckboxCubit>().toggle();
+          },
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             child: SvgPicture.asset(

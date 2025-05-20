@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/feature/auth/login/view-model/cubit/login_cubit.dart';
-import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
+import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/view/home_details_qadim_screen.dart';
@@ -24,7 +28,7 @@ import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_
 import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
-import 'package:mzaodina_app/feature/profile/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
 class AppRouter {
@@ -66,14 +70,21 @@ class AppRouter {
       case AppRoutes.aboutUsScreenRoute:
         return MaterialPageRoute(builder: (_) => AboutUsScreen());
       case AppRoutes.accountDetailsScreenRoute:
-        return MaterialPageRoute(builder: (_) => AccountDetailsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider<CountryCubit>(
+                create: (context) => CountryCubit(),
+
+                child: AccountDetailsScreen(),
+              ),
+        );
       case AppRoutes.changePasswordScreenRoute:
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
                 create: (context) => getIt<ChangePasswordCubit>(),
                 child: ChangePasswordScreen(),
-              ),
+              ),             
         );
       case AppRoutes.termsAndConditionsScreenRoute:
         return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
@@ -104,6 +115,14 @@ class AppRouter {
                   BlocProvider(
                     create: (_) => getIt<LoginCubit>(),
                     child: LoginFormScreen(),
+                  ),
+                  BlocProvider(
+                    create: (_) => getIt<RegisterCubit>(),
+                    child: RegisterFormScreen(),
+                  ),
+
+                  BlocProvider(
+                    create: (context) => CheckboxCubit(initialValue: false),
                   ),
                 ],
                 child: AuthScreen(),
