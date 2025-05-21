@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:mzaodina_app/core/widgets/custom_success_change_and_forgot_password_dialog.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
@@ -44,7 +45,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     showDialog(
                       context: context,
                       builder:
-                          (BuildContext context) => CustomSuccessDialog(
+                          (BuildContext context) => CustomSuccessChangeAndForgotPasswordDialog(
                             message: state.message,
                             onPressed: () {
                               Navigator.pop(context);
@@ -56,7 +57,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     showDialog(
                       context: context,
                       builder:
-                          (BuildContext context) => CustomSuccessDialog(
+                          (BuildContext context) => CustomSuccessChangeAndForgotPasswordDialog(
                             message: state.errorMessage,
                             onPressed: () {
                               Navigator.pop(context);
@@ -133,45 +134,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomSuccessDialog extends StatelessWidget {
-  final String message;
-  final String buttonText;
-  final VoidCallback onPressed;
-
-  const CustomSuccessDialog({
-    super.key,
-    required this.message,
-    this.buttonText = 'اغلاق',
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(18.0),
-        decoration: BoxDecoration(
-          color: R.colors.whiteLight,
-          borderRadius: BorderRadius.circular(22),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              message,
-              style: R.textStyles.font18blackW500Light,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            CustomElevatedButton(text: buttonText, onPressed: onPressed),
           ],
         ),
       ),
