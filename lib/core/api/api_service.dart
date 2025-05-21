@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_constants.dart';
+import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
@@ -24,6 +25,12 @@ abstract class ApiService {
   @POST(ApiConstants.login)
   Future<LoginResponseModel> login(@Body() LoginRequestBody loginRequestBody);
 
+  /// service for register
+  @POST(ApiConstants.register)
+  Future<LoginResponseModel> register(
+    @Body() RegisterModel changePasswordModel,
+  );
+
   /// service for logout
   @POST(ApiConstants.logout)
   Future<void> logout();
@@ -38,8 +45,7 @@ abstract class ApiService {
     @Body() ChangePasswordModel changePasswordModel,
   );
 
-  @POST(ApiConstants.register)
-  Future<LoginResponseModel> register(
-    @Body() RegisterModel changePasswordModel,
-  );
+  /// service for forgotPassword
+  @POST(ApiConstants.forgotPassword)
+  Future<ForgotPasswordResponse> forgotPassword(@Query("email") String email);
 }

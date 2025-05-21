@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
+import 'package:mzaodina_app/feature/auth/forgot-password/ui/view/forgot_password_screen.dart';
+import 'package:mzaodina_app/feature/auth/forgot-password/ui/view_model/forgot_password_cubit/forgot_password_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
@@ -84,7 +86,7 @@ class AppRouter {
               (_) => BlocProvider(
                 create: (context) => getIt<ChangePasswordCubit>(),
                 child: ChangePasswordScreen(),
-              ),             
+              ),
         );
       case AppRoutes.termsAndConditionsScreenRoute:
         return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
@@ -120,9 +122,15 @@ class AppRouter {
                     create: (_) => getIt<RegisterCubit>(),
                     child: RegisterFormScreen(),
                   ),
-
+                  BlocProvider<CountryCubit>(
+                    create: (context) => CountryCubit(),
+                  ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<ForgotPasswordCubit>(),
+                    child: ForgotPasswordScreen(),
                   ),
                 ],
                 child: AuthScreen(),
