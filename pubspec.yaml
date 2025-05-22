@@ -67,6 +67,7 @@ dependencies:
   dartz: ^0.10.1
   get_it: ^8.0.3
   flutter_widget_from_html: ^0.16.0
+  cached_network_image: ^3.4.1
 
 
 dev_dependencies:

@@ -48,10 +48,11 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 8),
-                  CustomCardImageDetails(
-                    images: qadimDetails.product.images,
-
-                    
+                  Hero(
+                    tag: qadimDetails.slug,
+                    child: CustomCardImageDetails(
+                      images: qadimDetails.product.images,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Padding(

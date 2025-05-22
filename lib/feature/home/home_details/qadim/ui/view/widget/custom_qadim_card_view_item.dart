@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,10 +43,19 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.network(
-                    widget.qadinDataModel.product.images[0],
-                    width: 120.w,
-                    height: 158.h,
+                  Hero(
+                    tag: widget.qadinDataModel.slug,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.qadinDataModel.product.images[0],
+                      width: 120.w,
+                      height: 158.h,
+                      fit: BoxFit.cover,
+                      placeholder:
+                          (context, url) =>
+                              Center(child: const CircularProgressIndicator()),
+                      errorWidget:
+                          (context, url, error) => const Icon(Icons.error),
+                    ),
                   ),
                   SizedBox(width: 16.w),
                   Expanded(

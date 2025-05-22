@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,11 +47,14 @@ class _MainImageView extends StatelessWidget {
       builder: (context, imagePath) {
         return Padding(
           padding: const EdgeInsets.only(right: 16, left: 16),
-          child: Image.network(
-            imagePath,
+          child: CachedNetworkImage(
+            imageUrl: imagePath,
             width: double.infinity,
             height: 210.h,
             fit: BoxFit.contain,
+            placeholder:
+                (context, url) => Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         );
       },
@@ -117,7 +121,14 @@ class _ThumbnailItem extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(11),
         ),
-        child: Image.network(imagePath, fit: BoxFit.contain),
+        child: CachedNetworkImage(
+          imageUrl: imagePath,
+          width: double.infinity,
+          fit: BoxFit.contain,
+          placeholder:
+              (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
       ),
     );
   }
