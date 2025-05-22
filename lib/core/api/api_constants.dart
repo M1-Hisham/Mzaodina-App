@@ -9,4 +9,5 @@ class ApiConstants {
   static const String profileUserData = "/user/data";
   static const String changePassword = "/user/change/password";
   static const String forgotPassword = "/user/forgot/password";
+  static const String auctions = "/auctions";
 }

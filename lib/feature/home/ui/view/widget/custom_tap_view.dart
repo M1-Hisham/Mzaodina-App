@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/view/widgets/custom_jaraa_card_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/view/widget/custom_muntahi_cart_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/view/widget/custom_qadim_card_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/view/widget/custom_sayantaliq_cart_virew_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_card_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/widget/custom_muntahi_cart_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/custom_qadim_card_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 
 class CustomTapView extends StatefulWidget {
@@ -19,7 +24,6 @@ class _CustomTapViewState extends State<CustomTapView>
     with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
   late TabController _tabController;
-  DateTime eventTimeFromApi = DateTime.parse('2025-05-01 18:00:00');
 
   @override
   void initState() {
@@ -85,20 +89,121 @@ class _CustomTapViewState extends State<CustomTapView>
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CustomQadimCardViewItem(),
+                child: BlocBuilder<QadimCubit, QadimState>(
+                  builder: (context, state) {
+                    if (state is QadimLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is QadimError) {
+                      return Center(child: Text(state.errorMessage));
+                    } else if (state is QadimSuccess) {
+                      final qadimAuctionResponse = state.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+
+                        itemCount: qadimAuctionResponse.data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: CustomQadimCardViewItem(
+                              qadinDataModel: qadimAuctionResponse.data[index],
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(child: Text('لا يوجد بيانات'));
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: BlocBuilder<SayantaliqCubit, SayantaliqState>(
+                  builder: (context, state) {
+                    if (state is SayantaliqLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is SayantaliqError) {
+                      return Center(child: Text(state.errorMessage));
+                    } else if (state is SayantaliqSuccess) {
+                      final sayantaliqAuctionResponse = state.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+
+                        itemCount: sayantaliqAuctionResponse.data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: CustomSayantaliqCardViewItem(
+                              sayantaliqDataModel:
+                                  sayantaliqAuctionResponse.data[index],
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(child: Text('لا يوجد بيانات'));
+                    }
+                  },
+                ),
               ),
 
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CustomSayantaliqCardViewItem(),
+                child: BlocBuilder<JaraaCubit, JaraaState>(
+                  builder: (context, state) {
+                    if (state is JaraaLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is JaraaError) {
+                      return Center(child: Text(state.errorMessage));
+                    } else if (state is JaraaSuccess) {
+                      final jaraaAuctionResponse = state.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+
+                        itemCount: jaraaAuctionResponse.data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: CustomJaraaCardViewItem(
+                              jaraaDataModel: jaraaAuctionResponse.data[index],
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(child: Text('لا يوجد بيانات'));
+                    }
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CustomJaraaCardViewItem(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomMuntahiCardViewItem(),
+                child: BlocBuilder<MuntahiCubit, MuntahiState>(
+                  builder: (context, state) {
+                    if (state is MuntahiLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is MuntahiError) {
+                      return Center(child: Text(state.errorMessage));
+                    } else if (state is MuntahiSuccess) {
+                      final muntaliAuctionResponse = state.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+
+                        itemCount: muntaliAuctionResponse.data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: CustomMuntahiCardViewItem(
+                              muntahiDataModel: muntaliAuctionResponse.data[index],
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(child: Text('لا يوجد بيانات'));
+                    }
+                  },
+                ),
               ),
             ],
           ),
