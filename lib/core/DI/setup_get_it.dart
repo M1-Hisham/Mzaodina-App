@@ -7,6 +7,8 @@ import 'package:mzaodina_app/feature/auth/forgot-password/ui/view_model/forgot_p
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/data/repo/register_repo.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
 import 'package:mzaodina_app/feature/profile/data/repo/user_data_repo.dart';
@@ -65,5 +67,13 @@ Future<void> setupGetIt() async {
   // ✅ ForgotPasswordCubit Cubit
   getIt.registerFactory<ForgotPasswordCubit>(
     () => ForgotPasswordCubit(getIt<ForgotPasswordRepo>()),
+  );
+  // ✅ Register QadimRepo
+  getIt.registerLazySingleton<QadimAuctionRepo>(
+    () => QadimAuctionRepo(getIt<ApiService>()),
+  );
+  // ✅ Qadim Cubit
+  getIt.registerFactory<QadimCubit>(
+    () => QadimCubit(getIt<QadimAuctionRepo>()),
   );
 }

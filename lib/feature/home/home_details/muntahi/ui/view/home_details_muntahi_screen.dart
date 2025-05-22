@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/bids_dialog.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
-import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
-class HomeDetailsQadimScreen extends StatelessWidget {
-  const HomeDetailsQadimScreen({super.key});
+class HomeDetailsMuntahiScreen extends StatelessWidget {
+  HomeDetailsMuntahiScreen({super.key});
+
+  final List<Bid> bids = List.generate(
+    10,
+    (index) => Bid(
+      number: index + 1,
+      name: 'مزايد ${index + 1}',
+      amount: 1200,
+      dateTime: DateTime(2025, 4, 18, 15, 25),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +41,6 @@ class HomeDetailsQadimScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 41,
-                      vertical: 8,
-                    ),
-                    child: CustomIndcatorItem(
-                      title: 'نسبة انطلاق المزاد',
-                      showIndicator: true,
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
                   CustomCardImageDetails(
                     images: [
                       R.images.phoneImagePng,
@@ -64,7 +60,6 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     color: R.colors.blackColor2,
-
                     child: CoustomRowItem(
                       title: 'سعر المنتج بالأسواق',
                       price: '1000.00 ',
@@ -72,39 +67,75 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                       priceStyle: R.textStyles.font14primaryW500Light,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                    child: CoustomRowItem(
-                      title: ' بداية المزاد',
-                      price: '600.00 ',
-                      style: R.textStyles.font14Grey3W500Light,
-                      priceStyle: R.textStyles.font14primaryW500Light,
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6.h,
+                      horizontal: 16,
+                    ),
+                    color: R.colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'مبلغ ترسية المزاد',
+                          style: R.textStyles.font14Grey3W500Light,
+                        ),
+                        Spacer(),
+                        Text(
+                          'انتظار دفع الفاتورة',
+                          style: R.textStyles.font12primaryW600Light,
+                        ),
+                      ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    color: R.colors.blackColor2,
-
-                    child: CoustomRowItem(
-                      title: 'رسوم تنظيم',
-                      price: '30.00 ',
-                      style: R.textStyles.font14Grey3W500Light,
-                      priceStyle: R.textStyles.font14primaryW500Light,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6.h,
+                      horizontal: 16,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                    child: CustomIndcatorItem(
-                      title: 'انطلاق المزاد',
-                      showIndicator: false,
-                      style: R.textStyles.font14Grey3W500Light,
+                    decoration: BoxDecoration(
+                      color: R.colors.blackColor2,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'المزاود',
+                          style: R.textStyles.font14Grey3W500Light,
+                        ),
+                        Spacer(),
+                        Text(
+                          'لايوجد',
+                          style: R.textStyles.font12primaryW600Light,
+                        ),
+                      ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6.h,
+                      horizontal: 16,
+                    ),
+                    color: R.colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'الدولة',
+                          style: R.textStyles.font14Grey3W500Light,
+                        ),
+                        Spacer(),
+                        Text(
+                          'لايوجد',
+                          style: R.textStyles.font12primaryW600Light,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
                     color: R.colors.blackColor2,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
                     child: Row(
                       children: [
@@ -119,42 +150,15 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                            color: R.colors.primaryColorLight,
+                            color: R.colors.redColor,
                             borderRadius: BorderRadius.circular(99),
                           ),
                           child: Text(
-                            'قادم',
+                            'منتهي',
                             style: R.textStyles.font10whiteW500Light,
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  SizedBox(height: 22.h),
-                  InkWell(
-                    onTap:
-                        () => showDialog<String>(
-                          context: context,
-                          builder:
-                              (BuildContext context) =>
-                                  CustomDialogTaelimatItem(),
-                        ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(R.images.taelimatIcon),
-                            const SizedBox(width: 8),
-                            Text(
-                              'تعليمات المزاد',
-                              style: R.textStyles.font16primaryW600Light,
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                   SizedBox(height: 12.h),
@@ -163,17 +167,21 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                     child: CustomTextMazadDetails(title: 'تفاصيل المنتج'),
                   ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  SizedBox(height: 12.h),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                        tafasilAlmazad
+                            .map(
+                              (text) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0,
+                                ),
 
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          tafasilAlmazad
-                              .map((text) => CustomTextItem(text: text))
-                              .toList(),
-                    ),
+                                child: CustomTextItem(text: text),
+                              ),
+                            )
+                            .toList(),
                   ),
                   const SizedBox(height: 80),
                 ],
@@ -186,11 +194,12 @@ class HomeDetailsQadimScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
         child: CustomElevatedButton(
-          text: 'الانضمام للمزاد',
+          backgroundColor: R.colors.redColor,
+          text: 'سجل المزايدة',
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const JoinTheAuction()),
+            showDialog(
+              context: context,
+              builder: (context) => BidsDialog(bids: bids),
             );
           },
         ),

@@ -39,7 +39,15 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         Spacer(),
-        Text(title, style: R.textStyles.font14BlackW500Light),
+        SizedBox(
+          width: 200.w,
+          child: Text(
+            title,
+            style: R.textStyles.font14BlackW500Light,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         Spacer(),
         InkWell(
           onTap: () {

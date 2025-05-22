@@ -10,10 +10,12 @@ import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/view/home_details_jaraa_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/view/home_details_muntahi_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/view/home_details_qadim_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/view/home_details_sayantaliq_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/home_details_jaraa_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_details_muntahi_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/invoice_details_screen.dart';
@@ -42,7 +44,10 @@ class AppRouter {
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.homeDetailsQadimScreenRoute:
-        return MaterialPageRoute(builder: (_) => HomeDetailsQadimScreen());
+        final args = settings.arguments as QadimAuction;
+        return MaterialPageRoute(
+          builder: (_) => HomeDetailsQadimScreen(qadimDetails: args),
+        );
       case AppRoutes.homeDetailsMuntahiScreenRoute:
         return MaterialPageRoute(builder: (_) => HomeDetailsMuntahiScreen());
       case AppRoutes.homeDetailsJaraaScreenRoute:
