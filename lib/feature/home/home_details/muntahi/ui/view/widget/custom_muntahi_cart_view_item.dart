@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,10 +6,12 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomMuntahiCardViewItem extends StatefulWidget {
-  const CustomMuntahiCardViewItem({super.key});
+  final MuntahiAction muntahiDataModel;
+  const CustomMuntahiCardViewItem({super.key, required this.muntahiDataModel});
 
   @override
   State<CustomMuntahiCardViewItem> createState() =>
@@ -16,7 +19,6 @@ class CustomMuntahiCardViewItem extends StatefulWidget {
 }
 
 class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
-  DateTime eventTimeFromApi = DateTime.parse('2025-05-06 18:00:00');
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,10 +39,20 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      R.images.phoneImagePng,
-                      width: 120.w,
-                      height: 158.h,
+                    Hero(
+                      tag: widget.muntahiDataModel.slug,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.muntahiDataModel.product.images[0],
+                        width: 120.w,
+                        height: 158.h,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            (context, url) => Center(
+                              child: const CircularProgressIndicator(),
+                            ),
+                        errorWidget:
+                            (context, url, error) => const Icon(Icons.error),
+                      ),
                     ),
                     SizedBox(width: 16.w),
                     Expanded(
@@ -50,7 +62,7 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 8.h),
                             child: Text(
-                              'مزاد على ايفون 16 برو من ابل',
+                              widget.muntahiDataModel.product.nameAr,
                               style: R.textStyles.font16BlackW500Light,
                             ),
                           ),
@@ -58,7 +70,9 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                           SizedBox(height: 12.h),
                           CoustomRowItem(
                             title: 'السعر بالأسواق',
-                            price: '1,000.00  ',
+                            price:
+                                widget.muntahiDataModel.product.price
+                                    .toString(),
                           ),
 
                           Container(
@@ -113,6 +127,7 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                           Navigator.pushNamed(
                             context,
                             AppRoutes.homeDetailsMuntahiScreenRoute,
+                            arguments: widget.muntahiDataModel,
                           );
                         },
                         backgroundColor: R.colors.primaryColorLight,

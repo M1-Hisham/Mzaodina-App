@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
 class HomeDetailsSayantaliqScreen extends StatelessWidget {
   final DateTime eventTimeFromApi;
+  final SayantaliqAuction sayantaliqDetails;
   const HomeDetailsSayantaliqScreen({
     super.key,
     required this.eventTimeFromApi,
+    required this.sayantaliqDetails,
   });
 
   @override
@@ -28,7 +31,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: CustomAppBar(title: 'مزاد على ايفون 16 برو من ابل'),
+              child: CustomAppBar(title: sayantaliqDetails.product.nameAr),
             ),
           ),
 
@@ -51,13 +54,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
 
                   const SizedBox(height: 8),
                   CustomCardImageDetails(
-                    images: [
-                      R.images.phoneImagePng,
-                      R.images.phoneImagePng1,
-                      R.images.phoneImagePng2,
-                      R.images.phoneImagePng3,
-                      R.images.phoneImagePng4,
-                    ],
+                    images: sayantaliqDetails.product.images,
                   ),
                   const SizedBox(height: 8),
                   Padding(
@@ -194,13 +191,9 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          tafasilAlmazad
-                              .map((text) => CustomTextItem(text: text))
-                              .toList(),
+                    child: HtmlWidget(
+                      sayantaliqDetails.product.productDetails,
+                      textStyle: R.textStyles.font12Grey3W500Light,
                     ),
                   ),
                   const SizedBox(height: 80),

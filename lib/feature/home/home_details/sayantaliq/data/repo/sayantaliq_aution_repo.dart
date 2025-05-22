@@ -9,8 +9,7 @@ class SayantaliqAutionRepo {
 
   SayantaliqAutionRepo(this.apiService);
 
-  Future<Either<Failure, SayantaliqAuctionResponse>>
-  getFinishedAuctions() async {
+  Future<Either<Failure, SayantaliqAuctionResponse>> getReadyAuctions() async {
     try {
       final response = await apiService.getReadyAuctions();
       return Right(response);

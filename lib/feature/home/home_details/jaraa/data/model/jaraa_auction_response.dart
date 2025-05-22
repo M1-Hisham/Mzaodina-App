@@ -6,7 +6,7 @@ part 'jaraa_auction_response.g.dart';
 class JaraaAuctionResponse {
   final bool status;
   final String message;
-  final List<Auction> data;
+  final List<JaraaAuction> data;
 
   JaraaAuctionResponse({
     required this.status,
@@ -21,7 +21,7 @@ class JaraaAuctionResponse {
 }
 
 @JsonSerializable(explicitToJson: true)
-class Auction {
+class JaraaAuction {
   final int id;
   final String slug;
   final String status;
@@ -34,7 +34,7 @@ class Auction {
   @JsonKey(name: 'max_bid')
   final MaxBid? maxBid;
 
-  Auction({
+  JaraaAuction({
     required this.id,
     required this.slug,
     required this.status,
@@ -45,10 +45,10 @@ class Auction {
     this.maxBid,
   });
 
-  factory Auction.fromJson(Map<String, dynamic> json) =>
-      _$AuctionFromJson(json);
+  factory JaraaAuction.fromJson(Map<String, dynamic> json) =>
+      _$JaraaAuctionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AuctionToJson(this);
+  Map<String, dynamic> toJson() => _$JaraaAuctionToJson(this);
 }
 
 @JsonSerializable()

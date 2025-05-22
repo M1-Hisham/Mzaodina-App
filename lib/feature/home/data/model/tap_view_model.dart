@@ -5,7 +5,7 @@ class TapViewModel {
   TapViewModel({required this.title, required this.counter});
 }
 
-final List<TapViewModel> tapViewModel = [
+ List<TapViewModel> tapViewModel = [
   TapViewModel(title: 'قادم', counter: '1'),
   TapViewModel(title: 'سينطلق', counter: '1'),
   TapViewModel(title: 'جاري', counter: '1'),

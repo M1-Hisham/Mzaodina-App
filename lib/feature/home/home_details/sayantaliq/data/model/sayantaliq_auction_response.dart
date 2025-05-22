@@ -6,7 +6,7 @@ part 'sayantaliq_auction_response.g.dart';
 class SayantaliqAuctionResponse {
   final bool status;
   final String message;
-  final List<Auction> data;
+  final List<SayantaliqAuction> data;
 
   SayantaliqAuctionResponse({
     required this.status,
@@ -21,7 +21,7 @@ class SayantaliqAuctionResponse {
 }
 
 @JsonSerializable(explicitToJson: true)
-class Auction {
+class SayantaliqAuction {
   final int id;
   final String slug;
   final String status;
@@ -42,7 +42,7 @@ class Auction {
   final String startAt;
   final Product product;
 
-  Auction({
+  SayantaliqAuction({
     required this.id,
     required this.slug,
     required this.status,
@@ -57,10 +57,10 @@ class Auction {
     required this.product,
   });
 
-  factory Auction.fromJson(Map<String, dynamic> json) =>
-      _$AuctionFromJson(json);
+  factory SayantaliqAuction.fromJson(Map<String, dynamic> json) =>
+      _$SayantaliqAuctionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AuctionToJson(this);
+  Map<String, dynamic> toJson() => _$SayantaliqAuctionToJson(this);
 }
 
 @JsonSerializable()

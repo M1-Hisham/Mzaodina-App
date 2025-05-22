@@ -11,10 +11,10 @@ import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/home_details_jaraa_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
@@ -49,21 +49,27 @@ class AppRouter {
           builder: (_) => HomeDetailsQadimScreen(qadimDetails: args),
         );
       case AppRoutes.homeDetailsMuntahiScreenRoute:
-        return MaterialPageRoute(builder: (_) => HomeDetailsMuntahiScreen());
+        final args = settings.arguments as MuntahiAction;
+        return MaterialPageRoute(
+          builder: (_) => HomeDetailsMuntahiScreen(muntahiDetails: args),
+        );
       case AppRoutes.homeDetailsJaraaScreenRoute:
-        final args = settings.arguments as Map<String, DateTime>;
+        final args = settings.arguments as Map<String, dynamic>;
 
         return MaterialPageRoute(
           builder:
-              (_) =>
-                  HomeDetailsJaraaScreen(eventTimeFromApi: args['eventTime']!),
+              (_) => HomeDetailsJaraaScreen(
+                eventTimeFromApi: args['eventTime']!,
+                jaraaDetails: args['jaraaDataModel'],
+              ),
         );
       case AppRoutes.homeDetailsSayantaliqScreenRoute:
-        final args = settings.arguments as Map<String, DateTime>;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
               (_) => HomeDetailsSayantaliqScreen(
                 eventTimeFromApi: args['eventTime']!,
+                sayantaliqDetails: args['sayantaliqDataModel'],
               ),
         );
       case AppRoutes.navBarRoute:

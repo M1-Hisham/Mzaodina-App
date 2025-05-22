@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/bids_dialog.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_price_card.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
 class HomeDetailsJaraaScreen extends StatelessWidget {
   final DateTime eventTimeFromApi;
-  HomeDetailsJaraaScreen({super.key, required this.eventTimeFromApi});
+  final JaraaAuction jaraaDetails;
+
+  HomeDetailsJaraaScreen({
+    super.key,
+    required this.eventTimeFromApi,
+    required this.jaraaDetails,
+  });
   final List<Bid> bids = List.generate(
     10,
     (index) => Bid(
@@ -41,7 +48,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                   vertical: 12,
                   horizontal: 16,
                 ),
-                child: CustomAppBar(title: 'مزاد على ايفون 16 برو من ابل'),
+                child: CustomAppBar(title: jaraaDetails.product.nameAr),
               ),
             ),
 
@@ -63,15 +70,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 8),
-                    CustomCardImageDetails(
-                      images: [
-                        R.images.phoneImagePng,
-                        R.images.phoneImagePng1,
-                        R.images.phoneImagePng2,
-                        R.images.phoneImagePng3,
-                        R.images.phoneImagePng4,
-                      ],
-                    ),
+                    CustomCardImageDetails(images: jaraaDetails.product.images),
                     const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -84,7 +83,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                       color: R.colors.blackColor2,
                       child: CoustomRowItem(
                         title: 'سعر المنتج بالأسواق',
-                        price: '1000.00 ',
+                        price: jaraaDetails.product.price.toString(),
                         style: R.textStyles.font14Grey3W500Light,
                         priceStyle: R.textStyles.font14primaryW500Light,
                       ),
@@ -94,7 +93,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
 
                       child: CoustomRowItem(
                         title: 'أعلى مبلغ مزايدة',
-                        price: '600.00 ',
+                        price: jaraaDetails.product.price.toString(),
                         style: R.textStyles.font14Grey3W500Light,
                         priceStyle: R.textStyles.font14primaryW500Light,
                       ),
@@ -224,20 +223,12 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                       child: CustomTextMazadDetails(title: 'تفاصيل المنتج'),
                     ),
                     const SizedBox(height: 8),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          tafasilAlmazad
-                              .map(
-                                (text) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0,
-                                  ),
-
-                                  child: CustomTextItem(text: text),
-                                ),
-                              )
-                              .toList(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: HtmlWidget(
+                        jaraaDetails.product.productDetails,
+                        textStyle: R.textStyles.font12Grey3W500Light,
+                      ),
                     ),
                     const SizedBox(height: 80),
                   ],

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,11 +6,13 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomJaraaCardViewItem extends StatefulWidget {
-  const CustomJaraaCardViewItem({super.key});
+  final JaraaAuction jaraaDataModel;
+  const CustomJaraaCardViewItem({super.key, required this.jaraaDataModel});
 
   @override
   State<CustomJaraaCardViewItem> createState() =>
@@ -17,9 +20,9 @@ class CustomJaraaCardViewItem extends StatefulWidget {
 }
 
 class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
-  DateTime eventTimeFromApi = DateTime.parse('2025-05-04 18:00:00');
   @override
   Widget build(BuildContext context) {
+    DateTime eventTimeFromApi = DateTime.parse(widget.jaraaDataModel.endAt);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -38,10 +41,20 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      R.images.phoneImagePng,
-                      width: 120.w,
-                      height: 158.h,
+                    Hero(
+                      tag: widget.jaraaDataModel.slug,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.jaraaDataModel.product.images[0],
+                        width: 120.w,
+                        height: 158.h,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            (context, url) => Center(
+                              child: const CircularProgressIndicator(),
+                            ),
+                        errorWidget:
+                            (context, url, error) => const Icon(Icons.error),
+                      ),
                     ),
                     SizedBox(width: 16.w),
                     Expanded(
@@ -51,7 +64,7 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 8.h),
                             child: Text(
-                              'مزاد على ايفون 16 برو من ابل',
+                              widget.jaraaDataModel.product.nameAr,
                               style: R.textStyles.font16BlackW500Light,
                             ),
                           ),
@@ -64,9 +77,14 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           SizedBox(height: 12.h),
                           CoustomRowItem(
                             title: 'السعر بالأسواق',
-                            price: '1,000.00  ',
+                            price:
+                                widget.jaraaDataModel.product.price.toString(),
                           ),
-                          CoustomRowItem(title: 'اعلى مزاد', price: '600.00  '),
+                          CoustomRowItem(
+                            title: 'اعلى مزاد',
+                            price:
+                                widget.jaraaDataModel.product.price.toString(),
+                          ),
 
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -102,7 +120,8 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           Navigator.pushNamed(
                             context,
                             AppRoutes.homeDetailsJaraaScreenRoute,
-                            arguments: {'eventTime': eventTimeFromApi},
+                            arguments: {'eventTime': eventTimeFromApi,
+                              'jaraaDataModel': widget.jaraaDataModel},
                           );
                         },
                         backgroundColor: R.colors.primaryColorLight,

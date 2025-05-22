@@ -13,7 +13,7 @@ MuntahiAuctionsResponse _$MuntahiAuctionsResponseFromJson(
   message: json['message'] as String,
   data:
       (json['data'] as List<dynamic>)
-          .map((e) => Auction.fromJson(e as Map<String, dynamic>))
+          .map((e) => MuntahiAction.fromJson(e as Map<String, dynamic>))
           .toList(),
 );
 
@@ -25,26 +25,28 @@ Map<String, dynamic> _$MuntahiAuctionsResponseToJson(
   'data': instance.data.map((e) => e.toJson()).toList(),
 };
 
-Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
-  id: (json['id'] as num).toInt(),
-  slug: json['slug'] as String,
-  status: json['status'] as String,
-  openingAmount: (json['opening_amount'] as num).toInt(),
-  product: Product.fromJson(json['product'] as Map<String, dynamic>),
-  winner:
-      json['winner'] == null
-          ? null
-          : Winner.fromJson(json['winner'] as Map<String, dynamic>),
-);
+MuntahiAction _$MuntahiActionFromJson(Map<String, dynamic> json) =>
+    MuntahiAction(
+      id: (json['id'] as num).toInt(),
+      slug: json['slug'] as String,
+      status: json['status'] as String,
+      openingAmount: (json['opening_amount'] as num).toInt(),
+      product: Product.fromJson(json['product'] as Map<String, dynamic>),
+      winner:
+          json['winner'] == null
+              ? null
+              : Winner.fromJson(json['winner'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
-  'id': instance.id,
-  'slug': instance.slug,
-  'status': instance.status,
-  'opening_amount': instance.openingAmount,
-  'product': instance.product.toJson(),
-  'winner': instance.winner?.toJson(),
-};
+Map<String, dynamic> _$MuntahiActionToJson(MuntahiAction instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'slug': instance.slug,
+      'status': instance.status,
+      'opening_amount': instance.openingAmount,
+      'product': instance.product.toJson(),
+      'winner': instance.winner?.toJson(),
+    };
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
   nameAr: json['name_ar'] as String,

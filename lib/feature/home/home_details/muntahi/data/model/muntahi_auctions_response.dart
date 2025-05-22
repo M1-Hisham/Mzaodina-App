@@ -6,7 +6,7 @@ part 'muntahi_auctions_response.g.dart';
 class MuntahiAuctionsResponse {
   final bool status;
   final String message;
-  final List<Auction> data;
+  final List<MuntahiAction> data;
 
   MuntahiAuctionsResponse({
     required this.status,
@@ -20,7 +20,7 @@ class MuntahiAuctionsResponse {
 }
 
 @JsonSerializable(explicitToJson: true)
-class Auction {
+class MuntahiAction {
   final int id;
   final String slug;
   final String status;
@@ -29,7 +29,7 @@ class Auction {
   final Product product;
   final Winner? winner;
 
-  Auction({
+  MuntahiAction({
     required this.id,
     required this.slug,
     required this.status,
@@ -38,9 +38,9 @@ class Auction {
     this.winner,
   });
 
-  factory Auction.fromJson(Map<String, dynamic> json) =>
-      _$AuctionFromJson(json);
-  Map<String, dynamic> toJson() => _$AuctionToJson(this);
+  factory MuntahiAction.fromJson(Map<String, dynamic> json) =>
+      _$MuntahiActionFromJson(json);
+  Map<String, dynamic> toJson() => _$MuntahiActionToJson(this);
 }
 
 @JsonSerializable()

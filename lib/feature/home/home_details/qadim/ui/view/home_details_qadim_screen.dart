@@ -11,7 +11,6 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_car
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
 class HomeDetailsQadimScreen extends StatelessWidget {
@@ -171,17 +170,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                       textStyle: R.textStyles.font12Grey3W500Light,
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children:
-                  //         tafasilAlmazad
-                  //             .map((text) => CustomTextItem(text: text))
-                  //             .toList(),
-                  //   ),
-                  // ),
+         
                   const SizedBox(height: 80),
                 ],
               ),
