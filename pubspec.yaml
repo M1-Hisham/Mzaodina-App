@@ -69,6 +69,7 @@ dependencies:
   flutter_widget_from_html: ^0.16.0
   cached_network_image: ^3.4.1
   sign_in_with_apple: ^7.0.1
+  google_sign_in: ^6.3.0
 
 
 dev_dependencies:

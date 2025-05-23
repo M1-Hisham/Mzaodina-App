@@ -158,6 +158,7 @@ class LoginFormScreen extends StatelessWidget {
                             context,
                             AppRoutes.navBarRoute,
                           );
+                          // signInWithGoogle(context);
                         },
                       ),
                     ),
