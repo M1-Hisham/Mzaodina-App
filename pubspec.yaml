@@ -68,11 +68,9 @@ dependencies:
   get_it: ^8.0.3
   flutter_widget_from_html: ^0.16.0
   cached_network_image: ^3.4.1
-<<<<<<< HEAD
   shimmer_animation: ^2.2.2
-=======
-  sign_in_with_apple: ^7.0.1
->>>>>>> 4203bcb2b1610019679a732ace2c104a8644f032
+
+  sign_in_with_apple: ^7.0.1 
 
 
 dev_dependencies:
