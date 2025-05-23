@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:mzaodina_app/feature/auth/apple/sign_in_with_apple.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit_state.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
@@ -159,22 +161,21 @@ class LoginFormScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    spacingH(10.w),
-                    Expanded(
-                      child: CustomElevatedButton(
-                        icon: SvgPicture.asset(R.images.appleIcon),
-                        backgroundColor: R.colors.buttonColorLight,
-                        text: 'تسجيل الدخول عبر ابل',
-                        textStyle: R.textStyles.font12Grey3W500Light,
-                        borderRadius: 14.r,
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            AppRoutes.navBarRoute,
-                          );
-                        },
+                    if (Platform.isIOS) ...[
+                      spacingH(10.w),
+                      Expanded(
+                        child: CustomElevatedButton(
+                          icon: SvgPicture.asset(R.images.appleIcon),
+                          backgroundColor: R.colors.buttonColorLight,
+                          text: 'تسجيل الدخول عبر ابل',
+                          textStyle: R.textStyles.font12Grey3W500Light,
+                          borderRadius: 14.r,
+                          onPressed: () {
+                            signInWithApple(context);
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ],

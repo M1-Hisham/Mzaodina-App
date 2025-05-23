@@ -27,6 +27,13 @@ abstract class ApiService {
   }) = _ApiService;
 
   // =================== Auth ===================
+
+  /// service for apple login
+  @POST(ApiConstants.appleLogin)
+  Future<void> appleLogin(
+    @Body() Map<String, dynamic> body,
+  );
+
   /// service for login
   @POST(ApiConstants.login)
   Future<LoginResponseModel> login(@Body() LoginRequestBody loginRequestBody);
@@ -41,6 +48,12 @@ abstract class ApiService {
   @POST(ApiConstants.logout)
   Future<void> logout();
 
+  /// service for forgotPassword
+  @POST(ApiConstants.forgotPassword)
+  Future<ForgotPasswordResponse> forgotPassword(@Query("email") String email);
+
+  // =================== Profile ===================
+
   /// service for ProfileUserData
   @POST(ApiConstants.profileUserData)
   Future<UserModel> profileUserData();
@@ -51,9 +64,7 @@ abstract class ApiService {
     @Body() ChangePasswordModel changePasswordModel,
   );
 
-  /// service for forgotPassword
-  @POST(ApiConstants.forgotPassword)
-  Future<ForgotPasswordResponse> forgotPassword(@Query("email") String email);
+  // =================== Home ===================
 
   /// service for auctions Qadim
   @GET(ApiConstants.auctions)
