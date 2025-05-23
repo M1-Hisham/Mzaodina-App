@@ -27,7 +27,7 @@ class MuntahiAction {
   @JsonKey(name: 'opening_amount')
   final int openingAmount;
   final Product product;
-  final Winner? winner;
+  final Winner winner;
 
   MuntahiAction({
     required this.id,
@@ -35,7 +35,7 @@ class MuntahiAction {
     required this.status,
     required this.openingAmount,
     required this.product,
-    this.winner,
+    required this.winner,
   });
 
   factory MuntahiAction.fromJson(Map<String, dynamic> json) =>
@@ -70,12 +70,12 @@ class Product {
 
 @JsonSerializable(explicitToJson: true)
 class Winner {
-  final int id;
+  final int? id;
   @JsonKey(name: 'invoice_price')
   final String invoicePrice;
   final WinnerUser user;
 
-  Winner({required this.id, required this.invoicePrice, required this.user});
+  Winner({this.id, required this.invoicePrice, required this.user});
 
   factory Winner.fromJson(Map<String, dynamic> json) => _$WinnerFromJson(json);
   Map<String, dynamic> toJson() => _$WinnerToJson(this);
@@ -83,11 +83,11 @@ class Winner {
 
 @JsonSerializable()
 class WinnerUser {
-  final int id;
+  final int? id;
   final String username;
   final String country;
 
-  WinnerUser({required this.id, required this.username, required this.country});
+  WinnerUser({this.id, required this.username, required this.country});
 
   factory WinnerUser.fromJson(Map<String, dynamic> json) =>
       _$WinnerUserFromJson(json);

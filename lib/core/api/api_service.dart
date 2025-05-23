@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_constants.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/show_action_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
@@ -76,4 +77,8 @@ abstract class ApiService {
   Future<MuntahiAuctionsResponse> getFinishedAuctions({
     @Query("filter") String filter = "finished",
   });
+
+  // @GET("${ApiConstants.auctions}/{slug}")
+  @GET("/auctions/{slug}")
+  Future<ShowAuctionModel> getShowAuction(@Path("slug") String slug);
 }

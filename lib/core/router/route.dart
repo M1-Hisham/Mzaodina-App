@@ -16,6 +16,7 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_deta
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/invoice_details_screen.dart';
@@ -46,7 +47,13 @@ class AppRouter {
       case AppRoutes.homeDetailsQadimScreenRoute:
         final args = settings.arguments as QadimAuction;
         return MaterialPageRoute(
-          builder: (_) => HomeDetailsQadimScreen(qadimDetails: args),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<ShowActionCubit>()..getShowAction(args.slug),
+                child: HomeDetailsQadimScreen(qadimDetails: args),
+              ),
         );
       case AppRoutes.homeDetailsMuntahiScreenRoute:
         final args = settings.arguments as MuntahiAction;

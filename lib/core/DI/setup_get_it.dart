@@ -7,6 +7,7 @@ import 'package:mzaodina_app/feature/auth/forgot-password/ui/view_model/forgot_p
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/data/repo/register_repo.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/repo/show_action_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/jaraa_auction_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/repo/muntahi_auction_repo.dart';
@@ -15,6 +16,7 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_auc
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_aution_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
 import 'package:mzaodina_app/feature/profile/data/repo/user_data_repo.dart';
@@ -105,5 +107,13 @@ Future<void> setupGetIt() async {
   // ✅ Muntahi Cubit
   getIt.registerFactory<MuntahiCubit>(
     () => MuntahiCubit(getIt<MuntahiAuctionRepo>()),
+  );
+  // ✅ Register ShowActionRepo
+  getIt.registerLazySingleton<ShowActionRepo>(
+    () => ShowActionRepo(getIt<ApiService>()),
+  );
+  // ✅ ShowActionCubit Cubit
+  getIt.registerFactory<ShowActionCubit>(
+    () => ShowActionCubit(getIt<ShowActionRepo>()),
   );
 }
