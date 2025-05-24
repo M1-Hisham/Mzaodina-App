@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-import 'package:mzaodina_app/core/widgets/custom_success_change_and_forgot_password_dialog.dart';
+import 'package:mzaodina_app/core/widgets/custom_dialog_widget.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/ui/view_model/forgot_password_cubit/forgot_password_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
@@ -40,27 +40,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               showDialog(
                 context: context,
                 builder:
-                    (BuildContext context) =>
-                        CustomSuccessChangeAndForgotPasswordDialog(
-                          message: state.message,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                    (BuildContext context) => CustomDialogWidget(
+                      buttonText: 'اغلاق',
+                      message: state.message,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
               );
-              // context.read<AuthCubit>().showLogin();
             } else if (state is ForgotPasswordFailure) {
-              Navigator.pop(context); // Close Dialog
+              Navigator.pop(context); 
               showDialog(
                 context: context,
                 builder:
-                    (BuildContext context) =>
-                        CustomSuccessChangeAndForgotPasswordDialog(
-                          message: state.errorMessage,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                    (BuildContext context) => CustomDialogWidget(
+                      buttonText: 'اغلاق',
+                      message: state.errorMessage,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
               );
             }
           },

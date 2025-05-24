@@ -26,128 +26,133 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
       Duration(minutes: widget.qadinDataModel.auctionDurationMinutes),
     );
 
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8.r),
-          decoration: BoxDecoration(
-            color: R.colors.whiteLight,
-            borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: R.colors.whiteColor2),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(8.r),
+            decoration: BoxDecoration(
+              color: R.colors.whiteLight,
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(color: R.colors.whiteColor2),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
 
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Hero(
-                    tag: widget.qadinDataModel.slug,
-                    child: CachedNetworkImage(
-                      imageUrl: widget.qadinDataModel.product.images[0],
-                      width: 120.w,
-                      height: 158.h,
-                      fit: BoxFit.cover,
-                      placeholder:
-                          (context, url) =>
-                              Center(child: const CircularProgressIndicator()),
-                      errorWidget:
-                          (context, url, error) => const Icon(Icons.error),
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Hero(
+                      tag: widget.qadinDataModel.slug,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.qadinDataModel.product.images[0],
+                        width: 120.w,
+                        height: 158.h,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            (context, url) => Center(
+                              child: const CircularProgressIndicator(),
+                            ),
+                        errorWidget:
+                            (context, url, error) => const Icon(Icons.error),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 8.h),
-                          child: Text(
-                            widget.qadinDataModel.product.nameAr,
-                            style: R.textStyles.font16BlackW500Light,
+                    SizedBox(width: 16.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 8.h),
+                            child: Text(
+                              widget.qadinDataModel.product.nameAr,
+                              style: R.textStyles.font16BlackW500Light,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 12.h),
-                        CustomBlocBuilderCountdown(
-                          eventTime: eventTimeFromApi,
-                          progressColor: R.colors.primaryColorLight,
-                          backgroundColor: R.colors.colorUnSelected,
-                        ),
-                        SizedBox(height: 12.h),
-                        CoustomRowItem(
-                          title: 'السعر بالأسواق',
-                          price: widget.qadinDataModel.product.price.toString(),
-                        ),
-                        CoustomRowItem(
-                          title: 'بداية المزاد',
-                          price: widget.qadinDataModel.product.price.toString(),
-                        ),
+                          SizedBox(height: 12.h),
+                          CustomBlocBuilderCountdown(
+                            eventTime: eventTimeFromApi,
+                            progressColor: R.colors.primaryColorLight,
+                            backgroundColor: R.colors.colorUnSelected,
+                          ),
+                          SizedBox(height: 12.h),
+                          CoustomRowItem(
+                            title: 'السعر بالأسواق',
+                            price:
+                                widget.qadinDataModel.product.price.toString(),
+                          ),
+                          CoustomRowItem(
+                            title: 'بداية المزاد',
+                            price:
+                                widget.qadinDataModel.product.price.toString(),
+                          ),
 
-                        CustomIndcatorItem(
-                          title: 'انطلاق المزاد',
-                          showIndicator: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: CustomElevatedButton(
-                      text: 'عرض التفاصيل',
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.homeDetailsQadimScreenRoute,
-                          arguments: widget.qadinDataModel,
-                        );
-                      },
-                      backgroundColor: R.colors.primaryColorLight,
-                      borderRadius: 8.r,
-                      heigth: 40.h,
-                      textStyle: R.textStyles.font12GreyW500Light.copyWith(
-                        color: R.colors.whiteLight,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 11.w),
-                  Expanded(
-                    child: CustomElevatedButton(
-                      textDirection: TextDirection.rtl,
-                      text: 'مشاركة',
-                      onPressed: () {
-                        SharePlus.instance.share(
-                          ShareParams(
-                            title: 'Mzaodin',
-                            text: 'check out my website https://example.com',
+                          CustomIndcatorItem(
+                            title: 'انطلاق المزاد',
+                            showIndicator: true,
                           ),
-                        );
-                      },
-                      backgroundColor: R.colors.colorUnSelected,
-                      borderRadius: 8.r,
-                      heigth: 40.h,
-                      textStyle: R.textStyles.font14BlackW500Light.copyWith(
-                        color: R.colors.primaryColorLight,
-                      ),
-                      icon: SvgPicture.asset(
-                        R.images.shareIcon,
-                        width: 20.w,
-                        height: 20.h,
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(height: 16.h),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: CustomElevatedButton(
+                        text: 'عرض التفاصيل',
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.homeDetailsQadimScreenRoute,
+                            arguments: widget.qadinDataModel,
+                          );
+                        },
+                        backgroundColor: R.colors.primaryColorLight,
+                        borderRadius: 8.r,
+                        heigth: 40.h,
+                        textStyle: R.textStyles.font12GreyW500Light.copyWith(
+                          color: R.colors.whiteLight,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 11.w),
+                    Expanded(
+                      child: CustomElevatedButton(
+                        textDirection: TextDirection.rtl,
+                        text: 'مشاركة',
+                        onPressed: () {
+                          SharePlus.instance.share(
+                            ShareParams(
+                              title: 'Mzaodin',
+                              text: 'check out my website https://example.com',
+                            ),
+                          );
+                        },
+                        backgroundColor: R.colors.colorUnSelected,
+                        borderRadius: 8.r,
+                        heigth: 40.h,
+                        textStyle: R.textStyles.font14BlackW500Light.copyWith(
+                          color: R.colors.primaryColorLight,
+                        ),
+                        icon: SvgPicture.asset(
+                          R.images.shareIcon,
+                          width: 20.w,
+                          height: 20.h,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

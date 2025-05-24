@@ -1,26 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'qadim_auction_response.g.dart';
+part 'show_action_model.g.dart';
 
 @JsonSerializable()
-class QadimAuctionResponse {
+class ShowAuctionModel {
   final bool status;
   final String message;
-  final List<QadimAuction> data;
+  final Auction data;
 
-  QadimAuctionResponse({
+  ShowAuctionModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory QadimAuctionResponse.fromJson(Map<String, dynamic> json) =>
-      _$QadimAuctionResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$QadimAuctionResponseToJson(this);
+  factory ShowAuctionModel.fromJson(Map<String, dynamic> json) =>
+      _$ShowAuctionModelFromJson(json);
+  Map<String, dynamic> toJson() => _$ShowAuctionModelToJson(this);
 }
 
 @JsonSerializable()
-class QadimAuction {
+class Auction {
   final int id;
   final String slug;
   final String status;
@@ -28,8 +28,16 @@ class QadimAuction {
   @JsonKey(name: 'opening_amount')
   final int openingAmount;
 
+  final String type;
+
   @JsonKey(name: 'required_bidders')
   final int requiredBidders;
+
+  @JsonKey(name: 'current_bidders')
+  final int currentBidders;
+
+  @JsonKey(name: 'isRegister')
+  final bool isRegister;
 
   @JsonKey(name: 'registration_amount')
   final int registrationAmount;
@@ -43,30 +51,27 @@ class QadimAuction {
   @JsonKey(name: 'product_sku')
   final String productSku;
 
-  final String type;
-
-  final bool isRegister;
-
   final Product product;
 
-  QadimAuction({
+  Auction({
     required this.id,
     required this.slug,
     required this.status,
     required this.openingAmount,
+    required this.type,
     required this.requiredBidders,
+    required this.currentBidders,
+    required this.isRegister,
     required this.registrationAmount,
     required this.auctionDurationMinutes,
     required this.auctionStartRate,
     required this.productSku,
-    required this.isRegister,
     required this.product,
-    required this.type,
   });
 
-  factory QadimAuction.fromJson(Map<String, dynamic> json) =>
-      _$QadimAuctionFromJson(json);
-  Map<String, dynamic> toJson() => _$QadimAuctionToJson(this);
+  factory Auction.fromJson(Map<String, dynamic> json) =>
+      _$AuctionFromJson(json);
+  Map<String, dynamic> toJson() => _$AuctionToJson(this);
 }
 
 @JsonSerializable()

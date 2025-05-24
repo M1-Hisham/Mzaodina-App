@@ -15,7 +15,10 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntah
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/invoice_details_screen.dart';
@@ -46,7 +49,23 @@ class AppRouter {
       case AppRoutes.homeDetailsQadimScreenRoute:
         final args = settings.arguments as QadimAuction;
         return MaterialPageRoute(
-          builder: (_) => HomeDetailsQadimScreen(qadimDetails: args),
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<ShowActionCubit>()..getShowAction(args.slug),
+                  ),
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<RegisterToAuctionCubit>()
+                              ..registerToAuction(args.slug),
+                  ),
+                ],
+                child: HomeDetailsQadimScreen(qadimDetails: args),
+              ),
         );
       case AppRoutes.homeDetailsMuntahiScreenRoute:
         final args = settings.arguments as MuntahiAction;
@@ -119,6 +138,8 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => ShippingAndReturnPolicyScreen(),
         );
+      case AppRoutes.joinTheAuction:
+        return MaterialPageRoute(builder: (_) => JoinTheAuction());
       case AppRoutes.authRouter:
         return MaterialPageRoute(
           builder:

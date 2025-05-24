@@ -32,7 +32,7 @@ class JaraaAuction {
   final String endAt;
   final Product product;
   @JsonKey(name: 'max_bid')
-  final MaxBid? maxBid;
+  final MaxBid maxBid;
 
   JaraaAuction({
     required this.id,
@@ -42,7 +42,7 @@ class JaraaAuction {
     required this.canBidding,
     required this.endAt,
     required this.product,
-    this.maxBid,
+    required this.maxBid,
   });
 
   factory JaraaAuction.fromJson(Map<String, dynamic> json) =>
@@ -79,11 +79,11 @@ class Product {
 
 @JsonSerializable()
 class MaxBid {
-  final int id;
+  final int? id;
   final int bid;
   final User user;
 
-  MaxBid({required this.id, required this.bid, required this.user});
+  MaxBid({this.id, required this.bid, required this.user});
 
   factory MaxBid.fromJson(Map<String, dynamic> json) => _$MaxBidFromJson(json);
 
@@ -92,11 +92,11 @@ class MaxBid {
 
 @JsonSerializable()
 class User {
-  final int id;
+  final int? id;
   final String username;
   final String country;
 
-  User({required this.id, required this.username, required this.country});
+  User({this.id, required this.username, required this.country});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
