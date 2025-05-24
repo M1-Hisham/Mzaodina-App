@@ -44,7 +44,9 @@ class AppImages {
   String xIcon = "assets/icons/xIcon.svg";
   String logoutImage = "assets/icons/logoutImage.svg";
   String snapIcon = "assets/icons/snapIcon.svg";
-  String tureImage = "assets/images/tureImage.png";
+  String tureImageBlue = "assets/images/tureImage.png";
+  String tureImageGreen = "assets/icons/ture.svg";
+  String tureImageGreenPng = "assets/icons/truepng.png";
 
   String dropDownIcon = "assets/icons/drop down.svg";
   String congratulationsImage = "assets/images/congratulations_image.png";

@@ -12,7 +12,7 @@ class ConfirmPayment extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(R.images.tureImage, width: 100.w, height: 100.h),
+        Image.asset(R.images.tureImageBlue, width: 100.w, height: 100.h),
         SizedBox(height: 16.h),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),

@@ -7,7 +7,7 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/register
 class RegisterToAuctionRepo {
   final ApiService apiService;
 
-  RegisterToAuctionRepo({required this.apiService});
+  RegisterToAuctionRepo(this.apiService);
   Future<Either<Failure, RegisterToAutionModel>> getOngoingAuctions(
     String slug,
   ) async {

@@ -13,7 +13,9 @@ import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/repo/muntahi_auction_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/register_to_auction_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_aution_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
@@ -115,5 +117,13 @@ Future<void> setupGetIt() async {
   // ✅ ShowActionCubit Cubit
   getIt.registerFactory<ShowActionCubit>(
     () => ShowActionCubit(getIt<ShowActionRepo>()),
+  );
+  // ✅ Register RegisterToActionRepo
+  getIt.registerLazySingleton<RegisterToAuctionRepo>(
+    () => RegisterToAuctionRepo(getIt<ApiService>()),
+  );
+  // ✅ RegisterToAuctionCubit Cubit
+  getIt.registerFactory<RegisterToAuctionCubit>(
+    () => RegisterToAuctionCubit(getIt<RegisterToAuctionRepo>()),
   );
 }

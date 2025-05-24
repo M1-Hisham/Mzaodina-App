@@ -30,9 +30,7 @@ abstract class ApiService {
 
   /// service for apple login
   @POST(ApiConstants.appleLogin)
-  Future<void> appleLogin(
-    @Body() Map<String, dynamic> body,
-  );
+  Future<void> appleLogin(@Body() Map<String, dynamic> body);
 
   /// service for login
   @POST(ApiConstants.login)
@@ -93,6 +91,6 @@ abstract class ApiService {
   @GET(ApiConstants.showAuctions)
   Future<ShowAuctionModel> getShowAuction(@Path("slug") String slug);
 
-  @GET(ApiConstants.registerAuctions)
+  @POST(ApiConstants.registerAuctions)
   Future<RegisterToAutionModel> registerAuctions(@Path("slug") String slug);
 }

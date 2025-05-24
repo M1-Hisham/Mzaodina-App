@@ -5,14 +5,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
-import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer_animation.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/custom_verification_to_register_auction_botton.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
-import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
@@ -203,51 +202,9 @@ class HomeDetailsQadimScreen extends StatelessWidget {
         ],
       ),
 
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-        child: BlocBuilder<ShowActionCubit, ShowActionState>(
-          buildWhen: (previous, current) {
-            return current is ShowActionSuccess ||
-                current is ShowActionError ||
-                current is ShowActionLoading;
-          },
-          builder: (context, state) {
-            if (state is ShowActionLoading) {
-              return CustomElevatedButton(
-                text: '...جاري التحميل',
-                onPressed: () {},
-              );
-            } else if (state is ShowActionSuccess) {
-              if (state.showActionModel.data.type == 'registerable') {
-                return CustomElevatedButton(
-                  text: 'التسجيل في المزاد',
-                  onPressed: () {},
-                );
-              } else {
-                return CustomElevatedButton(
-                  text: 'الانضمام للمزاد',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const JoinTheAuction(),
-                      ),
-                    );
-                  },
-                );
-              }
-            } else if (state is ShowActionError) {
-              return CustomElevatedButton(
-                text: 'اعادة التحميل',
-                onPressed: () {
-                  // context.read<ShowActionCubit>().getShowAction(); // 🎯 Trigger reload
-                },
-              );
-            } else {
-              return const SizedBox.shrink(); // Safety fallback
-            }
-          },
-        ),
+      bottomNavigationBar: CustomVerificationToRegisterAuctionBotton(
+        slug: qadimDetails.slug,
+        showActionCubit: context.read<ShowActionCubit>(),
       ),
     );
   }
