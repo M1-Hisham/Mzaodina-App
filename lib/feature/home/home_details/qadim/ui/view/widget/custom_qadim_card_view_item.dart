@@ -12,8 +12,8 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.da
 import 'package:share_plus/share_plus.dart';
 
 class CustomQadimCardViewItem extends StatefulWidget {
-  const CustomQadimCardViewItem({super.key, required this.qadinDataModel});
-  final QadimAuction qadinDataModel;
+  const CustomQadimCardViewItem({super.key, required this.qadimDataModel});
+  final QadimAuction qadimDataModel;
   @override
   State<CustomQadimCardViewItem> createState() =>
       _CustomQadimCardViewItemState();
@@ -23,7 +23,7 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
   @override
   Widget build(BuildContext context) {
     final eventTimeFromApi = DateTime.now().add(
-      Duration(minutes: widget.qadinDataModel.auctionDurationMinutes),
+      Duration(minutes: widget.qadimDataModel.auctionDurationMinutes ?? 0),
     );
 
     return SingleChildScrollView(
@@ -45,9 +45,9 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Hero(
-                      tag: widget.qadinDataModel.slug,
+                      tag: widget.qadimDataModel.slug,
                       child: CachedNetworkImage(
-                        imageUrl: widget.qadinDataModel.product.images[0],
+                        imageUrl: widget.qadimDataModel.product.images[0],
                         width: 120.w,
                         height: 158.h,
                         fit: BoxFit.cover,
@@ -67,7 +67,7 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 8.h),
                             child: Text(
-                              widget.qadinDataModel.product.nameAr,
+                              widget.qadimDataModel.product.nameAr,
                               style: R.textStyles.font16BlackW500Light,
                             ),
                           ),
@@ -81,12 +81,12 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                           CoustomRowItem(
                             title: 'السعر بالأسواق',
                             price:
-                                widget.qadinDataModel.product.price.toString(),
+                                widget.qadimDataModel.product.price.toString(),
                           ),
                           CoustomRowItem(
                             title: 'بداية المزاد',
                             price:
-                                widget.qadinDataModel.product.price.toString(),
+                                widget.qadimDataModel.product.price.toString(),
                           ),
 
                           CustomIndcatorItem(
@@ -109,7 +109,7 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                           Navigator.pushNamed(
                             context,
                             AppRoutes.homeDetailsQadimScreenRoute,
-                            arguments: widget.qadinDataModel,
+                            arguments: widget.qadimDataModel,
                           );
                         },
                         backgroundColor: R.colors.primaryColorLight,

@@ -9,14 +9,34 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/regis
 
 class AuctionRegisterButton extends StatelessWidget {
   final ShowAuctionModel auction;
+  final VoidCallback? onRegistered; // Callback to refresh parent
 
-  const AuctionRegisterButton({super.key, required this.auction});
+  const AuctionRegisterButton({
+    super.key,
+    required this.auction,
+    this.onRegistered,
+  });
 
   @override
   Widget build(BuildContext context) {
     final auctionData = auction.data;
 
-    return BlocBuilder<RegisterToAuctionCubit, RegisterToAuctionState>(
+    return BlocConsumer<RegisterToAuctionCubit, RegisterToAuctionState>(
+      listener: (context, state) {
+        if (state is RegisterToAuctionSuccess) {
+          // Show message from data
+          final message = state.registerToAutionModel.message;
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(message)));
+          // Refresh auction data
+          if (onRegistered != null) onRegistered!();
+        } else if (state is RegisterToAuctionError) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
       builder: (context, registerState) {
         if (auctionData.type == 'joinable') {
           return CustomElevatedButton(
@@ -26,39 +46,32 @@ class AuctionRegisterButton extends StatelessWidget {
             },
           );
         }
-
-        if (auctionData.type == 'registerable') {
-          if (registerState is RegisterToAuctionLoading) {
-            return CustomElevatedButton(
-              text: 'جاري التجميل...',
-              onPressed: () {},
-            );
-          }
-
-          if (auctionData.isRegister == false) {
-            return CustomElevatedButton(
-              text: 'التسجيل في المزاد',
-              onPressed: () {
-                context.read<RegisterToAuctionCubit>().registerToAuction(
-                  auctionData.slug,
-                );
-              },
-            );
-          }
-
+        if (auctionData.isRegister == false &&
+            auctionData.type == 'registerable') {
+          final isLoading = registerState is RegisterToAuctionLoading;
           return CustomElevatedButton(
-            textDirection: TextDirection.rtl,
-            icon: SvgPicture.asset(R.images.tureImageGreen),
-            text: 'تم التسجيل فى المزاد',
-            textStyle: R.textStyles.font14whiteW500Light.copyWith(
-              color: R.colors.greenColor,
-            ),
-            backgroundColor: R.colors.colorUnSelected,
-            onPressed: () {},
+            text: isLoading ? 'جاري التسجيل...' : 'التسجيل في المزاد',
+            onPressed:
+                isLoading
+                    ? () {}
+                    : () {
+                      context.read<RegisterToAuctionCubit>().registerToAuction(
+                        auctionData.slug,
+                      );
+                    },
           );
         }
 
-        return const SizedBox.shrink();
+        return CustomElevatedButton(
+          textDirection: TextDirection.rtl,
+          icon: SvgPicture.asset(R.images.tureImageGreen),
+          text: 'تم التسجيل فى المزاد',
+          textStyle: R.textStyles.font14whiteW500Light.copyWith(
+            color: R.colors.greenColor,
+          ),
+          backgroundColor: R.colors.colorUnSelected,
+          onPressed: () {},
+        );
       },
     );
   }
