@@ -30,7 +30,7 @@ class AuctionRegisterButton extends StatelessWidget {
         if (auctionData.type == 'registerable') {
           if (registerState is RegisterToAuctionLoading) {
             return CustomElevatedButton(
-              text: 'جاري التسجيل...',
+              text: 'جاري التجميل...',
               onPressed: () {},
             );
           }
