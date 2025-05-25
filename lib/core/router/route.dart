@@ -27,6 +27,9 @@ import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
@@ -115,7 +118,22 @@ class AppRouter {
       case AppRoutes.settingScreenRoute:
         return MaterialPageRoute(builder: (_) => SettingScreen());
       case AppRoutes.notificationsScreenRoute:
-        return MaterialPageRoute(builder: (_) => NotificationsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<GetNotificationCubit>()..fetchNotifications(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<MarkNotificationCubit>(),
+                  ),
+                ],
+                child: NotificationsScreen(),
+              ),
+        );
       case AppRoutes.invoiceDetailsScreenRoute:
         return MaterialPageRoute(builder: (_) => InvoiceDetailsScreen());
       case AppRoutes.paymentDetailsScreenRoute:
@@ -146,6 +164,9 @@ class AppRouter {
                   ),
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
+                  ),
+                  BlocProvider<SaveTokenCubit>(
+                    create: (context) => getIt<SaveTokenCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
