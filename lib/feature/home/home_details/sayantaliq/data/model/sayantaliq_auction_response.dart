@@ -32,7 +32,7 @@ class SayantaliqAuction {
   @JsonKey(name: 'registration_amount')
   final int registrationAmount;
   @JsonKey(name: 'auction_duration_minutes')
-  final int auctionDurationMinutes;
+  final int? auctionDurationMinutes;
   @JsonKey(name: 'auction_start_rate')
   final int auctionStartRate;
   @JsonKey(name: 'product_sku')

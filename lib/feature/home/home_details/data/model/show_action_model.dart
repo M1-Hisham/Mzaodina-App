@@ -43,7 +43,7 @@ class Auction {
   final int registrationAmount;
 
   @JsonKey(name: 'auction_duration_minutes')
-  final int auctionDurationMinutes;
+  final int? auctionDurationMinutes;
 
   @JsonKey(name: 'auction_start_rate')
   final int auctionStartRate;

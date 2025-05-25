@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/helper/user_session.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_dialog_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/auction_register_button.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
 
 class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
@@ -69,7 +71,15 @@ class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
                   onPressed: () {},
                 );
               } else if (state is ShowActionSuccess) {
-                return AuctionRegisterButton(auction: state.showActionModel, );
+                return BlocProvider<RegisterToAuctionCubit>(
+                  create: (context) => getIt<RegisterToAuctionCubit>(),
+                  child: AuctionRegisterButton(
+                    auction: state.showActionModel,
+                    onRegistered: () {
+                      context.read<ShowActionCubit>().getShowAction(slug);
+                    },
+                  ),
+                );
               } else if (state is ShowActionError) {
                 return CustomElevatedButton(
                   text: 'إعادة التحميل',
