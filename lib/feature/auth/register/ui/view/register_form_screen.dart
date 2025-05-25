@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mzaodina_app/core/helper/notification_helper.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
@@ -12,6 +13,7 @@ import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/custom_column
 
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 
 class RegisterFormScreen extends StatefulWidget {
   const RegisterFormScreen({super.key});
@@ -35,7 +37,7 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
       child: Form(
         key: _formKey,
         child: BlocListener<RegisterCubit, RegisterState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is RegisterLoading) {
               showDialog(
                 context: context,
@@ -45,6 +47,12 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
                         const Center(child: CircularProgressIndicator()),
               );
             } else if (state is RegisterSuccess) {
+              final fcmToken =
+                  await NotificationHelper.initializeAndGetFcmToken();
+
+              if (context.mounted && fcmToken != null) {
+                context.read<SaveTokenCubit>().sendFcmToken(fcmToken);
+              }
               Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
             } else if (state is RegisterError) {
               Navigator.pop(context); // Close Dialog

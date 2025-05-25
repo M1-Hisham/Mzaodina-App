@@ -8,6 +8,8 @@ import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_au
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/save_token_responce_model.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_response_model.dart';
@@ -61,6 +63,16 @@ abstract class ApiService {
   Future<PasswordUpdateResponse> changePassword(
     @Body() ChangePasswordModel changePasswordModel,
   );
+
+  // =================== notifications ===================
+  
+  @POST(ApiConstants.notificationsSaveToken)
+  Future<SaveTokenResponceModel> saveFcmToken(
+    @Query("token") String token,
+    @Query("provider") String provider,
+  );
+  @GET(ApiConstants.getNotifications)
+Future<GetAllNotificationModel> getUserNotifications();
 
   // =================== Home ===================
 

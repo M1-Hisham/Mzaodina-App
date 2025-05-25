@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mzaodina_app/core/helper/notification_helper.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
@@ -15,6 +16,7 @@ import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 
 class LoginFormScreen extends StatelessWidget {
   LoginFormScreen({super.key});
@@ -79,12 +81,9 @@ class LoginFormScreen extends StatelessWidget {
                 ),
                 spacingV(20.h),
                 BlocConsumer<LoginCubit, LoginCubitState>(
-                  listener: (context, state) {
+                  listener: (context, state) async {
                     if (state is LoginSuccess) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        AppRoutes.navBarRoute,
-                      );
+                      _handleFcmToken(context);
                     } else if (state is LoginError) {
                       ScaffoldMessenger.of(
                         context,
@@ -185,4 +184,15 @@ class LoginFormScreen extends StatelessWidget {
       },
     );
   }
+}
+
+Future<void> _handleFcmToken(BuildContext context) async {
+  final fcmToken = await NotificationHelper.initializeAndGetFcmToken();
+
+  if (!context.mounted) return; // ✅ تأكيد الأمان بعد await
+
+  if (fcmToken != null) {
+    context.read<SaveTokenCubit>().sendFcmToken(fcmToken);
+  }
+  Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
 }

@@ -28,6 +28,7 @@ import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
@@ -156,6 +157,9 @@ class AppRouter {
                   ),
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
+                  ),
+                  BlocProvider<SaveTokenCubit>(
+                    create: (context) => getIt<SaveTokenCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),

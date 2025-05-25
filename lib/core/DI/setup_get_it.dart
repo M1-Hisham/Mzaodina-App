@@ -19,6 +19,8 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/regis
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_aution_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
 import 'package:mzaodina_app/feature/profile/data/repo/user_data_repo.dart';
@@ -125,5 +127,13 @@ Future<void> setupGetIt() async {
   // ✅ RegisterToAuctionCubit Cubit
   getIt.registerFactory<RegisterToAuctionCubit>(
     () => RegisterToAuctionCubit(getIt<RegisterToAuctionRepo>()),
+  );
+  // ✅ Register NotificationRepo
+  getIt.registerLazySingleton<NotificationRepo>(
+    () => NotificationRepo(getIt<ApiService>()),
+  );
+  // ✅ SaveTokenCubit Cubit
+  getIt.registerFactory<SaveTokenCubit>(
+    () => SaveTokenCubit(getIt<NotificationRepo>()),
   );
 }
