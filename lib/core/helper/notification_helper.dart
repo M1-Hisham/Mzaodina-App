@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mzaodina_app/core/helper/shaerd_pref_helper.dart';
@@ -10,6 +11,12 @@ class NotificationHelper {
   static Future<String?> initializeAndGetFcmToken() async {
     // اطلب إذن الإشعارات
     log('Notification permission status: =============');
+
+    if (Platform.isIOS) {
+      String? apnsToken = await _messaging.getAPNSToken();
+      log('📲 APNs Token: $apnsToken');
+    }
+
     final settings = await _messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -29,15 +36,14 @@ class NotificationHelper {
           token,
         );
       }
-        FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
-      log('🔄 New FCM Token: $newToken');
-      SharedPrefHelper.setSecuredString(
-        SharedPreferencesKeys.fcmToken,
-        newToken,
-      );
-      // كمان ممكن تبعتيه للسيرفر هنا لو محتاجة
-      
-    });
+      FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
+        log('🔄 New FCM Token: $newToken');
+        SharedPrefHelper.setSecuredString(
+          SharedPreferencesKeys.fcmToken,
+          newToken,
+        );
+        // كمان ممكن تبعتيه للسيرفر هنا لو محتاجة
+      });
       return token;
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
