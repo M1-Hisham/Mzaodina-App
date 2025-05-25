@@ -28,6 +28,7 @@ import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.d
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
@@ -119,10 +120,17 @@ class AppRouter {
       case AppRoutes.notificationsScreenRoute:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create:
-                    (context) =>
-                        getIt<GetNotificationCubit>()..fetchNotifications(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<GetNotificationCubit>()..fetchNotifications(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<MarkNotificationCubit>(),
+                  ),
+                ],
                 child: NotificationsScreen(),
               ),
         );

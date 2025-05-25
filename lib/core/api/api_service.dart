@@ -9,6 +9,7 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntah
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/mark_notification.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/save_token_responce_model.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
@@ -71,8 +72,15 @@ abstract class ApiService {
     @Query("token") String token,
     @Query("provider") String provider,
   );
+
   @GET(ApiConstants.getAllNotifications)
   Future<GetAllNotificationModel> getAllNotifications();
+
+  @GET(ApiConstants.markAllReadNotifications)
+  Future<MarkNotificationModel> markAllReadNotifications();
+
+  @POST(ApiConstants.markAsReadNotifications)
+  Future<MarkNotificationModel> markAsReadNotifications(@Path("id") String id);
 
   // =================== Home ===================
 

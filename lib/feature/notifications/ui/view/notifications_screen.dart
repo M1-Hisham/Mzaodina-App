@@ -93,7 +93,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/notifications_shimmer.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -105,88 +107,199 @@ class NotificationsScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _customAppBar(title: 'الإشعارات', context: context),
+            SizedBox(height: 12.h),
+            InkWell(
+              onTap: () {
+                final getNotificationState =
+                    context.read<GetNotificationCubit>().state;
+
+                if (getNotificationState is GetAllNotificationSuccess) {
+                  final allIds =
+                      getNotificationState.response.notifications.data
+                          .map((e) => e.id)
+                          .toList();
+
+                  context.read<MarkNotificationCubit>().markAllNotifications(
+                    allIds,
+                  );
+                }
+              },
+
+              child: Text(
+                'تحديد الكل كمقروء',
+                style: R.textStyles.font14primaryW500Light,
+              ),
+            ),
+
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
                   context.read<GetNotificationCubit>().fetchNotifications();
                 },
-                child: BlocBuilder<
-                  GetNotificationCubit,
-                  GetAllNotificationState
-                >(
-                  builder: (context, state) {
-                    if (state is GetAllNotificationLoading) {
-                      return Center(child: NotificationsShimmer());
-                    } else if (state is GetAllNotificationFailure) {
-                      return Center(
-                        child: Text(
-                          state.error,
-                          style: R.textStyles.font14BlackW500Light,
-                        ),
-                      );
-                    } else if (state is GetAllNotificationSuccess) {
-                      final notifications = state.response.notifications.data;
-
-                      if (notifications.isEmpty) {
-                        return Center(
-                          child: Text(
-                            'لا توجد إشعارات جديدة',
-                            style: R.textStyles.font14BlackW500Light,
-                          ),
-                        );
-                      }
-
-                      return ListView.separated(
-                        itemCount: state.response.notifications.data.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 12.h),
-                        itemBuilder: (context, index) {
-                          final notification = notifications[index];
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 12.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: R.colors.blackColor3,
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    notification.data.title,
-                                    style: R.textStyles.font14BlackW500Light,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      AppRoutes.invoiceDetailsScreenRoute,
-                                      arguments: notification,
-                                    );
-                                  },
-                                  child: Text(
-                                    'اضغط',
-                                    style: R.textStyles.font14primaryW500Light,
-                                  ),
-                                ),
-                              ],
+                child:
+                    BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
+                      builder: (context, state) {
+                        if (state is GetAllNotificationLoading) {
+                          return Center(child: NotificationsShimmer());
+                        } else if (state is GetAllNotificationFailure) {
+                          return Center(
+                            child: Text(
+                              state.error,
+                              style: R.textStyles.font14BlackW500Light,
                             ),
                           );
-                        },
-                      );
-                    }
+                        } else if (state is GetAllNotificationSuccess) {
+                          final notifications =
+                              state.response.notifications.data;
 
-                    return const SizedBox(); // default empty state
-                  },
-                ),
+                          if (notifications.isEmpty) {
+                            return Center(
+                              child: Text(
+                                'لا توجد إشعارات جديدة',
+                                style: R.textStyles.font14BlackW500Light,
+                              ),
+                            );
+                          }
+
+                          return ListView.separated(
+                            itemCount: state.response.notifications.data.length,
+                            separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                            itemBuilder: (context, index) {
+                              final notification = notifications[index];
+                              return CustomNotificationItem(
+                                notification: notification,
+                              );
+                            },
+                          );
+                        }
+
+                        return const SizedBox(); // default empty state
+                      },
+                    ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CustomNotificationItem extends StatelessWidget {
+  final NotificationItem notification;
+
+  const CustomNotificationItem({super.key, required this.notification});
+
+  @override
+  Widget build(BuildContext context) {
+    final isRead = context.select<MarkNotificationCubit, bool>(
+      (cubit) => cubit.isRead(notification.id),
+    );
+
+    return isRead
+        ? CustomNotificationUnSelected(notification: notification)
+        : CustomNotificationSelected(notification: notification);
+  }
+}
+
+class CustomNotificationSelected extends StatelessWidget {
+  const CustomNotificationSelected({super.key, required this.notification});
+
+  final NotificationItem notification;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: R.colors.colorUnSelected,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notification.data.title,
+                  style: R.textStyles.font12Grey3W500Light,
+                ),
+                Text(
+                  notification.data.body,
+                  style: R.textStyles.font14BlackW500Light,
+                ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<MarkNotificationCubit>().markSingleNotification(
+                id: notification.id,
+              );
+
+              Navigator.pushNamed(
+                context,
+                AppRoutes.invoiceDetailsScreenRoute,
+                arguments: notification,
+              );
+            },
+            child: Text('اضغط', style: R.textStyles.font14primaryW500Light),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomNotificationUnSelected extends StatelessWidget {
+  const CustomNotificationUnSelected({super.key, required this.notification});
+
+  final NotificationItem notification;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: R.colors.blackColor3,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notification.data.title,
+                  style: R.textStyles.font12Grey3W500Light,
+                ),
+                Text(
+                  notification.data.body,
+                  style: R.textStyles.font14BlackW500Light,
+                ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<MarkNotificationCubit>().markSingleNotification(
+                id: notification.id,
+              );
+
+              Navigator.pushNamed(
+                context,
+                AppRoutes.invoiceDetailsScreenRoute,
+                arguments: notification,
+              );
+            },
+            child: Text('اضغط', style: R.textStyles.font14primaryW500Light),
+          ),
+        ],
       ),
     );
   }

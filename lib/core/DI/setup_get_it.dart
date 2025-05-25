@@ -20,8 +20,10 @@ import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/saya
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_repo.dart';
+import 'package:mzaodina_app/feature/notifications/data/repo/mark_notifacation_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
@@ -145,5 +147,13 @@ Future<void> setupGetIt() async {
   // ✅ GetNotificationCubit Cubit
   getIt.registerFactory<GetNotificationCubit>(
     () => GetNotificationCubit(getIt<GetNotificationRepo>()),
+  );
+  // ✅ Register GetNotificationRepo
+  getIt.registerLazySingleton<MarkNotifacationRepo>(
+    () => MarkNotifacationRepo(getIt<ApiService>()),
+  );
+  // ✅ GetNotificationCubit Cubit
+  getIt.registerFactory<MarkNotificationCubit>(
+    () => MarkNotificationCubit(getIt<MarkNotifacationRepo>()),
   );
 }

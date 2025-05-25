@@ -15,4 +15,7 @@ class ApiConstants {
   static const String registerAuctions = "/auctions/{slug}/register";
   static const String notificationsSaveToken = "/user/notifications/save/token";
   static const String getAllNotifications = "/user/notifications";
+  static const String markAllReadNotifications =
+      "/user/notifications/mark-all-as-read";
+  static const String markAsReadNotifications = "/user/notifications/{id}";
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/core/router/route.dart';
 
 void handleNotification(BuildContext context, Map<String, dynamic> data) {
   final route = data['route'];
