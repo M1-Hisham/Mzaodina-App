@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
-import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
 
 class CustomUserDataDetailsSection extends StatelessWidget {

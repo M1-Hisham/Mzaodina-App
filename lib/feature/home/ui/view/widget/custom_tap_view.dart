@@ -112,7 +112,7 @@ class _CustomTapViewState extends State<CustomTapView>
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16.0),
                               child: CustomQadimCardViewItem(
-                                qadinDataModel:
+                                qadimDataModel:
                                     qadimAuctionResponse.data[index],
                               ),
                             );

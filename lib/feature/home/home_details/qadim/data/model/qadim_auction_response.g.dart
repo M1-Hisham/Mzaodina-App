@@ -32,7 +32,7 @@ QadimAuction _$QadimAuctionFromJson(Map<String, dynamic> json) => QadimAuction(
   openingAmount: (json['opening_amount'] as num).toInt(),
   requiredBidders: (json['required_bidders'] as num).toInt(),
   registrationAmount: (json['registration_amount'] as num).toInt(),
-  auctionDurationMinutes: (json['auction_duration_minutes'] as num).toInt(),
+  auctionDurationMinutes: (json['auction_duration_minutes'] as num?)?.toInt(),
   auctionStartRate: (json['auction_start_rate'] as num).toInt(),
   productSku: json['product_sku'] as String,
   isRegister: json['isRegister'] as bool,

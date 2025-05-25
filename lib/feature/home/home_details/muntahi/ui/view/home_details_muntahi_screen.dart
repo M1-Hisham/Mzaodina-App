@@ -99,7 +99,7 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          muntahiDetails.winner?.user.username ?? 'لايوجد',
+                          muntahiDetails.winner.user.username,
                           style: R.textStyles.font12primaryW600Light,
                         ),
                       ],
