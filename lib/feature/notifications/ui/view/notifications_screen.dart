@@ -85,16 +85,14 @@
 //       ),
 //     );
 //   }
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_repo.dart';
-
-import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.dart';
-import 'package:mzaodina_app/core/api/api_service.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/core/widgets/notifications_shimmer.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 
 class NotificationsScreen extends StatelessWidget {
@@ -102,39 +100,54 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => GetNotificationCubit(GetNotificationRepo(ApiService(Dio())))
-        ..fetchNotifications(),
-      child: Scaffold(
-        backgroundColor: R.colors.whiteLight,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              _customAppBar(title: 'الإشعارات', context: context),
-              Expanded(
-                child: BlocBuilder<GetNotificationCubit, GetNotificationState>(
+    return Scaffold(
+      backgroundColor: R.colors.whiteLight,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Column(
+          children: [
+            _customAppBar(title: 'الإشعارات', context: context),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  context.read<GetNotificationCubit>().fetchNotifications();
+                },
+                child: BlocBuilder<
+                  GetNotificationCubit,
+                  GetAllNotificationState
+                >(
                   builder: (context, state) {
-                    if (state is NotificationLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is NotificationFailure) {
-                      return Center(child: Text("خطأ: ${state.error}"));
-                    } else if (state is NotificationSuccess) {
-                      final notifications = state.response.data.notifications.data;
+                    if (state is GetAllNotificationLoading) {
+                      return Center(child: NotificationsShimmer());
+                    } else if (state is GetAllNotificationFailure) {
+                      return Center(
+                        child: Text(
+                          state.error,
+                          style: R.textStyles.font14BlackW500Light,
+                        ),
+                      );
+                    } else if (state is GetAllNotificationSuccess) {
+                      final notifications = state.response.notifications.data;
 
                       if (notifications.isEmpty) {
-                        return const Center(child: Text("لا توجد إشعارات."));
+                        return Center(
+                          child: Text(
+                            'لا توجد إشعارات جديدة',
+                            style: R.textStyles.font14BlackW500Light,
+                          ),
+                        );
                       }
 
                       return ListView.separated(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        itemCount: notifications.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemCount: state.response.notifications.data.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 12.h),
                         itemBuilder: (context, index) {
                           final notification = notifications[index];
-
                           return Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                              vertical: 12.h,
+                            ),
                             decoration: BoxDecoration(
                               color: R.colors.blackColor3,
                               borderRadius: BorderRadius.circular(8.r),
@@ -143,13 +156,17 @@ class NotificationsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'عنوان الإشعار هنا', // Replace with actual title when available
+                                    notification.data.title,
                                     style: R.textStyles.font14BlackW500Light,
                                   ),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    // TODO: تحديد الإجراء المناسب عند الضغط
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRoutes.invoiceDetailsScreenRoute,
+                                      arguments: notification,
+                                    );
                                   },
                                   child: Text(
                                     'اضغط',
@@ -163,37 +180,9 @@ class NotificationsScreen extends StatelessWidget {
                       );
                     }
 
-                    return const SizedBox.shrink(); // Default fallback
+                    return const SizedBox(); // default empty state
                   },
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-  Widget _customAppBar({required String title, context}) {
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.h),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Text(title, style: R.textStyles.font18blackW500Light),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: SvgPicture.asset(R.images.backIcon),
               ),
             ),
           ],
@@ -201,3 +190,30 @@ class NotificationsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _customAppBar({required String title, context}) {
+  return SafeArea(
+    child: Padding(
+      padding: EdgeInsets.symmetric(vertical: 12.h),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Text(title, style: R.textStyles.font18blackW500Light),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: SvgPicture.asset(R.images.backIcon),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}

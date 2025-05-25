@@ -232,7 +232,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetAllNotificationModel> getUserNotifications() async {
+  Future<GetAllNotificationModel> getAllNotifications() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

@@ -29,6 +29,15 @@ class NotificationHelper {
           token,
         );
       }
+        FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
+      log('🔄 New FCM Token: $newToken');
+      SharedPrefHelper.setSecuredString(
+        SharedPreferencesKeys.fcmToken,
+        newToken,
+      );
+      // كمان ممكن تبعتيه للسيرفر هنا لو محتاجة
+      
+    });
       return token;
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {

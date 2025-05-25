@@ -1,19 +1,19 @@
 part of 'get_notification_cubit.dart';
 
-sealed class GetNotificationState {}
+sealed class GetAllNotificationState {}
 
-final class GetNotificationInitial extends GetNotificationState {}
+final class GetAllNotificationInitial extends GetAllNotificationState {}
 
-class NotificationLoading extends GetNotificationState {}
+class GetAllNotificationLoading extends GetAllNotificationState {}
 
-final class NotificationSuccess extends GetNotificationState {
+final class GetAllNotificationSuccess extends GetAllNotificationState {
   final GetAllNotificationModel response;
 
-  NotificationSuccess(this.response);
+  GetAllNotificationSuccess(this.response);
 }
 
-final class NotificationFailure extends GetNotificationState {
+final class GetAllNotificationFailure extends GetAllNotificationState {
   final String error;
 
-  NotificationFailure(this.error);
+  GetAllNotificationFailure(this.error);
 }

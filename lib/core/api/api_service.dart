@@ -65,14 +65,14 @@ abstract class ApiService {
   );
 
   // =================== notifications ===================
-  
+
   @POST(ApiConstants.notificationsSaveToken)
   Future<SaveTokenResponceModel> saveFcmToken(
     @Query("token") String token,
     @Query("provider") String provider,
   );
-  @GET(ApiConstants.getNotifications)
-Future<GetAllNotificationModel> getUserNotifications();
+  @GET(ApiConstants.getAllNotifications)
+  Future<GetAllNotificationModel> getAllNotifications();
 
   // =================== Home ===================
 
