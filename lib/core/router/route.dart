@@ -13,10 +13,11 @@ import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_details_muntahi_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
@@ -55,7 +56,7 @@ class AppRouter {
               (_) => BlocProvider(
                 create:
                     (context) =>
-                        getIt<ShowActionCubit>()..getShowAction(args.slug),
+                        getIt<QadimShowActionCubit>()..getShowAction(args.slug),
 
                 child: HomeDetailsQadimScreen(qadimDetails: args),
               ),
@@ -63,7 +64,14 @@ class AppRouter {
       case AppRoutes.homeDetailsMuntahiScreenRoute:
         final args = settings.arguments as MuntahiAction;
         return MaterialPageRoute(
-          builder: (_) => HomeDetailsMuntahiScreen(muntahiDetails: args),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<MuntahiShowAuctionCubit>()
+                          ..getMuntahiShowAuction(args.slug),
+                child: HomeDetailsMuntahiScreen(muntahiDetails: args),
+              ),
         );
       case AppRoutes.homeDetailsJaraaScreenRoute:
         final args = settings.arguments as Map<String, dynamic>;

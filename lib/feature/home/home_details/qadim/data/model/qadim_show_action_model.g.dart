@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'show_action_model.dart';
+part of 'qagim_show_action_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ShowAuctionModel _$ShowAuctionModelFromJson(Map<String, dynamic> json) =>
-    ShowAuctionModel(
+QadimShowAuctionModel _$ShowAuctionModelFromJson(Map<String, dynamic> json) =>
+    QadimShowAuctionModel(
       status: json['status'] as bool,
       message: json['message'] as String,
       data: Auction.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ShowAuctionModelToJson(ShowAuctionModel instance) =>
+Map<String, dynamic> _$ShowAuctionModelToJson(QadimShowAuctionModel instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,

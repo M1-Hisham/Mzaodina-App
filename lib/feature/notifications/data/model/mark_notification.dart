@@ -15,7 +15,7 @@ class MarkNotificationModel {
   });
 
   factory MarkNotificationModel.fromJson(Map<String, dynamic> json) =>
-      _$MarkNotificationFromJson(json);
+      _$MarkNotificationModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MarkNotificationToJson(this);
+  Map<String, dynamic> toJson() => _$MarkNotificationModelToJson(this);
 }

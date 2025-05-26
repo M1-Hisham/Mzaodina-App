@@ -1,20 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'show_action_model.g.dart';
+part 'qadim_show_action_model.g.dart';
 
 @JsonSerializable()
-class ShowAuctionModel {
+class QadimShowAuctionModel {
   final bool status;
   final String message;
   final Auction data;
 
-  ShowAuctionModel({
+  QadimShowAuctionModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory ShowAuctionModel.fromJson(Map<String, dynamic> json) =>
+  factory QadimShowAuctionModel.fromJson(Map<String, dynamic> json) =>
       _$ShowAuctionModelFromJson(json);
   Map<String, dynamic> toJson() => _$ShowAuctionModelToJson(this);
 }

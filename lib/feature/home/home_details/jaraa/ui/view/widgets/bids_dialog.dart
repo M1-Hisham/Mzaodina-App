@@ -83,12 +83,16 @@ class _BidsDialogState extends State<BidsDialog> {
 
   Widget _buildHeaderRow() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         _headerCell("#"),
+        Spacer(),
         _headerCell("اسم المزايد"),
+        Spacer(),
         _headerCell("المبلغ"),
+        Spacer(),
         _headerCell("الوقت"),
+        Spacer(),
       ],
     );
   }
