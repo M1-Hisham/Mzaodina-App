@@ -49,12 +49,14 @@ class JoinTheAuction extends StatelessWidget {
                 text: 'تاكيد دفع الرسوم التنظيمية',
                 onPressed: () {
                   log('message');
-                  final bool termsAccepted =
-                      context.read<CheckboxCubit>().isClosed;
-                  // final bool warningAccepted =
-                  //     context.read<CheckboxCubit>().state.isChecked;
-                  log('termsAccepted = $termsAccepted');
-                  if (!termsAccepted) {
+                  bool termsAccepted =
+                      context.read<CheckboxCubit>().state.isChecked;
+                  bool warningAccepted =
+                      context.read<CheckboxCubit>().state.isChecked;
+                  log(
+                    'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
+                  );
+                  if (!termsAccepted || !warningAccepted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('يرجى الموافقة على الشروط والأحكام'),
@@ -62,7 +64,7 @@ class JoinTheAuction extends StatelessWidget {
                     );
                     return;
                   }
-                  // _showAuctionSuccessDialog(context),
+                  _showAuctionSuccessDialog(context);
                 },
               ),
             ],
@@ -112,7 +114,7 @@ class JoinTheAuction extends StatelessWidget {
     );
 
     bool isCancelled = false;
-    await Future.delayed(const Duration(seconds: 5)).catchError((_) {
+    await Future.delayed(const Duration(seconds: 2)).catchError((_) {
       isCancelled = true;
     });
 
