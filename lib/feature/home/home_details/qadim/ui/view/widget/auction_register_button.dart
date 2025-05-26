@@ -42,7 +42,15 @@ class AuctionRegisterButton extends StatelessWidget {
           return CustomElevatedButton(
             text: 'الانضمام الى المزاد',
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.joinTheAuction);
+              Navigator.pushNamed(
+                context,
+                AppRoutes.joinTheAuction,
+                arguments: {
+                  'openingAmount': auctionData.openingAmount,
+                  'auctionStartRate': auctionData.auctionStartRate,
+                  'requiredBidders': auctionData.requiredBidders,
+                },
+              );
             },
           );
         }
