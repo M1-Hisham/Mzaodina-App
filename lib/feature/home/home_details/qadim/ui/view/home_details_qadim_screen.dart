@@ -59,6 +59,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                           child: CustomIndcatorItem(
                             title: 'نسبة انطلاق المزاد',
                             showIndicator: true,
+                            value: qadimDetails.auctionStartRate.toInt(),
                           ),
                         ),
 
@@ -115,6 +116,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                             title: 'انطلاق المزاد',
                             showIndicator: false,
                             style: R.textStyles.font14Grey3W500Light,
+                            value: qadimDetails.auctionStartRate,
                           ),
                         ),
                         Container(

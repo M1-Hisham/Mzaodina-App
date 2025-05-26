@@ -1,8 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterCubitIncDec extends Cubit<int> {
-  CounterCubitIncDec() : super(0);
+  static const int minValue = 1;
+  final int maxValue;
+  final int price;
+  CounterCubitIncDec({required this.maxValue, required this.price})
+    : super(minValue);
 
-  void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
+  int get totalAmount => state * price;
+
+  void increment() {
+    if (state < maxValue - minValue) emit(state + 1);
+  }
+
+  void decrement() {
+    if (state != minValue) emit(state - 1);
+  }
 }

@@ -16,6 +16,7 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_deta
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe-to-auction-cubit/subscribe_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
@@ -155,7 +156,25 @@ class AppRouter {
           builder: (_) => ShippingAndReturnPolicyScreen(),
         );
       case AppRoutes.joinTheAuction:
-        return MaterialPageRoute(builder: (_) => JoinTheAuction());
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt<SubscribeToAuctionCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => CheckboxCubit(initialValue: false),
+                  ),
+                ],
+                child: JoinTheAuction(
+                  requiredBidders: args['requiredBidders'],
+                  openingAmount: args['openingAmount'],
+                  auctionStartRate: args['auctionStartRate'],
+                ),
+              ),
+        );
       case AppRoutes.authRouter:
         return MaterialPageRoute(
           builder:

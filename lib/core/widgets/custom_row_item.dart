@@ -44,10 +44,11 @@ class CoustomRowItem extends StatelessWidget {
                 price,
                 style:
                     priceStyle ??
-                    R.textStyles.font12primaryW600Light.copyWith(
+                    R.textStyles.font14BlackW500Light.copyWith(
                       color: priceColor ?? R.colors.primaryColorLight,
                     ),
               ),
+              SizedBox(width: 4.w),
               SvgPicture.asset(R.images.riyalImage),
             ],
           ),
