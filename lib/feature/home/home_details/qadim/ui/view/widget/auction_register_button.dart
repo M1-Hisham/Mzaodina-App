@@ -46,8 +46,9 @@ class AuctionRegisterButton extends StatelessWidget {
                 context,
                 AppRoutes.joinTheAuction,
                 arguments: {
-                  'openingAmount': auctionData.openingAmount,
-                  'auctionStartRate': auctionData.auctionStartRate,
+                  'openingAmount': auctionData.openingAmount.toDouble(),
+                  'registrationAmount':
+                      auctionData.registrationAmount.toDouble(),
                   'requiredBidders': auctionData.requiredBidders,
                 },
               );

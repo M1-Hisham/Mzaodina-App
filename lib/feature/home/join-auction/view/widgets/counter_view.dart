@@ -7,13 +7,13 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.da
 
 class CounterView extends StatelessWidget {
   final int requiredBidders;
-  final int openingAmount;
-  final int auctionStartRate;
+  final double openingAmount;
+  final double registrationAmount;
   const CounterView({
     super.key,
     required this.requiredBidders,
     required this.openingAmount,
-    required this.auctionStartRate,
+    required this.registrationAmount,
   });
 
   @override
@@ -21,8 +21,8 @@ class CounterView extends StatelessWidget {
     return BlocProvider(
       create:
           (_) => CounterCubitIncDec(
-            maxValue: requiredBidders,
-            price: openingAmount,
+            maxValue: requiredBidders + CounterCubitIncDec.minValue,
+            price: registrationAmount.toDouble(),
           ),
       child: BlocBuilder<CounterCubitIncDec, int>(
         builder: (context, count) {
@@ -31,7 +31,7 @@ class CounterView extends StatelessWidget {
               CustomIndcatorItem(
                 title: 'نسبة انطلاق المزاد',
                 showIndicator: false,
-                value: auctionStartRate + (0.10 * 100 * count).toInt(),
+                value: ((100 / requiredBidders) * count).toInt(),
                 style: R.textStyles.font14Grey3W500Light,
               ),
               const SizedBox(height: 20),

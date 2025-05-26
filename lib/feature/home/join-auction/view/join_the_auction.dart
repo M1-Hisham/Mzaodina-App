@@ -13,13 +13,13 @@ import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_con
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
 class JoinTheAuction extends StatelessWidget {
-  final int openingAmount;
-  final int auctionStartRate;
+  final double openingAmount;
+  final double registrationAmount;
   final int requiredBidders;
   const JoinTheAuction({
     super.key,
     required this.openingAmount,
-    required this.auctionStartRate,
+    required this.registrationAmount,
     required this.requiredBidders,
   });
 
@@ -34,12 +34,12 @@ class JoinTheAuction extends StatelessWidget {
               const CustomAppBarAccount(title: 'الرسوم التنظيمية'),
               CoustomRowItem(
                 title: 'الرسوم التنظيمية',
-                price: '$openingAmount',
+                price: '$registrationAmount',
               ),
               CounterView(
                 requiredBidders: requiredBidders,
                 openingAmount: openingAmount,
-                auctionStartRate: auctionStartRate,
+                registrationAmount: registrationAmount,
               ),
               const SizedBox(height: 25),
               _warning(),
