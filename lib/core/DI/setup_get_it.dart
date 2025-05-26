@@ -14,8 +14,10 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/data/repo/muntahi
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_auction_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/register_to_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/subscribe_to_auction_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe-to-auction-cubit/subscribe_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_aution_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
@@ -131,6 +133,14 @@ Future<void> setupGetIt() async {
   // ✅ RegisterToAuctionCubit Cubit
   getIt.registerFactory<RegisterToAuctionCubit>(
     () => RegisterToAuctionCubit(getIt<RegisterToAuctionRepo>()),
+  );
+  // ✅ Subscribe SubscribeToAuctionRepo
+  getIt.registerLazySingleton<SubscribeToAuctionRepo>(
+    () => SubscribeToAuctionRepo(getIt<ApiService>()),
+  );
+  // ✅ SubscribeToAuctionCubit Cubit
+  getIt.registerFactory<SubscribeToAuctionCubit>(
+    () => SubscribeToAuctionCubit(getIt<SubscribeToAuctionRepo>()),
   );
   // ✅ Register NotificationRepo
   getIt.registerLazySingleton<NotificationRepo>(

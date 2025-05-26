@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckboxState {
@@ -15,10 +17,10 @@ class CheckboxCubit extends Cubit<CheckboxState> {
     : super(CheckboxState(isChecked: initialValue));
 
   void toggle() {
-  final newValue = !state.isChecked;
-  print('Checkbox toggled to $newValue');
-  emit(state.copyWith(isChecked: newValue));
-}
+    final newValue = !state.isChecked;
+    log('Checkbox toggled to $newValue');
+    emit(state.copyWith(isChecked: newValue));
+  }
 
   void setValue(bool value) => emit(state.copyWith(isChecked: value));
 }

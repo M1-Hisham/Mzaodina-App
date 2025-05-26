@@ -42,10 +42,11 @@ class CustomLogoutBotton extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         await UserSession.logout();
-                        Navigator.pushReplacementNamed(
+                        Navigator.pushNamedAndRemoveUntil(
                           // ignore: use_build_context_synchronously
                           context,
                           AppRoutes.authRouter,
+                          (route) => false,
                         );
                       },
                       child: Text(

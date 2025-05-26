@@ -86,12 +86,13 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                           CoustomRowItem(
                             title: 'بداية المزاد',
                             price:
-                                widget.qadimDataModel.product.price.toString(),
+                                widget.qadimDataModel.openingAmount.toString(),
                           ),
 
                           CustomIndcatorItem(
                             title: 'انطلاق المزاد',
                             showIndicator: true,
+                            value: widget.qadimDataModel.auctionStartRate,
                           ),
                         ],
                       ),

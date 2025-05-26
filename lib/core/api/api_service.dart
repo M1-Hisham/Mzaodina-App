@@ -7,6 +7,8 @@ import 'package:mzaodina_app/feature/home/home_details/data/model/show_action_mo
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_to_aution_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/mark_notification.dart';
@@ -113,4 +115,9 @@ abstract class ApiService {
 
   @POST(ApiConstants.registerAuctions)
   Future<RegisterToAutionModel> registerAuctions(@Path("slug") String slug);
+
+  @POST(ApiConstants.subscribeAuctions)
+  Future<SubscribeToAutionModel> subscribeAuctions(
+    @Body() SubscribeAutionBody subscribeAutionBody,
+  );
 }
