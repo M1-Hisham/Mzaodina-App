@@ -97,18 +97,27 @@ class _CustomTapViewState extends State<CustomTapView>
                       return Center(child: Text(state.errorMessage));
                     } else if (state is QadimSuccess) {
                       final qadimAuctionResponse = state.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context
+                                    .read<QadimCubit>()
+                                    .getNotStartAuctions(),
+                        child: ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
 
-                        itemCount: qadimAuctionResponse.data.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: CustomQadimCardViewItem(
-                              qadinDataModel: qadimAuctionResponse.data[index],
-                            ),
-                          );
-                        },
+                          itemCount: qadimAuctionResponse.data.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: CustomQadimCardViewItem(
+                                qadimDataModel:
+                                    qadimAuctionResponse.data[index],
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return const Center(child: Text('لا يوجد بيانات'));
@@ -194,7 +203,8 @@ class _CustomTapViewState extends State<CustomTapView>
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: CustomMuntahiCardViewItem(
-                              muntahiDataModel: muntaliAuctionResponse.data[index],
+                              muntahiDataModel:
+                                  muntaliAuctionResponse.data[index],
                             ),
                           );
                         },

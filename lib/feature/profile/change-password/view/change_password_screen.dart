@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-import 'package:mzaodina_app/core/widgets/custom_success_change_and_forgot_password_dialog.dart';
+import 'package:mzaodina_app/core/widgets/custom_dialog_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
@@ -45,7 +45,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     showDialog(
                       context: context,
                       builder:
-                          (BuildContext context) => CustomSuccessChangeAndForgotPasswordDialog(
+                          (BuildContext context) => CustomDialogWidget(
+                            buttonText: 'اغلاق',
                             message: state.message,
                             onPressed: () {
                               Navigator.pop(context);
@@ -57,7 +58,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     showDialog(
                       context: context,
                       builder:
-                          (BuildContext context) => CustomSuccessChangeAndForgotPasswordDialog(
+                          (BuildContext context) => CustomDialogWidget(
+                            buttonText: 'اغلاق',
                             message: state.errorMessage,
                             onPressed: () {
                               Navigator.pop(context);

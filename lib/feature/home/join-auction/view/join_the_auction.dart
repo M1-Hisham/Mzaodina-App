@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,12 +9,19 @@ import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
-import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
 class JoinTheAuction extends StatelessWidget {
-  const JoinTheAuction({super.key});
+  final int openingAmount;
+  final int auctionStartRate;
+  final int requiredBidders;
+  const JoinTheAuction({
+    super.key,
+    required this.openingAmount,
+    required this.auctionStartRate,
+    required this.requiredBidders,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +32,38 @@ class JoinTheAuction extends StatelessWidget {
           child: Column(
             children: [
               const CustomAppBarAccount(title: 'الرسوم التنظيمية'),
-              const CoustomRowItem(title: 'الرسوم التنظيمية', price: '30.00 '),
-              CustomIndcatorItem(
-                title: 'نسبة انطلاق المزاد',
-                showIndicator: false,
-                style: R.textStyles.font14Grey3W500Light,
+              CoustomRowItem(
+                title: 'الرسوم التنظيمية',
+                price: '$openingAmount',
               ),
-              const SizedBox(height: 20),
-              CounterView(),
-              const SizedBox(height: 10),
-              const CoustomRowItem(title: 'مجموع القيمة', price: '30.00 '),
-              const SizedBox(height: 30),
+              CounterView(
+                requiredBidders: requiredBidders,
+                openingAmount: openingAmount,
+                auctionStartRate: auctionStartRate,
+              ),
+              const SizedBox(height: 25),
               _warning(),
               _termsAndConditions(context),
               const SizedBox(height: 20),
               CustomElevatedButton(
                 text: 'تاكيد دفع الرسوم التنظيمية',
-                onPressed: () => _showAuctionSuccessDialog(context),
+                onPressed: () {
+                  log('message');
+                  final bool termsAccepted =
+                      context.read<CheckboxCubit>().isClosed;
+                  // final bool warningAccepted =
+                  //     context.read<CheckboxCubit>().state.isChecked;
+                  log('termsAccepted = $termsAccepted');
+                  if (!termsAccepted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('يرجى الموافقة على الشروط والأحكام'),
+                      ),
+                    );
+                    return;
+                  }
+                  // _showAuctionSuccessDialog(context),
+                },
               ),
             ],
           ),

@@ -2,10 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_constants.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/register_to_aution_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/show_action_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_to_aution_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/mark_notification.dart';
+import 'package:mzaodina_app/feature/notifications/data/model/save_token_responce_model.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_response_model.dart';
@@ -28,9 +35,7 @@ abstract class ApiService {
 
   /// service for apple login
   @POST(ApiConstants.appleLogin)
-  Future<void> appleLogin(
-    @Body() Map<String, dynamic> body,
-  );
+  Future<void> appleLogin(@Body() Map<String, dynamic> body);
 
   /// service for login
   @POST(ApiConstants.login)
@@ -62,6 +67,23 @@ abstract class ApiService {
     @Body() ChangePasswordModel changePasswordModel,
   );
 
+  // =================== notifications ===================
+
+  @POST(ApiConstants.notificationsSaveToken)
+  Future<SaveTokenResponceModel> saveFcmToken(
+    @Query("token") String token,
+    @Query("provider") String provider,
+  );
+
+  @GET(ApiConstants.getAllNotifications)
+  Future<GetAllNotificationModel> getAllNotifications();
+
+  @GET(ApiConstants.markAllReadNotifications)
+  Future<MarkNotificationModel> markAllReadNotifications();
+
+  @POST(ApiConstants.markAsReadNotifications)
+  Future<MarkNotificationModel> markAsReadNotifications(@Path("id") String id);
+
   // =================== Home ===================
 
   /// service for auctions Qadim
@@ -87,4 +109,15 @@ abstract class ApiService {
   Future<MuntahiAuctionsResponse> getFinishedAuctions({
     @Query("filter") String filter = "finished",
   });
+
+  @GET(ApiConstants.showAuctions)
+  Future<ShowAuctionModel> getShowAuction(@Path("slug") String slug);
+
+  @POST(ApiConstants.registerAuctions)
+  Future<RegisterToAutionModel> registerAuctions(@Path("slug") String slug);
+
+  @POST(ApiConstants.subscribeAuctions)
+  Future<SubscribeToAutionModel> subscribeAuctions(
+    @Body() SubscribeAutionBody subscribeAutionBody,
+  );
 }

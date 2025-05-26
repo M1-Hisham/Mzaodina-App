@@ -5,6 +5,7 @@ class AppRoutes {
   static const homeRoute = '/HomeScreen';
   static const profileRoute = '/ProfileScreen';
   static const navBarRoute = '/NavBarScreen';
+  static const joinTheAuction = '/JoinTheAuction';
   static const homeDetailsQadimScreenRoute = '/homeDetailsQadimScreen';
   static const homeDetailsMuntahiScreenRoute = '/HomeDetailsMuntahiScreen';
   static const homeDetailsJaraaScreenRoute = '/homeDetailsJaraaScreen';

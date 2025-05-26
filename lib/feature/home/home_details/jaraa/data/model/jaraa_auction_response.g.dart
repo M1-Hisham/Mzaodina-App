@@ -33,10 +33,7 @@ JaraaAuction _$JaraaAuctionFromJson(Map<String, dynamic> json) => JaraaAuction(
   canBidding: json['canBidding'] as bool,
   endAt: json['end_at'] as String,
   product: Product.fromJson(json['product'] as Map<String, dynamic>),
-  maxBid:
-      json['max_bid'] == null
-          ? null
-          : MaxBid.fromJson(json['max_bid'] as Map<String, dynamic>),
+  maxBid: MaxBid.fromJson(json['max_bid'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$JaraaAuctionToJson(JaraaAuction instance) =>
@@ -48,7 +45,7 @@ Map<String, dynamic> _$JaraaAuctionToJson(JaraaAuction instance) =>
       'canBidding': instance.canBidding,
       'end_at': instance.endAt,
       'product': instance.product.toJson(),
-      'max_bid': instance.maxBid?.toJson(),
+      'max_bid': instance.maxBid.toJson(),
     };
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
@@ -70,7 +67,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
 };
 
 MaxBid _$MaxBidFromJson(Map<String, dynamic> json) => MaxBid(
-  id: (json['id'] as num).toInt(),
+  id: (json['id'] as num?)?.toInt(),
   bid: (json['bid'] as num).toInt(),
   user: User.fromJson(json['user'] as Map<String, dynamic>),
 );
@@ -82,7 +79,7 @@ Map<String, dynamic> _$MaxBidToJson(MaxBid instance) => <String, dynamic>{
 };
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-  id: (json['id'] as num).toInt(),
+  id: (json['id'] as num?)?.toInt(),
   username: json['username'] as String,
   country: json['country'] as String,
 );

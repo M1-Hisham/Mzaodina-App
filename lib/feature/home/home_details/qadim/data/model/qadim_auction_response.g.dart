@@ -32,11 +32,12 @@ QadimAuction _$QadimAuctionFromJson(Map<String, dynamic> json) => QadimAuction(
   openingAmount: (json['opening_amount'] as num).toInt(),
   requiredBidders: (json['required_bidders'] as num).toInt(),
   registrationAmount: (json['registration_amount'] as num).toInt(),
-  auctionDurationMinutes: (json['auction_duration_minutes'] as num).toInt(),
+  auctionDurationMinutes: (json['auction_duration_minutes'] as num?)?.toInt(),
   auctionStartRate: (json['auction_start_rate'] as num).toInt(),
   productSku: json['product_sku'] as String,
   isRegister: json['isRegister'] as bool,
   product: Product.fromJson(json['product'] as Map<String, dynamic>),
+  type: json['type'] as String,
 );
 
 Map<String, dynamic> _$QadimAuctionToJson(QadimAuction instance) =>
@@ -50,6 +51,7 @@ Map<String, dynamic> _$QadimAuctionToJson(QadimAuction instance) =>
       'auction_duration_minutes': instance.auctionDurationMinutes,
       'auction_start_rate': instance.auctionStartRate,
       'product_sku': instance.productSku,
+      'type': instance.type,
       'isRegister': instance.isRegister,
       'product': instance.product,
     };

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 
-class CustomSuccessChangeAndForgotPasswordDialog extends StatelessWidget {
+class CustomDialogWidget extends StatelessWidget {
   final String message;
   final String buttonText;
   final VoidCallback onPressed;
 
-  const CustomSuccessChangeAndForgotPasswordDialog({
+  const CustomDialogWidget({
     super.key,
     required this.message,
-    this.buttonText = 'اغلاق',
+    required this.buttonText,
     required this.onPressed,
   });
 

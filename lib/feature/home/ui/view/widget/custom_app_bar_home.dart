@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mzaodina_app/core/helper/user_session.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 class CustomAppBarHome extends StatelessWidget {
   const CustomAppBarHome({super.key});
@@ -41,14 +42,34 @@ class CustomAppBarHome extends StatelessWidget {
                   SizedBox(height: 7.h),
                   Row(
                     children: [
-                      FutureBuilder<bool>(
-                        future: UserSession.isLoggedIn(),
-                        builder: (context, snapshot) {
-                          bool loggedIn = snapshot.data ?? false;
-                          return Text(
-                            loggedIn ? '👋 فهد القحطاني' : '👋 كزائر',
-                            style: R.textStyles.font18WhiteW500Light,
-                          );
+                      BlocBuilder<UserDataCubit, UserDataState>(
+                        builder: (context, state) {
+                          if (state is UserDataLoading) {
+                            return Text(
+                              '👋 ...',
+                              style: R.textStyles.font18WhiteW500Light,
+                            );
+                          } else if (state is UserDataNotLoggedIn) {
+                            return Text(
+                              '👋 كزائر',
+                              style: R.textStyles.font18WhiteW500Light,
+                            );
+                          } else if (state is UserDataSuccess) {
+                            return Text(
+                              '👋 ${state.userModel.data?.username ?? ''}',
+                              style: R.textStyles.font18WhiteW500Light,
+                            );
+                          } else if (state is UserDataError) {
+                            return Text(
+                              '👋 كزائر',
+                              style: R.textStyles.font18WhiteW500Light,
+                            );
+                          } else {
+                            return Text(
+                              '👋 كزائر',
+                              style: R.textStyles.font18WhiteW500Light,
+                            );
+                          }
                         },
                       ),
                       Spacer(),

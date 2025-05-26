@@ -15,7 +15,10 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntah
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe-to-auction-cubit/subscribe_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/invoice_details_screen.dart';
@@ -25,6 +28,9 @@ import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/feature/auth/ui/view/auth_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
@@ -46,7 +52,14 @@ class AppRouter {
       case AppRoutes.homeDetailsQadimScreenRoute:
         final args = settings.arguments as QadimAuction;
         return MaterialPageRoute(
-          builder: (_) => HomeDetailsQadimScreen(qadimDetails: args),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<ShowActionCubit>()..getShowAction(args.slug),
+
+                child: HomeDetailsQadimScreen(qadimDetails: args),
+              ),
         );
       case AppRoutes.homeDetailsMuntahiScreenRoute:
         final args = settings.arguments as MuntahiAction;
@@ -106,7 +119,22 @@ class AppRouter {
       case AppRoutes.settingScreenRoute:
         return MaterialPageRoute(builder: (_) => SettingScreen());
       case AppRoutes.notificationsScreenRoute:
-        return MaterialPageRoute(builder: (_) => NotificationsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<GetNotificationCubit>()..fetchNotifications(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<MarkNotificationCubit>(),
+                  ),
+                ],
+                child: NotificationsScreen(),
+              ),
+        );
       case AppRoutes.invoiceDetailsScreenRoute:
         return MaterialPageRoute(builder: (_) => InvoiceDetailsScreen());
       case AppRoutes.paymentDetailsScreenRoute:
@@ -118,6 +146,26 @@ class AppRouter {
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
           builder: (_) => ShippingAndReturnPolicyScreen(),
+        );
+      case AppRoutes.joinTheAuction:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt<SubscribeToAuctionCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => CheckboxCubit(initialValue: false),
+                  ),
+                ],
+                child: JoinTheAuction(
+                  requiredBidders: args['requiredBidders'],
+                  openingAmount: args['openingAmount'],
+                  auctionStartRate: args['auctionStartRate'],
+                ),
+              ),
         );
       case AppRoutes.authRouter:
         return MaterialPageRoute(
@@ -135,6 +183,9 @@ class AppRouter {
                   ),
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
+                  ),
+                  BlocProvider<SaveTokenCubit>(
+                    create: (context) => getIt<SaveTokenCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),

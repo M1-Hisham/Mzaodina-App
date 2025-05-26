@@ -32,10 +32,7 @@ MuntahiAction _$MuntahiActionFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String,
       openingAmount: (json['opening_amount'] as num).toInt(),
       product: Product.fromJson(json['product'] as Map<String, dynamic>),
-      winner:
-          json['winner'] == null
-              ? null
-              : Winner.fromJson(json['winner'] as Map<String, dynamic>),
+      winner: Winner.fromJson(json['winner'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MuntahiActionToJson(MuntahiAction instance) =>
@@ -45,7 +42,7 @@ Map<String, dynamic> _$MuntahiActionToJson(MuntahiAction instance) =>
       'status': instance.status,
       'opening_amount': instance.openingAmount,
       'product': instance.product.toJson(),
-      'winner': instance.winner?.toJson(),
+      'winner': instance.winner.toJson(),
     };
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
@@ -67,7 +64,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
 };
 
 Winner _$WinnerFromJson(Map<String, dynamic> json) => Winner(
-  id: (json['id'] as num).toInt(),
+  id: (json['id'] as num?)?.toInt(),
   invoicePrice: json['invoice_price'] as String,
   user: WinnerUser.fromJson(json['user'] as Map<String, dynamic>),
 );
@@ -79,7 +76,7 @@ Map<String, dynamic> _$WinnerToJson(Winner instance) => <String, dynamic>{
 };
 
 WinnerUser _$WinnerUserFromJson(Map<String, dynamic> json) => WinnerUser(
-  id: (json['id'] as num).toInt(),
+  id: (json['id'] as num?)?.toInt(),
   username: json['username'] as String,
   country: json['country'] as String,
 );

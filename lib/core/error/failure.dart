@@ -28,7 +28,7 @@ class ServerFailure extends Failure {
       case DioExceptionType.cancel:
         return ServerFailure('Request to the server was cancelled.');
       case DioExceptionType.unknown:
-        if (dioError.message!.contains('SocketException')) {
+        if (dioError.message?.contains('SocketException') == true) {
           return ServerFailure('No Internet Connection.');
         }
         return ServerFailure('Unexpected Error, Please try again!');
@@ -73,7 +73,9 @@ class ServerFailure extends Failure {
     } else if (statusCode == 500) {
       return ServerFailure('Internal Server error, Please try later');
     } else {
-      return ServerFailure('Oops! There was an Error, Please try again =========.');
+      return ServerFailure(
+        'Oops! There was an Error, Please try again =========.',
+      );
     }
   }
 }
