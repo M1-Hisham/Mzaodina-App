@@ -83,7 +83,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: 'سعر المنتج بالأسواق',
-                            price: '1000.00 ',
+                            price: qadimDetails.product.price.toString(),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -93,7 +93,9 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: ' بداية المزاد',
-                            price: '600.00 ',
+                            price: qadimDetails.openingAmount.toStringAsFixed(
+                              2,
+                            ),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -104,7 +106,8 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: 'رسوم تنظيم',
-                            price: '30.00 ',
+                            price: qadimDetails.registrationAmount
+                                .toStringAsFixed(2),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),

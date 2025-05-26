@@ -12,9 +12,10 @@ class SaveTokenCubit extends Cubit<SaveTokenState> {
 
     final result = await notificationRepo.saveFcmToken(token: token);
 
-    result.fold(
-      (failure) => emit(SaveTokenFailure(failure.errMessage)),
-      (response) => emit(SaveTokenSuccess(response)),
-    );
+    result.fold((failure) => emit(SaveTokenFailure(failure.errMessage)), (
+      response,
+    ) {
+      if (!isClosed) emit(SaveTokenSuccess(response));
+    });
   }
 }
