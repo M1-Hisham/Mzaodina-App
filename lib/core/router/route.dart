@@ -163,7 +163,7 @@ class AppRouter {
                 child: JoinTheAuction(
                   requiredBidders: args['requiredBidders'],
                   openingAmount: args['openingAmount'],
-                  auctionStartRate: args['auctionStartRate'],
+                  registrationAmount: args['registrationAmount'],
                 ),
               ),
         );
