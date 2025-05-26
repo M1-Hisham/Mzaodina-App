@@ -90,7 +90,7 @@ class _BidsDialogState extends State<BidsDialog> {
         _headerCell("اسم المزايد"),
         Spacer(),
         _headerCell("المبلغ"),
-        Spacer(),
+        Spacer(flex: 2),
         _headerCell("الوقت"),
         Spacer(),
       ],
@@ -107,7 +107,20 @@ class _BidsDialogState extends State<BidsDialog> {
             children: [
               _dataCell(bid.number.toString().padLeft(2, '0')),
               _dataCell(bid.name),
-              _dataCell('؋ ${bid.amount.toStringAsFixed(2)}'),
+              Row(
+                children: [
+                  _dataCell(
+                    bid.amount.toStringAsFixed(2),
+                    R.textStyles.font12primaryW600Light,
+                  ),
+                  SizedBox(width: 4.w),
+                  SvgPicture.asset(
+                    R.images.riyalImage,
+                    width: 16.w,
+                    height: 16.h,
+                  ),
+                ],
+              ),
               _dataCell(
                 '${_formatTime(bid.dateTime)}\n${_formatDate(bid.dateTime)}',
               ),
@@ -126,11 +139,11 @@ class _BidsDialogState extends State<BidsDialog> {
       textAlign: TextAlign.center,
     ),
   );
-  Widget _dataCell(String text) => FittedBox(
+  Widget _dataCell(String text, [TextStyle? style]) => FittedBox(
     child: Text(
       text,
       textAlign: TextAlign.center,
-      style: R.textStyles.font12Grey3W500Light,
+      style: style ?? R.textStyles.font12Grey3W500Light,
     ),
   );
 
