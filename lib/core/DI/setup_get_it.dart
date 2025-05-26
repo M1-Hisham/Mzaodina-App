@@ -7,6 +7,8 @@ import 'package:mzaodina_app/feature/auth/forgot-password/ui/view_model/forgot_p
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/data/repo/register_repo.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/jaraa_show_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/repo/muntahi_show_auction_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_show_action_repo.dart';
@@ -21,8 +23,10 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe-to-auction-cubit/subscribe_to_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_aution_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_show_aution_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/mark_notifacation_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.dart';
@@ -138,7 +142,24 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<MuntahiShowAuctionCubit>(
     () => MuntahiShowAuctionCubit(getIt<MuntahiShowAuctionRepo>()),
   );
+  // ✅ Register SayantaliqShowActionRepo
+  getIt.registerLazySingleton<SayantaliqShowAutionRepo>(
+    () => SayantaliqShowAutionRepo(getIt<ApiService>()),
+  );
+  // ✅ SayantaliqShowActionCubit Cubit
+  getIt.registerFactory<SayantaliqShowAustionCubit>(
+    () => SayantaliqShowAustionCubit(getIt<SayantaliqShowAutionRepo>()),
+  );
+  // ✅ Register JaraaShowActionRepo
+  getIt.registerLazySingleton<JaraaShowAuctionRepo>(
+    () => JaraaShowAuctionRepo(getIt<ApiService>()),
+  );
+  // ✅ JaraaShowActionCubit Cubit
+  getIt.registerFactory<JaraaShowAuctionCubit>(
+    () => JaraaShowAuctionCubit(getIt<JaraaShowAuctionRepo>()),
+  );
 
+  //=================================
   // ✅ Register RegisterToActionRepo
   getIt.registerLazySingleton<RegisterToAuctionRepo>(
     () => RegisterToAuctionRepo(getIt<ApiService>()),

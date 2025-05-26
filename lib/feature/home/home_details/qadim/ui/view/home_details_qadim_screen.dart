@@ -6,7 +6,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/core/widgets/shimmer_animation.dart';
+import 'package:mzaodina_app/core/widgets/mazad_details_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/custom_verification_to_register_auction_botton.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';

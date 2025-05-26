@@ -4,7 +4,11 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 class MazadDetailsShimmer extends StatelessWidget {
   const MazadDetailsShimmer({super.key});
 
-  Widget shimmerBox({double height = 20, double width = double.infinity, EdgeInsets? margin}) {
+  Widget shimmerBox({
+    double height = 20,
+    double width = double.infinity,
+    EdgeInsets? margin,
+  }) {
     return Shimmer(
       child: Container(
         height: height,
