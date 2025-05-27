@@ -21,26 +21,29 @@ class UserData {
   final String? name;
   final String username;
   final String email;
-  final String country;
-  final String phone;
-  final String phone_code;
+  final String? country;
+  final String? phone;
+  @JsonKey(name: 'phone_code')
+  final String? phoneCode;
   final Address? address;
   final String? provider;
-  final String created_at;
-  final String profile_photo_url;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
+  @JsonKey(name: 'profile_photo_url')
+  final String? profilePhotoUrl;
 
   UserData({
     required this.id,
     this.name,
     required this.username,
     required this.email,
-    required this.country,
-    required this.phone,
-    required this.phone_code,
+    this.country,
+    this.phone,
+    this.phoneCode,
     this.address,
     this.provider,
-    required this.created_at,
-    required this.profile_photo_url,
+    required this.createdAt,
+    this.profilePhotoUrl,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
