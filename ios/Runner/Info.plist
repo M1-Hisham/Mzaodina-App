@@ -30,14 +30,18 @@
 			<key>CFBundleURLName</key>
 			<string></string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+      			<string>com.googleusercontent.apps.412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm</string>
+    		</array>
 		</dict>
-		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>googlechrome</string>
+		<string>google</string>
+  		<string>com.googleusercontent.apps.412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm</string>
 		<string>http</string>
 		<string>https</string>
 		<string>mailto</string>

@@ -35,7 +35,7 @@ abstract class ApiService {
 
   /// service for apple login
   @POST(ApiConstants.appleLogin)
-  Future<void> appleLogin(@Body() Map<String, dynamic> body);
+  Future<LoginResponseModel> appleLogin(@Body() Map<String, dynamic> body);
 
   /// service for login
   @POST(ApiConstants.login)
