@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
@@ -9,7 +10,9 @@ import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   clientId:
-      '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com',
+      Platform.isIOS
+          ? '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com'
+          : '412322100407-0rnuit2t6n43g0enmnk4dmbhks76b7gv.apps.googleusercontent.com',
   scopes: ['email', 'profile'],
 );
 
@@ -42,5 +45,10 @@ Future<void> loginWithGoogle(context) async {
     );
   } catch (e) {
     log("خطأ أثناء تسجيل الدخول: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.'),
+      ),
+    );
   }
 }
