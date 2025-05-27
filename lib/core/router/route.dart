@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
+import 'package:mzaodina_app/feature/auth/apple/view-model/apple_cubit/apple_cubit.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/ui/view/forgot_password_screen.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/ui/view_model/forgot_password_cubit/forgot_password_cubit.dart';
+import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
@@ -195,6 +197,8 @@ class AppRouter {
                     create: (_) => getIt<LoginCubit>(),
                     child: LoginFormScreen(),
                   ),
+                  BlocProvider(create: (context) => getIt<AppleCubit>()),
+                  BlocProvider(create: (context) => getIt<GoogleCubit>()),
                   BlocProvider(
                     create: (_) => getIt<RegisterCubit>(),
                     child: RegisterFormScreen(),

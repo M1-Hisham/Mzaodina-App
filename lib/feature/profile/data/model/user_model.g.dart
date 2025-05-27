@@ -26,16 +26,16 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
   name: json['name'] as String?,
   username: json['username'] as String,
   email: json['email'] as String,
-  country: json['country'] as String,
-  phone: json['phone'] as String,
-  phone_code: json['phone_code'] as String,
+  country: json['country'] as String?,
+  phone: json['phone'] as String?,
+  phoneCode: json['phone_code'] as String?,
   address:
       json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
   provider: json['provider'] as String?,
-  created_at: json['created_at'] as String,
-  profile_photo_url: json['profile_photo_url'] as String,
+  createdAt: json['created_at'] as String,
+  profilePhotoUrl: json['profile_photo_url'] as String?,
 );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
@@ -45,11 +45,11 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
   'email': instance.email,
   'country': instance.country,
   'phone': instance.phone,
-  'phone_code': instance.phone_code,
+  'phone_code': instance.phoneCode,
   'address': instance.address,
   'provider': instance.provider,
-  'created_at': instance.created_at,
-  'profile_photo_url': instance.profile_photo_url,
+  'created_at': instance.createdAt,
+  'profile_photo_url': instance.profilePhotoUrl,
 };
 
 Address _$AddressFromJson(Map<String, dynamic> json) => Address(

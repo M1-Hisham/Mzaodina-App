@@ -10,9 +10,18 @@ import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-import 'package:mzaodina_app/feature/auth/apple/sign_in_with_apple.dart';
+import 'package:mzaodina_app/feature/auth/apple/view-model/apple_cubit/apple_cubit.dart';
+import 'package:mzaodina_app/feature/auth/apple/view-model/apple_cubit/apple_cubit_state.dart'
+    as apple;
+import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_cubit_state.dart'
+    as google;
+import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit_state.dart'
+    as login;
+import 'package:mzaodina_app/feature/auth/apple/view/sign_in_with_apple.dart';
+import 'package:mzaodina_app/feature/auth/google/sign_in_with_google.dart';
+import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_cubit.dart';
+import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_cubit_state.dart';
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
-import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit_state.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
@@ -80,11 +89,11 @@ class LoginFormScreen extends StatelessWidget {
                   },
                 ),
                 spacingV(20.h),
-                BlocConsumer<LoginCubit, LoginCubitState>(
+                BlocConsumer<LoginCubit, login.LoginCubitState>(
                   listener: (context, state) async {
-                    if (state is LoginSuccess) {
+                    if (state is login.LoginSuccess) {
                       _handleFcmToken(context);
-                    } else if (state is LoginError) {
+                    } else if (state is login.LoginError) {
                       ScaffoldMessenger.of(
                         context,
                       ).showSnackBar(SnackBar(content: Text(state.message)));
@@ -93,11 +102,11 @@ class LoginFormScreen extends StatelessWidget {
                   builder: (context, state) {
                     return CustomElevatedButton(
                       text:
-                          state is LoginLoading
+                          state is login.LoginLoading
                               ? '...جاري الدخول'
                               : 'تسجيل الدخول',
                       onPressed:
-                          state is LoginLoading
+                          state is login.LoginLoading
                               ? () {}
                               : () {
                                 if (formKey.currentState!.validate()) {
@@ -145,34 +154,72 @@ class LoginFormScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: CustomElevatedButton(
-                        icon: SvgPicture.asset(R.images.googleIcon),
-                        backgroundColor: R.colors.buttonColorLight,
-                        text: 'تسجيل الدخول عبر جوجل',
-                        textStyle: R.textStyles.font12Grey3W500Light,
-                        borderRadius: 14.r,
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            AppRoutes.navBarRoute,
+                    /// Google login button
+                    BlocConsumer<GoogleCubit, GoogleCubitState>(
+                      listener: (context, state) async {
+                        if (state is google.LoginSuccess) {
+                          _handleFcmToken(context);
+                        } else if (state is google.LoginError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message)),
                           );
-                        },
-                      ),
+                        }
+                      },
+                      builder: (context, state) {
+                        return Expanded(
+                          child: CustomElevatedButton(
+                            icon: SvgPicture.asset(R.images.googleIcon),
+                            backgroundColor: R.colors.buttonColorLight,
+                            text:
+                                state is google.LoginLoading
+                                    ? '...جاري تسجيل الدخول'
+                                    : 'تسجيل الدخول عبر جوجل',
+                            textStyle: R.textStyles.font12Grey3W500Light,
+                            borderRadius: 14.r,
+                            onPressed:
+                                state is google.LoginLoading
+                                    ? () {}
+                                    : () {
+                                      loginWithGoogle(context);
+                                    },
+                          ),
+                        );
+                      },
                     ),
+
+                    /// Apple login button
                     if (Platform.isIOS) ...[
                       spacingH(10.w),
-                      Expanded(
-                        child: CustomElevatedButton(
-                          icon: SvgPicture.asset(R.images.appleIcon),
-                          backgroundColor: R.colors.buttonColorLight,
-                          text: 'تسجيل الدخول عبر ابل',
-                          textStyle: R.textStyles.font12Grey3W500Light,
-                          borderRadius: 14.r,
-                          onPressed: () {
-                            signInWithApple(context);
-                          },
-                        ),
+                      BlocConsumer<AppleCubit, apple.AppleCubitState>(
+                        listener: (context, state) async {
+                          if (state is apple.LoginSuccess) {
+                            _handleFcmToken(context);
+                          } else if (state is apple.LoginError) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(state.message)),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return Expanded(
+                            child: CustomElevatedButton(
+                              icon: SvgPicture.asset(R.images.appleIcon),
+                              backgroundColor: R.colors.buttonColorLight,
+                              text:
+                                  state is apple.LoginLoading
+                                      ? '...جاري تسجيل الدخول'
+                                      : 'تسجيل الدخول عبر ابل',
+                              textStyle: R.textStyles.font12Grey3W500Light,
+                              borderRadius: 14.r,
+                              onPressed:
+                                  state is apple.LoginLoading
+                                      ? () {}
+                                      : () {
+                                        signInWithApple(context);
+                                      },
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ],
