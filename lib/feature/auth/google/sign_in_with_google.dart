@@ -1,56 +1,46 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// ignore: depend_on_referenced_packages
-import 'package:http/http.dart' as http;
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
+import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/auth/google/data/repo/google_repo.dart';
+import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_cubit.dart';
 
-Future<void> signInWithGoogle(context) async {
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  clientId:
+      '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com',
+  scopes: ['email', 'profile'],
+);
+
+Future<void> loginWithGoogle(context) async {
   try {
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      // Optional clientId
-      clientId: 'your-client_id.apps.googleusercontent.com',
-      scopes: ['email'],
-    );
-
-    final googleUser = await googleSignIn.signIn();
+    final googleUser = await _googleSignIn.signIn();
 
     if (googleUser == null) {
-      log('❌ تسجيل الدخول ملغي من المستخدم');
+      log('تم إلغاء تسجيل الدخول من قبل المستخدم');
       return;
     }
 
     final googleAuth = await googleUser.authentication;
 
     final idToken = googleAuth.idToken;
+    // final accessToken = googleAuth.accessToken;
+    // final email = googleUser.email;
+    // final name = googleUser.displayName;
 
-    if (idToken == null) {
-      log('❌ لم يتم الحصول على ID Token');
-      return;
-    }
+    log('ID Token: $idToken');
+    // log('Access Token: $accessToken');
 
-    // إرسال التوكن للباك اند
-    await sendToBackend(idToken);
-    log('✅ تسجيل الدخول ناجح: $idToken');
-    Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
+    final googleCubit = GoogleCubit(GoogleRepo(getIt<ApiService>()));
+    await googleCubit.login({"token": idToken});
+
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.navBarRoute,
+      (Route<dynamic> route) => false,
+    );
   } catch (e) {
-    log('❌ خطأ أثناء تسجيل الدخول: $e');
-  }
-}
-
-Future<void> sendToBackend(String idToken) async {
-  const backendUrl = 'https://your-backend.com/api/google-login';
-
-  final response = await http.post(
-    Uri.parse(backendUrl),
-    headers: {'Content-Type': 'application/json'},
-    body: jsonEncode({'provider': 'google', 'token': idToken}),
-  );
-
-  if (response.statusCode == 200) {
-    log('✅ تسجيل الدخول ناجح');
-  } else {
-    log('❌ فشل تسجيل الدخول: ${response.body}');
+    log("خطأ أثناء تسجيل الدخول: $e");
   }
 }
