@@ -73,6 +73,7 @@ dependencies:
   shimmer_animation: ^2.2.2
   firebase_messaging: ^15.2.6
   flutter_local_notifications: ^19.2.1
+  webview_flutter: ^4.13.0
 
 
 dev_dependencies:

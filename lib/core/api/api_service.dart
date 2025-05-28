@@ -14,7 +14,6 @@ import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_au
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_to_aution_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_show_auction_mode.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
