@@ -23,6 +23,7 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
   @override
   Widget build(BuildContext context) {
     DateTime eventTimeFromApi = DateTime.parse(widget.jaraaDataModel.endAt);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -120,8 +121,7 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           Navigator.pushNamed(
                             context,
                             AppRoutes.homeDetailsJaraaScreenRoute,
-                            arguments: {'eventTime': eventTimeFromApi,
-                              'jaraaDataModel': widget.jaraaDataModel},
+                            arguments: widget.jaraaDataModel,
                           );
                         },
                         backgroundColor: R.colors.primaryColorLight,

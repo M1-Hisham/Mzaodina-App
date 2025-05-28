@@ -2,17 +2,18 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/register_to_aution_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_show_auction_model.dart';
 
-class RegisterToAuctionRepo {
+class MuntahiShowAuctionRepo {
   final ApiService apiService;
 
-  RegisterToAuctionRepo(this.apiService);
-  Future<Either<Failure, RegisterToAutionModel>> getOngoingAuctions(
+  MuntahiShowAuctionRepo(this.apiService);
+
+  Future<Either<Failure, MuntahiShowAuctionModel>> getMuntahiShowAuction(
     String slug,
   ) async {
     try {
-      final response = await apiService.registerToAuctions(slug);
+      final response = await apiService.getMuntahiShowAuction(slug);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

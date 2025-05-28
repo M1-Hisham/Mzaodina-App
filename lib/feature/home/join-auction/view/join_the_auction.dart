@@ -42,8 +42,8 @@ class JoinTheAuction extends StatelessWidget {
                 registrationAmount: registrationAmount,
               ),
               const SizedBox(height: 25),
-              _warning(),
-              _termsAndConditions(context),
+              WarningCheckbox(),
+              TermsAndConditionsCheckbox(),
               const SizedBox(height: 20),
               CustomElevatedButton(
                 text: 'تاكيد دفع الرسوم التنظيمية',
@@ -171,33 +171,37 @@ class JoinTheAuction extends StatelessWidget {
       );
     }
   }
+}
 
-  Widget _warning() {
+class WarningCheckbox extends StatelessWidget {
+  const WarningCheckbox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
-        BlocProvider(
-          create: (context) => CheckboxCubit(initialValue: false),
-          child: const CustomCheckbox(),
-        ),
+        const CustomCheckbox(),
         Expanded(
           child: Text(
             'تنبيه : الرسوم تساعدنا فى تنظيم المزاد وضمان الجدية بين المشاركين. نعتذر لايمكن استردادها',
             style: R.textStyles.font14Grey400Light.copyWith(
-              color: Color(0xFFF32828),
+              color: const Color(0xFFF32828),
             ),
           ),
         ),
       ],
     );
   }
+}
 
-  Widget _termsAndConditions(context) {
+class TermsAndConditionsCheckbox extends StatelessWidget {
+  const TermsAndConditionsCheckbox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
-        BlocProvider(
-          create: (context) => CheckboxCubit(initialValue: false),
-          child: const CustomCheckbox(),
-        ),
+        const CustomCheckbox(),
         GestureDetector(
           onTap: () {
             Navigator.push(

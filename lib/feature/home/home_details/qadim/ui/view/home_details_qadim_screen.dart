@@ -6,12 +6,12 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/core/widgets/shimmer_animation.dart';
+import 'package:mzaodina_app/core/widgets/mazad_details_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/custom_verification_to_register_auction_botton.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
@@ -32,18 +32,18 @@ class HomeDetailsQadimScreen extends StatelessWidget {
             ),
           ),
 
-          BlocBuilder<ShowActionCubit, ShowActionState>(
+          BlocBuilder<QadimShowActionCubit, QadimShowActionState>(
             builder: (context, state) {
-              if (state is ShowActionLoading) {
+              if (state is QadimShowActionLoading) {
                 return const MazadDetailsShimmer();
-              } else if (state is ShowActionError) {
+              } else if (state is QadimShowActionError) {
                 return Center(
                   child: Text(
                     state.message,
                     style: R.textStyles.font14Grey3W500Light,
                   ),
                 );
-              } else if (state is ShowActionSuccess) {
+              } else if (state is QadimShowActionSuccess) {
                 return Expanded(
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -209,7 +209,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
       bottomNavigationBar: CustomVerificationToRegisterAuctionBotton(
         slug: qadimDetails.slug,
-        showActionCubit: context.read<ShowActionCubit>(),
+        showActionCubit: context.read<QadimShowActionCubit>(),
       ),
     );
   }

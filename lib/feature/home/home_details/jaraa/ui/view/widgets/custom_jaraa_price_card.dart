@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
 
 class CustomJaraaPriceCard extends StatefulWidget {
-  const CustomJaraaPriceCard({super.key});
+  final String slug;
+  const CustomJaraaPriceCard({super.key, required this.slug});
 
   @override
   State<CustomJaraaPriceCard> createState() => _CustomJaraaPriceCardState();
@@ -32,113 +36,157 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: List.generate(values.length, (index) {
-            final isSelected = selectedIndex == index;
-            final value = values[index];
+    return BlocListener<AuctionBiddingCubit, AuctionBiddingState>(
+      listener: (context, state) {
+        if (state is AuctionBiddingSuccess) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("تمت المزايدة بنجاح")));
+        } else if (state is AuctionBiddingError) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: List.generate(values.length, (index) {
+              final isSelected = selectedIndex == index;
+              final value = values[index];
 
-            return Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                    selectedValue = value;
-                  });
-                },
-                child:
-                    isSelected
-                        ? SelectedButton(label: value.toString())
-                        : UnselectedButton(label: value.toString()),
-              ),
-            );
-          }),
-        ),
-        SizedBox(height: 10.h),
-        CustomTextForm(
-          controller: controller,
-          hintText: 'المبلغ الذي تريد المزايدة به',
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-        ),
-        SizedBox(height: 10.h),
-        Text(
-          'تنبية : الفاتورة ستصلك بعد انتهاء المزاد',
-          style: R.textStyles.font14Grey400Light.copyWith(
-            color: R.colors.redColor,
+              return Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                      selectedValue = value;
+                    });
+                  },
+                  child:
+                      isSelected
+                          ? SelectedButton(label: value.toString())
+                          : UnselectedButton(label: value.toString()),
+                ),
+              );
+            }),
           ),
-        ),
-        const SizedBox(height: 24),
-        CustomElevatedButton(
-          text: 'زاود',
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) {
-                return AlertDialog(
-                  backgroundColor: R.colors.whiteLight,
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28),
-                    child: FittedBox(
-                      child: Row(
-                        children: [
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: ' هل متأكد من المزايده بهذا المبلغ  ',
-                                  style: R.textStyles.font18blackW500Light,
-                                ),
+          SizedBox(height: 10.h),
+          CustomTextForm(
+            controller: controller,
+            hintText: 'المبلغ الذي تريد المزايدة به',
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+          ),
+          SizedBox(height: 10.h),
+          Text(
+            'تنبية : الفاتورة ستصلك بعد انتهاء المزاد',
+            style: R.textStyles.font14Grey400Light.copyWith(
+              color: R.colors.redColor,
+            ),
+          ),
+          const SizedBox(height: 24),
+          CustomElevatedButton(
+            text: 'زاود',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return CustomJaraaDialogItem(
+                    controller: controller,
+                    selectedValue: selectedValue,
+                    onConfirmBid: () {
+                      final value =
+                          controller!.text.isNotEmpty
+                              ? int.parse(controller!.text)
+                              : selectedValue;
 
-                                TextSpan(
-                                  text:
-                                      (controller != null &&
-                                              controller!.text.isNotEmpty)
-                                          ? '${controller!.text} '
-                                          : '$selectedValue ',
-                                  style: R.textStyles.font18primaryW500Light,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SvgPicture.asset(R.images.riyalPrimaryIcon),
-                        ],
-                      ),
+                      context.read<AuctionBiddingCubit>().getAuctionBidding(
+                        AuctionsBiddingBody(slug: widget.slug, bid: value),
+                      );
+                    },
+                  );
+                },
+              );
+            },
+            backgroundColor: R.colors.greenColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomJaraaDialogItem extends StatelessWidget {
+  const CustomJaraaDialogItem({
+    super.key,
+    required this.controller,
+    required this.selectedValue,
+    required this.onConfirmBid,
+  });
+
+  final TextEditingController? controller;
+  final int selectedValue;
+  final VoidCallback onConfirmBid;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: R.colors.whiteLight,
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 28),
+        child: FittedBox(
+          child: Row(
+            children: [
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: ' هل متأكد من المزايده بهذا المبلغ  ',
+                      style: R.textStyles.font18blackW500Light,
                     ),
-                  ),
-                  actions: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomElevatedButton(
-                            text: 'نعم',
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 30.w),
-                        Expanded(
-                          child: CustomElevatedButton(
-                            backgroundColor: R.colors.blackColor3,
 
-                            text: 'لا',
-                            textStyle: R.textStyles.font14BlackW500Light,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
+                    TextSpan(
+                      text:
+                          (controller != null && controller!.text.isNotEmpty)
+                              ? '${controller!.text} '
+                              : '$selectedValue ',
+                      style: R.textStyles.font18primaryW500Light,
                     ),
                   ],
-                );
-              },
-            );
-          },
-          backgroundColor: R.colors.greenColor,
+                ),
+              ),
+              SvgPicture.asset(R.images.riyalPrimaryIcon),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        Row(
+          children: [
+            Expanded(
+              child: CustomElevatedButton(
+                text: 'نعم',
+                onPressed: () {
+                  Navigator.pop(context);
+                  onConfirmBid();
+                },
+              ),
+            ),
+            SizedBox(width: 30.w),
+            Expanded(
+              child: CustomElevatedButton(
+                backgroundColor: R.colors.blackColor3,
+
+                text: 'لا',
+                textStyle: R.textStyles.font14BlackW500Light,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
         ),
       ],
     );

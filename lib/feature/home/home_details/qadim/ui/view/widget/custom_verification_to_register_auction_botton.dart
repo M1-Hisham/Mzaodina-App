@@ -7,11 +7,11 @@ import 'package:mzaodina_app/core/widgets/custom_dialog_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/auction_register_button.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view_model/cubit/show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 
 class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
   final String slug;
-  final ShowActionCubit showActionCubit;
+  final QadimShowActionCubit showActionCubit;
 
   const CustomVerificationToRegisterAuctionBotton({
     super.key,
@@ -57,34 +57,34 @@ class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
             );
           }
 
-          return BlocBuilder<ShowActionCubit, ShowActionState>(
+          return BlocBuilder<QadimShowActionCubit, QadimShowActionState>(
             bloc: showActionCubit,
             buildWhen:
                 (previous, current) =>
-                    current is ShowActionSuccess ||
-                    current is ShowActionError ||
-                    current is ShowActionLoading,
+                    current is QadimShowActionSuccess ||
+                    current is QadimShowActionError ||
+                    current is QadimShowActionLoading,
             builder: (context, state) {
-              if (state is ShowActionLoading) {
+              if (state is QadimShowActionLoading) {
                 return CustomElevatedButton(
                   text: '...جاري التحميل',
                   onPressed: () {},
                 );
-              } else if (state is ShowActionSuccess) {
+              } else if (state is QadimShowActionSuccess) {
                 return BlocProvider<RegisterToAuctionCubit>(
                   create: (context) => getIt<RegisterToAuctionCubit>(),
                   child: AuctionRegisterButton(
                     auction: state.showActionModel,
                     onRegistered: () {
-                      context.read<ShowActionCubit>().getShowAction(slug);
+                      context.read<QadimShowActionCubit>().getShowAction(slug);
                     },
                   ),
                 );
-              } else if (state is ShowActionError) {
+              } else if (state is QadimShowActionError) {
                 return CustomElevatedButton(
                   text: 'إعادة التحميل',
                   onPressed: () {
-                    context.read<ShowActionCubit>().getShowAction(slug);
+                    context.read<QadimShowActionCubit>().getShowAction(slug);
                   },
                 );
               } else {

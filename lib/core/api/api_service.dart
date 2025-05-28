@@ -2,14 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_constants.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bidding_response_model.dart';
+import 'package:mzaodina_app/feature/home/data/model/tap_checkout_url_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_history_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_show_auction_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_show_auction_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/register_to_aution_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/data/model/show_action_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qagim_show_action_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_to_aution_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_show_auction_mode.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/mark_notification.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/save_token_responce_model.dart';
@@ -115,13 +121,35 @@ abstract class ApiService {
   });
 
   @GET(ApiConstants.showAuctions)
-  Future<ShowAuctionModel> getShowAuction(@Path("slug") String slug);
+  Future<QadimShowAuctionModel> getQadimShowAuction(@Path("slug") String slug);
+
+  @GET(ApiConstants.showAuctions)
+  Future<MuntahiShowAuctionModel> getMuntahiShowAuction(
+    @Path("slug") String slug,
+  );
+  @GET(ApiConstants.showAuctions)
+  Future<JaraaShowAuctionModel> getJaraaShowAuction(@Path("slug") String slug);
+
+  @GET(ApiConstants.showAuctions)
+  Future<SayantaliqShowAuctionMode> getSayantaliqShowAuction(
+    @Path("slug") String slug,
+  );
 
   @POST(ApiConstants.registerAuctions)
-  Future<RegisterToAutionModel> registerAuctions(@Path("slug") String slug);
+  Future<RegisterToAutionModel> registerToAuctions(@Path("slug") String slug);
 
   @POST(ApiConstants.subscribeAuctions)
-  Future<SubscribeToAutionModel> subscribeAuctions(
+  Future<TapCheckoutUrlModel> subscribe(
     @Body() SubscribeAutionBody subscribeAutionBody,
+  );
+
+  @POST(ApiConstants.auctionsBidding)
+  Future<AuctionBiddingResponseModel> auctionsBidding(
+    @Body() AuctionsBiddingBody auctionsBiddingBody,
+  );
+
+  @GET(ApiConstants.auctionsBiddingHistory)
+  Future<AuctionsBiddingHistoryModel> auctionsBiddingHistory(
+    @Path("slug") String slug,
   );
 }

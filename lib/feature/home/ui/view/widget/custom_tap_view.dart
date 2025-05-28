@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/widgets/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_card_view_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
@@ -92,7 +93,7 @@ class _CustomTapViewState extends State<CustomTapView>
                 child: BlocBuilder<QadimCubit, QadimState>(
                   builder: (context, state) {
                     if (state is QadimLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: MazadShimmer());
                     } else if (state is QadimError) {
                       return Center(child: Text(state.errorMessage));
                     } else if (state is QadimSuccess) {
@@ -130,7 +131,7 @@ class _CustomTapViewState extends State<CustomTapView>
                 child: BlocBuilder<SayantaliqCubit, SayantaliqState>(
                   builder: (context, state) {
                     if (state is SayantaliqLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: MazadShimmer());
                     } else if (state is SayantaliqError) {
                       return Center(child: Text(state.errorMessage));
                     } else if (state is SayantaliqSuccess) {
@@ -161,7 +162,7 @@ class _CustomTapViewState extends State<CustomTapView>
                 child: BlocBuilder<JaraaCubit, JaraaState>(
                   builder: (context, state) {
                     if (state is JaraaLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: MazadShimmer());
                     } else if (state is JaraaError) {
                       return Center(child: Text(state.errorMessage));
                     } else if (state is JaraaSuccess) {
@@ -190,7 +191,7 @@ class _CustomTapViewState extends State<CustomTapView>
                 child: BlocBuilder<MuntahiCubit, MuntahiState>(
                   builder: (context, state) {
                     if (state is MuntahiLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: MazadShimmer());
                     } else if (state is MuntahiError) {
                       return Center(child: Text(state.errorMessage));
                     } else if (state is MuntahiSuccess) {

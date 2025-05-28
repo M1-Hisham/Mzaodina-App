@@ -153,10 +153,9 @@ class _CustomQadimCardViewItemState
                           Navigator.pushNamed(
                             context,
                             AppRoutes.homeDetailsSayantaliqScreenRoute,
-                            arguments: {
-                              'eventTime': eventTimeFromApi,
-                              'sayantaliqDataModel': widget.sayantaliqDataModel,
-                            },
+                            arguments: 
+                              widget.sayantaliqDataModel,
+                            
                           );
                         },
                         backgroundColor: R.colors.primaryColorLight,

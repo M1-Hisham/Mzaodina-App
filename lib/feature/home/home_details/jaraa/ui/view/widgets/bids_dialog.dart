@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-
-class Bid {
-  final int number;
-  final String name;
-  final double amount;
-  final DateTime dateTime;
-
-  Bid({
-    required this.number,
-    required this.name,
-    required this.amount,
-    required this.dateTime,
-  });
-}
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bid_model.dart';
 
 class BidsDialog extends StatefulWidget {
-  final List<Bid> bids;
+  final List<BidModel> bids;
 
   const BidsDialog({super.key, required this.bids});
 
@@ -36,6 +23,7 @@ class _BidsDialogState extends State<BidsDialog> {
     int totalPages = (widget.bids.length / itemsPerPage).ceil();
 
     if (currentPage < 0) currentPage = 0;
+    if (totalPages == 0) totalPages = 1;
     if (currentPage >= totalPages) currentPage = totalPages - 1;
 
     final visibleBids =
@@ -60,13 +48,12 @@ class _BidsDialogState extends State<BidsDialog> {
               ),
               SizedBox(height: 34.h),
               _buildHeaderRow(),
-
               Divider(color: R.colors.primaryColorLight, thickness: 0.5),
               ...visibleBids.map(_buildBidRow),
-
-              SizedBox(height: 5),
-              _buildPagination(totalPages),
-
+              if (totalPages > 1) ...[
+                SizedBox(height: 5),
+                _buildPagination(totalPages),
+              ],
               SizedBox(height: 26.h),
               CustomElevatedButton(
                 text: 'اغلاق',
@@ -83,17 +70,21 @@ class _BidsDialogState extends State<BidsDialog> {
 
   Widget _buildHeaderRow() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         _headerCell("#"),
+        Spacer(),
         _headerCell("اسم المزايد"),
+        Spacer(),
         _headerCell("المبلغ"),
+        Spacer(flex: 2),
         _headerCell("الوقت"),
+        Spacer(),
       ],
     );
   }
 
-  Widget _buildBidRow(Bid bid) {
+  Widget _buildBidRow(BidModel bid) {
     return Column(
       children: [
         Padding(
@@ -103,7 +94,20 @@ class _BidsDialogState extends State<BidsDialog> {
             children: [
               _dataCell(bid.number.toString().padLeft(2, '0')),
               _dataCell(bid.name),
-              _dataCell('؋ ${bid.amount.toStringAsFixed(2)}'),
+              Row(
+                children: [
+                  _dataCell(
+                    bid.amount.toStringAsFixed(2),
+                    R.textStyles.font12primaryW600Light,
+                  ),
+                  SizedBox(width: 4.w),
+                  SvgPicture.asset(
+                    R.images.riyalImage,
+                    width: 16.w,
+                    height: 16.h,
+                  ),
+                ],
+              ),
               _dataCell(
                 '${_formatTime(bid.dateTime)}\n${_formatDate(bid.dateTime)}',
               ),
@@ -122,16 +126,19 @@ class _BidsDialogState extends State<BidsDialog> {
       textAlign: TextAlign.center,
     ),
   );
-  Widget _dataCell(String text) => FittedBox(
+
+  Widget _dataCell(String text, [TextStyle? style]) => FittedBox(
     child: Text(
       text,
+      overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.center,
-      style: R.textStyles.font12Grey3W500Light,
+      style: style ?? R.textStyles.font12Grey3W500Light,
     ),
   );
 
   String _formatTime(DateTime dt) =>
       "${dt.hour}:${dt.minute.toString().padLeft(2, '0')} م";
+
   String _formatDate(DateTime dt) =>
       "${dt.day.toString().padLeft(2, '0')}-${dt.month.toString().padLeft(2, '0')}-${dt.year}";
 
@@ -139,7 +146,7 @@ class _BidsDialogState extends State<BidsDialog> {
     const int maxVisibleButtons = 2;
     int startPage = (currentPage - maxVisibleButtons ~/ 2).clamp(
       0,
-      totalPages - maxVisibleButtons,
+      (totalPages - maxVisibleButtons).clamp(0, totalPages),
     );
     int endPage = (startPage + maxVisibleButtons).clamp(0, totalPages);
 
@@ -147,7 +154,11 @@ class _BidsDialogState extends State<BidsDialog> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () => setState(() => currentPage--),
+          onTap: () {
+            if (currentPage > 0) {
+              setState(() => currentPage--);
+            }
+          },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
             decoration: BoxDecoration(
@@ -199,7 +210,11 @@ class _BidsDialogState extends State<BidsDialog> {
           ),
         SizedBox(width: 8.w),
         GestureDetector(
-          onTap: () => setState(() => currentPage++),
+          onTap: () {
+            if (currentPage < totalPages - 1) {
+              setState(() => currentPage++);
+            }
+          },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
             decoration: BoxDecoration(

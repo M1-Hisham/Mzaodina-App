@@ -1,26 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'show_action_model.dart';
+part of 'sayantaliq_show_auction_mode.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ShowAuctionModel _$ShowAuctionModelFromJson(Map<String, dynamic> json) =>
-    ShowAuctionModel(
-      status: json['status'] as bool,
-      message: json['message'] as String,
-      data: Auction.fromJson(json['data'] as Map<String, dynamic>),
-    );
+SayantaliqShowAuctionMode _$SayantaliqShowAuctionModeFromJson(
+  Map<String, dynamic> json,
+) => SayantaliqShowAuctionMode(
+  status: json['status'] as bool,
+  message: json['message'] as String,
+  data: ReadyAuction.fromJson(json['data'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$ShowAuctionModelToJson(ShowAuctionModel instance) =>
-    <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
-      'data': instance.data,
-    };
+Map<String, dynamic> _$SayantaliqShowAuctionModeToJson(
+  SayantaliqShowAuctionMode instance,
+) => <String, dynamic>{
+  'status': instance.status,
+  'message': instance.message,
+  'data': instance.data.toJson(),
+};
 
-Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
+ReadyAuction _$ReadyAuctionFromJson(Map<String, dynamic> json) => ReadyAuction(
   id: (json['id'] as num).toInt(),
   slug: json['slug'] as String,
   status: json['status'] as String,
@@ -30,27 +32,30 @@ Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
   currentBidders: (json['current_bidders'] as num).toInt(),
   isRegister: json['isRegister'] as bool,
   registrationAmount: (json['registration_amount'] as num).toInt(),
-  auctionDurationMinutes: (json['auction_duration_minutes'] as num?)?.toInt(),
+  auctionDurationMinutes: (json['auction_duration_minutes'] as num).toInt(),
   auctionStartRate: (json['auction_start_rate'] as num).toInt(),
   productSku: json['product_sku'] as String,
+  startAt: json['start_at'] as String,
   product: Product.fromJson(json['product'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
-  'id': instance.id,
-  'slug': instance.slug,
-  'status': instance.status,
-  'opening_amount': instance.openingAmount,
-  'type': instance.type,
-  'required_bidders': instance.requiredBidders,
-  'current_bidders': instance.currentBidders,
-  'isRegister': instance.isRegister,
-  'registration_amount': instance.registrationAmount,
-  'auction_duration_minutes': instance.auctionDurationMinutes,
-  'auction_start_rate': instance.auctionStartRate,
-  'product_sku': instance.productSku,
-  'product': instance.product,
-};
+Map<String, dynamic> _$ReadyAuctionToJson(ReadyAuction instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'slug': instance.slug,
+      'status': instance.status,
+      'opening_amount': instance.openingAmount,
+      'type': instance.type,
+      'required_bidders': instance.requiredBidders,
+      'current_bidders': instance.currentBidders,
+      'isRegister': instance.isRegister,
+      'registration_amount': instance.registrationAmount,
+      'auction_duration_minutes': instance.auctionDurationMinutes,
+      'auction_start_rate': instance.auctionStartRate,
+      'product_sku': instance.productSku,
+      'start_at': instance.startAt,
+      'product': instance.product.toJson(),
+    };
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
   nameAr: json['name_ar'] as String,
