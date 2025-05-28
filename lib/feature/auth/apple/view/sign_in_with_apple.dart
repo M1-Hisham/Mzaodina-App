@@ -31,6 +31,21 @@ Future<void> signInWithApple(context) async {
     log('email: $email');
 
     final appleCubit = AppleCubit(AppleRepo(getIt<ApiService>()));
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 20),
+              Text('جاري تسجيل الدخول...'),
+            ],
+          ),
+        );
+      },
+    );
     await appleCubit.login({
       "token": identityToken,
       // "authorizationCode": authorizationCode,
@@ -38,7 +53,7 @@ Future<void> signInWithApple(context) async {
       "name": name,
       // "email": email,
     });
-
+    Navigator.of(context).pop(); // Close the loading dialog
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppRoutes.navBarRoute,

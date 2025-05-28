@@ -12,7 +12,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
   clientId:
       Platform.isIOS
           ? '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com'
-          : '412322100407-0rnuit2t6n43g0enmnk4dmbhks76b7gv.apps.googleusercontent.com',
+          : null,
   scopes: ['email', 'profile'],
 );
 
@@ -36,13 +36,29 @@ Future<void> loginWithGoogle(context) async {
     // log('Access Token: $accessToken');
 
     final googleCubit = GoogleCubit(GoogleRepo(getIt<ApiService>()));
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 20),
+              Text('جاري تسجيل الدخول...'),
+            ],
+          ),
+        );
+      },
+    );
     await googleCubit.login({"token": idToken});
-
+    Navigator.of(context).pop(); // Close the loading dialog
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppRoutes.navBarRoute,
       (Route<dynamic> route) => false,
     );
+    log('تم تسجيل الدخول بنجاح');
   } catch (e) {
     log("خطأ أثناء تسجيل الدخول: $e");
     ScaffoldMessenger.of(context).showSnackBar(
