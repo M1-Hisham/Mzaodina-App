@@ -7,7 +7,9 @@ import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/mazad_details_shimmer.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bid_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/bids_dialog.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
@@ -15,17 +17,7 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 
 class HomeDetailsMuntahiScreen extends StatelessWidget {
   final MuntahiAction muntahiDetails;
-  HomeDetailsMuntahiScreen({super.key, required this.muntahiDetails});
-
-  final List<Bid> bids = List.generate(
-    10,
-    (index) => Bid(
-      number: index + 1,
-      name: 'مزايد ${index + 1}',
-      amount: 1200,
-      dateTime: DateTime(2025, 4, 18, 15, 25),
-    ),
-  );
+  const HomeDetailsMuntahiScreen({super.key, required this.muntahiDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -197,19 +189,40 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
         ],
       ),
 
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-        child: CustomElevatedButton(
-          backgroundColor: R.colors.redColor,
-          text: 'سجل المزايدة',
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => BidsDialog(bids: bids),
-            );
-          },
-        ),
-      ),
+      bottomNavigationBar:
+          BlocBuilder<AuctionsBiddingHistoryCubit, AuctionsBiddingHistoryState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 16,
+                ),
+                child: CustomElevatedButton(
+                  backgroundColor: R.colors.redColor,
+                  text: 'سجل المزايدات',
+                  onPressed: () {
+                    if (state is AuctionsBiddingHistorySuccess) {
+                      final bids = convertToBids(
+                        state.auctionsBiddingHistoryModel.data,
+                      );
+                      showDialog(
+                        context: context,
+                        builder: (context) => BidsDialog(bids: bids),
+                      );
+                    } else if (state is AuctionsBiddingHistoryError) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.error)));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('جاري تحميل البيانات')),
+                      );
+                    }
+                  },
+                ),
+              );
+            },
+          ),
     );
   }
 }

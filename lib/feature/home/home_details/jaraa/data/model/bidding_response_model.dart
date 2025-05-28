@@ -1,39 +1,45 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'jaraa_show_auction_model.g.dart';
+part 'bidding_response_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class JaraaShowAuctionModel {
+class AuctionBiddingResponseModel {
   final bool status;
   final String message;
-  final OngoingAuction data;
+  final AuctionData data;
 
-  JaraaShowAuctionModel({
+  AuctionBiddingResponseModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory JaraaShowAuctionModel.fromJson(Map<String, dynamic> json) =>
-      _$JaraaShowAuctionModelFromJson(json);
-  Map<String, dynamic> toJson() => _$JaraaShowAuctionModelToJson(this);
+  factory AuctionBiddingResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$BiddingResponseModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BiddingResponseModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class OngoingAuction {
+class AuctionData {
   final int id;
   final String slug;
   final String status;
+
   @JsonKey(name: 'opening_amount')
   final int openingAmount;
+
   final bool canBidding;
+
   @JsonKey(name: 'end_at')
   final String endAt;
+
   final Product product;
+
   @JsonKey(name: 'max_bid')
   final MaxBid maxBid;
 
-  OngoingAuction({
+  AuctionData({
     required this.id,
     required this.slug,
     required this.status,
@@ -44,18 +50,22 @@ class OngoingAuction {
     required this.maxBid,
   });
 
-  factory OngoingAuction.fromJson(Map<String, dynamic> json) =>
-      _$OngoingAuctionFromJson(json);
-  Map<String, dynamic> toJson() => _$OngoingAuctionToJson(this);
+  factory AuctionData.fromJson(Map<String, dynamic> json) =>
+      _$AuctionDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AuctionDataToJson(this);
 }
 
 @JsonSerializable()
 class Product {
   @JsonKey(name: 'name_ar')
   final String nameAr;
+
   final String keywords;
+
   @JsonKey(name: 'product_details')
   final String productDetails;
+
   final String price;
   final int weight;
   final List<String> images;
@@ -71,29 +81,32 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
+
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 }
 
 @JsonSerializable()
 class MaxBid {
-  final int? id;
-  final int? bid;
-  final User? user;
+  final int id;
+  final int bid;
+  final User user;
 
-  MaxBid({this.id, this.bid, this.user});
+  MaxBid({required this.id, required this.bid, required this.user});
 
   factory MaxBid.fromJson(Map<String, dynamic> json) => _$MaxBidFromJson(json);
+
   Map<String, dynamic> toJson() => _$MaxBidToJson(this);
 }
 
 @JsonSerializable()
 class User {
-  final int? id;
+  final int id;
   final String username;
   final String country;
 
-  User({this.id, required this.username, required this.country});
+  User({required this.id, required this.username, required this.country});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }

@@ -1,40 +1,39 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'jaraa_show_auction_model.dart';
+part of 'bidding_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JaraaShowAuctionModel _$JaraaShowAuctionModelFromJson(
+AuctionBiddingResponseModel _$BiddingResponseModelFromJson(
   Map<String, dynamic> json,
-) => JaraaShowAuctionModel(
+) => AuctionBiddingResponseModel(
   status: json['status'] as bool,
   message: json['message'] as String,
-  data: OngoingAuction.fromJson(json['data'] as Map<String, dynamic>),
+  data: AuctionData.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$JaraaShowAuctionModelToJson(
-  JaraaShowAuctionModel instance,
+Map<String, dynamic> _$BiddingResponseModelToJson(
+  AuctionBiddingResponseModel instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
   'data': instance.data.toJson(),
 };
 
-OngoingAuction _$OngoingAuctionFromJson(Map<String, dynamic> json) =>
-    OngoingAuction(
-      id: (json['id'] as num).toInt(),
-      slug: json['slug'] as String,
-      status: json['status'] as String,
-      openingAmount: (json['opening_amount'] as num).toInt(),
-      canBidding: json['canBidding'] as bool,
-      endAt: json['end_at'] as String,
-      product: Product.fromJson(json['product'] as Map<String, dynamic>),
-      maxBid: MaxBid.fromJson(json['max_bid'] as Map<String, dynamic>),
-    );
+AuctionData _$AuctionDataFromJson(Map<String, dynamic> json) => AuctionData(
+  id: (json['id'] as num).toInt(),
+  slug: json['slug'] as String,
+  status: json['status'] as String,
+  openingAmount: (json['opening_amount'] as num).toInt(),
+  canBidding: json['canBidding'] as bool,
+  endAt: json['end_at'] as String,
+  product: Product.fromJson(json['product'] as Map<String, dynamic>),
+  maxBid: MaxBid.fromJson(json['max_bid'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$OngoingAuctionToJson(OngoingAuction instance) =>
+Map<String, dynamic> _$AuctionDataToJson(AuctionData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'slug': instance.slug,
@@ -65,12 +64,9 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
 };
 
 MaxBid _$MaxBidFromJson(Map<String, dynamic> json) => MaxBid(
-  id: (json['id'] as num?)?.toInt(),
-  bid: (json['bid'] as num?)?.toInt(),
-  user:
-      json['user'] == null
-          ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
+  id: (json['id'] as num).toInt(),
+  bid: (json['bid'] as num).toInt(),
+  user: User.fromJson(json['user'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$MaxBidToJson(MaxBid instance) => <String, dynamic>{
@@ -80,7 +76,7 @@ Map<String, dynamic> _$MaxBidToJson(MaxBid instance) => <String, dynamic>{
 };
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-  id: (json['id'] as num?)?.toInt(),
+  id: (json['id'] as num).toInt(),
   username: json['username'] as String,
   country: json['country'] as String,
 );

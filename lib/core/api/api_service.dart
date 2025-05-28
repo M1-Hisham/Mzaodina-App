@@ -2,6 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_constants.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bidding_response_model.dart';
+import 'package:mzaodina_app/feature/home/data/model/tap_checkout_url_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_history_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_show_auction_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_show_auction_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/register_to_aution_model.dart';
@@ -133,10 +137,20 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.registerAuctions)
-  Future<RegisterToAutionModel> registerAuctions(@Path("slug") String slug);
+  Future<RegisterToAutionModel> registerToAuctions(@Path("slug") String slug);
 
   @POST(ApiConstants.subscribeAuctions)
-  Future<SubscribeToAutionModel> subscribeAuctions(
+  Future<TapCheckoutUrlModel> subscribe(
     @Body() SubscribeAutionBody subscribeAutionBody,
+  );
+
+  @POST(ApiConstants.auctionsBidding)
+  Future<AuctionBiddingResponseModel> auctionsBidding(
+    @Body() AuctionsBiddingBody auctionsBiddingBody,
+  );
+
+  @GET(ApiConstants.auctionsBiddingHistory)
+  Future<AuctionsBiddingHistoryModel> auctionsBiddingHistory(
+    @Path("slug") String slug,
   );
 }

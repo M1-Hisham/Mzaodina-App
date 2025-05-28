@@ -575,7 +575,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<RegisterToAutionModel> registerAuctions(String slug) async {
+  Future<RegisterToAutionModel> registerToAuctions(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -602,7 +602,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SubscribeToAutionModel> subscribeAuctions(
+  Future<TapCheckoutUrlModel> subscribe(
     SubscribeAutionBody subscribeAutionBody,
   ) async {
     final _extra = <String, dynamic>{};
@@ -610,7 +610,7 @@ class _ApiService implements ApiService {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(subscribeAutionBody.toJson());
-    final _options = _setStreamType<SubscribeToAutionModel>(
+    final _options = _setStreamType<TapCheckoutUrlModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -621,9 +621,68 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SubscribeToAutionModel _value;
+    late TapCheckoutUrlModel _value;
     try {
-      _value = SubscribeToAutionModel.fromJson(_result.data!);
+      _value = TapCheckoutUrlModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<AuctionBiddingResponseModel> auctionsBidding(
+    AuctionsBiddingBody auctionsBiddingBody,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(auctionsBiddingBody.toJson());
+    final _options = _setStreamType<AuctionBiddingResponseModel>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/auctions/bidding',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AuctionBiddingResponseModel _value;
+    try {
+      _value = AuctionBiddingResponseModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<AuctionsBiddingHistoryModel> auctionsBiddingHistory(
+    String slug,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<AuctionsBiddingHistoryModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/auctions/bidding/${slug}/history',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AuctionsBiddingHistoryModel _value;
+    try {
+      _value = AuctionsBiddingHistoryModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

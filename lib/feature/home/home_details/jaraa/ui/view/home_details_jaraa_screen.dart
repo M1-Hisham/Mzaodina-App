@@ -8,8 +8,10 @@ import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/mazad_details_shimmer.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bid_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/bids_dialog.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
@@ -20,16 +22,8 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 class HomeDetailsJaraaScreen extends StatelessWidget {
   final JaraaAuction jaraaDetails;
 
-  HomeDetailsJaraaScreen({super.key, required this.jaraaDetails});
-  final List<Bid> bids = List.generate(
-    10,
-    (index) => Bid(
-      number: index + 1,
-      name: 'مزايد ${index + 1}',
-      amount: 1200,
-      dateTime: DateTime(2025, 4, 18, 15, 25),
-    ),
-  );
+  const HomeDetailsJaraaScreen({super.key, required this.jaraaDetails});
+
   @override
   Widget build(BuildContext context) {
     DateTime eventTimeFromApi = DateTime.parse(jaraaDetails.endAt);
@@ -220,31 +214,67 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 22.h),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
+                          if (state.jaraaShowAuctionMode.data.canBidding)
+                            Column(
+                              children: [
+                                SizedBox(height: 22.h),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0,
+                                  ),
 
-                            child: CustomJaraaPriceCard(),
-                          ),
+                                  child: CustomJaraaPriceCard(
+                                    slug: state.jaraaShowAuctionMode.data.slug,
+                                  ),
+                                ),
+                              ],
+                            ),
 
                           const SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-
-                            child: CustomElevatedButton(
-                              text: 'سجل المزايدة',
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => BidsDialog(bids: bids),
-                                );
-                              },
-                            ),
+                          BlocBuilder<
+                            AuctionsBiddingHistoryCubit,
+                            AuctionsBiddingHistoryState
+                          >(
+                            builder: (context, state) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0,
+                                ),
+                                child: CustomElevatedButton(
+                                  text: 'سجل المزايدات',
+                                  onPressed: () {
+                                    if (state
+                                        is AuctionsBiddingHistorySuccess) {
+                                      final bids = convertToBids(
+                                        state.auctionsBiddingHistoryModel.data,
+                                      );
+                                      showDialog(
+                                        context: context,
+                                        builder:
+                                            (context) => BidsDialog(bids: bids),
+                                      );
+                                    } else if (state
+                                        is AuctionsBiddingHistoryError) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(content: Text(state.error)),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text('جاري تحميل البيانات'),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              );
+                            },
                           ),
+
                           const SizedBox(height: 12),
                           Padding(
                             padding: const EdgeInsets.symmetric(
