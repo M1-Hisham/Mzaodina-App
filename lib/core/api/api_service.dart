@@ -8,8 +8,8 @@ import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_history_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_show_auction_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_show_auction_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_show_action_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/register_to_aution_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qagim_show_action_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';

@@ -15,8 +15,8 @@ class QadimShowAuctionModel {
   });
 
   factory QadimShowAuctionModel.fromJson(Map<String, dynamic> json) =>
-      _$ShowAuctionModelFromJson(json);
-  Map<String, dynamic> toJson() => _$ShowAuctionModelToJson(this);
+      _$QadimShowAuctionModelFromJson(json);
+  Map<String, dynamic> toJson() => _$QadimShowAuctionModelToJson(this);
 }
 
 @JsonSerializable()

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qagim_show_action_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_show_action_model.dart';
 
 class QadimShowActionRepo {
   final ApiService apiService;

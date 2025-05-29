@@ -16,19 +16,16 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
 class HomeDetailsSayantaliqScreen extends StatelessWidget {
- 
   final SayantaliqAuction sayantaliqDetails;
   const HomeDetailsSayantaliqScreen({
     super.key,
-    
+
     required this.sayantaliqDetails,
   });
 
   @override
   Widget build(BuildContext context) {
-       DateTime eventTimeFromApi = DateTime.parse(
-     sayantaliqDetails.startAt,
-    );
+    DateTime eventTimeFromApi = DateTime.parse(sayantaliqDetails.startAt ?? '');
     return Scaffold(
       backgroundColor: R.colors.whiteLight,
       body: Column(

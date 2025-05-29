@@ -8,6 +8,8 @@ import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.d
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/web_view_screen.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
@@ -64,7 +66,26 @@ class JoinTheAuction extends StatelessWidget {
                     );
                     return;
                   }
-                  _showAuctionSuccessDialog(context);
+                  // _showAuctionSuccessDialog(context);
+                  BlocListener<SubscribeAuctionCubit, SubscribeToAuctionState>(
+                    listener: (context, state) {
+                      if (state is SubscribeAuctionError) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(state.message)));
+                      } else if (state is SubscribeAuctionSuccess) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (_) => WebViewScreen(
+                                  url: state.subscribeToAutionModel.url,
+                                ),
+                          ),
+                        );
+                      }
+                    },
+                  );
                 },
               ),
             ],
