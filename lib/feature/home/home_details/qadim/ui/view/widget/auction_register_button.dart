@@ -50,6 +50,7 @@ class AuctionRegisterButton extends StatelessWidget {
                   'registrationAmount':
                       auctionData.registrationAmount.toDouble(),
                   'requiredBidders': auctionData.requiredBidders,
+                  'auctionId': auctionData.id,
                 },
               );
             },
