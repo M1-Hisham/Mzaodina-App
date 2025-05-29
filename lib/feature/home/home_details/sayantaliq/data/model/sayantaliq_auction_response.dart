@@ -6,7 +6,7 @@ part 'sayantaliq_auction_response.g.dart';
 class SayantaliqAuctionResponse {
   final bool status;
   final String message;
-  final List<SayantaliqAuction> data;
+  final Data data;
 
   SayantaliqAuctionResponse({
     required this.status,
@@ -20,6 +20,30 @@ class SayantaliqAuctionResponse {
   Map<String, dynamic> toJson() => _$SayantaliqAuctionResponseToJson(this);
 }
 
+@JsonSerializable()
+class Data {
+  final List<SayantaliqAuction> auctions;
+  final int? total;
+  @JsonKey(name: 'current_page')
+  final int? currentPage;
+  @JsonKey(name: 'last_page')
+  final int? lastPage;
+  @JsonKey(name: 'next_page_url')
+  final String? nextPageUrl;
+  @JsonKey(name: 'prev_page_url')
+  final String? prevPageUrl;
+  Data({
+    required this.auctions,
+    this.total,
+    this.currentPage,
+    this.lastPage,
+    this.nextPageUrl,
+    this.prevPageUrl,
+  });
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
+}
+
 @JsonSerializable(explicitToJson: true)
 class SayantaliqAuction {
   final int id;
@@ -28,18 +52,18 @@ class SayantaliqAuction {
   @JsonKey(name: 'opening_amount')
   final int openingAmount;
   @JsonKey(name: 'required_bidders')
-  final int requiredBidders;
+  final int? requiredBidders;
   @JsonKey(name: 'registration_amount')
-  final int registrationAmount;
+  final int? registrationAmount;
   @JsonKey(name: 'auction_duration_minutes')
   final int? auctionDurationMinutes;
   @JsonKey(name: 'auction_start_rate')
-  final int auctionStartRate;
+  final int? auctionStartRate;
   @JsonKey(name: 'product_sku')
-  final String productSku;
-  final bool isRegister;
+  final String? productSku;
+  final bool? isRegister;
   @JsonKey(name: 'start_at')
-  final String startAt;
+  final String? startAt;
   final Product product;
 
   SayantaliqAuction({
@@ -47,13 +71,13 @@ class SayantaliqAuction {
     required this.slug,
     required this.status,
     required this.openingAmount,
-    required this.requiredBidders,
-    required this.registrationAmount,
-    required this.auctionDurationMinutes,
-    required this.auctionStartRate,
-    required this.productSku,
-    required this.isRegister,
-    required this.startAt,
+    this.requiredBidders,
+    this.registrationAmount,
+    this.auctionDurationMinutes,
+    this.auctionStartRate,
+    this.productSku,
+    this.isRegister,
+    this.startAt,
     required this.product,
   });
 

@@ -11,10 +11,7 @@ MuntahiAuctionsResponse _$MuntahiAuctionsResponseFromJson(
 ) => MuntahiAuctionsResponse(
   status: json['status'] as bool,
   message: json['message'] as String,
-  data:
-      (json['data'] as List<dynamic>)
-          .map((e) => MuntahiAction.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  data: Data.fromJson(json['data'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$MuntahiAuctionsResponseToJson(
@@ -22,7 +19,28 @@ Map<String, dynamic> _$MuntahiAuctionsResponseToJson(
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
-  'data': instance.data.map((e) => e.toJson()).toList(),
+  'data': instance.data.toJson(),
+};
+
+Data _$DataFromJson(Map<String, dynamic> json) => Data(
+  auctions:
+      (json['auctions'] as List<dynamic>)
+          .map((e) => MuntahiAction.fromJson(e as Map<String, dynamic>))
+          .toList(),
+  total: (json['total'] as num?)?.toInt(),
+  currentPage: (json['current_page'] as num?)?.toInt(),
+  lastPage: (json['last_page'] as num?)?.toInt(),
+  nextPageUrl: json['next_page_url'] as String?,
+  prevPageUrl: json['prev_page_url'] as String?,
+);
+
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+  'auctions': instance.auctions,
+  'total': instance.total,
+  'current_page': instance.currentPage,
+  'last_page': instance.lastPage,
+  'next_page_url': instance.nextPageUrl,
+  'prev_page_url': instance.prevPageUrl,
 };
 
 MuntahiAction _$MuntahiActionFromJson(Map<String, dynamic> json) =>

@@ -92,7 +92,7 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                           CustomIndcatorItem(
                             title: 'انطلاق المزاد',
                             showIndicator: true,
-                            value: widget.qadimDataModel.auctionStartRate,
+                            value: widget.qadimDataModel.auctionStartRate ?? 0,
                           ),
                         ],
                       ),

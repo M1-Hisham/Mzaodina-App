@@ -11,10 +11,7 @@ QadimAuctionResponse _$QadimAuctionResponseFromJson(
 ) => QadimAuctionResponse(
   status: json['status'] as bool,
   message: json['message'] as String,
-  data:
-      (json['data'] as List<dynamic>)
-          .map((e) => QadimAuction.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  data: Data.fromJson(json['data'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$QadimAuctionResponseToJson(
@@ -25,19 +22,40 @@ Map<String, dynamic> _$QadimAuctionResponseToJson(
   'data': instance.data,
 };
 
+Data _$DataFromJson(Map<String, dynamic> json) => Data(
+  auctions:
+      (json['auctions'] as List<dynamic>)
+          .map((e) => QadimAuction.fromJson(e as Map<String, dynamic>))
+          .toList(),
+  total: (json['total'] as num?)?.toInt(),
+  currentPage: (json['current_page'] as num?)?.toInt(),
+  lastPage: (json['last_page'] as num?)?.toInt(),
+  nextPageUrl: json['next_page_url'] as String?,
+  prevPageUrl: json['prev_page_url'] as String?,
+);
+
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+  'auctions': instance.auctions,
+  'total': instance.total,
+  'current_page': instance.currentPage,
+  'last_page': instance.lastPage,
+  'next_page_url': instance.nextPageUrl,
+  'prev_page_url': instance.prevPageUrl,
+};
+
 QadimAuction _$QadimAuctionFromJson(Map<String, dynamic> json) => QadimAuction(
   id: (json['id'] as num).toInt(),
   slug: json['slug'] as String,
   status: json['status'] as String,
   openingAmount: (json['opening_amount'] as num).toInt(),
-  requiredBidders: (json['required_bidders'] as num).toInt(),
-  registrationAmount: (json['registration_amount'] as num).toInt(),
+  requiredBidders: (json['required_bidders'] as num?)?.toInt(),
+  registrationAmount: (json['registration_amount'] as num?)?.toInt(),
   auctionDurationMinutes: (json['auction_duration_minutes'] as num?)?.toInt(),
-  auctionStartRate: (json['auction_start_rate'] as num).toInt(),
-  productSku: json['product_sku'] as String,
-  isRegister: json['isRegister'] as bool,
+  auctionStartRate: (json['auction_start_rate'] as num?)?.toInt(),
+  productSku: json['product_sku'] as String?,
+  isRegister: json['isRegister'] as bool?,
+  type: json['type'] as String?,
   product: Product.fromJson(json['product'] as Map<String, dynamic>),
-  type: json['type'] as String,
 );
 
 Map<String, dynamic> _$QadimAuctionToJson(QadimAuction instance) =>

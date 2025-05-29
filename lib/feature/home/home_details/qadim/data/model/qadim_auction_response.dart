@@ -6,7 +6,7 @@ part 'qadim_auction_response.g.dart';
 class QadimAuctionResponse {
   final bool status;
   final String message;
-  final List<QadimAuction> data;
+  final Data data;
 
   QadimAuctionResponse({
     required this.status,
@@ -20,6 +20,30 @@ class QadimAuctionResponse {
 }
 
 @JsonSerializable()
+class Data {
+  final List<QadimAuction> auctions;
+  final int? total;
+  @JsonKey(name: 'current_page')
+  final int? currentPage;
+  @JsonKey(name: 'last_page')
+  final int? lastPage;
+  @JsonKey(name: 'next_page_url')
+  final String? nextPageUrl;
+  @JsonKey(name: 'prev_page_url')
+  final String? prevPageUrl;
+  Data({
+    required this.auctions,
+    this.total,
+    this.currentPage,
+    this.lastPage,
+    this.nextPageUrl,
+    this.prevPageUrl,
+  });
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
+}
+
+@JsonSerializable()
 class QadimAuction {
   final int id;
   final String slug;
@@ -29,23 +53,23 @@ class QadimAuction {
   final int openingAmount;
 
   @JsonKey(name: 'required_bidders')
-  final int requiredBidders;
+  final int? requiredBidders;
 
   @JsonKey(name: 'registration_amount')
-  final int registrationAmount;
+  final int? registrationAmount;
 
   @JsonKey(name: 'auction_duration_minutes')
   final int? auctionDurationMinutes;
 
   @JsonKey(name: 'auction_start_rate')
-  final int auctionStartRate;
+  final int? auctionStartRate;
 
   @JsonKey(name: 'product_sku')
-  final String productSku;
+  final String? productSku;
 
-  final String type;
+  final String? type;
 
-  final bool isRegister;
+  final bool? isRegister;
 
   final Product product;
 
@@ -54,14 +78,14 @@ class QadimAuction {
     required this.slug,
     required this.status,
     required this.openingAmount,
-    required this.requiredBidders,
-    required this.registrationAmount,
-    required this.auctionDurationMinutes,
-    required this.auctionStartRate,
-    required this.productSku,
-    required this.isRegister,
+    this.requiredBidders,
+    this.registrationAmount,
+    this.auctionDurationMinutes,
+    this.auctionStartRate,
+    this.productSku,
+    this.isRegister,
+    this.type,
     required this.product,
-    required this.type,
   });
 
   factory QadimAuction.fromJson(Map<String, dynamic> json) =>
