@@ -149,7 +149,7 @@ class AppRouter {
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
                   ),
-                  
+
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),
@@ -217,6 +217,7 @@ class AppRouter {
                   requiredBidders: args['requiredBidders'],
                   openingAmount: args['openingAmount'],
                   registrationAmount: args['registrationAmount'],
+                  auctionId: args['auctionId'],
                 ),
               ),
         );

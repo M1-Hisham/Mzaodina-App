@@ -8,6 +8,7 @@ import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.d
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/web_view_screen.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
@@ -18,77 +19,91 @@ class JoinTheAuction extends StatelessWidget {
   final double openingAmount;
   final double registrationAmount;
   final int requiredBidders;
+  final int auctionId;
+
   const JoinTheAuction({
     super.key,
     required this.openingAmount,
     required this.registrationAmount,
     required this.requiredBidders,
+    required this.auctionId,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const CustomAppBarAccount(title: 'الرسوم التنظيمية'),
-              CoustomRowItem(
-                title: 'الرسوم التنظيمية',
-                price: '$registrationAmount',
-              ),
-              CounterView(
-                requiredBidders: requiredBidders,
-                openingAmount: openingAmount,
-                registrationAmount: registrationAmount,
-              ),
-              const SizedBox(height: 25),
-              WarningCheckbox(),
-              TermsAndConditionsCheckbox(),
-              const SizedBox(height: 20),
-              CustomElevatedButton(
-                text: 'تاكيد دفع الرسوم التنظيمية',
-                onPressed: () {
-                  log('message');
-                  bool termsAccepted =
-                      context.read<CheckboxCubit>().state.isChecked;
-                  bool warningAccepted =
-                      context.read<CheckboxCubit>().state.isChecked;
-                  log(
-                    'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
-                  );
-                  if (!termsAccepted || !warningAccepted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('يرجى الموافقة على الشروط والأحكام'),
+    return BlocListener<SubscribeAuctionCubit, SubscribeToAuctionState>(
+      listener: (context, state) {
+        if (state is SubscribeAuctionError) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        } else if (state is SubscribeAuctionSuccess) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (_) => WebViewScreen(url: state.subscribeToAutionModel.url),
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const CustomAppBarAccount(title: 'الرسوم التنظيمية'),
+                CoustomRowItem(
+                  title: 'الرسوم التنظيمية',
+                  price: '$registrationAmount',
+                ),
+                CounterView(
+                  requiredBidders: requiredBidders,
+                  openingAmount: openingAmount,
+                  registrationAmount: registrationAmount,
+                ),
+                const SizedBox(height: 25),
+                WarningCheckbox(),
+                TermsAndConditionsCheckbox(),
+                const SizedBox(height: 20),
+
+                /// الزرار:
+                CustomElevatedButton(
+                  text: 'تاكيد دفع الرسوم التنظيمية',
+                  onPressed: () {
+                    log('message');
+                    bool termsAccepted =
+                        context.read<CheckboxCubit>().state.isChecked;
+                    bool warningAccepted =
+                        context.read<CheckboxCubit>().state.isChecked;
+
+                    log(
+                      'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
+                    );
+
+                    if (!termsAccepted || !warningAccepted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('يرجى الموافقة على الشروط والأحكام'),
+                        ),
+                      );
+                      return;
+                    }
+
+                    // هنا بنشغل الكيوبت
+                    context.read<SubscribeAuctionCubit>().subscribeToAuction(
+                      SubscribeAutionBody(
+                        registrationCount: registrationAmount.toInt(),//عاوز احط هنا عدد العداد 
+                        auctionId: auctionId.toInt(),
+                        termsConditions: true,
                       ),
                     );
-                    return;
-                  }
-                  // _showAuctionSuccessDialog(context);
-                  BlocListener<SubscribeAuctionCubit, SubscribeToAuctionState>(
-                    listener: (context, state) {
-                      if (state is SubscribeAuctionError) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(state.message)));
-                      } else if (state is SubscribeAuctionSuccess) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (_) => WebViewScreen(
-                                  url: state.subscribeToAutionModel.url,
-                                ),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-            ],
+                 
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
