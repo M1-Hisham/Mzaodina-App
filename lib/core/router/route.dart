@@ -35,6 +35,7 @@ import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notificati
 import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
+import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
 import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
@@ -100,9 +101,16 @@ class AppRouter {
       case AppRoutes.accountDetailsScreenRoute:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider<CountryCubit>(
-                create: (context) => CountryCubit(),
-
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider<CountryCubit>(
+                    create: (context) => CountryCubit(),
+                  ),
+                  
+                  BlocProvider(
+                    create: (context) => getIt<UpdateProfileCubit>(),
+                  ),
+                ],
                 child: AccountDetailsScreen(),
               ),
         );
