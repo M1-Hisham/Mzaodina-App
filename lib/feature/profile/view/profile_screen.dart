@@ -56,12 +56,23 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 );
               } else if (state is UserDataError) {
-                return Column(
-                  children: [
-                    SizedBox(height: 200),
-                    Center(child: Text('حدث خطأ: ${state.errMessage}')),
-                    CustomLogoutBotton(),
-                  ],
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<UserDataCubit>().fetchUserData();
+                  },
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(height: 200.h),
+                          Center(child: Text('حدث خطأ: ${state.errMessage}')),
+                          SizedBox(height: 20.h),
+                          CustomLogoutBotton(),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               } else {
                 return const SizedBox.shrink();

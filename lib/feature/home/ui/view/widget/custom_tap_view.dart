@@ -95,7 +95,16 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is QadimLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is QadimError) {
-                      return Center(child: Text(state.errorMessage));
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context
+                                    .read<QadimCubit>()
+                                    .getNotStartAuctions(),
+                        child: ListView(
+                          children: [Center(child: Text(state.errorMessage))],
+                        ),
+                      );
                     } else if (state is QadimSuccess) {
                       final qadimAuctionResponse = state.data;
                       return RefreshIndicator(
@@ -108,13 +117,13 @@ class _CustomTapViewState extends State<CustomTapView>
                           physics: const AlwaysScrollableScrollPhysics(),
                           padding: EdgeInsets.zero,
 
-                          itemCount: qadimAuctionResponse.data.length,
+                          itemCount: qadimAuctionResponse.data.auctions.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16.0),
                               child: CustomQadimCardViewItem(
                                 qadimDataModel:
-                                    qadimAuctionResponse.data[index],
+                                    qadimAuctionResponse.data.auctions[index],
                               ),
                             );
                           },
@@ -133,19 +142,31 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is SayantaliqLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is SayantaliqError) {
-                      return Center(child: Text(state.errorMessage));
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context
+                                    .read<SayantaliqCubit>()
+                                    .getReadyAuctions(),
+                        child: ListView(
+                          children: [Center(child: Text(state.errorMessage))],
+                        ),
+                      );
                     } else if (state is SayantaliqSuccess) {
                       final sayantaliqAuctionResponse = state.data;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
 
-                        itemCount: sayantaliqAuctionResponse.data.length,
+                        itemCount:
+                            sayantaliqAuctionResponse.data.auctions.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: CustomSayantaliqCardViewItem(
                               sayantaliqDataModel:
-                                  sayantaliqAuctionResponse.data[index],
+                                  sayantaliqAuctionResponse
+                                      .data
+                                      .auctions[index],
                             ),
                           );
                         },
@@ -164,18 +185,26 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is JaraaLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is JaraaError) {
-                      return Center(child: Text(state.errorMessage));
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context.read<JaraaCubit>().getOngoingAuctions(),
+                        child: ListView(
+                          children: [Center(child: Text(state.errorMessage))],
+                        ),
+                      );
                     } else if (state is JaraaSuccess) {
                       final jaraaAuctionResponse = state.data;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
 
-                        itemCount: jaraaAuctionResponse.data.length,
+                        itemCount: jaraaAuctionResponse.data.auctions.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: CustomJaraaCardViewItem(
-                              jaraaDataModel: jaraaAuctionResponse.data[index],
+                              jaraaDataModel:
+                                  jaraaAuctionResponse.data.auctions[index],
                             ),
                           );
                         },
@@ -193,19 +222,28 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is MuntahiLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is MuntahiError) {
-                      return Center(child: Text(state.errorMessage));
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context
+                                    .read<MuntahiCubit>()
+                                    .getFinishedAuctions(),
+                        child: ListView(
+                          children: [Center(child: Text(state.errorMessage))],
+                        ),
+                      );
                     } else if (state is MuntahiSuccess) {
                       final muntaliAuctionResponse = state.data;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
 
-                        itemCount: muntaliAuctionResponse.data.length,
+                        itemCount: muntaliAuctionResponse.data.auctions.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: CustomMuntahiCardViewItem(
                               muntahiDataModel:
-                                  muntaliAuctionResponse.data[index],
+                                  muntaliAuctionResponse.data.auctions[index],
                             ),
                           );
                         },

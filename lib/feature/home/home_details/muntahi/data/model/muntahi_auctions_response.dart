@@ -6,7 +6,7 @@ part 'muntahi_auctions_response.g.dart';
 class MuntahiAuctionsResponse {
   final bool status;
   final String message;
-  final List<MuntahiAction> data;
+  final Data data;
 
   MuntahiAuctionsResponse({
     required this.status,
@@ -17,6 +17,30 @@ class MuntahiAuctionsResponse {
   factory MuntahiAuctionsResponse.fromJson(Map<String, dynamic> json) =>
       _$MuntahiAuctionsResponseFromJson(json);
   Map<String, dynamic> toJson() => _$MuntahiAuctionsResponseToJson(this);
+}
+
+@JsonSerializable()
+class Data {
+  final List<MuntahiAction> auctions;
+  final int? total;
+  @JsonKey(name: 'current_page')
+  final int? currentPage;
+  @JsonKey(name: 'last_page')
+  final int? lastPage;
+  @JsonKey(name: 'next_page_url')
+  final String? nextPageUrl;
+  @JsonKey(name: 'prev_page_url')
+  final String? prevPageUrl;
+  Data({
+    required this.auctions,
+    this.total,
+    this.currentPage,
+    this.lastPage,
+    this.nextPageUrl,
+    this.prevPageUrl,
+  });
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
