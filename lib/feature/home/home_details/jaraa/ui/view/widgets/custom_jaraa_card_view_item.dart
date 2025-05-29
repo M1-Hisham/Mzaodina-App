@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
@@ -8,6 +9,7 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomJaraaCardViewItem extends StatefulWidget {
@@ -69,10 +71,23 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                             ),
                           ),
                           SizedBox(height: 12.h),
-                          CustomBlocBuilderCountdown(
-                            eventTime: eventTimeFromApi,
-                            progressColor: R.colors.greenColor,
-                            backgroundColor: R.colors.greenColor2,
+                          BlocProvider(
+                            create: (context) => WebSocketCubit(),
+                            child: CustomBlocBuilderCountdown(
+                              eventTime: eventTimeFromApi,
+                              getNow: () {
+                                final cubit = context.read<WebSocketCubit>();
+                                try {
+                                  return cubit.latestServerTime != null
+                                      ? DateTime.parse(cubit.latestServerTime!)
+                                      : DateTime.now();
+                                } catch (_) {
+                                  return DateTime.now();
+                                }
+                              },
+                              progressColor: R.colors.greenColor,
+                              backgroundColor: R.colors.greenColor2,
+                            ),
                           ),
                           SizedBox(height: 12.h),
                           CoustomRowItem(
@@ -82,8 +97,8 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           ),
                           CoustomRowItem(
                             title: 'اعلى مزاد',
-                            price:
-                                widget.jaraaDataModel.product.price.toString(),
+                            price: widget.jaraaDataModel.maxBid.bid
+                                .toStringAsFixed(2),
                           ),
 
                           Container(
@@ -98,7 +113,8 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  'لايوجد',
+                                  widget.jaraaDataModel.maxBid.user.username
+                                      .toString(),
                                   style: R.textStyles.font16primaryW600Light,
                                 ),
                               ],
@@ -120,8 +136,10 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           Navigator.pushNamed(
                             context,
                             AppRoutes.homeDetailsJaraaScreenRoute,
-                            arguments: {'eventTime': eventTimeFromApi,
-                              'jaraaDataModel': widget.jaraaDataModel},
+                            arguments: {
+                              'eventTime': eventTimeFromApi,
+                              'jaraaDataModel': widget.jaraaDataModel,
+                            },
                           );
                         },
                         backgroundColor: R.colors.primaryColorLight,

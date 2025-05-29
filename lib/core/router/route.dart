@@ -43,6 +43,7 @@ import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shippin
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -74,18 +75,28 @@ class AppRouter {
 
         return MaterialPageRoute(
           builder:
-              (_) => HomeDetailsJaraaScreen(
-                eventTimeFromApi: args['eventTime']!,
-                jaraaDetails: args['jaraaDataModel'],
+              (_) => BlocProvider(
+                create: (context) => WebSocketCubit(),
+                child: HomeDetailsJaraaScreen(
+                  eventTimeFromApi: args['eventTime']!,
+                  jaraaDetails: args['jaraaDataModel'],
+                ),
               ),
         );
       case AppRoutes.homeDetailsSayantaliqScreenRoute:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
-              (_) => HomeDetailsSayantaliqScreen(
-                eventTimeFromApi: args['eventTime']!,
-                sayantaliqDetails: args['sayantaliqDataModel'],
+              (_) => BlocProvider(
+                create: (context) => WebSocketCubit(),
+                child: HomeDetailsSayantaliqScreen(
+                  eventTimeFromApi: args['eventTime']!,
+                  sayantaliqDetails: args['sayantaliqDataModel'],
+                  s: args['s'] ?? 0,
+                  m: args['m'] ?? 0,
+                  h: args['h'] ?? 0,
+                  d: args['d'] ?? 0,
+                ),
               ),
         );
       case AppRoutes.navBarRoute:
@@ -106,7 +117,7 @@ class AppRouter {
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
                   ),
-                  
+
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),

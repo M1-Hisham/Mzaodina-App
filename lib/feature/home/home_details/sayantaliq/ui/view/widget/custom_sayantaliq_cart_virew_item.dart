@@ -8,8 +8,9 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomSayantaliqCardViewItem extends StatefulWidget {
@@ -26,6 +27,20 @@ class CustomSayantaliqCardViewItem extends StatefulWidget {
 
 class _CustomQadimCardViewItemState
     extends State<CustomSayantaliqCardViewItem> {
+  late final int eventTimeFromApi;
+  int d = 0, h = 0, m = 0, s = 0;
+  @override
+  void initState() {
+    super.initState();
+    eventTimeFromApi = widget.sayantaliqDataModel.auctionDurationMinutes ?? 0;
+
+    Duration duration = Duration(minutes: eventTimeFromApi);
+    d = duration.inDays;
+    h = duration.inHours % 24;
+    m = duration.inMinutes % 60;
+    s = duration.inSeconds % 60;
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime eventTimeFromApi = DateTime.parse(
@@ -78,10 +93,45 @@ class _CustomQadimCardViewItemState
                             ),
                           ),
                           SizedBox(height: 12.h),
-                          CustomBlocBuilderCountdown(
-                            eventTime: eventTimeFromApi,
-                            progressColor: R.colors.orangeColor,
-                            backgroundColor: R.colors.orangeColor2,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: s,
+                                  label: 'ثانية',
+                                  maxValue: 60,
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: m,
+                                  label: 'دقيقة',
+                                  maxValue: 60,
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: h,
+                                  maxValue: 24,
+                                  label: 'ساعة',
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: d,
+                                  label: 'يوم',
+                                  maxValue: 365,
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 12.h),
                           CoustomRowItem(
@@ -92,9 +142,8 @@ class _CustomQadimCardViewItemState
                           ),
                           CoustomRowItem(
                             title: 'بداية المزاد',
-                            price:
-                                widget.sayantaliqDataModel.product.price
-                                    .toString(),
+                            price: widget.sayantaliqDataModel.openingAmount
+                                .toStringAsFixed(2),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -108,7 +157,24 @@ class _CustomQadimCardViewItemState
                                 ),
                                 Spacer(),
                                 BlocProvider(
-                                  create: (_) => CounterCubit(eventTimeFromApi),
+                                  create:
+                                      (_) => CounterCubit(
+                                        eventTime: eventTimeFromApi,
+                                        getNow: () {
+                                          final cubit =
+                                              context.read<WebSocketCubit>();
+                                          try {
+                                            return cubit.latestServerTime !=
+                                                    null
+                                                ? DateTime.parse(
+                                                  cubit.latestServerTime!,
+                                                )
+                                                : DateTime.now();
+                                          } catch (_) {
+                                            return DateTime.now();
+                                          }
+                                        },
+                                      ),
                                   child: BlocBuilder<
                                     CounterCubit,
                                     CounterState
@@ -116,7 +182,7 @@ class _CustomQadimCardViewItemState
                                     builder: (context, state) {
                                       if (state is CountdownRunning) {
                                         return Text(
-                                          '0${state.hours}:0${state.minutes}:${state.seconds}',
+                                          '${state.hours}:${state.minutes}:${state.seconds}',
                                           style:
                                               R
                                                   .textStyles
@@ -156,6 +222,10 @@ class _CustomQadimCardViewItemState
                             arguments: {
                               'eventTime': eventTimeFromApi,
                               'sayantaliqDataModel': widget.sayantaliqDataModel,
+                              's': s,
+                              'm': m,
+                              'h': h,
+                              'd': d,
                             },
                           );
                         },

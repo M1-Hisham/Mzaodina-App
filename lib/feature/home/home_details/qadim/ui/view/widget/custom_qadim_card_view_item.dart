@@ -7,7 +7,7 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -20,12 +20,23 @@ class CustomQadimCardViewItem extends StatefulWidget {
 }
 
 class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
+  late final int eventTimeFromApi;
+  int d = 0, h = 0, m = 0, s = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    eventTimeFromApi = widget.qadimDataModel.auctionDurationMinutes ?? 0;
+
+    Duration duration = Duration(minutes: eventTimeFromApi);
+    d = duration.inDays;
+    h = duration.inHours % 24;
+    m = duration.inMinutes % 60;
+    s = duration.inSeconds % 60;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final eventTimeFromApi = DateTime.now().add(
-      Duration(minutes: widget.qadimDataModel.auctionDurationMinutes ?? 0),
-    );
-
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -72,10 +83,45 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                             ),
                           ),
                           SizedBox(height: 12.h),
-                          CustomBlocBuilderCountdown(
-                            eventTime: eventTimeFromApi,
-                            progressColor: R.colors.primaryColorLight,
-                            backgroundColor: R.colors.colorUnSelected,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: s,
+                                  label: 'ثانية',
+                                  maxValue: 60,
+                                  progressColor: R.colors.primaryColorLight,
+                                  backgroundColor: R.colors.colorUnSelected,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: m,
+                                  label: 'دقيقة',
+                                  maxValue: 60,
+                                  progressColor: R.colors.primaryColorLight,
+                                  backgroundColor: R.colors.colorUnSelected,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: h,
+                                  maxValue: 24,
+                                  label: 'ساعة',
+                                  progressColor: R.colors.primaryColorLight,
+                                  backgroundColor: R.colors.colorUnSelected,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: d,
+                                  label: 'يوم',
+                                  maxValue: 365,
+                                  progressColor: R.colors.primaryColorLight,
+                                  backgroundColor: R.colors.colorUnSelected,
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 12.h),
                           CoustomRowItem(

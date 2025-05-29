@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -13,6 +14,7 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_blo
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_price_card.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class HomeDetailsJaraaScreen extends StatelessWidget {
   final DateTime eventTimeFromApi;
@@ -62,10 +64,23 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                         horizontal: 35.w,
                         vertical: 12.h,
                       ),
-                      child: CustomBlocBuilderCountdown(
-                        eventTime: eventTimeFromApi,
-                        progressColor: R.colors.greenColor,
-                        backgroundColor: R.colors.greenColor2,
+                      child: BlocProvider(
+                        create: (context) => WebSocketCubit(),
+                        child: CustomBlocBuilderCountdown(
+                          eventTime: eventTimeFromApi,
+                          getNow: () {
+                            final cubit = context.read<WebSocketCubit>();
+                            try {
+                              return cubit.latestServerTime != null
+                                  ? DateTime.parse(cubit.latestServerTime!)
+                                  : DateTime.now();
+                            } catch (_) {
+                              return DateTime.now();
+                            }
+                          },
+                          progressColor: R.colors.greenColor,
+                          backgroundColor: R.colors.greenColor2,
+                        ),
                       ),
                     ),
 
@@ -93,7 +108,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
 
                       child: CoustomRowItem(
                         title: 'أعلى مبلغ مزايدة',
-                        price: jaraaDetails.product.price.toString(),
+                        price: jaraaDetails.maxBid.bid.toStringAsFixed(2),
                         style: R.textStyles.font14Grey3W500Light,
                         priceStyle: R.textStyles.font14primaryW500Light,
                       ),
@@ -113,7 +128,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                           ),
                           Spacer(),
                           Text(
-                            'لم يزايد احد',
+                            jaraaDetails.maxBid.user.username.toString(),
                             style: R.textStyles.font14primaryW500Light,
                           ),
                         ],
@@ -134,7 +149,7 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                           ),
                           Spacer(),
                           Text(
-                            'لا يوجد',
+                            jaraaDetails.maxBid.user.country.toString(),
                             style: R.textStyles.font14primaryW500Light,
                           ),
                         ],
