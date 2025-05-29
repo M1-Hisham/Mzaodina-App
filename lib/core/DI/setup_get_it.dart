@@ -41,6 +41,8 @@ import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.d
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
+import 'package:mzaodina_app/feature/profile/account-details/data/repo/update_profile_repo.dart';
+import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
 import 'package:mzaodina_app/feature/profile/data/repo/user_data_repo.dart';
@@ -103,6 +105,16 @@ Future<void> setupGetIt() async {
   // ✅ ChangePasswordCubit Cubit
   getIt.registerFactory<ChangePasswordCubit>(
     () => ChangePasswordCubit(getIt<ChangePasswordRepo>()),
+  );
+
+  // ✅ Register UpdateProfileRepo
+  getIt.registerLazySingleton<UpdateProfileRepo>(
+    () => UpdateProfileRepo(getIt<ApiService>()),
+  );
+
+  // ✅ UpdateProfileCubit Cubit
+  getIt.registerFactory<UpdateProfileCubit>(
+    () => UpdateProfileCubit(getIt<UpdateProfileRepo>()),
   );
 
   // ✅ Register ForgotPasswordRepo
