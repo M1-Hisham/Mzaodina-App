@@ -59,7 +59,7 @@ class AppRouter {
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.homeDetailsQadimScreenRoute:
-        final args = settings.arguments as QadimAuction;
+        final args = settings.arguments as Auction;
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(

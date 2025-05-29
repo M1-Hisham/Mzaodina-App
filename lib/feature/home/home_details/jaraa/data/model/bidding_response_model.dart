@@ -15,9 +15,9 @@ class AuctionBiddingResponseModel {
   });
 
   factory AuctionBiddingResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$BiddingResponseModelFromJson(json);
+      _$AuctionBiddingResponseModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BiddingResponseModelToJson(this);
+  Map<String, dynamic> toJson() => _$AuctionBiddingResponseModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

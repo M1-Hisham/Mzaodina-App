@@ -6,7 +6,7 @@ part of 'bidding_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AuctionBiddingResponseModel _$BiddingResponseModelFromJson(
+AuctionBiddingResponseModel _$AuctionBiddingResponseModelFromJson(
   Map<String, dynamic> json,
 ) => AuctionBiddingResponseModel(
   status: json['status'] as bool,
@@ -14,7 +14,7 @@ AuctionBiddingResponseModel _$BiddingResponseModelFromJson(
   data: AuctionData.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$BiddingResponseModelToJson(
+Map<String, dynamic> _$AuctionBiddingResponseModelToJson(
   AuctionBiddingResponseModel instance,
 ) => <String, dynamic>{
   'status': instance.status,
