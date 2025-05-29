@@ -6,7 +6,7 @@ part 'jaraa_auction_response.g.dart';
 class JaraaAuctionResponse {
   final bool status;
   final String message;
-  final List<JaraaAuction> data;
+  final Data data;
 
   JaraaAuctionResponse({
     required this.status,
@@ -18,6 +18,30 @@ class JaraaAuctionResponse {
       _$JaraaAuctionResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$JaraaAuctionResponseToJson(this);
+}
+
+@JsonSerializable()
+class Data {
+  final List<JaraaAuction> auctions;
+  final int? total;
+  @JsonKey(name: 'current_page')
+  final int? currentPage;
+  @JsonKey(name: 'last_page')
+  final int? lastPage;
+  @JsonKey(name: 'next_page_url')
+  final String? nextPageUrl;
+  @JsonKey(name: 'prev_page_url')
+  final String? prevPageUrl;
+  Data({
+    required this.auctions,
+    this.total,
+    this.currentPage,
+    this.lastPage,
+    this.nextPageUrl,
+    this.prevPageUrl,
+  });
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

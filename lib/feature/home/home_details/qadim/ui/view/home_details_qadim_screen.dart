@@ -59,7 +59,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                           child: CustomIndcatorItem(
                             title: 'نسبة انطلاق المزاد',
                             showIndicator: true,
-                            value: qadimDetails.auctionStartRate.toInt(),
+                            value: qadimDetails.auctionStartRate?.toInt() ?? 0,
                           ),
                         ),
 
@@ -106,8 +106,11 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: 'رسوم تنظيم',
-                            price: qadimDetails.registrationAmount
-                                .toStringAsFixed(2),
+                            price:
+                                qadimDetails.registrationAmount != null
+                                    ? qadimDetails.registrationAmount!
+                                        .toStringAsFixed(2)
+                                    : '0.00',
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -119,7 +122,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                             title: 'انطلاق المزاد',
                             showIndicator: false,
                             style: R.textStyles.font14Grey3W500Light,
-                            value: qadimDetails.auctionStartRate,
+                            value: qadimDetails.auctionStartRate ?? 0,
                           ),
                         ),
                         Container(

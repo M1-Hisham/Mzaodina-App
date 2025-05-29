@@ -29,7 +29,7 @@ class _CustomQadimCardViewItemState
   @override
   Widget build(BuildContext context) {
     DateTime eventTimeFromApi = DateTime.parse(
-      widget.sayantaliqDataModel.startAt,
+      widget.sayantaliqDataModel.startAt ?? DateTime.now().toIso8601String(),
     );
 
     return SingleChildScrollView(
