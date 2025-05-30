@@ -58,10 +58,10 @@ class InvoiceDetailsScreen extends StatelessWidget {
             );
           }
 
-          final expiresAt = DateTime.parse(invoice.data.expiresAt);
-          final now = DateTime.now();
-          final difference = expiresAt.difference(now);
-          final minutes = difference.inMinutes;
+          // final expiresAt = DateTime.parse(invoice.data.expiresAt);
+          // final now = DateTime.now();
+          // final difference = expiresAt.difference(now);
+          // final minutes = difference.inMinutes;
 
           return Scaffold(
             backgroundColor: R.colors.whiteLight,
@@ -125,8 +125,8 @@ class InvoiceDetailsScreen extends StatelessWidget {
                                     style: R.textStyles.font14Grey3W500Light,
                                   ),
                                   CountdownTimerInvoice(
-                                    initialDuration: Duration(
-                                      minutes: minutes > 0 ? minutes : 0,
+                                    expiresAt: DateTime.parse(
+                                      invoice.data.expiresAt,
                                     ),
                                   ),
                                 ],
