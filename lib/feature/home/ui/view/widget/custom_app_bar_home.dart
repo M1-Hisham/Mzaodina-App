@@ -79,7 +79,8 @@ class CustomAppBarHome extends StatelessWidget {
                             onTap:
                                 () => Navigator.pushNamed(
                                   context,
-                                  AppRoutes.notificationsScreenRoute,
+                                  AppRoutes.invoiceDetailsScreenRoute,
+                                  // AppRoutes.notificationsScreenRoute,
                                 ),
                             child: SvgPicture.asset(
                               R.images.iconNotiv,

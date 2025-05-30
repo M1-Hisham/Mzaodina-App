@@ -30,7 +30,10 @@ import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/
 import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
+import 'package:mzaodina_app/feature/notifications/payment/data/model/last_invoice_model.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/invoice_details_screen.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/payment_invoice_cubit/payment_invoice_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view/notifications_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/payment_details_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view/nav_bar.dart';
@@ -189,9 +192,25 @@ class AppRouter {
               ),
         );
       case AppRoutes.invoiceDetailsScreenRoute:
-        return MaterialPageRoute(builder: (_) => InvoiceDetailsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<LastInvoiceCubit>()..lastInvoiceChecker(),
+                child: InvoiceDetailsScreen(),
+              ),
+        );
       case AppRoutes.paymentDetailsScreenRoute:
-        return MaterialPageRoute(builder: (_) => PaymentDetailsScreen());
+        final args = settings.arguments as LastInvoiceData;
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<PaymentInvoiceCubit>(),
+
+                child: PaymentDetailsScreen(lastInvoiceData: args),
+              ),
+        );
       case AppRoutes.completeShippingInformationScreenRoute:
         return MaterialPageRoute(
           builder: (_) => CompleteShippingInformationScreen(),

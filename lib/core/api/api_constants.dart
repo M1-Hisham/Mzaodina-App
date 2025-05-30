@@ -23,4 +23,6 @@ class ApiConstants {
   static const String markAllReadNotifications =
       "/user/notifications/mark-all-as-read";
   static const String markAsReadNotifications = "/user/notifications/{id}";
+  static const String lastIinvoice = "/invoice/exist/checker";
+  static const String paymentIinvoice = "/invoice/pay";
 }

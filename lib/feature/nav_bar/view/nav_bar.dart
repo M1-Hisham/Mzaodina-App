@@ -5,8 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/nav_bar/view_model/nav_bar_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/profile_screen.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
@@ -23,8 +25,25 @@ class NavBarScreen extends StatelessWidget {
           return IndexedStack(
             index: state,
             children: [
-              HomeScreen(),
-              // SearchScreen(),
+              BlocProvider(
+                create:
+                    (context) =>
+                        getIt<LastInvoiceCubit>()..lastInvoiceChecker(),
+                child: BlocListener<LastInvoiceCubit, LastInvoiceState>(
+                  listener: (context, state) {
+                    if (state is LastInvoiceSuccess &&
+                        state.lastInvoiceModel.data.status == "pending") {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.invoiceDetailsScreenRoute,
+                      );
+                    }
+                    // مفيش فاتورة؟ يكمل عادي على الهوم
+                  },
+                  child: HomeScreen(),
+                ),
+              ),
+
               BlocProvider(
                 create: (context) => getIt<UserDataCubit>()..fetchUserData(),
                 child: ProfileScreen(),
@@ -65,11 +84,7 @@ class NavBarScreen extends StatelessWidget {
                   R.images.homeIconSelected,
                   R.images.homeIcon,
                 ),
-                // _buildBottomNavigationBarItem(
-                //   'البحث',
-                //   R.images.searchIconSelected,
-                //   R.images.searchIcon,
-                // ),
+
                 _buildBottomNavigationBarItem(
                   'الحساب',
                   R.images.personIconSelected,

@@ -57,17 +57,23 @@ class ServerFailure extends Failure {
       }
       return ServerFailure('Unknown Error');
     } else if (statusCode == 422) {
-      if (response is Map<String, dynamic> && response.containsKey('errors')) {
-        final errors = response['errors'] as Map<String, dynamic>;
-        String combinedErrors = errors.entries
-            .map((entry) => '${entry.value.join("\n\n ")}')
-            .join(" \n\n ");
-        return ServerFailure(' $combinedErrors');
-        // return ServerFailure('${response['message']}  $combinedErrors');
+      if (response is Map<String, dynamic>) {
+        final errorsRaw = response['errors'];
+
+        if (errorsRaw != null && errorsRaw is Map<String, dynamic>) {
+          final errors = errorsRaw;
+          String combinedErrors = errors.entries
+              .map((entry) => '${entry.value.join("\n\n ")}')
+              .join(" \n\n ");
+          return ServerFailure(' $combinedErrors');
+        }
+
+        return ServerFailure(
+          response['message'] ?? 'Unprocessable Content Error',
+        );
       }
-      return ServerFailure(
-        response['message'] ?? 'Unprocessable Content Error',
-      );
+
+      return ServerFailure('Invalid error response format');
     } else if (statusCode == 404) {
       return ServerFailure('Your request not found, Please try later!');
     } else if (statusCode == 500) {
