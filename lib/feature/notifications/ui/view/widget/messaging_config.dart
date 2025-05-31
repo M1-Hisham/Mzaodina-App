@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view/widget/handleNotification.dart';
 import 'package:mzaodina_app/main.dart'; // لازم فيه navigatorKey
@@ -11,12 +12,24 @@ class MessagingConfig {
   /// إنشاء قناة تنبيهات لـ Android
   static Future<void> _createNotificationChannel() async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'high_importance_channel',
-      'High Importance Notifications',
-      description: 'This channel is used for important notifications.',
+      'custom_channel', // اسم القناة
+      'Custom Notifications',
+      description: 'This channel plays a custom sound.',
       importance: Importance.max,
-      sound: RawResourceAndroidNotificationSound('custom_sound'),
+      sound: RawResourceAndroidNotificationSound('custom_sound'), // بدون امتداد
+      playSound: true,
+      enableVibration: true,
     );
+
+    // const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    //   'high_importance_channel',
+    //   'High Importance Notifications',
+    //   description: 'This channel is used for important notifications.',
+    //   importance: Importance.max,
+    //   sound: null, //RawResourceAndroidNotificationSound('custom_sound'),
+    //   enableVibration: true,
+    //   enableLights: true,
+    // );
 
     await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -27,52 +40,73 @@ class MessagingConfig {
 
   /// تهيئة الإشعارات
   static Future<void> initFirebaseMessaging() async {
-    await _createNotificationChannel();
+    try {
+      await _createNotificationChannel();
 
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
-          requestAlertPermission: false,
-          requestBadgePermission: false,
-          requestSoundPermission: false,
-        );
+      const DarwinInitializationSettings initializationSettingsIOS =
+          DarwinInitializationSettings(
+            requestAlertPermission: false,
+            requestBadgePermission: false,
+            requestSoundPermission: false,
+          );
 
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-          android: initializationSettingsAndroid,
-          iOS: initializationSettingsIOS,
-        );
+      const InitializationSettings initializationSettings =
+          InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS,
+          );
 
-    await _flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response) {
-        log("🔁 Notification clicked with payload: ${response.payload}");
-        // هنا تقدر تبعت الـ payload لـ handleNotification
-      },
-    );
+      await _flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
+        onDidReceiveNotificationResponse: (NotificationResponse response) {
+          log("🔁 Notification clicked with payload: ${response.payload}");
+          if (response.payload != null) {
+            try {
+              final Map<String, dynamic> payload = Map<String, dynamic>.from(
+                response.payload as Map,
+              );
+              handleNotification(navigatorKey.currentContext!, payload);
+            } catch (e) {
+              log("❌ Error parsing notification payload: $e");
+            }
+          }
+        },
+      );
 
-    // 🔔 التطبيق شغال (foreground)
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      log("📲 Foreground message received");
-      _showNotification(message);
-      handleNotification(navigatorKey.currentContext!, message.data);
-    });
-
-    // 💤 التطبيق كان مقفول وفتح من إشعار
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null) {
-        log("📦 Initial message received");
+      // 🔔 التطبيق شغال (foreground)
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+        log("📲 Foreground message received: ${message.messageId}");
+        await _showNotification(message);
         handleNotification(navigatorKey.currentContext!, message.data);
-      }
-    });
+      });
 
-    // 🔁 المستخدم فتح الإشعار من الخلفية
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      log("➡️ Notification clicked (background)");
-      handleNotification(navigatorKey.currentContext!, message.data);
-    });
+      // 💤 التطبيق كان مقفول وفتح من إشعار
+      FirebaseMessaging.instance.getInitialMessage().then((message) {
+        if (message != null) {
+          log("📦 Initial message received: ${message.messageId}");
+          handleNotification(navigatorKey.currentContext!, message.data);
+        }
+      });
+
+      // 🔁 المستخدم فتح الإشعار من الخلفية
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        log("➡️ Notification clicked (background): ${message.messageId}");
+        handleNotification(navigatorKey.currentContext!, message.data);
+      });
+
+      // Set foreground notification presentation options
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+    } catch (e) {
+      log("❌ Error initializing Firebase Messaging: $e");
+    }
   }
 
   /// عرض الإشعار في foreground
@@ -80,27 +114,46 @@ class MessagingConfig {
     try {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
-      log("📢 Ready to show notification with: ${message.notification?.title}");
+      log("📢 Showing notification: ${message.notification?.title}");
 
-      if (notification != null && android != null) {
+      if (notification != null) {
+        log("🔔 Preparing to show notification with sound...");
         await _flutterLocalNotificationsPlugin.show(
           notification.hashCode,
           notification.title,
           notification.body,
-          const NotificationDetails(
+          NotificationDetails(
             android: AndroidNotificationDetails(
-              'high_importance_channel',
-              'High Importance Notifications',
-              channelDescription:
-                  'This channel is used for important notifications.',
+              'custom_channel',
+              'Custom Notifications',
+              channelDescription: '...',
+              importance: Importance.max,
+              priority: Priority.high,
+              playSound: true,
+              // 'high_importance_channel',
+              // 'High Importance Notifications',
+              // channelDescription:
+              //     'This channel is used for important notifications.',
               icon: '@mipmap/ic_launcher',
-              sound: RawResourceAndroidNotificationSound('custom_sound'),
+              sound: const RawResourceAndroidNotificationSound('custom_sound'),
+              // importance: Importance.max,
+              // priority: Priority.high,
+              enableVibration: true,
+
+              enableLights: true,
+              color: const Color(0xFFFF0000),
+              styleInformation: BigTextStyleInformation(
+                notification.body ?? '',
+                htmlFormatBigText: true,
+                contentTitle: notification.title,
+                htmlFormatContentTitle: true,
+              ),
             ),
-            iOS: DarwinNotificationDetails(
+            iOS: const DarwinNotificationDetails(
               presentAlert: true,
               presentBadge: true,
               presentSound: true,
-              sound: 'custom_sound.caf',
+              sound:'custom_sound.mp3', // تأكد من وجود الملف في مجلد ios/Runner/Resources
             ),
           ),
           payload: message.data.toString(),
@@ -114,60 +167,15 @@ class MessagingConfig {
   /// لمعالجة الرسائل في الخلفية
   @pragma('vm:entry-point')
   static Future<void> messageHandler(RemoteMessage message) async {
-    log('📥 Background message: ${message.messageId}');
-    // لاحظ إن هنا مفيش context مباشر، لو عايز تخزن حاجة اعملها هنا
+    log('�� Background message received: ${message.messageId}');
+    // Store the message data for later use when the app is opened
+    // You might want to use shared preferences or a local database
+    try {
+      // Here you can store the message data to be processed when the app is opened
+      // For example, using SharedPreferences or a local database
+      log('Message data: ${message.data}');
+    } catch (e) {
+      log('❌ Error handling background message: $e');
+    }
   }
 }
-
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-
-// class NotificationService {
-//   NotificationService._privateConstructor();
-//   static final NotificationService instance =
-//       NotificationService._privateConstructor();
-
-//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-//       FlutterLocalNotificationsPlugin();
-
-//   Future<void> initialize() async {
-//     const AndroidInitializationSettings initializationSettingsAndroid =
-//         AndroidInitializationSettings('@mipmap/ic_launcher');
-
-//     const InitializationSettings initializationSettings =
-//         InitializationSettings(android: initializationSettingsAndroid);
-
-//     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-//       showNotification(message);
-//     });
-
-//     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-//       // التعامل مع فتح التطبيق من خلال الإشعار
-//     });
-//   }
-
-//   Future<void> showNotification(RemoteMessage message) async {
-//     const AndroidNotificationDetails
-//     androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//       'high_importance_channel', // يجب أن يتطابق مع القيمة في AndroidManifest.xml
-//       'High Importance Notifications',
-//       channelDescription: 'This channel is used for important notifications.',
-//       importance: Importance.max,
-//       priority: Priority.high,
-//       ticker: 'ticker',
-//     );
-
-//     const NotificationDetails platformChannelSpecifics = NotificationDetails(
-//       android: androidPlatformChannelSpecifics,
-//     );
-
-//     await _flutterLocalNotificationsPlugin.show(
-//       message.notification.hashCode,
-//       message.notification?.title,
-//       message.notification?.body,
-//       platformChannelSpecifics,
-//     );
-//   }
-// }

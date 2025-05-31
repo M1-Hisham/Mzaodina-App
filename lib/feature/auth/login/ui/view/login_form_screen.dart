@@ -232,6 +232,7 @@ class LoginFormScreen extends StatelessWidget {
     );
   }
 }
+
 Future<void> _handleFcmToken(BuildContext context) async {
   final fcmToken = await NotificationHelper.initializeAndGetFcmToken();
 
@@ -257,5 +258,18 @@ Future<void> _handleFcmToken(BuildContext context) async {
 //   if (fcmToken != null) {
 //     context.read<SaveTokenCubit>().sendFcmToken(fcmToken);
 //   }
+//   Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
+// }
+// Future<void> _handleFcmToken(BuildContext context) async {
+//   final fcmToken = await NotificationHelper.initializeAndGetFcmToken();
+
+//   if (!context.mounted) return;
+
+//   if (fcmToken != null) {
+//     final cubit = context.read<SaveTokenCubit>();
+//     await cubit.sendFcmToken(fcmToken); // ✅ استنى حفظ التوكن
+//   }
+
+//   if (!context.mounted) return;
 //   Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
 // }
