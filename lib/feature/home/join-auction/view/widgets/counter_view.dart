@@ -1,7 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
+import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_cubit_inc_dec.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 
@@ -9,11 +16,13 @@ class CounterView extends StatelessWidget {
   final int requiredBidders;
   final double openingAmount;
   final double registrationAmount;
+  final int auctionId;
   const CounterView({
     super.key,
     required this.requiredBidders,
     required this.openingAmount,
     required this.registrationAmount,
+    required this.auctionId,
   });
 
   @override
@@ -89,6 +98,44 @@ class CounterView extends StatelessWidget {
                 title: 'مجموع القيمة',
                 price:
                     context.read<CounterCubitIncDec>().totalAmount.toString(),
+              ),
+              const SizedBox(height: 25),
+              WarningCheckbox(),
+              TermsAndConditionsCheckbox(),
+              const SizedBox(height: 20),
+
+              /// الزرار:
+              CustomElevatedButton(
+                text: 'تاكيد دفع الرسوم التنظيمية',
+                onPressed: () {
+                  log('message');
+                  bool termsAccepted =
+                      context.read<CheckboxCubit>().state.isChecked;
+                  bool warningAccepted =
+                      context.read<CheckboxCubit>().state.isChecked;
+
+                  log(
+                    'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
+                  );
+
+                  if (!termsAccepted || !warningAccepted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('يرجى الموافقة على الشروط والأحكام'),
+                      ),
+                    );
+                    return;
+                  }
+
+                  // هنا بنشغل الكيوبت
+                  context.read<SubscribeAuctionCubit>().subscribeToAuction(
+                    SubscribeAutionBody(
+                      registrationCount: count,
+                      auctionId: auctionId.toInt(),
+                      termsConditions: true,
+                    ),
+                  );
+                },
               ),
             ],
           );
