@@ -10,17 +10,25 @@ import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class HomeDetailsSayantaliqScreen extends StatelessWidget {
+  final DateTime eventTimeFromApi;
   final SayantaliqAuction sayantaliqDetails;
+  final int d, h, m, s;
   const HomeDetailsSayantaliqScreen({
     super.key,
 
     required this.sayantaliqDetails,
+    required this.eventTimeFromApi,
+    required this.d,
+    required this.h,
+    required this.m,
+    required this.s,
   });
 
   @override
@@ -59,13 +67,47 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                             horizontal: 40.w,
                             vertical: 12,
                           ),
-                          child: CustomBlocBuilderCountdown(
-                            eventTime: eventTimeFromApi,
-                            progressColor: R.colors.orangeColor,
-                            backgroundColor: R.colors.orangeColor2,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: s,
+                                  label: 'ثانية',
+                                  maxValue: 60,
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: m,
+                                  label: 'دقيقة',
+                                  maxValue: 60,
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: h,
+                                  maxValue: 24,
+                                  label: 'ساعة',
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                              Expanded(
+                                child: CountdownUnitWidget(
+                                  value: d,
+                                  label: 'يوم',
+                                  maxValue: 365,
+                                  progressColor: R.colors.orangeColor,
+                                  backgroundColor: R.colors.orangeColor2,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-
                         const SizedBox(height: 8),
                         CustomCardImageDetails(
                           images:
@@ -87,7 +129,12 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                           color: R.colors.blackColor2,
                           child: CoustomRowItem(
                             title: 'سعر المنتج بالأسواق',
-                            price: '1000.00 ',
+                            price:
+                                (double.tryParse(
+                                      sayantaliqDetails.product.price
+                                          .toString(),
+                                    )?.toStringAsFixed(2) ??
+                                    sayantaliqDetails.product.price.toString()),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -97,7 +144,8 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: ' بداية المزاد',
-                            price: '600.00 ',
+                            price: (sayantaliqDetails.openingAmount
+                                .toStringAsFixed(2)),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -107,7 +155,10 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                           color: R.colors.blackColor2,
                           child: CoustomRowItem(
                             title: 'رسوم تنظيم',
-                            price: '30.00 ',
+                            price:
+                                (sayantaliqDetails.registrationAmount
+                                    ?.toStringAsFixed(2)) ??
+                                '0.00',
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -127,12 +178,28 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                               ),
                               Spacer(),
                               BlocProvider(
-                                create: (_) => CounterCubit(eventTimeFromApi),
+                                create:
+                                    (_) => CounterCubit(
+                                      eventTime: eventTimeFromApi,
+                                      getNow: () {
+                                        final cubit =
+                                            context.read<WebSocketCubit>();
+                                        try {
+                                          return cubit.latestServerTime != null
+                                              ? DateTime.parse(
+                                                cubit.latestServerTime!,
+                                              )
+                                              : DateTime.now();
+                                        } catch (_) {
+                                          return DateTime.now();
+                                        }
+                                      },
+                                    ),
                                 child: BlocBuilder<CounterCubit, CounterState>(
                                   builder: (context, state) {
                                     if (state is CountdownRunning) {
                                       return Text(
-                                        '0${state.hours}:${state.minutes}:${state.seconds}',
+                                        '${state.hours}:${state.minutes}:${state.seconds}',
                                         style:
                                             R.textStyles.font16primaryW600Light,
                                       );

@@ -14,6 +14,7 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class CustomTapView extends StatefulWidget {
   const CustomTapView({super.key});
@@ -151,22 +152,32 @@ class _CustomTapViewState extends State<CustomTapView>
                       );
                     } else if (state is SayantaliqSuccess) {
                       final sayantaliqAuctionResponse = state.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context
+                                    .read<SayantaliqCubit>()
+                                    .getReadyAuctions(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
 
-                        itemCount:
-                            sayantaliqAuctionResponse.data.auctions.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: CustomSayantaliqCardViewItem(
-                              sayantaliqDataModel:
-                                  sayantaliqAuctionResponse
-                                      .data
-                                      .auctions[index],
-                            ),
-                          );
-                        },
+                          itemCount:
+                              sayantaliqAuctionResponse.data.auctions.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: BlocProvider(
+                                create: (context) => WebSocketCubit(),
+                                child: CustomSayantaliqCardViewItem(
+                                  sayantaliqDataModel:
+                                      sayantaliqAuctionResponse
+                                          .data
+                                          .auctions[index],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return const Center(child: Text('لا يوجد بيانات'));
@@ -190,19 +201,27 @@ class _CustomTapViewState extends State<CustomTapView>
                       );
                     } else if (state is JaraaSuccess) {
                       final jaraaAuctionResponse = state.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context.read<JaraaCubit>().getOngoingAuctions(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
 
-                        itemCount: jaraaAuctionResponse.data.auctions.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: CustomJaraaCardViewItem(
-                              jaraaDataModel:
-                                  jaraaAuctionResponse.data.auctions[index],
-                            ),
-                          );
-                        },
+                          itemCount: jaraaAuctionResponse.data.auctions.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: BlocProvider(
+                                create: (context) => WebSocketCubit(),
+                                child: CustomJaraaCardViewItem(
+                                  jaraaDataModel:
+                                      jaraaAuctionResponse.data.auctions[index],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return const Center(child: Text('لا يوجد بيانات'));
@@ -227,19 +246,27 @@ class _CustomTapViewState extends State<CustomTapView>
                       );
                     } else if (state is MuntahiSuccess) {
                       final muntaliAuctionResponse = state.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
+                      return RefreshIndicator(
+                        onRefresh:
+                            () =>
+                                context
+                                    .read<MuntahiCubit>()
+                                    .getFinishedAuctions(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
 
-                        itemCount: muntaliAuctionResponse.data.auctions.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: CustomMuntahiCardViewItem(
-                              muntahiDataModel:
-                                  muntaliAuctionResponse.data.auctions[index],
-                            ),
-                          );
-                        },
+                          itemCount:
+                              muntaliAuctionResponse.data.auctions.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: CustomMuntahiCardViewItem(
+                                muntahiDataModel:
+                                    muntaliAuctionResponse.data.auctions[index],
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return const Center(child: Text('لا يوجد بيانات'));

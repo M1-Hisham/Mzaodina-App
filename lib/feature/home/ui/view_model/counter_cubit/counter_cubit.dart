@@ -1,32 +1,32 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/core/helper/countdown_helper.dart';
-
 part 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
   final DateTime eventTime;
+  final DateTime Function() getNow; // ⬅️ دالة ترجع الوقت الحالي من WebSocket
   Timer? _timer;
-  CounterCubit(this.eventTime) : super(CounterInitial()) {
+
+  CounterCubit({required this.eventTime, required this.getNow})
+    : super(CounterInitial()) {
     _start();
   }
 
   void _start() {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      final diff = CountdownHelper.calculateDifference(eventTime);
+      final now = getNow();
+      final diff = eventTime.difference(now);
 
-      if (diff == Duration.zero) {
+      if (diff.isNegative || diff == Duration.zero) {
         emit(CountdownFinished());
         _timer?.cancel();
       } else {
-        final breakdown = CountdownHelper.breakdown(diff);
         emit(
           CountdownRunning(
-            days: breakdown['days']!,
-            hours: breakdown['hours']!,
-            minutes: breakdown['minutes']!,
-            seconds: breakdown['seconds']!,
+            days: diff.inDays,
+            hours: diff.inHours % 24,
+            minutes: diff.inMinutes % 60,
+            seconds: diff.inSeconds % 60,
           ),
         );
       }
