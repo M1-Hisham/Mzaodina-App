@@ -12,7 +12,6 @@ import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
@@ -23,7 +22,6 @@ import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/mun
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/sayantaliq_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
@@ -53,6 +51,7 @@ import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shippin
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -96,9 +95,9 @@ class AppRouter {
                 child: HomeDetailsMuntahiScreen(muntahiDetails: args),
               ),
         );
-      case AppRoutes.homeDetailsJaraaScreenRoute:
-        final args = settings.arguments as JaraaAuction;
 
+      case AppRoutes.homeDetailsJaraaScreenRoute:
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
@@ -107,33 +106,58 @@ class AppRouter {
                     create:
                         (context) =>
                             getIt<JaraaShowAuctionCubit>()
-                              ..getJaraaShowAuctionCubit(args.slug),
+                              ..getJaraaShowAuctionCubit(
+                                args['jaraaDataModel'].slug,
+                              ),
                   ),
                   BlocProvider(
                     create:
                         (context) =>
                             getIt<AuctionsBiddingHistoryCubit>()
-                              ..getAuctionsBiddingHistory(args.slug),
+                              ..getAuctionsBiddingHistory(
+                                args['jaraaDataModel'].slug,
+                              ),
                   ),
                   BlocProvider(
                     create: (context) => getIt<AuctionBiddingCubit>(),
                   ),
+                  BlocProvider(create: (context) => WebSocketCubit()),
                 ],
-                child: HomeDetailsJaraaScreen(jaraaDetails: args),
+                child: HomeDetailsJaraaScreen(
+                  eventTimeFromApi: args['eventTime']!,
+                  jaraaDetails: args['jaraaDataModel'],
+                ),
               ),
         );
+
+      /// Home Details Sayantaliq Screen
       case AppRoutes.homeDetailsSayantaliqScreenRoute:
-        final args = settings.arguments as SayantaliqAuction;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create:
-                    (context) =>
-                        getIt<SayantaliqShowAustionCubit>()
-                          ..getSayantaliqShowAuctionCubit(args.slug),
-                child: HomeDetailsSayantaliqScreen(sayantaliqDetails: args),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<SayantaliqShowAustionCubit>()
+                              ..getSayantaliqShowAuctionCubit(
+                                args['sayantaliqDataModel'].slug,
+                              ),
+                  ),
+                  BlocProvider(create: (context) => WebSocketCubit()),
+                ],
+                child: HomeDetailsSayantaliqScreen(
+                  eventTimeFromApi: args['eventTime']!,
+                  sayantaliqDetails: args['sayantaliqDataModel'],
+                  s: args['s'] ?? 0,
+                  m: args['m'] ?? 0,
+                  h: args['h'] ?? 0,
+                  d: args['d'] ?? 0,
+                ),
               ),
         );
+
       case AppRoutes.navBarRoute:
         return MaterialPageRoute(
           builder:

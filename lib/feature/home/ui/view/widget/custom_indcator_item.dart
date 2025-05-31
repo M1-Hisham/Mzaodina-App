@@ -42,7 +42,7 @@ class CustomIndcatorItem extends StatelessWidget {
                   child: LinearProgressIndicator(
                     minHeight: 8.h,
                     borderRadius: BorderRadius.circular(99),
-                    value: 0.5,
+                    value: value / 100,
                     backgroundColor: R.colors.colorUnSelected,
                     color: R.colors.primaryColorLight,
                   ),
