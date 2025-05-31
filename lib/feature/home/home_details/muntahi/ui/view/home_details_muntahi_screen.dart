@@ -5,6 +5,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
+import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bid_model.dart';
@@ -36,21 +37,21 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
               if (state is MuntahiShowAuctionLoading) {
                 return const MazadDetailsShimmer();
               } else if (state is MuntahiShowAuctionError) {
-                return Center(
-                  child: Text(
-                    state.message,
-                    style: R.textStyles.font14Grey3W500Light,
-                  ),
+                return CustomErorrWidget(
+                  message: state.message,
+                  onRefresh:
+                      () => context
+                          .read<MuntahiShowAuctionCubit>()
+                          .getMuntahiShowAuction(muntahiDetails.slug),
                 );
               } else if (state is MuntahiShowAuctionSuccess) {
+                final data = state.model.data;
                 return Expanded(
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomCardImageDetails(
-                          images: muntahiDetails.product.images,
-                        ),
+                        CustomCardImageDetails(images: data.product.images),
                         const SizedBox(height: 8),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -63,7 +64,7 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
                           color: R.colors.blackColor2,
                           child: CoustomRowItem(
                             title: 'سعر المنتج بالأسواق',
-                            price: muntahiDetails.product.price.toString(),
+                            price: data.product.price.toString(),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -107,7 +108,7 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
                               ),
                               Spacer(),
                               Text(
-                                muntahiDetails.winner.user.username,
+                                data.winner.user.username,
                                 style: R.textStyles.font12primaryW600Light,
                               ),
                             ],
@@ -128,7 +129,7 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
                               ),
                               Spacer(),
                               Text(
-                                'لايوجد',
+                                data.winner.user.country,
                                 style: R.textStyles.font12primaryW600Light,
                               ),
                             ],

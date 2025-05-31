@@ -21,6 +21,10 @@ class CustomErorrWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(message, style: R.textStyles.font18primaryW500Light),
+              Text(
+                'اسحب لاسفل لعمل ريفريش',
+                style: R.textStyles.font18primaryW500Light,
+              ),
             ],
           ),
         ),

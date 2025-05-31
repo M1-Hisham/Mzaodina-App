@@ -87,7 +87,11 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  'انتظار دفع الفاتورة',
+                                  widget
+                                      .muntahiDataModel
+                                      .winner
+                                      .user
+                                      .username, // 'انتظار دفع الفاتورة',
                                   style: R.textStyles.font12primaryW600Light,
                                 ),
                               ],
@@ -105,7 +109,7 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  'لايوجد',
+                                  widget.muntahiDataModel.winner.user.username,
                                   style: R.textStyles.font16primaryW600Light,
                                 ),
                               ],
