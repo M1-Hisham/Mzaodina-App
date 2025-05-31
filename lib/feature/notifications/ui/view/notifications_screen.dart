@@ -92,6 +92,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/notifications_shimmer.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
@@ -145,11 +146,13 @@ class NotificationsScreen extends StatelessWidget {
                         if (state is GetAllNotificationLoading) {
                           return Center(child: NotificationsShimmer());
                         } else if (state is GetAllNotificationFailure) {
-                          return Center(
-                            child: Text(
-                              state.error,
-                              style: R.textStyles.font14BlackW500Light,
-                            ),
+                          return CustomErorrWidget(
+                            message: 'لا توجد اشعارات جديدة',
+                            onRefresh:
+                                () =>
+                                    context
+                                        .read<GetNotificationCubit>()
+                                        .fetchNotifications(),
                           );
                         } else if (state is GetAllNotificationSuccess) {
                           final notifications =

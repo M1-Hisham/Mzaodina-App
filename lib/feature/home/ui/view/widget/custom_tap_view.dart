@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_card_view_item.dart';
@@ -95,15 +96,13 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is QadimLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is QadimError) {
-                      return RefreshIndicator(
+                      return CustomErorrWidget(
+                        message: state.errorMessage,
                         onRefresh:
                             () =>
                                 context
                                     .read<QadimCubit>()
                                     .getNotStartAuctions(),
-                        child: ListView(
-                          children: [Center(child: Text(state.errorMessage))],
-                        ),
                       );
                     } else if (state is QadimSuccess) {
                       final qadimAuctionResponse = state.data;
@@ -142,15 +141,13 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is SayantaliqLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is SayantaliqError) {
-                      return RefreshIndicator(
+                      return CustomErorrWidget(
+                        message: state.errorMessage,
                         onRefresh:
                             () =>
                                 context
                                     .read<SayantaliqCubit>()
                                     .getReadyAuctions(),
-                        child: ListView(
-                          children: [Center(child: Text(state.errorMessage))],
-                        ),
                       );
                     } else if (state is SayantaliqSuccess) {
                       final sayantaliqAuctionResponse = state.data;
@@ -185,13 +182,11 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is JaraaLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is JaraaError) {
-                      return RefreshIndicator(
+                      return CustomErorrWidget(
+                        message: state.errorMessage,
                         onRefresh:
                             () =>
                                 context.read<JaraaCubit>().getOngoingAuctions(),
-                        child: ListView(
-                          children: [Center(child: Text(state.errorMessage))],
-                        ),
                       );
                     } else if (state is JaraaSuccess) {
                       final jaraaAuctionResponse = state.data;
@@ -222,15 +217,13 @@ class _CustomTapViewState extends State<CustomTapView>
                     if (state is MuntahiLoading) {
                       return const Center(child: MazadShimmer());
                     } else if (state is MuntahiError) {
-                      return RefreshIndicator(
+                      return CustomErorrWidget(
+                        message: state.errorMessage,
                         onRefresh:
                             () =>
                                 context
                                     .read<MuntahiCubit>()
                                     .getFinishedAuctions(),
-                        child: ListView(
-                          children: [Center(child: Text(state.errorMessage))],
-                        ),
                       );
                     } else if (state is MuntahiSuccess) {
                       final muntaliAuctionResponse = state.data;

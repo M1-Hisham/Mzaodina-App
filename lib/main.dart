@@ -10,17 +10,23 @@ import 'package:mzaodina_app/firebase_options.dart';
 import 'package:mzaodina_app/mzaodina_app.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupGetIt();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // تهيئة الـ Messaging
-  await NotificationHelper.initializeAndGetFcmToken();
-  MessagingConfig.initFirebaseMessaging();
-
-  // معالجة الخلفية
   FirebaseMessaging.onBackgroundMessage(MessagingConfig.messageHandler);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  await MessagingConfig.initFirebaseMessaging();
+
+  await NotificationHelper.initializeAndGetFcmToken();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -80,6 +80,7 @@ class MessagingConfig {
     try {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      log("📢 Ready to show notification with: ${message.notification?.title}");
 
       if (notification != null && android != null) {
         await _flutterLocalNotificationsPlugin.show(
@@ -117,3 +118,56 @@ class MessagingConfig {
     // لاحظ إن هنا مفيش context مباشر، لو عايز تخزن حاجة اعملها هنا
   }
 }
+
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+
+// class NotificationService {
+//   NotificationService._privateConstructor();
+//   static final NotificationService instance =
+//       NotificationService._privateConstructor();
+
+//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+//       FlutterLocalNotificationsPlugin();
+
+//   Future<void> initialize() async {
+//     const AndroidInitializationSettings initializationSettingsAndroid =
+//         AndroidInitializationSettings('@mipmap/ic_launcher');
+
+//     const InitializationSettings initializationSettings =
+//         InitializationSettings(android: initializationSettingsAndroid);
+
+//     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//       showNotification(message);
+//     });
+
+//     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+//       // التعامل مع فتح التطبيق من خلال الإشعار
+//     });
+//   }
+
+//   Future<void> showNotification(RemoteMessage message) async {
+//     const AndroidNotificationDetails
+//     androidPlatformChannelSpecifics = AndroidNotificationDetails(
+//       'high_importance_channel', // يجب أن يتطابق مع القيمة في AndroidManifest.xml
+//       'High Importance Notifications',
+//       channelDescription: 'This channel is used for important notifications.',
+//       importance: Importance.max,
+//       priority: Priority.high,
+//       ticker: 'ticker',
+//     );
+
+//     const NotificationDetails platformChannelSpecifics = NotificationDetails(
+//       android: androidPlatformChannelSpecifics,
+//     );
+
+//     await _flutterLocalNotificationsPlugin.show(
+//       message.notification.hashCode,
+//       message.notification?.title,
+//       message.notification?.body,
+//       platformChannelSpecifics,
+//     );
+//   }
+// }

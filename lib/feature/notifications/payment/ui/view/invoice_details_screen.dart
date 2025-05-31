@@ -25,16 +25,19 @@ class InvoiceDetailsScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: R.colors.whiteLight,
 
-            body: Center(
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomAppBarAccount(title: 'تفاصيل الفاتورة'),
                   Expanded(
-                    child: Text(
-                      'لا يوجد فاتورة الان ',
-                      style: R.textStyles.font14primaryW500Light,
+                    child: Center(
+                      child: Text(
+                        'لا يوجد فاتورة الان ',
+                        style: R.textStyles.font14primaryW500Light,
+                      ),
                     ),
                   ),
                 ],
@@ -58,11 +61,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
             );
           }
 
-          // final expiresAt = DateTime.parse(invoice.data.expiresAt);
-          // final now = DateTime.now();
-          // final difference = expiresAt.difference(now);
-          // final minutes = difference.inMinutes;
-
+    
           return Scaffold(
             backgroundColor: R.colors.whiteLight,
             body: Padding(
