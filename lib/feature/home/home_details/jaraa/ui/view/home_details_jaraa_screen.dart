@@ -9,7 +9,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/core/widgets/mazad_details_shimmer.dart';
+import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bid_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/bids_dialog.dart';
@@ -20,7 +20,6 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_blo
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_price_card.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeDetailsJaraaScreen extends StatelessWidget {
   final JaraaAuction jaraaDetails;
@@ -314,55 +313,3 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
     );
   }
 }
-
-// CustomElevatedButton(
-//               text: 'Push',
-//               onPressed: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder:
-//                         (_) => WebViewScreen(
-//                           url:
-//                               'https://checkout.tap.company/?mode=page&themeMode=&language=en&token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY4MzZjODJlOGE3Y2NkMWQwZGI1ZDI2NSJ9.zq8CMqpiT-rApUczsjB-eQv0z_iTEHgTz_b_GIb249E',
-//                         ),
-//                   ),
-//                 );
-//               },
-//             ),
-// class WebViewScreen extends StatelessWidget {
-//   final String url;
-
-//   const WebViewScreen({super.key, required this.url});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller =
-//         WebViewController()
-//           ..setJavaScriptMode(JavaScriptMode.unrestricted)
-//           // ✅ أضفنا NavigationDelegate هنا
-//           ..setNavigationDelegate(
-//             NavigationDelegate(
-//               onPageStarted: (url) {
-//                 log("⏳ بدأ تحميل الصفحة: $url");
-//               },
-//               onPageFinished: (url) {
-//                 log("✅ تم تحميل الصفحة: $url");
-//               },
-//               onWebResourceError: (error) {
-//                 log("❌ حصل خطأ في الويب: ${error.description}");
-//               },
-//               onNavigationRequest: (NavigationRequest request) {
-//                 log("🔁 محاولة التنقل إلى: ${request.url}");
-//                 return NavigationDecision.navigate;
-//               },
-//             ),
-//           )
-//           ..loadRequest(Uri.parse(url));
-
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('صفحة الدفع')),
-//       body: WebViewWidget(controller: controller),
-//     );
-//   }
-// }

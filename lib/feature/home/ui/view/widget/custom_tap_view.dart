@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/core/widgets/mazad_shimmer.dart';
+import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_card_view_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_cubit/jaraa_cubit.dart';

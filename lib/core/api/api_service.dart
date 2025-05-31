@@ -19,6 +19,8 @@ import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/model/say
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/mark_notification.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/save_token_responce_model.dart';
+import 'package:mzaodina_app/feature/notifications/payment/data/model/last_invoice_model.dart';
+import 'package:mzaodina_app/feature/notifications/payment/data/model/payment_invoice_model.dart';
 import 'package:mzaodina_app/feature/profile/account-details/data/model/update_profile_body.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
@@ -74,9 +76,7 @@ abstract class ApiService {
 
   /// service for ProfileUpdate
   @PUT(ApiConstants.profileUpdate)
-  Future<UserModel> profileUpdate(
-    @Body() UpdateProfileBody updateProfileBody,
-  );
+  Future<UserModel> profileUpdate(@Body() UpdateProfileBody updateProfileBody);
 
   /// service for ChangePassword
   @POST(ApiConstants.changePassword)
@@ -159,4 +159,10 @@ abstract class ApiService {
   Future<AuctionsBiddingHistoryModel> auctionsBiddingHistory(
     @Path("slug") String slug,
   );
+
+  // =================== Last Invoice ===================
+  @GET(ApiConstants.lastIinvoice)
+  Future<LastInvoiceModel> lastInvoiceChecker();
+  @POST(ApiConstants.paymentIinvoice)
+  Future<PaymentInvoiceModel> paymentInvoice(@Body() Map<String, dynamic> body);
 }

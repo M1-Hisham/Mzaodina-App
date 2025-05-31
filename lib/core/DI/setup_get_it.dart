@@ -38,6 +38,10 @@ import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/
 import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/mark_notifacation_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.dart';
+import 'package:mzaodina_app/feature/notifications/payment/data/repo/last_invoice_repo.dart';
+import 'package:mzaodina_app/feature/notifications/payment/data/repo/payment_invoice_repo.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/payment_invoice_cubit/payment_invoice_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
@@ -248,5 +252,22 @@ Future<void> setupGetIt() async {
   // ✅ GetNotificationCubit Cubit
   getIt.registerFactory<MarkNotificationCubit>(
     () => MarkNotificationCubit(getIt<MarkNotifacationRepo>()),
+  );
+  // ============= LastInvoiceRepo ==============
+  // ✅ Register LastInvoiceRepo
+  getIt.registerLazySingleton<LastInvoiceRepo>(
+    () => LastInvoiceRepo(getIt<ApiService>()),
+  );
+  // ✅ LastInvoiceCubit Cubit
+  getIt.registerFactory<LastInvoiceCubit>(
+    () => LastInvoiceCubit(getIt<LastInvoiceRepo>()),
+  );
+  // ✅ Register PaymentInvoiceRepo
+  getIt.registerLazySingleton<PaymentInvoiceRepo>(
+    () => PaymentInvoiceRepo(getIt<ApiService>()),
+  );
+  // ✅ LastInvoiceCubit Cubit
+  getIt.registerFactory<PaymentInvoiceCubit>(
+    () => PaymentInvoiceCubit(getIt<PaymentInvoiceRepo>()),
   );
 }
