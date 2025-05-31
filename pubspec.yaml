@@ -57,6 +57,24 @@ dependencies:
   url_launcher: ^6.3.1
   uni_country_city_picker: ^1.0.2
   share_plus: ^11.0.0
+  retrofit: ^4.4.2
+  logger: ^2.5.0
+  json_annotation: ^4.9.0
+  dio: ^5.8.0+1
+  pretty_dio_logger: ^1.4.0
+  shared_preferences: ^2.5.3
+  flutter_secure_storage: ^9.2.4
+  dartz: ^0.10.1
+  get_it: ^8.0.3
+  flutter_widget_from_html: ^0.16.0
+  cached_network_image: ^3.4.1
+  sign_in_with_apple: ^7.0.1
+  google_sign_in: ^6.3.0
+  shimmer_animation: ^2.2.2
+  firebase_messaging: ^15.2.6
+  flutter_local_notifications: ^19.2.1
+  webview_flutter: ^4.13.0
+  web_socket_channel: ^3.0.3
 
 
 dev_dependencies:
@@ -69,6 +87,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  retrofit_generator: ^9.2.0
+  build_runner: ^2.4.15
+  json_serializable: ^6.9.5
 flutter_native_splash:
   color: "#1D4ED8"
   android: true

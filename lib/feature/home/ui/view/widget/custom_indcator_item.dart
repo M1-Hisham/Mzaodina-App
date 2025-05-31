@@ -8,11 +8,13 @@ class CustomIndcatorItem extends StatelessWidget {
   final String title;
   final bool showIndicator;
   final TextStyle? style;
+  final int value;
   const CustomIndcatorItem({
     super.key,
     required this.title,
     required this.showIndicator,
     this.style,
+    required this.value,
   });
 
   @override
@@ -49,7 +51,7 @@ class CustomIndcatorItem extends StatelessWidget {
             ),
           if (!showIndicator) Spacer(),
           Text(
-            '${(0.5 * 100).toStringAsFixed(0)} %',
+            '$value %',
             style: R.textStyles.font12primaryW600Light.copyWith(fontSize: 16),
           ),
         ],

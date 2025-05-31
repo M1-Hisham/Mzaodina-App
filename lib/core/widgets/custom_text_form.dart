@@ -87,10 +87,7 @@ class CustomTextForm extends StatelessWidget {
         fillColor: fillColor ?? R.colors.formColorLight,
         alignLabelWithHint: true,
         prefixIcon: prefixIcon,
-        // border: const OutlineInputBorder(
-        //   borderSide: BorderSide(color: Color.fromARGB(255, 139, 139, 139)),
-        //   borderRadius: BorderRadius.all(Radius.circular(10)),
-        // ),
+
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(14.r)),
           borderSide: BorderSide(color: R.colors.borderColorsLight),
@@ -109,12 +106,6 @@ class CustomTextForm extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           borderSide: BorderSide(color: Colors.red),
         ),
-        // disabledBorder: OutlineInputBorder(
-        //   borderRadius: const BorderRadius.all(Radius.circular(10)),
-        //   borderSide: BorderSide(
-        //     color: disabledBorder ?? const Color.fromARGB(255, 139, 139, 139),
-        //   ),
-        // ),
       ),
       controller: controller,
       keyboardType: keyboardType ?? TextInputType.text,
@@ -123,7 +114,10 @@ class CustomTextForm extends StatelessWidget {
       cursorColor: cursorColor ?? R.colors.primaryColorLight,
       cursorErrorColor: cursorErrorColor ?? Colors.red,
       validator: (value) {
-        return validator?.call(value);
+        if (value == null || value.isEmpty) {
+          return '$hintText مطلوب';
+        }
+        return null;
       },
     );
   }

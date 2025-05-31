@@ -5,11 +5,13 @@ import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cu
 
 class CustomBlocBuilderCountdown extends StatelessWidget {
   final DateTime eventTime;
+  final DateTime Function() getNow;
   final Color progressColor;
   final Color backgroundColor;
   const CustomBlocBuilderCountdown({
     super.key,
     required this.eventTime,
+    required this.getNow,
     required this.progressColor,
     required this.backgroundColor,
   });
@@ -17,92 +19,57 @@ class CustomBlocBuilderCountdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CounterCubit(eventTime),
+      create: (_) => CounterCubit(eventTime: eventTime, getNow: getNow),
       child: BlocBuilder<CounterCubit, CounterState>(
         builder: (context, state) {
+          int s = 0, m = 0, h = 0, d = 0;
           if (state is CountdownRunning) {
-            return Row(
-              children: [
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: state.seconds,
-                    label: 'ثانية',
-                    maxValue: 60,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: state.minutes,
-                    label: 'دقيقة',
-                    maxValue: 60,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: state.hours,
-                    maxValue: 24,
-                    backgroundColor: backgroundColor,
-                    label: 'ساعة',
-                    progressColor: progressColor,
-                  ),
-                ),
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: state.days,
-                    label: 'يوم',
-                    maxValue: 365,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Row(
-              children: [
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: 0,
-                    label: 'ثانية',
-                    maxValue: 60,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: 0,
-                    label: 'دقيقة',
-                    maxValue: 60,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: 0,
-                    label: 'ساعة',
-                    maxValue: 24,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-                Expanded(
-                  child: CountdownUnitWidget(
-                    value: 0,
-                    label: 'يوم',
-                    maxValue: 365,
-                    progressColor: progressColor,
-                    backgroundColor: backgroundColor,
-                  ),
-                ),
-              ],
-            );
+            d = state.days;
+            h = state.hours;
+            m = state.minutes;
+            s = state.seconds;
           }
+
+          return Row(
+            children: [
+              Expanded(
+                child: CountdownUnitWidget(
+                  value: s,
+                  label: 'ثانية',
+                  maxValue: 60,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+              ),
+              Expanded(
+                child: CountdownUnitWidget(
+                  value: m,
+                  label: 'دقيقة',
+                  maxValue: 60,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+              ),
+              Expanded(
+                child: CountdownUnitWidget(
+                  value: h,
+                  maxValue: 24,
+                  backgroundColor: backgroundColor,
+                  label: 'ساعة',
+                  progressColor: progressColor,
+                ),
+              ),
+              Expanded(
+                child: CountdownUnitWidget(
+                  value: d,
+                  label: 'يوم',
+                  maxValue: 365,
+                  progressColor: progressColor,
+                  backgroundColor: backgroundColor,
+                ),
+              ),
+            ],
+          );
         },
       ),
     );

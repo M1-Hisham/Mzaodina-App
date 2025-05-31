@@ -4,33 +4,38 @@ import 'package:flutter/material.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 
 class CountdownTimerInvoice extends StatefulWidget {
-  final Duration initialDuration;
+  final DateTime expiresAt;
 
-  const CountdownTimerInvoice({super.key, required this.initialDuration});
+  const CountdownTimerInvoice({super.key, required this.expiresAt});
 
   @override
   State<CountdownTimerInvoice> createState() => _CountdownTimerInvoiceState();
 }
 
 class _CountdownTimerInvoiceState extends State<CountdownTimerInvoice> {
+  late Timer _timer;
   late Duration _remainingTime;
-  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    _remainingTime = widget.initialDuration;
+    _calculateRemainingTime();
     _startTimer();
+  }
+
+  void _calculateRemainingTime() {
+    final now = DateTime.now();
+    final diff = widget.expiresAt.difference(now);
+    _remainingTime = diff.isNegative ? Duration.zero : diff;
   }
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if (_remainingTime.inSeconds > 0) {
-          _remainingTime = _remainingTime - const Duration(seconds: 1);
-        } else {
-          _timer?.cancel();
-          // يمكنك إضافة أي عمل تريد تنفيذه عند انتهاء المؤقت هنا
+        _calculateRemainingTime();
+
+        if (_remainingTime.inSeconds <= 0) {
+          _timer.cancel();
         }
       });
     });
@@ -45,7 +50,7 @@ class _CountdownTimerInvoiceState extends State<CountdownTimerInvoice> {
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     super.dispose();
   }
 

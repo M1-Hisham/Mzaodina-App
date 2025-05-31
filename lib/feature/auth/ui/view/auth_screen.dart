@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/feature/auth/forgot-password/ui/forgot_password_screen.dart';
-import 'package:mzaodina_app/feature/auth/login/view/login_form_screen.dart';
-import 'package:mzaodina_app/feature/auth/register/view/register_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/forgot-password/ui/view/forgot_password_screen.dart';
+import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/ui/view-model/cubit/auth_cubit_cubit.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -82,9 +82,15 @@ class AuthScreen extends StatelessWidget {
                                           ),
                                       spacingV(20),
                                       if (state == AuthState.login)
-                                        LoginFormScreen(),
+                                        KeyedSubtree(
+                                          key: const ValueKey("login_form"),
+                                          child: LoginFormScreen(),
+                                        ),
                                       if (state == AuthState.register)
-                                        RegisterFormScreen(),
+                                        KeyedSubtree(
+                                          key: const ValueKey("register_form"),
+                                          child: RegisterFormScreen(),
+                                        ),
                                       if (state == AuthState.forgotPassword)
                                         Align(
                                           alignment: Alignment.topCenter,

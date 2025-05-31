@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
-import 'package:mzaodina_app/feature/auth/register/view/widgets/enter_the_phone_number.dart';
-import 'package:mzaodina_app/feature/auth/register/view/widgets/select_country.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/enter_the_phone_number.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/select_country.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
 class AccountDetailsScreen extends StatelessWidget {

@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/view_model/image_switcher_cubit/image_switcher_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/image_switcher_cubit/image_switcher_cubit.dart';
 
 class CustomCardImageDetails extends StatelessWidget {
   final List<String> images;
@@ -46,11 +47,14 @@ class _MainImageView extends StatelessWidget {
       builder: (context, imagePath) {
         return Padding(
           padding: const EdgeInsets.only(right: 16, left: 16),
-          child: Image.asset(
-            imagePath,
+          child: CachedNetworkImage(
+            imageUrl: imagePath,
             width: double.infinity,
             height: 210.h,
             fit: BoxFit.contain,
+            placeholder:
+                (context, url) => Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         );
       },
@@ -117,7 +121,14 @@ class _ThumbnailItem extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(11),
         ),
-        child: Image.asset(imagePath, fit: BoxFit.contain),
+        child: CachedNetworkImage(
+          imageUrl: imagePath,
+          width: double.infinity,
+          fit: BoxFit.contain,
+          placeholder:
+              (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
       ),
     );
   }
