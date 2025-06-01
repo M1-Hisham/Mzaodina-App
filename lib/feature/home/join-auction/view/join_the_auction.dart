@@ -1,15 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/core/widgets/check-box/view-model/check_box_cubit.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
-import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/subscribe_aution_body.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/join-auction/view/web_view_screen.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/web_view_join_to_auction_screen.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
@@ -41,7 +36,9 @@ class JoinTheAuction extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder:
-                  (_) => WebViewScreen(url: state.subscribeToAutionModel.url),
+                  (_) => WebViewJoinToAuctionScreen(
+                    url: state.subscribeToAutionModel.url,
+                  ),
             ),
           );
         }
@@ -62,46 +59,6 @@ class JoinTheAuction extends StatelessWidget {
                   requiredBidders: requiredBidders,
                   openingAmount: openingAmount,
                   registrationAmount: registrationAmount,
-                ),
-
-                const SizedBox(height: 25),
-                WarningCheckbox(),
-                TermsAndConditionsCheckbox(),
-                const SizedBox(height: 20),
-
-                /// الزرار:
-                CustomElevatedButton(
-                  text: 'تاكيد دفع الرسوم التنظيمية',
-                  onPressed: () {
-                    log('message');
-                    bool termsAccepted =
-                        context.read<CheckboxCubit>().state.isChecked;
-                    bool warningAccepted =
-                        context.read<CheckboxCubit>().state.isChecked;
-
-                    log(
-                      'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
-                    );
-
-                    if (!termsAccepted || !warningAccepted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('يرجى الموافقة على الشروط والأحكام'),
-                        ),
-                      );
-                      return;
-                    }
-
-                    // هنا بنشغل الكيوبت
-                    context.read<SubscribeAuctionCubit>().subscribeToAuction(
-                      SubscribeAutionBody(
-                        registrationCount: registrationAmount.toInt(),
-
-                        auctionId: auctionId.toInt(),
-                        termsConditions: true,
-                      ),
-                    );
-                  },
                 ),
               ],
             ),

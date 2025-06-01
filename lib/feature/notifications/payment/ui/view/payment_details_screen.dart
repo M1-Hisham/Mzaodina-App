@@ -1,14 +1,12 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/join-auction/view/web_view_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/data/model/last_invoice_model.dart';
-import 'package:mzaodina_app/feature/notifications/payment/ui/view/widgets/confirm_payment.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view/web_view_payment_details.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/payment_invoice_cubit/payment_invoice_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
@@ -21,6 +19,7 @@ class PaymentDetailsScreen extends StatelessWidget {
     return BlocListener<PaymentInvoiceCubit, PaymentInvoiceState>(
       listener: (context, state) {
         if (state is PaymentInvoiceError) {
+          log('Error: ${state.message}');
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text('${state.message}==')));
@@ -29,7 +28,8 @@ class PaymentDetailsScreen extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder:
-                  (_) => WebViewScreen(url: state.paymentInvoiceModel.data.url),
+                  (_) =>
+                      WebViewPaymentDetails(url: state.paymentInvoiceModel.url),
             ),
           );
         }
@@ -82,22 +82,4 @@ class PaymentDetailsScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void showConfirmPaymentSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
-    builder: (context) {
-      return Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: const ConfirmPayment(),
-      );
-    },
-  );
 }

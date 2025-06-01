@@ -237,7 +237,11 @@ class AppRouter {
         );
       case AppRoutes.completeShippingInformationScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => CompleteShippingInformationScreen(),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => CountryCubit(),
+                child: CompleteShippingInformationScreen(),
+              ),
         );
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
