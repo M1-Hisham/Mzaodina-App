@@ -97,7 +97,6 @@ class JoinTheAuction extends StatelessWidget {
                       SubscribeAutionBody(
                         registrationCount: registrationAmount.toInt(),
 
-                        //TODO: عاوز احط هنا عدد العداد registrationCount
                         auctionId: auctionId.toInt(),
                         termsConditions: true,
                       ),
