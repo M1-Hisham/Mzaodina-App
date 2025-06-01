@@ -58,10 +58,12 @@ class JoinTheAuction extends StatelessWidget {
                   price: '$registrationAmount',
                 ),
                 CounterView(
+                  auctionId: auctionId,
                   requiredBidders: requiredBidders,
                   openingAmount: openingAmount,
                   registrationAmount: registrationAmount,
                 ),
+
                 const SizedBox(height: 25),
                 WarningCheckbox(),
                 TermsAndConditionsCheckbox(),

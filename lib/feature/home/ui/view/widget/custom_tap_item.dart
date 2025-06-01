@@ -7,11 +7,13 @@ class CustomTapItem extends StatelessWidget {
   final TapViewModel item;
   final bool isSelected;
   final Color selectedColor;
+  final String counter;
   const CustomTapItem({
     super.key,
     required this.item,
     required this.isSelected,
     required this.selectedColor,
+    required this.counter,
   });
 
   @override
@@ -51,7 +53,7 @@ class CustomTapItem extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  item.counter,
+                  counter,
                   style: R.textStyles.font10whiteW500Light,
                   overflow: TextOverflow.ellipsis,
                 ),

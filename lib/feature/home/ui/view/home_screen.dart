@@ -8,6 +8,7 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_app_bar_home.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_view.dart';
+import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -43,6 +44,11 @@ class HomeScreen extends StatelessWidget {
                 BlocProvider(
                   create:
                       (context) => getIt<MuntahiCubit>()..getFinishedAuctions(),
+                ),
+                BlocProvider(
+                  create:
+                      (context) =>
+                          getIt<ActionsCountCubit>()..fetchActionsCount(),
                 ),
               ],
               child: CustomTapView(),
