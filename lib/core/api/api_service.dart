@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_constants.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
+import 'package:mzaodina_app/feature/home/data/model/actions_count_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/bidding_response_model.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_checkout_url_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_body.dart';
@@ -102,6 +103,10 @@ abstract class ApiService {
   Future<MarkNotificationModel> markAsReadNotifications(@Path("id") String id);
 
   // =================== Home ===================
+
+  /// service for auctions count
+  @GET(ApiConstants.auctionsCount)
+  Future<ActionsCountModel> getAuctionsCount();
 
   /// service for auctions Qadim
   @GET(ApiConstants.auctions)

@@ -11,6 +11,7 @@ import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_
 import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/data/repo/register_repo.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
+import 'package:mzaodina_app/feature/home/data/repo/actions_count_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/auction_bidding_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/auctions_bidding_history_repo.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/jaraa_show_auction_repo.dart';
@@ -35,6 +36,7 @@ import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/saya
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
+import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/mark_notifacation_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/notification_repo.dart';
@@ -129,6 +131,18 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<ForgotPasswordCubit>(
     () => ForgotPasswordCubit(getIt<ForgotPasswordRepo>()),
   );
+
+  //  ============Home=================
+
+  // ✅ Register ActionsCountRepo
+  getIt.registerFactory<ActionsCountRepo>(
+    () => ActionsCountRepo(getIt<ApiService>()),
+  );
+  // ✅ ActionsCount Cubit
+  getIt.registerFactory<ActionsCountCubit>(
+    () => ActionsCountCubit(getIt<ActionsCountRepo>()),
+  );
+
   // ✅ Register QadimRepo
   getIt.registerLazySingleton<QadimAuctionRepo>(
     () => QadimAuctionRepo(getIt<ApiService>()),
