@@ -4,7 +4,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/join-auction/view/web_view_screen.dart';
+import 'package:mzaodina_app/feature/home/join-auction/view/web_view_join_to_auction_screen.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
@@ -36,7 +36,9 @@ class JoinTheAuction extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder:
-                  (_) => WebViewScreen(url: state.subscribeToAutionModel.url),
+                  (_) => WebViewJoinToAuctionScreen(
+                    url: state.subscribeToAutionModel.url,
+                  ),
             ),
           );
         }
@@ -65,100 +67,6 @@ class JoinTheAuction extends StatelessWidget {
       ),
     );
   }
-
-  // void _showAuctionSuccessDialog(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder:
-  //         (context) => Dialog(
-  //           backgroundColor: Colors.transparent,
-  //           elevation: 0,
-  //           child: Center(
-  //             child: Container(
-  //               width: double.infinity,
-  //               padding: EdgeInsets.all(20.r),
-  //               decoration: BoxDecoration(
-  //                 color: R.colors.whiteLight,
-  //                 borderRadius: BorderRadius.circular(22),
-  //               ),
-  //               child: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: [
-  //                   Text(
-  //                     'لاتغلق النافذه',
-  //                     style: R.textStyles.font18blackW500Light,
-  //                     textAlign: TextAlign.center,
-  //                   ),
-  //                   SizedBox(height: 20.h),
-  //                   Image.asset(
-  //                     'assets/icons/loadingJsonIcon.gif',
-  //                     width: 48.w,
-  //                     height: 48.h,
-  //                     fit: BoxFit.contain,
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //   );
-  //   bool isCancelled = false;
-  //   await Future.delayed(const Duration(seconds: 2)).catchError((_) {
-  //     isCancelled = true;
-  //   });
-  //   if (!isCancelled && context.mounted) {
-  //     Navigator.of(context).pop();
-  //     showDialog(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder:
-  //           (_) => AlertDialog(
-  //             backgroundColor: R.colors.whiteLight,
-  //             contentPadding: EdgeInsets.all(20.r),
-  //             shape: RoundedRectangleBorder(
-  //               borderRadius: BorderRadius.circular(22),
-  //             ),
-  //             title: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               children: [
-  //                 FittedBox(
-  //                   fit: BoxFit.scaleDown,
-  //                   child: Text.rich(
-  //                     TextSpan(
-  //                       children: [
-  //                         TextSpan(
-  //                           text: 'تم الاشتراك ',
-  //                           style: R.textStyles.font22blackW500Light,
-  //                         ),
-  //                         TextSpan(
-  //                           text: 'في المزاد ',
-  //                           style: R.textStyles.font22blackW500Light.copyWith(
-  //                             color: R.colors.primaryColorLight,
-  //                           ),
-  //                         ),
-  //                         TextSpan(
-  //                           text: 'بنجاح',
-  //                           style: R.textStyles.font22blackW500Light,
-  //                         ),
-  //                       ],
-  //                     ),
-  //                     textAlign: TextAlign.center,
-  //                   ),
-  //                 ),
-  //                 SizedBox(height: 20.h),
-  //                 CustomElevatedButton(
-  //                   text: 'اغلاق',
-  //                   onPressed: () {
-  //                     Navigator.pop(context);
-  //                   },
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //     );
-  //   }
-  // }
 }
 
 class WarningCheckbox extends StatelessWidget {

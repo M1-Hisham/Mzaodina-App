@@ -4,30 +4,12 @@ part 'payment_invoice_model.g.dart';
 
 @JsonSerializable()
 class PaymentInvoiceModel {
-  final bool status;
-  final String message;
-  final PaymentInvoiceData data;
+  final String url;
 
-  PaymentInvoiceModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
+  PaymentInvoiceModel({required this.url});
 
   factory PaymentInvoiceModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentInvoiceModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PaymentInvoiceModelToJson(this);
-}
-
-@JsonSerializable()
-class PaymentInvoiceData {
-  final String url;
-
-  PaymentInvoiceData({required this.url});
-
-  factory PaymentInvoiceData.fromJson(Map<String, dynamic> json) =>
-      _$PaymentInvoiceDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PaymentInvoiceDataToJson(this);
 }
