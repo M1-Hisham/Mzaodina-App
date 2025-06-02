@@ -6,6 +6,7 @@ class CustomTextForm extends StatelessWidget {
   final String hintText;
   final TextAlign? textAlign;
   final String? initialValue;
+  final bool? isValidator;
   final bool? isObscureText;
   final bool? isclickable;
   final EdgeInsetsGeometry? contentPadding;
@@ -56,6 +57,7 @@ class CustomTextForm extends StatelessWidget {
     this.initialValue,
     this.onTap,
     this.textAlign,
+    this.isValidator,
   });
   @override
   Widget build(BuildContext context) {
@@ -113,12 +115,15 @@ class CustomTextForm extends StatelessWidget {
       obscureText: isObscureText ?? false,
       cursorColor: cursorColor ?? R.colors.primaryColorLight,
       cursorErrorColor: cursorErrorColor ?? Colors.red,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return '$hintText مطلوب';
-        }
-        return null;
-      },
+      validator:
+          isValidator ?? true
+              ? (value) {
+                if (value == null || value.isEmpty) {
+                  return '$hintText مطلوب';
+                }
+                return null;
+              }
+              : null,
     );
   }
 }
