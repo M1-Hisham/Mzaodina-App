@@ -246,7 +246,8 @@ class _CustomQadimCardViewItemState
                           SharePlus.instance.share(
                             ShareParams(
                               title: 'Mzaodin',
-                              text: 'check out my website https://example.com',
+                              text:
+                                  'mzaodin.sa/auction/${widget.sayantaliqDataModel.slug}',
                             ),
                           );
                         },

@@ -29,7 +29,10 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: CustomAppBar(title: muntahiDetails.product.nameAr),
+              child: CustomAppBar(
+                title: muntahiDetails.product.nameAr,
+                slug: muntahiDetails.slug,
+              ),
             ),
           ),
           BlocBuilder<MuntahiShowAuctionCubit, MuntahiShowAuctionState>(

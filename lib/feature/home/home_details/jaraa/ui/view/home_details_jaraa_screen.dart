@@ -48,7 +48,10 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                   vertical: 12,
                   horizontal: 16,
                 ),
-                child: CustomAppBar(title: jaraaDetails.product.nameAr),
+                child: CustomAppBar(
+                  title: jaraaDetails.product.nameAr,
+                  slug: jaraaDetails.slug,
+                ),
               ),
             ),
 

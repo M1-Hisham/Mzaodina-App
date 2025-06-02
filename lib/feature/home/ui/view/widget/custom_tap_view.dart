@@ -14,6 +14,7 @@ import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/cust
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
@@ -134,14 +135,18 @@ class _CustomTapViewState extends State<CustomTapView>
                         if (state is QadimLoading) {
                           return const Center(child: MazadShimmer());
                         } else if (state is QadimError) {
-                          return CustomErorrWidget(
-                            message: state.errorMessage,
-                            onRefresh:
-                                () =>
-                                    context
-                                        .read<QadimCubit>()
-                                        .getNotStartAuctions(),
-                          );
+                          if (qadimCount == 0) {
+                            return CustomNotItem();
+                          } else {
+                            return CustomErorrWidget(
+                              message: state.errorMessage,
+                              onRefresh:
+                                  () =>
+                                      context
+                                          .read<QadimCubit>()
+                                          .getNotStartAuctions(),
+                            );
+                          }
                         } else if (state is QadimSuccess) {
                           final qadimAuctionResponse = state.data;
                           return ListView.builder(
@@ -173,14 +178,18 @@ class _CustomTapViewState extends State<CustomTapView>
                         if (state is SayantaliqLoading) {
                           return const Center(child: MazadShimmer());
                         } else if (state is SayantaliqError) {
-                          return CustomErorrWidget(
-                            message: state.errorMessage,
-                            onRefresh:
-                                () =>
-                                    context
-                                        .read<SayantaliqCubit>()
-                                        .getReadyAuctions(),
-                          );
+                          if (sayantaliqCount == 0) {
+                            return CustomNotItem();
+                          } else {
+                            return CustomErorrWidget(
+                              message: state.errorMessage,
+                              onRefresh:
+                                  () =>
+                                      context
+                                          .read<SayantaliqCubit>()
+                                          .getReadyAuctions(),
+                            );
+                          }
                         } else if (state is SayantaliqSuccess) {
                           final sayantaliqAuctionResponse = state.data;
                           return ListView.builder(
@@ -216,14 +225,18 @@ class _CustomTapViewState extends State<CustomTapView>
                         if (state is JaraaLoading) {
                           return const Center(child: MazadShimmer());
                         } else if (state is JaraaError) {
-                          return CustomErorrWidget(
-                            message: state.errorMessage,
-                            onRefresh:
-                                () =>
-                                    context
-                                        .read<JaraaCubit>()
-                                        .getOngoingAuctions(),
-                          );
+                          if (jaraaCount == 0) {
+                            return CustomNotItem();
+                          } else {
+                            return CustomErorrWidget(
+                              message: state.errorMessage,
+                              onRefresh:
+                                  () =>
+                                      context
+                                          .read<JaraaCubit>()
+                                          .getOngoingAuctions(),
+                            );
+                          }
                         } else if (state is JaraaSuccess) {
                           final jaraaAuctionResponse = state.data;
                           return ListView.builder(
@@ -259,14 +272,18 @@ class _CustomTapViewState extends State<CustomTapView>
                         if (state is MuntahiLoading) {
                           return const Center(child: MazadShimmer());
                         } else if (state is MuntahiError) {
-                          return CustomErorrWidget(
-                            message: state.errorMessage,
-                            onRefresh:
-                                () =>
-                                    context
-                                        .read<MuntahiCubit>()
-                                        .getFinishedAuctions(),
-                          );
+                          if (muntahiCount == 0) {
+                            return CustomNotItem();
+                          } else {
+                            return CustomErorrWidget(
+                              message: state.errorMessage,
+                              onRefresh:
+                                  () =>
+                                      context
+                                          .read<MuntahiCubit>()
+                                          .getFinishedAuctions(),
+                            );
+                          }
                         } else if (state is MuntahiSuccess) {
                           final muntaliAuctionResponse = state.data;
                           return ListView.builder(
