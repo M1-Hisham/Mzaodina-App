@@ -41,7 +41,10 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: CustomAppBar(title: sayantaliqDetails.product.nameAr),
+              child: CustomAppBar(
+                title: sayantaliqDetails.product.nameAr,
+                slug: sayantaliqDetails.slug,
+              ),
             ),
           ),
 

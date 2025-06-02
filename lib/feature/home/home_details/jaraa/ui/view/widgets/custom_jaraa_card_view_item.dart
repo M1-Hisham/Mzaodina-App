@@ -160,7 +160,7 @@ class _CustomQadimCardViewItemState extends State<CustomJaraaCardViewItem> {
                           SharePlus.instance.share(
                             ShareParams(
                               title: 'Mzaodin',
-                              text: 'check out my website https://example.com',
+                              text: 'mzaodin.sa/auction/${widget.jaraaDataModel.slug}',
                             ),
                           );
                         },

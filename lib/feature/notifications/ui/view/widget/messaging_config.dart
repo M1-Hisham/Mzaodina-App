@@ -12,24 +12,14 @@ class MessagingConfig {
   /// إنشاء قناة تنبيهات لـ Android
   static Future<void> _createNotificationChannel() async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'custom_channel', // اسم القناة
+      'custom_channel',
       'Custom Notifications',
       description: 'This channel plays a custom sound.',
       importance: Importance.max,
-      sound: RawResourceAndroidNotificationSound('custom_sound'), // بدون امتداد
+      sound: RawResourceAndroidNotificationSound('notifigation'), // بدون امتداد
       playSound: true,
       enableVibration: true,
     );
-
-    // const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    //   'high_importance_channel',
-    //   'High Importance Notifications',
-    //   description: 'This channel is used for important notifications.',
-    //   importance: Importance.max,
-    //   sound: null, //RawResourceAndroidNotificationSound('custom_sound'),
-    //   enableVibration: true,
-    //   enableLights: true,
-    // );
 
     await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -48,9 +38,9 @@ class MessagingConfig {
 
       const DarwinInitializationSettings initializationSettingsIOS =
           DarwinInitializationSettings(
-            requestAlertPermission: false,
-            requestBadgePermission: false,
-            requestSoundPermission: false,
+            requestAlertPermission: true,
+            requestBadgePermission: true,
+            requestSoundPermission: true,
           );
 
       const InitializationSettings initializationSettings =
@@ -130,14 +120,10 @@ class MessagingConfig {
               importance: Importance.max,
               priority: Priority.high,
               playSound: true,
-              // 'high_importance_channel',
-              // 'High Importance Notifications',
-              // channelDescription:
-              //     'This channel is used for important notifications.',
+
               icon: '@mipmap/ic_launcher',
-              sound: const RawResourceAndroidNotificationSound('custom_sound'),
-              // importance: Importance.max,
-              // priority: Priority.high,
+              sound: const RawResourceAndroidNotificationSound('notifigation'),
+        
               enableVibration: true,
 
               enableLights: true,
@@ -153,7 +139,8 @@ class MessagingConfig {
               presentAlert: true,
               presentBadge: true,
               presentSound: true,
-              sound:'custom_sound.mp3', // تأكد من وجود الملف في مجلد ios/Runner/Resources
+              sound:
+                  'notifigation.mp3', // تأكد من وجود الملف في مجلد ios/Runner/Resources
             ),
           ),
           payload: message.data.toString(),

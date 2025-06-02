@@ -151,7 +151,8 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                           SharePlus.instance.share(
                             ShareParams(
                               title: 'Mzaodin',
-                              text: 'check out my website https://example.com',
+                              text:
+                                  'mzaodin.sa/auction/${widget.muntahiDataModel.slug}',
                             ),
                           );
                         },

@@ -28,7 +28,10 @@ class HomeDetailsQadimScreen extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: CustomAppBar(title: qadimDetails.product.nameAr),
+              child: CustomAppBar(
+                title: qadimDetails.product.nameAr,
+                slug: qadimDetails.slug,
+              ),
             ),
           ),
 

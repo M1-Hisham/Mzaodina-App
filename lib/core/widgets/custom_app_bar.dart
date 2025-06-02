@@ -7,8 +7,9 @@ import 'package:share_plus/share_plus.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
+  final String slug;
 
-  const CustomAppBar({super.key, required this.title});
+  const CustomAppBar({super.key, required this.title, required this.slug});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,7 @@ class CustomAppBar extends StatelessWidget {
             text: 'مشاركة',
             onPressed: () {
               SharePlus.instance.share(
-                ShareParams(
-                  title: 'Mzaodin',
-                  text: 'check out my website https://example.com',
-                ),
+                ShareParams(title: 'Mzaodin', text: 'mzaodin.sa/auction/$slug'),
               );
             },
             textStyle: R.textStyles.font12primaryW600Light,
