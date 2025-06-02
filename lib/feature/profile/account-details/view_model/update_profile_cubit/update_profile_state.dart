@@ -2,18 +2,16 @@ part of 'update_profile_cubit.dart';
 
 sealed class UpdateProfileState {}
 
-final class UserDataInitial extends UpdateProfileState {}
+final class UpdateProfileInitial extends UpdateProfileState {}
 
-final class UserDataLoading extends UpdateProfileState {}
+final class UpdateProfileLoading extends UpdateProfileState {}
 
-final class UserDataSuccess extends UpdateProfileState {
+final class UpdateProfileSuccess extends UpdateProfileState {
   final UserModel userModel;
-  UserDataSuccess(this.userModel);
+  UpdateProfileSuccess(this.userModel);
 }
 
-final class UserDataError extends UpdateProfileState {
+final class UpdateProfileError extends UpdateProfileState {
   final String errMessage;
-  UserDataError(this.errMessage);
+  UpdateProfileError(this.errMessage);
 }
-
-class UserDataNotLoggedIn extends UpdateProfileState {}
