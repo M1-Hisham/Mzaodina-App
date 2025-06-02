@@ -8,9 +8,12 @@ import 'web_socket_state.dart';
 class WebSocketCubit extends Cubit<WebSocketState> {
   late final WebSocketChannel _channel;
   Timer? _keepAliveTimer;
+  // int? auctionId;
   String? latestServerTime;
 
-  WebSocketCubit() : super(WebSocketInitial()) {
+  WebSocketCubit(
+    // {this.auctionId = 24}
+  ) : super(WebSocketInitial()) {
     _connect();
   }
 
@@ -54,19 +57,37 @@ class WebSocketCubit extends Cubit<WebSocketState> {
           log('📦 Parsed data: $decodedData');
 
           if (eventType == 'pusher:connection_established') {
-            final subscribePayload = {
-              "event": "pusher:subscribe",
-              "data": {"channel": "server-time"},
-            };
-            _channel.sink.add(jsonEncode(subscribePayload));
-            log('✅ Subscribed to server-time channel');
+            // الاشتراك في جميع قنوات المزاد + الوقت
+            final channelsToSubscribe = [
+              'server-time',
+              // 'auction.26',
+              // 'auction.ready.24',
+              // 'auction.ongoing.$auctionId',
+              // 'auction.finished.$auctionId',
+            ];
+
+            for (final channel in channelsToSubscribe) {
+              final subscribePayload = {
+                "event": "pusher:subscribe",
+                "data": {"channel": channel},
+              };
+              _channel.sink.add(jsonEncode(subscribePayload));
+              log('✅ Subscribed to channel: $channel');
+            }
           }
 
+          // تحديث الوقت من السيرفر
           if (eventType == 'App\\Events\\ServerTimeUpdated' &&
               decodedData != null) {
             final serverTime = decodedData['server_time'];
             latestServerTime = serverTime;
             emit(WebSocketServerTimeUpdated(serverTime));
+          }
+
+          // أي حدث يخص المزاد
+          if (eventType.toString().contains("App\\Events\\Auction") &&
+              decodedData != null) {
+            emit(WebSocketAuctionUpdate(decodedData));
           }
         } catch (e) {
           log('⚠️ Error decoding message: $e');

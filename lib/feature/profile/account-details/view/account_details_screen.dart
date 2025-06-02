@@ -5,10 +5,12 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/enter_the_phone_number.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/select_country.dart';
+import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 
 class AccountDetailsScreen extends StatelessWidget {
-  const AccountDetailsScreen({super.key});
+  final UserData userData;
+  const AccountDetailsScreen({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class AccountDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         CustomTextForm(
                           hintText: 'اسم المستخدم',
+                          initialValue: userData.username,
                           fillColor: R.colors.whiteLight,
                           hintStyle: R.textStyles.font12Grey3W500Light,
                         ),
@@ -45,8 +48,8 @@ class AccountDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         CustomTextForm(
                           hintText: 'الاسم الحقيقي',
+                          initialValue: userData.name,
                           fillColor: Colors.white,
-
                           hintStyle: R.textStyles.font12Grey3W500Light,
                         ),
                         const SizedBox(height: 14),
@@ -57,8 +60,8 @@ class AccountDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         CustomTextForm(
                           hintText: 'البريد الالكترونى',
+                          initialValue: userData.email,
                           fillColor: Colors.white,
-
                           hintStyle: R.textStyles.font12Grey3W500Light,
                         ),
                         const SizedBox(height: 14),
@@ -75,6 +78,9 @@ class AccountDetailsScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         EnterThePhoneNumber(
+                          phoneNumberController: TextEditingController(
+                            text: userData.phone,
+                          ),
                           fillColor: R.colors.whiteLight,
                           hintStyle: R.textStyles.font12Grey3W500Light,
                         ),
@@ -86,8 +92,8 @@ class AccountDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         CustomTextForm(
                           hintText: 'المدينة',
+                          initialValue: userData.address?.city,
                           fillColor: Colors.white,
-
                           hintStyle: R.textStyles.font12Grey3W500Light,
                         ),
                         const SizedBox(height: 14),
@@ -95,6 +101,7 @@ class AccountDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         CustomTextForm(
                           hintText: 'الحي',
+                          initialValue: userData.address?.neighborhood,
                           fillColor: Colors.white,
 
                           hintStyle: R.textStyles.font12Grey3W500Light,
@@ -107,6 +114,7 @@ class AccountDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         CustomTextForm(
                           hintText: 'الشارع',
+                          initialValue: userData.address?.street,
                           fillColor: Colors.white,
 
                           hintStyle: R.textStyles.font12Grey3W500Light,
@@ -127,7 +135,9 @@ class AccountDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(color: R.colors.whiteLight),
                       child: CustomElevatedButton(
                         text: 'الاستمرار',
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                   ),
