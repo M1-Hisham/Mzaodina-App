@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
 
 class CustomUserDataDetailsSection extends StatelessWidget {
-  const CustomUserDataDetailsSection({super.key});
+  final UserData userData;
+  const CustomUserDataDetailsSection({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class CustomUserDataDetailsSection extends StatelessWidget {
                 () => Navigator.pushNamed(
                   context,
                   AppRoutes.accountDetailsScreenRoute,
+                  arguments: userData,
                 ),
             child: CustomAccountListTile(
               title: 'معلومات الحساب',

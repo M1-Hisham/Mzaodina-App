@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_app_bar_profile.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_app_information_section.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_botton_not_login.dart';
@@ -41,12 +42,13 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 );
               } else if (state is UserDataSuccess) {
+                final UserData userData = state.userModel.data!;
                 return Column(
                   children: [
                     _buildHeader(
                       state.userModel.data?.username ?? 'فهد القحطاني',
                     ),
-                    CustomUserDataDetailsSection(),
+                    CustomUserDataDetailsSection(userData: userData),
                     SizedBox(height: 30.h),
                     CustomAppInformationSection(),
                     SizedBox(height: 24.h),

@@ -45,11 +45,13 @@ import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart'
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
+import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
@@ -169,6 +171,7 @@ class AppRouter {
       case AppRoutes.aboutUsScreenRoute:
         return MaterialPageRoute(builder: (_) => AboutUsScreen());
       case AppRoutes.accountDetailsScreenRoute:
+        final args = settings.arguments as UserData;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
@@ -180,8 +183,10 @@ class AppRouter {
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),
+
+                  BlocProvider(create: (context) => getIt<UserDataCubit>()),
                 ],
-                child: AccountDetailsScreen(),
+                child: AccountDetailsScreen(userData: args),
               ),
         );
       case AppRoutes.changePasswordScreenRoute:
