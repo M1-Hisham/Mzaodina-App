@@ -77,7 +77,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
                             style: R.textStyles.font18blackW500Light,
                           ),
                           Text(
-                            invoice.data.user.name,
+                            invoice.data.user.username,
                             style: R.textStyles.font18primaryW500Light,
                           ),
                           Image.asset(
