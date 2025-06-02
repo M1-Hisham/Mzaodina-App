@@ -61,7 +61,6 @@ class InvoiceDetailsScreen extends StatelessWidget {
             );
           }
 
-    
           return Scaffold(
             backgroundColor: R.colors.whiteLight,
             body: Padding(
