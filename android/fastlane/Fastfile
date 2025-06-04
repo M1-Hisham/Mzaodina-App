@@ -7,8 +7,8 @@ platform :android do
   sh "flutter clean"
   sh "flutter build apk --release --target lib/main.dart --no-tree-shake-icons "
     firebase_app_distribution(
-    app: "1:412322100407:android:3971963e1d6185cf798932",
-    firebase_cli_token: "1//03riTK20UhD9zCgYIARAAGAMSNwF-L9IrO-vzyl4piZUhtUL2e-qFF7hMGy3fJ4qmlKpefkVGHP3W2z4DlBei4umhGNOemFur-Ws",
+    app: "1:412322100407:android:5eb44772341ba2b2798932",
+    firebase_cli_token: "1//09yGRmiflI_BnCgYIARAAGAkSNwF-L9IrDf_1JIfTevLzE8mb16V9IUIM946S0BpeXWo9Zb-QXhNeH_mg5vqM8lcuILYNMlxYO0k",
     upload_timeout: 600,
     android_artifact_type: "APK",
     android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
