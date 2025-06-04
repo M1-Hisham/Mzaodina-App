@@ -14,6 +14,7 @@ class JoinTheAuction extends StatelessWidget {
   final double registrationAmount;
   final int requiredBidders;
   final int auctionId;
+  final String slug;
 
   const JoinTheAuction({
     super.key,
@@ -21,6 +22,7 @@ class JoinTheAuction extends StatelessWidget {
     required this.registrationAmount,
     required this.requiredBidders,
     required this.auctionId,
+    required this.slug,
   });
 
   @override

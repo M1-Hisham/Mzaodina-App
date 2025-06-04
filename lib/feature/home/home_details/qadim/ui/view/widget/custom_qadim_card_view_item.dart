@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
@@ -7,6 +8,7 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:share_plus/share_plus.dart';
@@ -175,7 +177,8 @@ class _CustomQadimCardViewItemState extends State<CustomQadimCardViewItem> {
                           SharePlus.instance.share(
                             ShareParams(
                               title: 'Mzaodin',
-                              text:  'mzaodin.sa/auction/${widget.qadimDataModel.slug}',
+                              text:
+                                  'mzaodin.sa/auction/${widget.qadimDataModel.slug}',
                             ),
                           );
                         },

@@ -21,7 +21,9 @@ class QadimShowActionCubit extends Cubit<QadimShowActionState> {
         emit(QadimShowActionError(failure.errMessage));
       },
       (showActionModel) {
-        emit(QadimShowActionSuccess(showActionModel));
+        if (!isClosed) {
+          emit(QadimShowActionSuccess(showActionModel));
+        }
       },
     );
   }

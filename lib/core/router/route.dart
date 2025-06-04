@@ -262,6 +262,9 @@ class AppRouter {
                     create: (context) => getIt<SubscribeAuctionCubit>(),
                   ),
                   BlocProvider(
+                    create: (context) => getIt<QadimShowActionCubit>(),
+                  ),
+                  BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
                   ),
                 ],
@@ -270,6 +273,7 @@ class AppRouter {
                   openingAmount: args['openingAmount'],
                   registrationAmount: args['registrationAmount'],
                   auctionId: args['auctionId'],
+                  slug: args['slug'],
                 ),
               ),
         );

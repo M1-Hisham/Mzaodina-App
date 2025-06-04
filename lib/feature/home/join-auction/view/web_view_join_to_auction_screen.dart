@@ -169,7 +169,10 @@ class WebViewJoinToAuctionScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     CustomElevatedButton(
                       text: 'إغلاق',
-                      onPressed: () => Navigator.pop(context2),
+                      onPressed: () {
+                        Navigator.pop(context2);
+                        Navigator.pop(context2, true);
+                      },
                     ),
                   ],
                 ),
