@@ -18,14 +18,27 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 
 Future<void> loginWithGoogle(context) async {
   try {
+    log('🔑 Attempting to sign in with Google...');
+    // Force sign out first to allow selecting a different account
+    await _googleSignIn.signOut();
+    if (_googleSignIn.currentUser != null) {
+      log('🔑 User is already signed in: ${_googleSignIn.currentUser!.email}');
+      return;
+    }
+
     final googleUser = await _googleSignIn.signIn();
 
     if (googleUser == null) {
       log('تم إلغاء تسجيل الدخول من قبل المستخدم');
       return;
     }
-
+    log('تم تسجيل الدخول بنجاح: ${googleUser.email}');
     final googleAuth = await googleUser.authentication;
+    if (googleAuth.idToken == null) {
+      log('Failed to get ID token from Google authentication');
+      return;
+    }
+    log('🔑 Google ID Token: ${googleAuth.idToken}');
 
     final idToken = googleAuth.idToken;
     // final accessToken = googleAuth.accessToken;
@@ -36,6 +49,7 @@ Future<void> loginWithGoogle(context) async {
     // log('Access Token: $accessToken');
 
     final googleCubit = GoogleCubit(GoogleRepo(getIt<ApiService>()));
+    log('🔑 GoogleCubit created');
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -51,7 +65,9 @@ Future<void> loginWithGoogle(context) async {
         );
       },
     );
+    log('🔑 Calling login method on GoogleCubit');
     await googleCubit.login({"token": idToken});
+    log('🔑 Login method called successfully');
     Navigator.of(context).pop(); // Close the loading dialog
     Navigator.pushNamedAndRemoveUntil(
       context,
