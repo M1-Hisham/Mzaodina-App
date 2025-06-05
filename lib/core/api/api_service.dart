@@ -108,9 +108,9 @@ abstract class ApiService {
   @GET(ApiConstants.auctionsCount)
   Future<ActionsCountModel> getAuctionsCount();
 
-  /// service for auctions Qadim
+  /// service for auctions Notstart
   @GET(ApiConstants.auctions)
-  Future<QadimAuctionResponse> getNotStartAuctions({
+  Future<NotstartAuctionResponse> getNotStartAuctions({
     @Query("filter") String filter = "notstart",
   });
 
@@ -133,7 +133,9 @@ abstract class ApiService {
   });
 
   @GET(ApiConstants.showAuctions)
-  Future<QadimShowAuctionModel> getQadimShowAuction(@Path("slug") String slug);
+  Future<NotstartShowAuctionModel> getNotstartShowAuction(
+    @Path("slug") String slug,
+  );
 
   @GET(ApiConstants.showAuctions)
   Future<FinishedShowAuctionModel> getFinishedShowAuction(

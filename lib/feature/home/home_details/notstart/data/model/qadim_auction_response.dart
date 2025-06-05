@@ -3,25 +3,25 @@ import 'package:json_annotation/json_annotation.dart';
 part 'qadim_auction_response.g.dart';
 
 @JsonSerializable()
-class QadimAuctionResponse {
+class NotstartAuctionResponse {
   final bool status;
   final String message;
   final Data data;
 
-  QadimAuctionResponse({
+  NotstartAuctionResponse({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory QadimAuctionResponse.fromJson(Map<String, dynamic> json) =>
-      _$QadimAuctionResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$QadimAuctionResponseToJson(this);
+  factory NotstartAuctionResponse.fromJson(Map<String, dynamic> json) =>
+      _$NotstartAuctionResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$NotstartAuctionResponseToJson(this);
 }
 
 @JsonSerializable()
 class Data {
-  final List<QadimAuction> auctions;
+  final List<NotstartAuction> auctions;
   final int? total;
   @JsonKey(name: 'current_page')
   final int? currentPage;
@@ -44,7 +44,7 @@ class Data {
 }
 
 @JsonSerializable()
-class QadimAuction {
+class NotstartAuction {
   final int id;
   final String slug;
   final String status;
@@ -73,7 +73,7 @@ class QadimAuction {
 
   final Product product;
 
-  QadimAuction({
+  NotstartAuction({
     required this.id,
     required this.slug,
     required this.status,
@@ -88,9 +88,9 @@ class QadimAuction {
     required this.product,
   });
 
-  factory QadimAuction.fromJson(Map<String, dynamic> json) =>
-      _$QadimAuctionFromJson(json);
-  Map<String, dynamic> toJson() => _$QadimAuctionToJson(this);
+  factory NotstartAuction.fromJson(Map<String, dynamic> json) =>
+      _$NotstartAuctionFromJson(json);
+  Map<String, dynamic> toJson() => _$NotstartAuctionToJson(this);
 }
 
 @JsonSerializable()

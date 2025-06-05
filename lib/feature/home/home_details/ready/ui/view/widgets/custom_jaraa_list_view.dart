@@ -15,10 +15,11 @@ class CustomJaraaListView extends StatefulWidget {
   const CustomJaraaListView({super.key, required this.jaraaCounter});
 
   @override
-  State<CustomJaraaListView> createState() => _CustomQadimCardViewItemState();
+  State<CustomJaraaListView> createState() =>
+      _CustomNotstartCardViewItemState();
 }
 
-class _CustomQadimCardViewItemState extends State<CustomJaraaListView>
+class _CustomNotstartCardViewItemState extends State<CustomJaraaListView>
     with RouteAware {
   @override
   void didPopNext() {

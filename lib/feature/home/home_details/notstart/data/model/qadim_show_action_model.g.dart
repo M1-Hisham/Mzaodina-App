@@ -6,16 +6,16 @@ part of 'qadim_show_action_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-QadimShowAuctionModel _$QadimShowAuctionModelFromJson(
+NotstartShowAuctionModel _$NotstartShowAuctionModelFromJson(
   Map<String, dynamic> json,
-) => QadimShowAuctionModel(
+) => NotstartShowAuctionModel(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: Auction.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$QadimShowAuctionModelToJson(
-  QadimShowAuctionModel instance,
+Map<String, dynamic> _$NotstartShowAuctionModelToJson(
+  NotstartShowAuctionModel instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,

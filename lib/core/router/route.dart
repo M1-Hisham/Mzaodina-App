@@ -63,16 +63,17 @@ class AppRouter {
 
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case AppRoutes.homeDetailsQadimScreenRoute:
-        final args = settings.arguments as QadimAuction;
+      case AppRoutes.homeDetailsNotstartScreenRoute:
+        final args = settings.arguments as NotstartAuction;
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
                 create:
                     (context) =>
-                        getIt<QadimShowActionCubit>()..getShowAction(args.slug),
+                        getIt<NotstartShowActionCubit>()
+                          ..getShowAction(args.slug),
 
-                child: HomeDetailsQadimScreen(qadimDetails: args),
+                child: HomeDetailsNotstartScreen(qadimDetails: args),
               ),
         );
       case AppRoutes.homeDetailsFinishedScreenRoute:
@@ -256,7 +257,7 @@ class AppRouter {
                     create: (context) => getIt<SubscribeAuctionCubit>(),
                   ),
                   BlocProvider(
-                    create: (context) => getIt<QadimShowActionCubit>(),
+                    create: (context) => getIt<NotstartShowActionCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),

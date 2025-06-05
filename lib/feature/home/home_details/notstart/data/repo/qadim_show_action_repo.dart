@@ -4,16 +4,16 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_show_action_model.dart';
 
-class QadimShowActionRepo {
+class NotstartShowActionRepo {
   final ApiService apiService;
 
-  QadimShowActionRepo(this.apiService);
+  NotstartShowActionRepo(this.apiService);
 
-  Future<Either<Failure, QadimShowAuctionModel>> getShowActionRepo(
+  Future<Either<Failure, NotstartShowAuctionModel>> getShowActionRepo(
     String slug,
   ) async {
     try {
-      final response = await apiService.getQadimShowAuction(slug);
+      final response = await apiService.getNotstartShowAuction(slug);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

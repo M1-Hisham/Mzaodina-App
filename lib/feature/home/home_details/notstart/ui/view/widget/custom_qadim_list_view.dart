@@ -9,19 +9,19 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
 import 'package:mzaodina_app/mzaodina_app.dart';
 
-class CustomQadimListView extends StatefulWidget {
-  const CustomQadimListView({super.key, required this.qadimCounter});
+class CustomNotstartListView extends StatefulWidget {
+  const CustomNotstartListView({super.key, required this.qadimCounter});
 
   final int qadimCounter;
   @override
-  State<CustomQadimListView> createState() => _CustomQadimListViewState();
+  State<CustomNotstartListView> createState() => _CustomNotstartListViewState();
 }
 
-class _CustomQadimListViewState extends State<CustomQadimListView>
+class _CustomNotstartListViewState extends State<CustomNotstartListView>
     with RouteAware {
   @override
   void didPopNext() {
-    BlocProvider.of<QadimCubit>(context).getNotStartAuctions();
+    BlocProvider.of<NotstartCubit>(context).getNotStartAuctions();
     BlocProvider.of<LastInvoiceCubit>(context).lastInvoiceChecker();
   }
 
@@ -41,30 +41,32 @@ class _CustomQadimListViewState extends State<CustomQadimListView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QadimCubit, QadimState>(
-      bloc: getIt<QadimCubit>()..getNotStartAuctions(),
+    return BlocBuilder<NotstartCubit, NotstartState>(
+      bloc: getIt<NotstartCubit>()..getNotStartAuctions(),
       builder: (context, state) {
-        if (state is QadimLoading) {
+        if (state is NotstartLoading) {
           return const Center(child: MazadShimmer());
-        } else if (state is QadimError) {
+        } else if (state is NotstartError) {
           if (widget.qadimCounter == 0) {
             return CustomNotItem();
           } else {
             return CustomErorrWidget(
               message: state.errorMessage,
-              onRefresh: () => context.read<QadimCubit>().getNotStartAuctions(),
+              onRefresh:
+                  () => context.read<NotstartCubit>().getNotStartAuctions(),
             );
           }
-        } else if (state is QadimSuccess) {
+        } else if (state is NotstartSuccess) {
           final qadimAuctionResponse = state.data;
           return RefreshIndicator(
-            onRefresh: () => context.read<QadimCubit>().getNotStartAuctions(),
+            onRefresh:
+                () => context.read<NotstartCubit>().getNotStartAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               itemCount: qadimAuctionResponse.data.auctions.length,
               itemBuilder: (context, index) {
-                return CustomQadimCardItem(
+                return CustomNotstartCardItem(
                   qadimDataModel: qadimAuctionResponse.data.auctions[index],
                 );
               },

@@ -8,7 +8,7 @@ import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 
 class AuctionRegisterButton extends StatelessWidget {
-  final QadimShowAuctionModel auction;
+  final NotstartShowAuctionModel auction;
   final VoidCallback? onRegistered; // Callback to refresh parent
 
   const AuctionRegisterButton({

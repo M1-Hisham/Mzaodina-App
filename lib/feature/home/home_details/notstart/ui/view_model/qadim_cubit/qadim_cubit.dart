@@ -4,20 +4,20 @@ import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/qadim_
 
 part 'qadim_state.dart';
 
-class QadimCubit extends Cubit<QadimState> {
-  QadimCubit(this.qadimAuctionRepo) : super(QadimInitial());
-  final QadimAuctionRepo qadimAuctionRepo;
+class NotstartCubit extends Cubit<NotstartState> {
+  NotstartCubit(this.qadimAuctionRepo) : super(NotstartInitial());
+  final NotstartAuctionRepo qadimAuctionRepo;
 
   Future<void> getNotStartAuctions() async {
-    emit(QadimLoading());
+    emit(NotstartLoading());
     final response = await qadimAuctionRepo.getNotStartAuctions();
 
     response.fold(
       (failure) {
-        emit(QadimError(failure.errMessage));
+        emit(NotstartError(failure.errMessage));
       },
       (success) {
-        emit(QadimSuccess(success));
+        emit(NotstartSuccess(success));
       },
     );
   }

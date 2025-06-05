@@ -133,7 +133,9 @@ class _CustomTapViewState extends State<CustomTapView>
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: CustomQadimListView(qadimCounter: qadimCount ?? 0),
+                      child: CustomNotstartListView(
+                        qadimCounter: qadimCount ?? 0,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),

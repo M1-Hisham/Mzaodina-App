@@ -1,19 +1,19 @@
 part of 'qadim_show_action_cubit.dart';
 
-sealed class QadimShowActionState {}
+sealed class NotstartShowActionState {}
 
-final class QadimShowActionInitial extends QadimShowActionState {}
+final class NotstartShowActionInitial extends NotstartShowActionState {}
 
-final class QadimShowActionLoading extends QadimShowActionState {}
+final class NotstartShowActionLoading extends NotstartShowActionState {}
 
-final class QadimShowActionSuccess extends QadimShowActionState {
-  final QadimShowAuctionModel showActionModel;
+final class NotstartShowActionSuccess extends NotstartShowActionState {
+  final NotstartShowAuctionModel showActionModel;
 
-  QadimShowActionSuccess(this.showActionModel);
+  NotstartShowActionSuccess(this.showActionModel);
 }
 
-final class QadimShowActionError extends QadimShowActionState {
+final class NotstartShowActionError extends NotstartShowActionState {
   final String message;
 
-  QadimShowActionError(this.message);
+  NotstartShowActionError(this.message);
 }

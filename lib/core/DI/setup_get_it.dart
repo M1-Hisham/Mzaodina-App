@@ -143,13 +143,13 @@ Future<void> setupGetIt() async {
     () => ActionsCountCubit(getIt<ActionsCountRepo>()),
   );
 
-  // ✅ Register QadimRepo
-  getIt.registerLazySingleton<QadimAuctionRepo>(
-    () => QadimAuctionRepo(getIt<ApiService>()),
+  // ✅ Register NotstartRepo
+  getIt.registerLazySingleton<NotstartAuctionRepo>(
+    () => NotstartAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ Qadim Cubit
-  getIt.registerFactory<QadimCubit>(
-    () => QadimCubit(getIt<QadimAuctionRepo>()),
+  // ✅ Notstart Cubit
+  getIt.registerFactory<NotstartCubit>(
+    () => NotstartCubit(getIt<NotstartAuctionRepo>()),
   );
   // ✅ Register SayantaliqRepo
   getIt.registerLazySingleton<SayantaliqAutionRepo>(
@@ -177,13 +177,13 @@ Future<void> setupGetIt() async {
   );
 
   //============ShowAuction=================
-  // ✅ Register QadimShowActionRepo
-  getIt.registerLazySingleton<QadimShowActionRepo>(
-    () => QadimShowActionRepo(getIt<ApiService>()),
+  // ✅ Register NotstartShowActionRepo
+  getIt.registerLazySingleton<NotstartShowActionRepo>(
+    () => NotstartShowActionRepo(getIt<ApiService>()),
   );
-  // ✅ QadimShowActionCubit Cubit
-  getIt.registerFactory<QadimShowActionCubit>(
-    () => QadimShowActionCubit(getIt<QadimShowActionRepo>()),
+  // ✅ NotstartShowActionCubit Cubit
+  getIt.registerFactory<NotstartShowActionCubit>(
+    () => NotstartShowActionCubit(getIt<NotstartShowActionRepo>()),
   );
   // ✅ Register FinishedShowActionRepo
   getIt.registerLazySingleton<FinishedShowAuctionRepo>(

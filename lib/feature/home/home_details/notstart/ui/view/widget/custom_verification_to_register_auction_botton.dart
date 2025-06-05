@@ -11,7 +11,7 @@ import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qa
 
 class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
   final String slug;
-  final QadimShowActionCubit showActionCubit;
+  final NotstartShowActionCubit showActionCubit;
 
   const CustomVerificationToRegisterAuctionBotton({
     super.key,
@@ -57,34 +57,36 @@ class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
             );
           }
 
-          return BlocBuilder<QadimShowActionCubit, QadimShowActionState>(
+          return BlocBuilder<NotstartShowActionCubit, NotstartShowActionState>(
             bloc: showActionCubit,
             buildWhen:
                 (previous, current) =>
-                    current is QadimShowActionSuccess ||
-                    current is QadimShowActionError ||
-                    current is QadimShowActionLoading,
+                    current is NotstartShowActionSuccess ||
+                    current is NotstartShowActionError ||
+                    current is NotstartShowActionLoading,
             builder: (context, state) {
-              if (state is QadimShowActionLoading) {
+              if (state is NotstartShowActionLoading) {
                 return CustomElevatedButton(
                   text: '...جاري التحميل',
                   onPressed: () {},
                 );
-              } else if (state is QadimShowActionSuccess) {
+              } else if (state is NotstartShowActionSuccess) {
                 return BlocProvider<RegisterToAuctionCubit>(
                   create: (context) => getIt<RegisterToAuctionCubit>(),
                   child: AuctionRegisterButton(
                     auction: state.showActionModel,
                     onRegistered: () {
-                      context.read<QadimShowActionCubit>().getShowAction(slug);
+                      context.read<NotstartShowActionCubit>().getShowAction(
+                        slug,
+                      );
                     },
                   ),
                 );
-              } else if (state is QadimShowActionError) {
+              } else if (state is NotstartShowActionError) {
                 return CustomElevatedButton(
                   text: 'إعادة التحميل',
                   onPressed: () {
-                    context.read<QadimShowActionCubit>().getShowAction(slug);
+                    context.read<NotstartShowActionCubit>().getShowAction(slug);
                   },
                 );
               } else {

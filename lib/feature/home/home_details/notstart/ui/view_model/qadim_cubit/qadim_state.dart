@@ -1,19 +1,19 @@
 part of 'qadim_cubit.dart';
 
-sealed class QadimState {}
+sealed class NotstartState {}
 
-final class QadimInitial extends QadimState {}
+final class NotstartInitial extends NotstartState {}
 
-final class QadimLoading extends QadimState {}
+final class NotstartLoading extends NotstartState {}
 
-final class QadimSuccess extends QadimState {
-  final QadimAuctionResponse data;
+final class NotstartSuccess extends NotstartState {
+  final NotstartAuctionResponse data;
 
-  QadimSuccess(this.data);
+  NotstartSuccess(this.data);
 }
 
-final class QadimError extends QadimState {
+final class NotstartError extends NotstartState {
   final String errorMessage;
 
-  QadimError(this.errorMessage);
+  NotstartError(this.errorMessage);
 }

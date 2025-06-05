@@ -15,10 +15,11 @@ class CustomFinishedCardViewItem extends StatefulWidget {
 
   @override
   State<CustomFinishedCardViewItem> createState() =>
-      _CustomQadimCardViewItemState();
+      _CustomNotstartCardViewItemState();
 }
 
-class _CustomQadimCardViewItemState extends State<CustomFinishedCardViewItem> {
+class _CustomNotstartCardViewItemState
+    extends State<CustomFinishedCardViewItem> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

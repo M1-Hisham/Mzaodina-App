@@ -55,7 +55,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsQadimScreenRoute,
+          AppRoutes.homeDetailsNotstartScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -129,7 +129,7 @@ void _handleTypeBasedRouting(
           case 'qadim':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsQadimScreenRoute,
+              AppRoutes.homeDetailsNotstartScreenRoute,
               arguments: {'slug': slug},
             );
             break;

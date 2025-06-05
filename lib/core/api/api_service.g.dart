@@ -404,14 +404,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<QadimAuctionResponse> getNotStartAuctions({
+  Future<NotstartAuctionResponse> getNotStartAuctions({
     String filter = "notstart",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<QadimAuctionResponse>(
+    final _options = _setStreamType<NotstartAuctionResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -422,9 +422,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late QadimAuctionResponse _value;
+    late NotstartAuctionResponse _value;
     try {
-      _value = QadimAuctionResponse.fromJson(_result.data!);
+      _value = NotstartAuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -520,12 +520,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<QadimShowAuctionModel> getQadimShowAuction(String slug) async {
+  Future<NotstartShowAuctionModel> getNotstartShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<QadimShowAuctionModel>(
+    final _options = _setStreamType<NotstartShowAuctionModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -536,9 +536,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late QadimShowAuctionModel _value;
+    late NotstartShowAuctionModel _value;
     try {
-      _value = QadimShowAuctionModel.fromJson(_result.data!);
+      _value = NotstartShowAuctionModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

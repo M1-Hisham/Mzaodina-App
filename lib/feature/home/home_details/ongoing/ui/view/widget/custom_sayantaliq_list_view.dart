@@ -15,10 +15,10 @@ class CustomSayantiqListView extends StatefulWidget {
 
   @override
   State<CustomSayantiqListView> createState() =>
-      _CustomQadimCardViewItemState();
+      _CustomNotstartCardViewItemState();
 }
 
-class _CustomQadimCardViewItemState extends State<CustomSayantiqListView>
+class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
     with RouteAware {
   @override
   void didPopNext() {

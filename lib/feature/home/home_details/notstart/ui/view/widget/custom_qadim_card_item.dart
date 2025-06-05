@@ -11,16 +11,16 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.d
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:share_plus/share_plus.dart';
 
-class CustomQadimCardItem extends StatefulWidget {
-  final QadimAuction qadimDataModel;
+class CustomNotstartCardItem extends StatefulWidget {
+  final NotstartAuction qadimDataModel;
 
-  const CustomQadimCardItem({super.key, required this.qadimDataModel});
+  const CustomNotstartCardItem({super.key, required this.qadimDataModel});
 
   @override
-  State<CustomQadimCardItem> createState() => _CustomQadimCardItemState();
+  State<CustomNotstartCardItem> createState() => _CustomNotstartCardItemState();
 }
 
-class _CustomQadimCardItemState extends State<CustomQadimCardItem> {
+class _CustomNotstartCardItemState extends State<CustomNotstartCardItem> {
   late final int eventTimeFromApi;
   int d = 0, h = 0, m = 0, s = 0;
   @override
@@ -150,7 +150,7 @@ class _CustomQadimCardItemState extends State<CustomQadimCardItem> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          AppRoutes.homeDetailsQadimScreenRoute,
+                          AppRoutes.homeDetailsNotstartScreenRoute,
                           arguments: widget.qadimDataModel,
                         );
                       },

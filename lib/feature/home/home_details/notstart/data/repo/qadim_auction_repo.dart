@@ -4,12 +4,12 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
 
-class QadimAuctionRepo {
+class NotstartAuctionRepo {
   final ApiService apiService;
 
-  QadimAuctionRepo(this.apiService);
+  NotstartAuctionRepo(this.apiService);
 
-  Future<Either<Failure, QadimAuctionResponse>> getNotStartAuctions() async {
+  Future<Either<Failure, NotstartAuctionResponse>> getNotStartAuctions() async {
     try {
       final response = await apiService.getNotStartAuctions();
       return Right(response);

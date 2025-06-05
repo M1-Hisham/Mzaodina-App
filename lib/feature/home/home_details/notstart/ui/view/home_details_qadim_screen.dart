@@ -16,19 +16,20 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.da
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/mzaodina_app.dart';
 
-class HomeDetailsQadimScreen extends StatefulWidget {
-  final QadimAuction qadimDetails;
-  const HomeDetailsQadimScreen({super.key, required this.qadimDetails});
+class HomeDetailsNotstartScreen extends StatefulWidget {
+  final NotstartAuction qadimDetails;
+  const HomeDetailsNotstartScreen({super.key, required this.qadimDetails});
 
   @override
-  State<HomeDetailsQadimScreen> createState() => _HomeDetailsQadimScreenState();
+  State<HomeDetailsNotstartScreen> createState() =>
+      _HomeDetailsNotstartScreenState();
 }
 
-class _HomeDetailsQadimScreenState extends State<HomeDetailsQadimScreen>
+class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
     with RouteAware {
   @override
   void didPopNext() {
-    BlocProvider.of<QadimShowActionCubit>(
+    BlocProvider.of<NotstartShowActionCubit>(
       context,
     ).getShowAction(widget.qadimDetails.slug);
   }
@@ -63,18 +64,18 @@ class _HomeDetailsQadimScreenState extends State<HomeDetailsQadimScreen>
             ),
           ),
 
-          BlocBuilder<QadimShowActionCubit, QadimShowActionState>(
+          BlocBuilder<NotstartShowActionCubit, NotstartShowActionState>(
             builder: (context, state) {
-              if (state is QadimShowActionLoading) {
+              if (state is NotstartShowActionLoading) {
                 return const MazadDetailsShimmer();
-              } else if (state is QadimShowActionError) {
+              } else if (state is NotstartShowActionError) {
                 return Center(
                   child: Text(
                     state.message,
                     style: R.textStyles.font14Grey3W500Light,
                   ),
                 );
-              } else if (state is QadimShowActionSuccess) {
+              } else if (state is NotstartShowActionSuccess) {
                 return Expanded(
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -243,7 +244,7 @@ class _HomeDetailsQadimScreenState extends State<HomeDetailsQadimScreen>
 
       bottomNavigationBar: CustomVerificationToRegisterAuctionBotton(
         slug: widget.qadimDetails.slug,
-        showActionCubit: context.read<QadimShowActionCubit>(),
+        showActionCubit: context.read<NotstartShowActionCubit>(),
       ),
     );
   }

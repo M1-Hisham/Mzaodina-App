@@ -30,7 +30,8 @@ class HomeScreen extends StatelessWidget {
               providers: [
                 BlocProvider(
                   create:
-                      (context) => getIt<QadimCubit>()..getNotStartAuctions(),
+                      (context) =>
+                          getIt<NotstartCubit>()..getNotStartAuctions(),
                 ),
 
                 BlocProvider(
