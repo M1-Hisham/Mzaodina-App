@@ -9,8 +9,7 @@ class AppRoutes {
   static const homeDetailsNotstartScreenRoute = '/homeDetailsNotstartScreen';
   static const homeDetailsFinishedScreenRoute = '/HomeDetailsFinishedScreen';
   static const homeDetailsJaraaScreenRoute = '/homeDetailsJaraaScreen';
-  static const homeDetailsSayantaliqScreenRoute =
-      '/HomeDetailsSayantaliqScreen';
+  static const homeDetailsReadyScreenRoute = '/HomeDetailsReadyScreen';
   static const aboutUsScreenRoute = '/aboutUsScreen';
   static const accountDetailsScreenRoute = '/accountDetailsScreen';
   static const changePasswordScreenRoute = '/changePasswordScreen';

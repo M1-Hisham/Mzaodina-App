@@ -4,20 +4,20 @@ import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/sayanta
 
 part 'sayantaliq_state.dart';
 
-class SayantaliqCubit extends Cubit<SayantaliqState> {
-  SayantaliqCubit(this.sayantaliqAuctionRepo) : super(SayantaliqInitial());
-  final SayantaliqAutionRepo sayantaliqAuctionRepo;
+class ReadyCubit extends Cubit<ReadyState> {
+  ReadyCubit(this.sayantaliqAuctionRepo) : super(ReadyInitial());
+  final ReadyAutionRepo sayantaliqAuctionRepo;
 
   Future<void> getReadyAuctions() async {
-    emit(SayantaliqLoading());
+    emit(ReadyLoading());
     final response = await sayantaliqAuctionRepo.getReadyAuctions();
 
     response.fold(
       (failure) {
-        emit(SayantaliqError(failure.errMessage));
+        emit(ReadyError(failure.errMessage));
       },
       (success) {
-        emit(SayantaliqSuccess(success));
+        emit(ReadySuccess(success));
       },
     );
   }

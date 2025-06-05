@@ -3,26 +3,26 @@ import 'package:json_annotation/json_annotation.dart';
 part 'sayantaliq_auction_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class SayantaliqAuctionResponse {
+class ReadyAuctionResponse {
   final bool status;
   final String message;
   final Data data;
 
-  SayantaliqAuctionResponse({
+  ReadyAuctionResponse({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory SayantaliqAuctionResponse.fromJson(Map<String, dynamic> json) =>
-      _$SayantaliqAuctionResponseFromJson(json);
+  factory ReadyAuctionResponse.fromJson(Map<String, dynamic> json) =>
+      _$ReadyAuctionResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SayantaliqAuctionResponseToJson(this);
+  Map<String, dynamic> toJson() => _$ReadyAuctionResponseToJson(this);
 }
 
 @JsonSerializable()
 class Data {
-  final List<SayantaliqAuction> auctions;
+  final List<ReadyAuction> auctions;
   final int? total;
   @JsonKey(name: 'current_page')
   final int? currentPage;
@@ -45,7 +45,7 @@ class Data {
 }
 
 @JsonSerializable(explicitToJson: true)
-class SayantaliqAuction {
+class ReadyAuction {
   final int id;
   final String slug;
   final String status;
@@ -66,7 +66,7 @@ class SayantaliqAuction {
   final String? startAt;
   final Product product;
 
-  SayantaliqAuction({
+  ReadyAuction({
     required this.id,
     required this.slug,
     required this.status,
@@ -81,10 +81,10 @@ class SayantaliqAuction {
     required this.product,
   });
 
-  factory SayantaliqAuction.fromJson(Map<String, dynamic> json) =>
-      _$SayantaliqAuctionFromJson(json);
+  factory ReadyAuction.fromJson(Map<String, dynamic> json) =>
+      _$ReadyAuctionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SayantaliqAuctionToJson(this);
+  Map<String, dynamic> toJson() => _$ReadyAuctionToJson(this);
 }
 
 @JsonSerializable()

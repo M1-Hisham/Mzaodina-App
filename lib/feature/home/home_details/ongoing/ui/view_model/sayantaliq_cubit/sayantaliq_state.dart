@@ -1,19 +1,19 @@
 part of 'sayantaliq_cubit.dart';
 
-sealed class SayantaliqState {}
+sealed class ReadyState {}
 
-final class SayantaliqInitial extends SayantaliqState {}
+final class ReadyInitial extends ReadyState {}
 
-final class SayantaliqLoading extends SayantaliqState {}
+final class ReadyLoading extends ReadyState {}
 
-final class SayantaliqSuccess extends SayantaliqState {
-  final SayantaliqAuctionResponse data;
+final class ReadySuccess extends ReadyState {
+  final ReadyAuctionResponse data;
 
-  SayantaliqSuccess(this.data);
+  ReadySuccess(this.data);
 }
 
-final class SayantaliqError extends SayantaliqState {
+final class ReadyError extends ReadyState {
   final String errorMessage;
 
-  SayantaliqError(this.errorMessage);
+  ReadyError(this.errorMessage);
 }

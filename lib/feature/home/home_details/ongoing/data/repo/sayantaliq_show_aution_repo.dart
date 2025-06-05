@@ -4,15 +4,15 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/sayantaliq_show_auction_mode.dart';
 
-class SayantaliqShowAutionRepo {
+class ReadyShowAutionRepo {
   final ApiService apiService;
-  SayantaliqShowAutionRepo(this.apiService);
+  ReadyShowAutionRepo(this.apiService);
 
-  Future<Either<Failure, SayantaliqShowAuctionMode>> getSayantaliqShowAuction(
+  Future<Either<Failure, ReadyShowAuctionMode>> getReadyShowAuction(
     String slug,
   ) async {
     try {
-      final response = await apiService.getSayantaliqShowAuction(slug);
+      final response = await apiService.getReadyShowAuction(slug);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

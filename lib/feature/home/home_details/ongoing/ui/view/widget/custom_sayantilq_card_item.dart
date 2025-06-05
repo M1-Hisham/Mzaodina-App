@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,7 @@ import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomSayantilqCardItem extends StatefulWidget {
-  final SayantaliqAuction sayantaliqDataModel;
+  final ReadyAuction sayantaliqDataModel;
 
   const CustomSayantilqCardItem({super.key, required this.sayantaliqDataModel});
 
@@ -202,7 +201,7 @@ class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          AppRoutes.homeDetailsSayantaliqScreenRoute,
+                          AppRoutes.homeDetailsReadyScreenRoute,
                           arguments: {
                             'eventTime': eventTimeFromApi,
                             'sayantaliqDataModel': widget.sayantaliqDataModel,

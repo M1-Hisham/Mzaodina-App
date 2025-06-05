@@ -35,8 +35,7 @@ class HomeScreen extends StatelessWidget {
                 ),
 
                 BlocProvider(
-                  create:
-                      (context) => getIt<SayantaliqCubit>()..getReadyAuctions(),
+                  create: (context) => getIt<ReadyCubit>()..getReadyAuctions(),
                 ),
                 BlocProvider(
                   create:

@@ -22,7 +22,7 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
     with RouteAware {
   @override
   void didPopNext() {
-    BlocProvider.of<SayantaliqCubit>(context).getReadyAuctions();
+    BlocProvider.of<ReadyCubit>(context).getReadyAuctions();
     BlocProvider.of<LastInvoiceCubit>(context).lastInvoiceChecker();
   }
 
@@ -42,25 +42,24 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SayantaliqCubit, SayantaliqState>(
-      bloc: getIt<SayantaliqCubit>()..getReadyAuctions(),
+    return BlocBuilder<ReadyCubit, ReadyState>(
+      bloc: getIt<ReadyCubit>()..getReadyAuctions(),
       builder: (context, state) {
-        if (state is SayantaliqLoading) {
+        if (state is ReadyLoading) {
           return const Center(child: MazadShimmer());
-        } else if (state is SayantaliqError) {
+        } else if (state is ReadyError) {
           if (widget.sayantaliqCounter == 0) {
             return CustomNotItem();
           } else {
             return CustomErorrWidget(
               message: state.errorMessage,
-              onRefresh:
-                  () => context.read<SayantaliqCubit>().getReadyAuctions(),
+              onRefresh: () => context.read<ReadyCubit>().getReadyAuctions(),
             );
           }
-        } else if (state is SayantaliqSuccess) {
+        } else if (state is ReadySuccess) {
           final sayantaliqAuction = state.data;
           return RefreshIndicator(
-            onRefresh: () => context.read<SayantaliqCubit>().getReadyAuctions(),
+            onRefresh: () => context.read<ReadyCubit>().getReadyAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,

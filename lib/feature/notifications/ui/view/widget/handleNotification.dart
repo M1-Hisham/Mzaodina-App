@@ -88,7 +88,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsSayantaliqScreenRoute,
+          AppRoutes.homeDetailsReadyScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -150,7 +150,7 @@ void _handleTypeBasedRouting(
           case 'sayantaliq':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsSayantaliqScreenRoute,
+              AppRoutes.homeDetailsReadyScreenRoute,
               arguments: {'slug': slug},
             );
             break;

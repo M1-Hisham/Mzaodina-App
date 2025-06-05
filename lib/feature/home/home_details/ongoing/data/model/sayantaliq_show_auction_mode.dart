@@ -3,20 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'sayantaliq_show_auction_mode.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class SayantaliqShowAuctionMode {
+class ReadyShowAuctionMode {
   final bool status;
   final String message;
   final ReadyAuction data;
 
-  SayantaliqShowAuctionMode({
+  ReadyShowAuctionMode({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory SayantaliqShowAuctionMode.fromJson(Map<String, dynamic> json) =>
-      _$SayantaliqShowAuctionModeFromJson(json);
-  Map<String, dynamic> toJson() => _$SayantaliqShowAuctionModeToJson(this);
+  factory ReadyShowAuctionMode.fromJson(Map<String, dynamic> json) =>
+      _$ReadyShowAuctionModeFromJson(json);
+  Map<String, dynamic> toJson() => _$ReadyShowAuctionModeToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

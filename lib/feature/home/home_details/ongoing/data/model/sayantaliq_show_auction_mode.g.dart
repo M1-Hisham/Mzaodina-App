@@ -6,16 +6,16 @@ part of 'sayantaliq_show_auction_mode.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SayantaliqShowAuctionMode _$SayantaliqShowAuctionModeFromJson(
+ReadyShowAuctionMode _$ReadyShowAuctionModeFromJson(
   Map<String, dynamic> json,
-) => SayantaliqShowAuctionMode(
+) => ReadyShowAuctionMode(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: ReadyAuction.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$SayantaliqShowAuctionModeToJson(
-  SayantaliqShowAuctionMode instance,
+Map<String, dynamic> _$ReadyShowAuctionModeToJson(
+  ReadyShowAuctionMode instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,

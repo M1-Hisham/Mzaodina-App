@@ -4,17 +4,17 @@ import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/sayanta
 
 part 'sayantaliq_show_austion_state.dart';
 
-class SayantaliqShowAustionCubit extends Cubit<SayantaliqShowAustionState> {
-  SayantaliqShowAustionCubit(this.sayantaliqAutionRepo)
-    : super(SayantaliqShowAustionInitial());
-  final SayantaliqShowAutionRepo sayantaliqAutionRepo;
-  Future<void> getSayantaliqShowAuctionCubit(String slug) async {
-    emit(SayantaliqShowAustionLoading());
-    final result = await sayantaliqAutionRepo.getSayantaliqShowAuction(slug);
+class ReadyShowAustionCubit extends Cubit<ReadyShowAustionState> {
+  ReadyShowAustionCubit(this.sayantaliqAutionRepo)
+    : super(ReadyShowAustionInitial());
+  final ReadyShowAutionRepo sayantaliqAutionRepo;
+  Future<void> getReadyShowAuctionCubit(String slug) async {
+    emit(ReadyShowAustionLoading());
+    final result = await sayantaliqAutionRepo.getReadyShowAuction(slug);
     result.fold(
-      (failure) => emit(SayantaliqShowAustionErorr(failure.errMessage)),
+      (failure) => emit(ReadyShowAustionErorr(failure.errMessage)),
       (sayantaliqShowAuctionMode) =>
-          emit(SayantaliqShowAustionSuccess(sayantaliqShowAuctionMode)),
+          emit(ReadyShowAustionSuccess(sayantaliqShowAuctionMode)),
     );
   }
 }

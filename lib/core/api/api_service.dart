@@ -114,9 +114,9 @@ abstract class ApiService {
     @Query("filter") String filter = "notstart",
   });
 
-  /// service for auctions Sayantaliq
+  /// service for auctions Ready
   @GET(ApiConstants.auctions)
-  Future<SayantaliqAuctionResponse> getReadyAuctions({
+  Future<ReadyAuctionResponse> getReadyAuctions({
     @Query("filter") String filter = "ready",
   });
 
@@ -145,9 +145,7 @@ abstract class ApiService {
   Future<JaraaShowAuctionModel> getJaraaShowAuction(@Path("slug") String slug);
 
   @GET(ApiConstants.showAuctions)
-  Future<SayantaliqShowAuctionMode> getSayantaliqShowAuction(
-    @Path("slug") String slug,
-  );
+  Future<ReadyShowAuctionMode> getReadyShowAuction(@Path("slug") String slug);
 
   @POST(ApiConstants.registerAuctions)
   Future<RegisterToAutionModel> registerToAuctions(@Path("slug") String slug);

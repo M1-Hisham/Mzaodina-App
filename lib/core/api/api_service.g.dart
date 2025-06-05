@@ -433,14 +433,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SayantaliqAuctionResponse> getReadyAuctions({
+  Future<ReadyAuctionResponse> getReadyAuctions({
     String filter = "ready",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SayantaliqAuctionResponse>(
+    final _options = _setStreamType<ReadyAuctionResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -451,9 +451,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SayantaliqAuctionResponse _value;
+    late ReadyAuctionResponse _value;
     try {
-      _value = SayantaliqAuctionResponse.fromJson(_result.data!);
+      _value = ReadyAuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -601,14 +601,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SayantaliqShowAuctionMode> getSayantaliqShowAuction(
-    String slug,
-  ) async {
+  Future<ReadyShowAuctionMode> getReadyShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SayantaliqShowAuctionMode>(
+    final _options = _setStreamType<ReadyShowAuctionMode>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -619,9 +617,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SayantaliqShowAuctionMode _value;
+    late ReadyShowAuctionMode _value;
     try {
-      _value = SayantaliqShowAuctionMode.fromJson(_result.data!);
+      _value = ReadyShowAuctionMode.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

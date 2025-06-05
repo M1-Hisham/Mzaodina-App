@@ -6,16 +6,16 @@ part of 'sayantaliq_auction_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SayantaliqAuctionResponse _$SayantaliqAuctionResponseFromJson(
+ReadyAuctionResponse _$ReadyAuctionResponseFromJson(
   Map<String, dynamic> json,
-) => SayantaliqAuctionResponse(
+) => ReadyAuctionResponse(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: Data.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$SayantaliqAuctionResponseToJson(
-  SayantaliqAuctionResponse instance,
+Map<String, dynamic> _$ReadyAuctionResponseToJson(
+  ReadyAuctionResponse instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
@@ -25,7 +25,7 @@ Map<String, dynamic> _$SayantaliqAuctionResponseToJson(
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
   auctions:
       (json['auctions'] as List<dynamic>)
-          .map((e) => SayantaliqAuction.fromJson(e as Map<String, dynamic>))
+          .map((e) => ReadyAuction.fromJson(e as Map<String, dynamic>))
           .toList(),
   total: (json['total'] as num?)?.toInt(),
   currentPage: (json['current_page'] as num?)?.toInt(),
@@ -43,24 +43,22 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
   'prev_page_url': instance.prevPageUrl,
 };
 
-SayantaliqAuction _$SayantaliqAuctionFromJson(Map<String, dynamic> json) =>
-    SayantaliqAuction(
-      id: (json['id'] as num).toInt(),
-      slug: json['slug'] as String,
-      status: json['status'] as String,
-      openingAmount: (json['opening_amount'] as num).toInt(),
-      requiredBidders: (json['required_bidders'] as num?)?.toInt(),
-      registrationAmount: (json['registration_amount'] as num?)?.toInt(),
-      auctionDurationMinutes:
-          (json['auction_duration_minutes'] as num?)?.toInt(),
-      auctionStartRate: (json['auction_start_rate'] as num?)?.toInt(),
-      productSku: json['product_sku'] as String?,
-      isRegister: json['isRegister'] as bool?,
-      startAt: json['start_at'] as String?,
-      product: Product.fromJson(json['product'] as Map<String, dynamic>),
-    );
+ReadyAuction _$ReadyAuctionFromJson(Map<String, dynamic> json) => ReadyAuction(
+  id: (json['id'] as num).toInt(),
+  slug: json['slug'] as String,
+  status: json['status'] as String,
+  openingAmount: (json['opening_amount'] as num).toInt(),
+  requiredBidders: (json['required_bidders'] as num?)?.toInt(),
+  registrationAmount: (json['registration_amount'] as num?)?.toInt(),
+  auctionDurationMinutes: (json['auction_duration_minutes'] as num?)?.toInt(),
+  auctionStartRate: (json['auction_start_rate'] as num?)?.toInt(),
+  productSku: json['product_sku'] as String?,
+  isRegister: json['isRegister'] as bool?,
+  startAt: json['start_at'] as String?,
+  product: Product.fromJson(json['product'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$SayantaliqAuctionToJson(SayantaliqAuction instance) =>
+Map<String, dynamic> _$ReadyAuctionToJson(ReadyAuction instance) =>
     <String, dynamic>{
       'id': instance.id,
       'slug': instance.slug,

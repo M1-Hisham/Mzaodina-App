@@ -16,11 +16,11 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
-class HomeDetailsSayantaliqScreen extends StatelessWidget {
+class HomeDetailsReadyScreen extends StatelessWidget {
   final DateTime eventTimeFromApi;
-  final SayantaliqAuction sayantaliqDetails;
+  final ReadyAuction sayantaliqDetails;
   final int d, h, m, s;
-  const HomeDetailsSayantaliqScreen({
+  const HomeDetailsReadyScreen({
     super.key,
 
     required this.sayantaliqDetails,
@@ -48,18 +48,18 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
             ),
           ),
 
-          BlocBuilder<SayantaliqShowAustionCubit, SayantaliqShowAustionState>(
+          BlocBuilder<ReadyShowAustionCubit, ReadyShowAustionState>(
             builder: (context, state) {
-              if (state is SayantaliqShowAustionLoading) {
+              if (state is ReadyShowAustionLoading) {
                 return const MazadDetailsShimmer();
-              } else if (state is SayantaliqShowAustionErorr) {
+              } else if (state is ReadyShowAustionErorr) {
                 return Center(
                   child: Text(
                     state.error,
                     style: R.textStyles.font14Grey3W500Light,
                   ),
                 );
-              } else if (state is SayantaliqShowAustionSuccess) {
+              } else if (state is ReadyShowAustionSuccess) {
                 return Expanded(
                   child: SingleChildScrollView(
                     child: Column(

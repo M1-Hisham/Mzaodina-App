@@ -151,14 +151,12 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<NotstartCubit>(
     () => NotstartCubit(getIt<NotstartAuctionRepo>()),
   );
-  // ✅ Register SayantaliqRepo
-  getIt.registerLazySingleton<SayantaliqAutionRepo>(
-    () => SayantaliqAutionRepo(getIt<ApiService>()),
+  // ✅ Register ReadyRepo
+  getIt.registerLazySingleton<ReadyAutionRepo>(
+    () => ReadyAutionRepo(getIt<ApiService>()),
   );
-  // ✅ Sayantaliq Cubit
-  getIt.registerFactory<SayantaliqCubit>(
-    () => SayantaliqCubit(getIt<SayantaliqAutionRepo>()),
-  );
+  // ✅ Ready Cubit
+  getIt.registerFactory<ReadyCubit>(() => ReadyCubit(getIt<ReadyAutionRepo>()));
   // ✅ Register JaraaRepo
   getIt.registerLazySingleton<JaraaAuctionRepo>(
     () => JaraaAuctionRepo(getIt<ApiService>()),
@@ -193,13 +191,13 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<FinishedShowAuctionCubit>(
     () => FinishedShowAuctionCubit(getIt<FinishedShowAuctionRepo>()),
   );
-  // ✅ Register SayantaliqShowActionRepo
-  getIt.registerLazySingleton<SayantaliqShowAutionRepo>(
-    () => SayantaliqShowAutionRepo(getIt<ApiService>()),
+  // ✅ Register ReadyShowActionRepo
+  getIt.registerLazySingleton<ReadyShowAutionRepo>(
+    () => ReadyShowAutionRepo(getIt<ApiService>()),
   );
-  // ✅ SayantaliqShowActionCubit Cubit
-  getIt.registerFactory<SayantaliqShowAustionCubit>(
-    () => SayantaliqShowAustionCubit(getIt<SayantaliqShowAutionRepo>()),
+  // ✅ ReadyShowActionCubit Cubit
+  getIt.registerFactory<ReadyShowAustionCubit>(
+    () => ReadyShowAustionCubit(getIt<ReadyShowAutionRepo>()),
   );
   // ✅ Register JaraaShowActionRepo
   getIt.registerLazySingleton<JaraaShowAuctionRepo>(

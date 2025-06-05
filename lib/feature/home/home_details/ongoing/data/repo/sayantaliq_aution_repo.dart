@@ -4,12 +4,12 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/sayantaliq_auction_response.dart';
 
-class SayantaliqAutionRepo {
+class ReadyAutionRepo {
   final ApiService apiService;
 
-  SayantaliqAutionRepo(this.apiService);
+  ReadyAutionRepo(this.apiService);
 
-  Future<Either<Failure, SayantaliqAuctionResponse>> getReadyAuctions() async {
+  Future<Either<Failure, ReadyAuctionResponse>> getReadyAuctions() async {
     try {
       final response = await apiService.getReadyAuctions();
       return Right(response);

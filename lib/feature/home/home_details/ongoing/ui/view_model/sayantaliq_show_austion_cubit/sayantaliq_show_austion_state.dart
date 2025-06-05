@@ -1,19 +1,19 @@
 part of 'sayantaliq_show_austion_cubit.dart';
 
-sealed class SayantaliqShowAustionState {}
+sealed class ReadyShowAustionState {}
 
-final class SayantaliqShowAustionInitial extends SayantaliqShowAustionState {}
+final class ReadyShowAustionInitial extends ReadyShowAustionState {}
 
-final class SayantaliqShowAustionLoading extends SayantaliqShowAustionState {}
+final class ReadyShowAustionLoading extends ReadyShowAustionState {}
 
-final class SayantaliqShowAustionSuccess extends SayantaliqShowAustionState {
-  final SayantaliqShowAuctionMode sayantaliqShowAuctionMode;
+final class ReadyShowAustionSuccess extends ReadyShowAustionState {
+  final ReadyShowAuctionMode sayantaliqShowAuctionMode;
 
-  SayantaliqShowAustionSuccess(this.sayantaliqShowAuctionMode);
+  ReadyShowAustionSuccess(this.sayantaliqShowAuctionMode);
 }
 
-final class SayantaliqShowAustionErorr extends SayantaliqShowAustionState {
+final class ReadyShowAustionErorr extends ReadyShowAustionState {
   final String error;
 
-  SayantaliqShowAustionErorr(this.error);
+  ReadyShowAustionErorr(this.error);
 }

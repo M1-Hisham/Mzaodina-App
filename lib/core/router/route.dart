@@ -127,8 +127,8 @@ class AppRouter {
               ),
         );
 
-      /// Home Details Sayantaliq Screen
-      case AppRoutes.homeDetailsSayantaliqScreenRoute:
+      /// Home Details Ready Screen
+      case AppRoutes.homeDetailsReadyScreenRoute:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
@@ -137,14 +137,14 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<SayantaliqShowAustionCubit>()
-                              ..getSayantaliqShowAuctionCubit(
+                            getIt<ReadyShowAustionCubit>()
+                              ..getReadyShowAuctionCubit(
                                 args['sayantaliqDataModel'].slug,
                               ),
                   ),
                   BlocProvider(create: (context) => WebSocketCubit()),
                 ],
-                child: HomeDetailsSayantaliqScreen(
+                child: HomeDetailsReadyScreen(
                   eventTimeFromApi: args['eventTime']!,
                   sayantaliqDetails: args['sayantaliqDataModel'],
                   s: args['s'] ?? 0,
