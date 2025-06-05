@@ -30,10 +30,12 @@ class JoinTheAuction extends StatelessWidget {
     return BlocListener<SubscribeAuctionCubit, SubscribeToAuctionState>(
       listener: (context, state) {
         if (state is SubscribeAuctionError) {
+          Navigator.pop(context);
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is SubscribeAuctionSuccess) {
+          Navigator.pop(context);
           Navigator.push(
             context,
             MaterialPageRoute(

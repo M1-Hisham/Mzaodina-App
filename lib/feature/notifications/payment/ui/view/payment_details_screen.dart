@@ -19,11 +19,13 @@ class PaymentDetailsScreen extends StatelessWidget {
     return BlocListener<PaymentInvoiceCubit, PaymentInvoiceState>(
       listener: (context, state) {
         if (state is PaymentInvoiceError) {
+                Navigator.pop(context);
           log('Error: ${state.message}');
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text('${state.message}==')));
         } else if (state is PaymentInvoiceSuccess) {
+                Navigator.pop(context);
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -70,6 +72,38 @@ class PaymentDetailsScreen extends StatelessWidget {
                   text: 'تاكيد الدفع',
                   onPressed: () {
                     log("📦 invoiceNumber: ${lastInvoiceData.invoiceNumber}");
+                    // ✅ عرض Dialog تحميل على طول
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder:
+                          (_) => AlertDialog(
+                            backgroundColor: R.colors.whiteLight,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(22),
+                            ),
+                            title: Container(
+                              padding: EdgeInsets.all(18),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'لاتغلق النافذه',
+                                    style: R.textStyles.font18blackW500Light,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Image.asset(
+                                    R.images.loadingJsonIcon,
+
+                                    width: 75,
+                                    height: 75,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                    );
                     context.read<PaymentInvoiceCubit>().paymentInvoice(
                       lastInvoiceData.invoiceNumber,
                     );

@@ -11,6 +11,7 @@ class QadimShowActionCubit extends Cubit<QadimShowActionState> {
   final QadimShowActionRepo showActionRepo;
 
   Future<void> getShowAction(String slug) async {
+    emit(QadimShowActionInitial());
     emit(QadimShowActionLoading());
 
     final result = await showActionRepo.getShowActionRepo(slug);

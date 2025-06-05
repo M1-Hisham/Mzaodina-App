@@ -134,10 +134,10 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                             title: 'سعر المنتج بالأسواق',
                             price:
                                 (double.tryParse(
-                                      sayantaliqDetails.product.price
+                                      state.sayantaliqShowAuctionMode.data.product.price
                                           .toString(),
                                     )?.toStringAsFixed(2) ??
-                                    sayantaliqDetails.product.price.toString()),
+                                    state.sayantaliqShowAuctionMode.data.product.price.toString()),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -147,7 +147,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: ' بداية المزاد',
-                            price: (sayantaliqDetails.openingAmount
+                            price: (state.sayantaliqShowAuctionMode.data.openingAmount
                                 .toStringAsFixed(2)),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
@@ -159,9 +159,9 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                           child: CoustomRowItem(
                             title: 'رسوم تنظيم',
                             price:
-                                (sayantaliqDetails.registrationAmount
-                                    ?.toStringAsFixed(2)) ??
-                                '0.00',
+                                (state.sayantaliqShowAuctionMode.data.registrationAmount
+                                    .toStringAsFixed(2)),
+                                
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -283,7 +283,7 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: HtmlWidget(
-                            sayantaliqDetails.product.productDetails,
+                            state.sayantaliqShowAuctionMode.data.product.productDetails,
                             textStyle: R.textStyles.font12Grey3W500Light,
                           ),
                         ),

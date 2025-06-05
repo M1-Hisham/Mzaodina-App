@@ -5,7 +5,6 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_show_action_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 
 class AuctionRegisterButton extends StatelessWidget {
@@ -41,27 +40,27 @@ class AuctionRegisterButton extends StatelessWidget {
       builder: (context, registerState) {
         if (auctionData.type == 'joinable') {
           return CustomElevatedButton(
-            text: 'الانضمام الى المزاد',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.joinTheAuction,
-                arguments: {
-                  'openingAmount': auctionData.openingAmount.toDouble(),
-                  'registrationAmount':
-                      auctionData.registrationAmount.toDouble(),
-                  'requiredBidders': auctionData.requiredBidders,
-                  'auctionId': auctionData.id,
-                  'slug': auctionData.slug,
-                },
-              ).then((shouldRefresh) {
-                if (shouldRefresh == true) {
-                  context.read<QadimShowActionCubit>().getShowAction(
-                    auctionData.slug,
-                  ); // ← اعمل التحديث
-                }
-              });
-            },
+            text:
+                auctionData.auctionStartRate == 100
+                    ? 'اكتمل المزاد'
+                    : 'الانضمام الى المزاد',
+            onPressed:
+                auctionData.auctionStartRate == 100
+                    ? () {}
+                    : () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.joinTheAuction,
+                        arguments: {
+                          'openingAmount': auctionData.openingAmount.toDouble(),
+                          'registrationAmount':
+                              auctionData.registrationAmount.toDouble(),
+                          'requiredBidders': auctionData.requiredBidders,
+                          'auctionId': auctionData.id,
+                          'slug': auctionData.slug,
+                        },
+                      );
+                    },
           );
         }
         if (auctionData.isRegister == false &&

@@ -87,12 +87,7 @@ class AppRouter {
                             getIt<MuntahiShowAuctionCubit>()
                               ..getMuntahiShowAuction(args.slug),
                   ),
-                  BlocProvider(
-                    create:
-                        (context) =>
-                            getIt<AuctionsBiddingHistoryCubit>()
-                              ..getAuctionsBiddingHistory(args.slug),
-                  ),
+        
                 ],
                 child: HomeDetailsMuntahiScreen(muntahiDetails: args),
               ),

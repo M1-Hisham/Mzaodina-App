@@ -1,3 +1,5 @@
+import 'dart:developer' show log;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/data/model/auctions_bidding_body.dart';
 import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 
 class CustomJaraaPriceCard extends StatefulWidget {
   final String slug;
@@ -101,10 +104,15 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
                           controller!.text.isNotEmpty
                               ? int.parse(controller!.text)
                               : selectedValue;
-
+                      log(
+                        '===================================================${value.toString()}',
+                      );
                       context.read<AuctionBiddingCubit>().getAuctionBidding(
                         AuctionsBiddingBody(slug: widget.slug, bid: value),
                       );
+                      context
+                          .read<AuctionsBiddingHistoryCubit>()
+                          .getAuctionsBiddingHistory(widget.slug);
                     },
                   );
                 },

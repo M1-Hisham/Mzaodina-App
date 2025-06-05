@@ -6,12 +6,16 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/router/route.dart';
 import 'package:mzaodina_app/main.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
+
 class MzaodinaApp extends StatelessWidget {
   const MzaodinaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [routeObserver],
       navigatorKey: navigatorKey,
       builder: (context, child) {
         ScreenUtil.init(
