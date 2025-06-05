@@ -157,13 +157,13 @@ Future<void> setupGetIt() async {
   );
   // ✅ Ready Cubit
   getIt.registerFactory<ReadyCubit>(() => ReadyCubit(getIt<ReadyAutionRepo>()));
-  // ✅ Register JaraaRepo
-  getIt.registerLazySingleton<JaraaAuctionRepo>(
-    () => JaraaAuctionRepo(getIt<ApiService>()),
+  // ✅ Register OngoingRepo
+  getIt.registerLazySingleton<OngoingAuctionRepo>(
+    () => OngoingAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ Jaraa Cubit
-  getIt.registerFactory<JaraaCubit>(
-    () => JaraaCubit(getIt<JaraaAuctionRepo>()),
+  // ✅ Ongoing Cubit
+  getIt.registerFactory<OngoingCubit>(
+    () => OngoingCubit(getIt<OngoingAuctionRepo>()),
   );
   // ✅ Register FinishedRepo
   getIt.registerLazySingleton<FinishedAuctionRepo>(
@@ -199,13 +199,13 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<ReadyShowAustionCubit>(
     () => ReadyShowAustionCubit(getIt<ReadyShowAutionRepo>()),
   );
-  // ✅ Register JaraaShowActionRepo
-  getIt.registerLazySingleton<JaraaShowAuctionRepo>(
-    () => JaraaShowAuctionRepo(getIt<ApiService>()),
+  // ✅ Register OngoingShowActionRepo
+  getIt.registerLazySingleton<OngoingShowAuctionRepo>(
+    () => OngoingShowAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ JaraaShowActionCubit Cubit
-  getIt.registerFactory<JaraaShowAuctionCubit>(
-    () => JaraaShowAuctionCubit(getIt<JaraaShowAuctionRepo>()),
+  // ✅ OngoingShowActionCubit Cubit
+  getIt.registerFactory<OngoingShowAuctionCubit>(
+    () => OngoingShowAuctionCubit(getIt<OngoingShowAuctionRepo>()),
   );
   // ✅ Register AuctionsBiddingHistoryRepo
   getIt.registerLazySingleton<AuctionsBiddingHistoryRepo>(

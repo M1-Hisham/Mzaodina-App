@@ -120,9 +120,9 @@ abstract class ApiService {
     @Query("filter") String filter = "ready",
   });
 
-  /// service for auctions Jaraa
+  /// service for auctions Ongoing
   @GET(ApiConstants.auctions)
-  Future<JaraaAuctionResponse> getOngoingAuctions({
+  Future<OngoingAuctionResponse> getOngoingAuctions({
     @Query("filter") String filter = "ongoing",
   });
 
@@ -142,7 +142,9 @@ abstract class ApiService {
     @Path("slug") String slug,
   );
   @GET(ApiConstants.showAuctions)
-  Future<JaraaShowAuctionModel> getJaraaShowAuction(@Path("slug") String slug);
+  Future<OngoingShowAuctionModel> getOngoingShowAuction(
+    @Path("slug") String slug,
+  );
 
   @GET(ApiConstants.showAuctions)
   Future<ReadyShowAuctionMode> getReadyShowAuction(@Path("slug") String slug);

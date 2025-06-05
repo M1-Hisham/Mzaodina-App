@@ -1,19 +1,19 @@
 part of 'jaraa_show_auction_cubit.dart';
 
-sealed class JaraaShowAuctionState {}
+sealed class OngoingShowAuctionState {}
 
-final class JaraaShowAuctionInitial extends JaraaShowAuctionState {}
+final class OngoingShowAuctionInitial extends OngoingShowAuctionState {}
 
-final class JaraaShowAuctionLoading extends JaraaShowAuctionState {}
+final class OngoingShowAuctionLoading extends OngoingShowAuctionState {}
 
-final class JaraaShowAuctionSuccess extends JaraaShowAuctionState {
-  final JaraaShowAuctionModel jaraaShowAuctionMode;
+final class OngoingShowAuctionSuccess extends OngoingShowAuctionState {
+  final OngoingShowAuctionModel jaraaShowAuctionMode;
 
-  JaraaShowAuctionSuccess(this.jaraaShowAuctionMode);
+  OngoingShowAuctionSuccess(this.jaraaShowAuctionMode);
 }
 
-final class JaraaShowAuctionErorr extends JaraaShowAuctionState {
+final class OngoingShowAuctionErorr extends OngoingShowAuctionState {
   final String error;
 
-  JaraaShowAuctionErorr(this.error);
+  OngoingShowAuctionErorr(this.error);
 }

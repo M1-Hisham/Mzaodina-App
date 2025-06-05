@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,17 +12,17 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_blo
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 
-class CustomJaraaCardViewItem extends StatefulWidget {
-  final JaraaAuction jaraaDataModel;
+class CustomOngoingCardViewItem extends StatefulWidget {
+  final OngoingAuction jaraaDataModel;
 
-  const CustomJaraaCardViewItem({super.key, required this.jaraaDataModel});
+  const CustomOngoingCardViewItem({super.key, required this.jaraaDataModel});
 
   @override
-  State<CustomJaraaCardViewItem> createState() =>
-      _CustomJaraaCardViewItemState();
+  State<CustomOngoingCardViewItem> createState() =>
+      _CustomOngoingCardViewItemState();
 }
 
-class _CustomJaraaCardViewItemState extends State<CustomJaraaCardViewItem> {
+class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
   @override
   Widget build(BuildContext context) {
     DateTime eventTimeFromApi = DateTime.parse(widget.jaraaDataModel.endAt);
@@ -128,7 +127,7 @@ class _CustomJaraaCardViewItemState extends State<CustomJaraaCardViewItem> {
                     onPressed: () {
                       Navigator.pushNamed(
                         context,
-                        AppRoutes.homeDetailsJaraaScreenRoute,
+                        AppRoutes.homeDetailsOngoingScreenRoute,
                         arguments: {
                           'eventTime': eventTimeFromApi,
                           'jaraaDataModel': widget.jaraaDataModel,

@@ -10,20 +10,20 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
 import 'package:mzaodina_app/mzaodina_app.dart';
 
-class CustomJaraaListView extends StatefulWidget {
+class CustomOngoingListView extends StatefulWidget {
   final int jaraaCounter;
-  const CustomJaraaListView({super.key, required this.jaraaCounter});
+  const CustomOngoingListView({super.key, required this.jaraaCounter});
 
   @override
-  State<CustomJaraaListView> createState() =>
+  State<CustomOngoingListView> createState() =>
       _CustomNotstartCardViewItemState();
 }
 
-class _CustomNotstartCardViewItemState extends State<CustomJaraaListView>
+class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
     with RouteAware {
   @override
   void didPopNext() {
-    BlocProvider.of<JaraaCubit>(context).getOngoingAuctions();
+    BlocProvider.of<OngoingCubit>(context).getOngoingAuctions();
     BlocProvider.of<LastInvoiceCubit>(context).lastInvoiceChecker();
   }
 
@@ -43,30 +43,31 @@ class _CustomNotstartCardViewItemState extends State<CustomJaraaListView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<JaraaCubit, JaraaState>(
-      bloc: getIt<JaraaCubit>()..getOngoingAuctions(),
+    return BlocBuilder<OngoingCubit, OngoingState>(
+      bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
       builder: (context, state) {
-        if (state is JaraaLoading) {
+        if (state is OngoingLoading) {
           return const Center(child: MazadShimmer());
-        } else if (state is JaraaError) {
+        } else if (state is OngoingError) {
           if (widget.jaraaCounter == 0) {
             return CustomNotItem();
           } else {
             return CustomErorrWidget(
               message: state.errorMessage,
-              onRefresh: () => context.read<JaraaCubit>().getOngoingAuctions(),
+              onRefresh:
+                  () => context.read<OngoingCubit>().getOngoingAuctions(),
             );
           }
-        } else if (state is JaraaSuccess) {
+        } else if (state is OngoingSuccess) {
           final jaraaAuction = state.data;
           return RefreshIndicator(
-            onRefresh: () => context.read<JaraaCubit>().getOngoingAuctions(),
+            onRefresh: () => context.read<OngoingCubit>().getOngoingAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               itemCount: jaraaAuction.data.auctions.length,
               itemBuilder: (context, index) {
-                return CustomJaraaCardViewItem(
+                return CustomOngoingCardViewItem(
                   jaraaDataModel: jaraaAuction.data.auctions[index],
                 );
               },

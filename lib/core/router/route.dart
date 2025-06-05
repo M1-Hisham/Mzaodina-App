@@ -93,7 +93,7 @@ class AppRouter {
               ),
         );
 
-      case AppRoutes.homeDetailsJaraaScreenRoute:
+      case AppRoutes.homeDetailsOngoingScreenRoute:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
@@ -102,8 +102,8 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<JaraaShowAuctionCubit>()
-                              ..getJaraaShowAuctionCubit(
+                            getIt<OngoingShowAuctionCubit>()
+                              ..getOngoingShowAuctionCubit(
                                 args['jaraaDataModel'].slug,
                               ),
                   ),
@@ -120,7 +120,7 @@ class AppRouter {
                   ),
                   BlocProvider(create: (context) => WebSocketCubit()),
                 ],
-                child: HomeDetailsJaraaScreen(
+                child: HomeDetailsOngoingScreen(
                   eventTimeFromApi: args['eventTime']!,
                   jaraaDetails: args['jaraaDataModel'],
                 ),

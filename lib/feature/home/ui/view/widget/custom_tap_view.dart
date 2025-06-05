@@ -150,7 +150,7 @@ class _CustomTapViewState extends State<CustomTapView>
                       padding: const EdgeInsets.all(16.0),
                       child: BlocProvider(
                         create: (context) => WebSocketCubit(),
-                        child: CustomJaraaListView(
+                        child: CustomOngoingListView(
                           jaraaCounter: jaraaCount ?? 0,
                         ),
                       ),
@@ -158,12 +158,12 @@ class _CustomTapViewState extends State<CustomTapView>
 
                     // Padding(
                     //   padding: const EdgeInsets.all(16.0),
-                    //   child: BlocBuilder<JaraaCubit, JaraaState>(
-                    //     bloc: getIt<JaraaCubit>()..getOngoingAuctions(),
+                    //   child: BlocBuilder<OngoingCubit, OngoingState>(
+                    //     bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
                     //     builder: (context, state) {
-                    //       if (state is JaraaLoading) {
+                    //       if (state is OngoingLoading) {
                     //         return const Center(child: MazadShimmer());
-                    //       } else if (state is JaraaError) {
+                    //       } else if (state is OngoingError) {
                     //         if (jaraaCount == 0) {
                     //           return CustomNotItem();
                     //         } else {
@@ -172,11 +172,11 @@ class _CustomTapViewState extends State<CustomTapView>
                     //             onRefresh:
                     //                 () =>
                     //                     context
-                    //                         .read<JaraaCubit>()
+                    //                         .read<OngoingCubit>()
                     //                         .getOngoingAuctions(),
                     //           );
                     //         }
-                    //       } else if (state is JaraaSuccess) {
+                    //       } else if (state is OngoingSuccess) {
                     //         final jaraaAuctionResponse = state.data;
                     //         return ListView.builder(
                     //           padding: EdgeInsets.zero,
@@ -187,7 +187,7 @@ class _CustomTapViewState extends State<CustomTapView>
                     //               padding: const EdgeInsets.only(bottom: 16.0),
                     //               child: BlocProvider(
                     //                 create: (context) => WebSocketCubit(),
-                    //                 child: CustomJaraaCardViewItem(
+                    //                 child: CustomOngoingCardViewItem(
                     //                   jaraaDataModel:
                     //                       jaraaAuctionResponse
                     //                           .data

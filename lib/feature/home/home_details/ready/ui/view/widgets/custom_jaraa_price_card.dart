@@ -11,15 +11,15 @@ import 'package:mzaodina_app/feature/home/home_details/ready/data/model/auctions
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 
-class CustomJaraaPriceCard extends StatefulWidget {
+class CustomOngoingPriceCard extends StatefulWidget {
   final String slug;
-  const CustomJaraaPriceCard({super.key, required this.slug});
+  const CustomOngoingPriceCard({super.key, required this.slug});
 
   @override
-  State<CustomJaraaPriceCard> createState() => _CustomJaraaPriceCardState();
+  State<CustomOngoingPriceCard> createState() => _CustomOngoingPriceCardState();
 }
 
-class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
+class _CustomOngoingPriceCardState extends State<CustomOngoingPriceCard> {
   TextEditingController? controller;
   int selectedIndex = 0;
   int selectedValue = 5;
@@ -96,7 +96,7 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
               showDialog(
                 context: context,
                 builder: (_) {
-                  return CustomJaraaDialogItem(
+                  return CustomOngoingDialogItem(
                     controller: controller,
                     selectedValue: selectedValue,
                     onConfirmBid: () {
@@ -126,8 +126,8 @@ class _CustomJaraaPriceCardState extends State<CustomJaraaPriceCard> {
   }
 }
 
-class CustomJaraaDialogItem extends StatelessWidget {
-  const CustomJaraaDialogItem({
+class CustomOngoingDialogItem extends StatelessWidget {
+  const CustomOngoingDialogItem({
     super.key,
     required this.controller,
     required this.selectedValue,

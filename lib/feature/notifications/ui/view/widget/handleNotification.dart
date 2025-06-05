@@ -77,7 +77,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsJaraaScreenRoute,
+          AppRoutes.homeDetailsOngoingScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -143,7 +143,7 @@ void _handleTypeBasedRouting(
           case 'jaraa':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsJaraaScreenRoute,
+              AppRoutes.homeDetailsOngoingScreenRoute,
               arguments: {'slug': slug},
             );
             break;

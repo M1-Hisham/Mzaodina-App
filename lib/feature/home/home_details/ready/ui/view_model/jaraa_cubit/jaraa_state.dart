@@ -1,19 +1,19 @@
 part of 'jaraa_cubit.dart';
 
-sealed class JaraaState {}
+sealed class OngoingState {}
 
-final class JaraaInitial extends JaraaState {}
+final class OngoingInitial extends OngoingState {}
 
-final class JaraaLoading extends JaraaState {}
+final class OngoingLoading extends OngoingState {}
 
-final class JaraaSuccess extends JaraaState {
-  final JaraaAuctionResponse data;
+final class OngoingSuccess extends OngoingState {
+  final OngoingAuctionResponse data;
 
-  JaraaSuccess(this.data);
+  OngoingSuccess(this.data);
 }
 
-final class JaraaError extends JaraaState {
+final class OngoingError extends OngoingState {
   final String errorMessage;
 
-  JaraaError(this.errorMessage);
+  OngoingError(this.errorMessage);
 }

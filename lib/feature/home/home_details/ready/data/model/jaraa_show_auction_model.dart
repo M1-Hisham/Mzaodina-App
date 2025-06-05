@@ -3,20 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'jaraa_show_auction_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class JaraaShowAuctionModel {
+class OngoingShowAuctionModel {
   final bool status;
   final String message;
   final OngoingAuction data;
 
-  JaraaShowAuctionModel({
+  OngoingShowAuctionModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory JaraaShowAuctionModel.fromJson(Map<String, dynamic> json) =>
-      _$JaraaShowAuctionModelFromJson(json);
-  Map<String, dynamic> toJson() => _$JaraaShowAuctionModelToJson(this);
+  factory OngoingShowAuctionModel.fromJson(Map<String, dynamic> json) =>
+      _$OngoingShowAuctionModelFromJson(json);
+  Map<String, dynamic> toJson() => _$OngoingShowAuctionModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

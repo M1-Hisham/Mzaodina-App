@@ -8,7 +8,7 @@ class AppRoutes {
   static const joinTheAuction = '/JoinTheAuction';
   static const homeDetailsNotstartScreenRoute = '/homeDetailsNotstartScreen';
   static const homeDetailsFinishedScreenRoute = '/HomeDetailsFinishedScreen';
-  static const homeDetailsJaraaScreenRoute = '/homeDetailsJaraaScreen';
+  static const homeDetailsOngoingScreenRoute = '/homeDetailsOngoingScreen';
   static const homeDetailsReadyScreenRoute = '/HomeDetailsReadyScreen';
   static const aboutUsScreenRoute = '/aboutUsScreen';
   static const accountDetailsScreenRoute = '/accountDetailsScreen';

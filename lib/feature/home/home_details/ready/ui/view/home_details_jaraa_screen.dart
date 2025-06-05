@@ -21,31 +21,31 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:mzaodina_app/mzaodina_app.dart';
 
-class HomeDetailsJaraaScreen extends StatefulWidget {
+class HomeDetailsOngoingScreen extends StatefulWidget {
   final DateTime eventTimeFromApi;
-  final JaraaAuction jaraaDetails;
+  final OngoingAuction jaraaDetails;
 
-  const HomeDetailsJaraaScreen({
+  const HomeDetailsOngoingScreen({
     super.key,
     required this.jaraaDetails,
     required this.eventTimeFromApi,
   });
 
   @override
-  State<HomeDetailsJaraaScreen> createState() => _HomeDetailsJaraaScreenState();
+  State<HomeDetailsOngoingScreen> createState() =>
+      _HomeDetailsOngoingScreenState();
 }
 
-class _HomeDetailsJaraaScreenState extends State<HomeDetailsJaraaScreen>
+class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen>
     with RouteAware {
   @override
   void didPopNext() {
     BlocProvider.of<AuctionsBiddingHistoryCubit>(
       context,
     ).getAuctionsBiddingHistory(widget.jaraaDetails.slug);
-    BlocProvider.of<JaraaShowAuctionCubit>(
+    BlocProvider.of<OngoingShowAuctionCubit>(
       context,
-    ).getJaraaShowAuctionCubit(widget.jaraaDetails.slug);
-    
+    ).getOngoingShowAuctionCubit(widget.jaraaDetails.slug);
   }
 
   @override
@@ -87,18 +87,18 @@ class _HomeDetailsJaraaScreenState extends State<HomeDetailsJaraaScreen>
               ),
             ),
 
-            BlocBuilder<JaraaShowAuctionCubit, JaraaShowAuctionState>(
+            BlocBuilder<OngoingShowAuctionCubit, OngoingShowAuctionState>(
               builder: (context, state) {
-                if (state is JaraaShowAuctionLoading) {
+                if (state is OngoingShowAuctionLoading) {
                   return const MazadDetailsShimmer();
-                } else if (state is JaraaShowAuctionErorr) {
+                } else if (state is OngoingShowAuctionErorr) {
                   return Center(
                     child: Text(
                       state.error,
                       style: R.textStyles.font14Grey3W500Light,
                     ),
                   );
-                } else if (state is JaraaShowAuctionSuccess) {
+                } else if (state is OngoingShowAuctionSuccess) {
                   return Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -296,7 +296,7 @@ class _HomeDetailsJaraaScreenState extends State<HomeDetailsJaraaScreen>
                                     horizontal: 16.0,
                                   ),
 
-                                  child: CustomJaraaPriceCard(
+                                  child: CustomOngoingPriceCard(
                                     slug: state.jaraaShowAuctionMode.data.slug,
                                   ),
                                 ),

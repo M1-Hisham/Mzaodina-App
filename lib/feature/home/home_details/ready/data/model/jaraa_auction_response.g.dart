@@ -6,16 +6,16 @@ part of 'jaraa_auction_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JaraaAuctionResponse _$JaraaAuctionResponseFromJson(
+OngoingAuctionResponse _$OngoingAuctionResponseFromJson(
   Map<String, dynamic> json,
-) => JaraaAuctionResponse(
+) => OngoingAuctionResponse(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: Data.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$JaraaAuctionResponseToJson(
-  JaraaAuctionResponse instance,
+Map<String, dynamic> _$OngoingAuctionResponseToJson(
+  OngoingAuctionResponse instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
@@ -25,7 +25,7 @@ Map<String, dynamic> _$JaraaAuctionResponseToJson(
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
   auctions:
       (json['auctions'] as List<dynamic>)
-          .map((e) => JaraaAuction.fromJson(e as Map<String, dynamic>))
+          .map((e) => OngoingAuction.fromJson(e as Map<String, dynamic>))
           .toList(),
   total: (json['total'] as num?)?.toInt(),
   currentPage: (json['current_page'] as num?)?.toInt(),
@@ -43,18 +43,19 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
   'prev_page_url': instance.prevPageUrl,
 };
 
-JaraaAuction _$JaraaAuctionFromJson(Map<String, dynamic> json) => JaraaAuction(
-  id: (json['id'] as num).toInt(),
-  slug: json['slug'] as String,
-  status: json['status'] as String,
-  openingAmount: (json['opening_amount'] as num).toInt(),
-  canBidding: json['canBidding'] as bool,
-  endAt: json['end_at'] as String,
-  product: Product.fromJson(json['product'] as Map<String, dynamic>),
-  maxBid: MaxBid.fromJson(json['max_bid'] as Map<String, dynamic>),
-);
+OngoingAuction _$OngoingAuctionFromJson(Map<String, dynamic> json) =>
+    OngoingAuction(
+      id: (json['id'] as num).toInt(),
+      slug: json['slug'] as String,
+      status: json['status'] as String,
+      openingAmount: (json['opening_amount'] as num).toInt(),
+      canBidding: json['canBidding'] as bool,
+      endAt: json['end_at'] as String,
+      product: Product.fromJson(json['product'] as Map<String, dynamic>),
+      maxBid: MaxBid.fromJson(json['max_bid'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$JaraaAuctionToJson(JaraaAuction instance) =>
+Map<String, dynamic> _$OngoingAuctionToJson(OngoingAuction instance) =>
     <String, dynamic>{
       'id': instance.id,
       'slug': instance.slug,

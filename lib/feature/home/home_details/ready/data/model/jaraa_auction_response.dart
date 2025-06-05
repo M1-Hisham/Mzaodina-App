@@ -3,26 +3,26 @@ import 'package:json_annotation/json_annotation.dart';
 part 'jaraa_auction_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class JaraaAuctionResponse {
+class OngoingAuctionResponse {
   final bool status;
   final String message;
   final Data data;
 
-  JaraaAuctionResponse({
+  OngoingAuctionResponse({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory JaraaAuctionResponse.fromJson(Map<String, dynamic> json) =>
-      _$JaraaAuctionResponseFromJson(json);
+  factory OngoingAuctionResponse.fromJson(Map<String, dynamic> json) =>
+      _$OngoingAuctionResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JaraaAuctionResponseToJson(this);
+  Map<String, dynamic> toJson() => _$OngoingAuctionResponseToJson(this);
 }
 
 @JsonSerializable()
 class Data {
-  final List<JaraaAuction> auctions;
+  final List<OngoingAuction> auctions;
   final int? total;
   @JsonKey(name: 'current_page')
   final int? currentPage;
@@ -45,7 +45,7 @@ class Data {
 }
 
 @JsonSerializable(explicitToJson: true)
-class JaraaAuction {
+class OngoingAuction {
   final int id;
   final String slug;
   final String status;
@@ -58,7 +58,7 @@ class JaraaAuction {
   @JsonKey(name: 'max_bid')
   final MaxBid maxBid;
 
-  JaraaAuction({
+  OngoingAuction({
     required this.id,
     required this.slug,
     required this.status,
@@ -69,10 +69,10 @@ class JaraaAuction {
     required this.maxBid,
   });
 
-  factory JaraaAuction.fromJson(Map<String, dynamic> json) =>
-      _$JaraaAuctionFromJson(json);
+  factory OngoingAuction.fromJson(Map<String, dynamic> json) =>
+      _$OngoingAuctionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JaraaAuctionToJson(this);
+  Map<String, dynamic> toJson() => _$OngoingAuctionToJson(this);
 }
 
 @JsonSerializable()

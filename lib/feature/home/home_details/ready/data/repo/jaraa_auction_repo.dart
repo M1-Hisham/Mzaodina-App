@@ -4,12 +4,12 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/data/model/jaraa_auction_response.dart';
 
-class JaraaAuctionRepo {
+class OngoingAuctionRepo {
   final ApiService apiService;
 
-  JaraaAuctionRepo(this.apiService);
+  OngoingAuctionRepo(this.apiService);
 
-  Future<Either<Failure, JaraaAuctionResponse>> getOngoingAuctions() async {
+  Future<Either<Failure, OngoingAuctionResponse>> getOngoingAuctions() async {
     try {
       final response = await apiService.getOngoingAuctions();
       return Right(response);

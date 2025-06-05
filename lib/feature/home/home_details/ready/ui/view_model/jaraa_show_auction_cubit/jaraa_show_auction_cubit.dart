@@ -4,17 +4,17 @@ import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/jaraa_sho
 
 part 'jaraa_show_auction_state.dart';
 
-class JaraaShowAuctionCubit extends Cubit<JaraaShowAuctionState> {
-  JaraaShowAuctionCubit(this.jaraaShowAuctionRepo)
-    : super(JaraaShowAuctionInitial());
-  final JaraaShowAuctionRepo jaraaShowAuctionRepo;
-  Future<void> getJaraaShowAuctionCubit(String slug) async {
-    emit(JaraaShowAuctionLoading());
+class OngoingShowAuctionCubit extends Cubit<OngoingShowAuctionState> {
+  OngoingShowAuctionCubit(this.jaraaShowAuctionRepo)
+    : super(OngoingShowAuctionInitial());
+  final OngoingShowAuctionRepo jaraaShowAuctionRepo;
+  Future<void> getOngoingShowAuctionCubit(String slug) async {
+    emit(OngoingShowAuctionLoading());
     final result = await jaraaShowAuctionRepo.getjaraaShowAuctions(slug);
     result.fold(
-      (failure) => emit(JaraaShowAuctionErorr(failure.errMessage)),
+      (failure) => emit(OngoingShowAuctionErorr(failure.errMessage)),
       (sayantaliqShowAuctionMode) =>
-          emit(JaraaShowAuctionSuccess(sayantaliqShowAuctionMode)),
+          emit(OngoingShowAuctionSuccess(sayantaliqShowAuctionMode)),
     );
   }
 }

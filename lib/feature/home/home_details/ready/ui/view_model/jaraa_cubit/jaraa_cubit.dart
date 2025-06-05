@@ -4,20 +4,20 @@ import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/jaraa_auc
 
 part 'jaraa_state.dart';
 
-class JaraaCubit extends Cubit<JaraaState> {
-  JaraaCubit(this.jaraaAuctionRepo) : super(JaraaInitial());
-  final JaraaAuctionRepo jaraaAuctionRepo;
+class OngoingCubit extends Cubit<OngoingState> {
+  OngoingCubit(this.jaraaAuctionRepo) : super(OngoingInitial());
+  final OngoingAuctionRepo jaraaAuctionRepo;
 
   Future<void> getOngoingAuctions() async {
-    emit(JaraaLoading());
+    emit(OngoingLoading());
     final response = await jaraaAuctionRepo.getOngoingAuctions();
 
     response.fold(
       (failure) {
-        emit(JaraaError(failure.errMessage));
+        emit(OngoingError(failure.errMessage));
       },
       (success) {
-        emit(JaraaSuccess(success));
+        emit(OngoingSuccess(success));
       },
     );
   }

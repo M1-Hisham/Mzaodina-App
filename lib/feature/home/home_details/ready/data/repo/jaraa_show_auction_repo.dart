@@ -4,16 +4,16 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/data/model/jaraa_show_auction_model.dart';
 
-class JaraaShowAuctionRepo {
+class OngoingShowAuctionRepo {
   final ApiService apiService;
 
-  JaraaShowAuctionRepo(this.apiService);
+  OngoingShowAuctionRepo(this.apiService);
 
-  Future<Either<Failure, JaraaShowAuctionModel>> getjaraaShowAuctions(
+  Future<Either<Failure, OngoingShowAuctionModel>> getjaraaShowAuctions(
     String slug,
   ) async {
     try {
-      final response = await apiService.getJaraaShowAuction(slug);
+      final response = await apiService.getOngoingShowAuction(slug);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

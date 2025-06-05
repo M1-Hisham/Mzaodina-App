@@ -6,16 +6,16 @@ part of 'jaraa_show_auction_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JaraaShowAuctionModel _$JaraaShowAuctionModelFromJson(
+OngoingShowAuctionModel _$OngoingShowAuctionModelFromJson(
   Map<String, dynamic> json,
-) => JaraaShowAuctionModel(
+) => OngoingShowAuctionModel(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: OngoingAuction.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$JaraaShowAuctionModelToJson(
-  JaraaShowAuctionModel instance,
+Map<String, dynamic> _$OngoingShowAuctionModelToJson(
+  OngoingShowAuctionModel instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
