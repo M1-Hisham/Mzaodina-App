@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/jaraa_show_auction_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/jaraa_show_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/jaraa_show_auction_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/jaraa_show_auction_repo.dart';
 
 part 'jaraa_show_auction_state.dart';
 

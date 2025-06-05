@@ -1,4 +1,4 @@
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/auctions_bidding_history_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/auctions_bidding_history_model.dart';
 
 class BidModel {
   final int number;

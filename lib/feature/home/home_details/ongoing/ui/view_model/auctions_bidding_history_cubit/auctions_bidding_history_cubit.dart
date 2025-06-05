@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/auctions_bidding_history_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/auctions_bidding_history_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/auctions_bidding_history_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/auctions_bidding_history_repo.dart';
 
 part 'auctions_bidding_history_state.dart';
 

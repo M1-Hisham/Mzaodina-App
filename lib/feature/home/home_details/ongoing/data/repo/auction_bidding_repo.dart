@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/auctions_bidding_body.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/bidding_response_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/auctions_bidding_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/bidding_response_model.dart';
 
 class AuctionBiddingRepo {
   final ApiService apiService;

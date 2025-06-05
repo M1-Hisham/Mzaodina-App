@@ -7,9 +7,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/auctions_bidding_body.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/auctions_bidding_body.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 
 class CustomOngoingPriceCard extends StatefulWidget {
   final String slug;

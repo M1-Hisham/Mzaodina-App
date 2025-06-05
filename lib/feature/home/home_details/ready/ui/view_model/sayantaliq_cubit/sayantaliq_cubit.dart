@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/sayantaliq_auction_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/sayantaliq_aution_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/data/model/sayantaliq_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/sayantaliq_aution_repo.dart';
 
 part 'sayantaliq_state.dart';
 

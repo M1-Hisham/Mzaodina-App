@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/model/bid_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/bid_model.dart';
 
 class BidsDialog extends StatefulWidget {
   final List<BidModel> bids;
