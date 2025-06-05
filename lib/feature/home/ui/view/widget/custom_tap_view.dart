@@ -203,12 +203,12 @@ class _CustomTapViewState extends State<CustomTapView>
                     // ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: BlocBuilder<MuntahiCubit, MuntahiState>(
-                        bloc: getIt<MuntahiCubit>()..getFinishedAuctions(),
+                      child: BlocBuilder<FinishedCubit, FinishedState>(
+                        bloc: getIt<FinishedCubit>()..getFinishedAuctions(),
                         builder: (context, state) {
-                          if (state is MuntahiLoading) {
+                          if (state is FinishedLoading) {
                             return const Center(child: MazadShimmer());
-                          } else if (state is MuntahiError) {
+                          } else if (state is FinishedError) {
                             if (muntahiCount == 0) {
                               return CustomNotItem();
                             } else {
@@ -217,11 +217,11 @@ class _CustomTapViewState extends State<CustomTapView>
                                 onRefresh:
                                     () =>
                                         context
-                                            .read<MuntahiCubit>()
+                                            .read<FinishedCubit>()
                                             .getFinishedAuctions(),
                               );
                             }
-                          } else if (state is MuntahiSuccess) {
+                          } else if (state is FinishedSuccess) {
                             final muntaliAuctionResponse = state.data;
                             return ListView.builder(
                               padding: EdgeInsets.zero,
@@ -230,7 +230,7 @@ class _CustomTapViewState extends State<CustomTapView>
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 16.0),
-                                  child: CustomMuntahiCardViewItem(
+                                  child: CustomFinishedCardViewItem(
                                     muntahiDataModel:
                                         muntaliAuctionResponse
                                             .data

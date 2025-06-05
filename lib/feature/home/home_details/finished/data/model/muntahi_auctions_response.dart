@@ -3,25 +3,25 @@ import 'package:json_annotation/json_annotation.dart';
 part 'muntahi_auctions_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class MuntahiAuctionsResponse {
+class FinishedAuctionsResponse {
   final bool status;
   final String message;
   final Data data;
 
-  MuntahiAuctionsResponse({
+  FinishedAuctionsResponse({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory MuntahiAuctionsResponse.fromJson(Map<String, dynamic> json) =>
-      _$MuntahiAuctionsResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$MuntahiAuctionsResponseToJson(this);
+  factory FinishedAuctionsResponse.fromJson(Map<String, dynamic> json) =>
+      _$FinishedAuctionsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$FinishedAuctionsResponseToJson(this);
 }
 
 @JsonSerializable()
 class Data {
-  final List<MuntahiAction> auctions;
+  final List<FinishedAction> auctions;
   final int? total;
   @JsonKey(name: 'current_page')
   final int? currentPage;
@@ -44,7 +44,7 @@ class Data {
 }
 
 @JsonSerializable(explicitToJson: true)
-class MuntahiAction {
+class FinishedAction {
   final int id;
   final String slug;
   final String status;
@@ -53,7 +53,7 @@ class MuntahiAction {
   final Product product;
   final Winner winner;
 
-  MuntahiAction({
+  FinishedAction({
     required this.id,
     required this.slug,
     required this.status,
@@ -62,9 +62,9 @@ class MuntahiAction {
     required this.winner,
   });
 
-  factory MuntahiAction.fromJson(Map<String, dynamic> json) =>
-      _$MuntahiActionFromJson(json);
-  Map<String, dynamic> toJson() => _$MuntahiActionToJson(this);
+  factory FinishedAction.fromJson(Map<String, dynamic> json) =>
+      _$FinishedActionFromJson(json);
+  Map<String, dynamic> toJson() => _$FinishedActionToJson(this);
 }
 
 @JsonSerializable()

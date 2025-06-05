@@ -1,19 +1,19 @@
 part of 'muntahi_show_auction_cubit.dart';
 
-sealed class MuntahiShowAuctionState {}
+sealed class FinishedShowAuctionState {}
 
-final class MuntahiShowAuctionInitial extends MuntahiShowAuctionState {}
+final class FinishedShowAuctionInitial extends FinishedShowAuctionState {}
 
-final class MuntahiShowAuctionLoading extends MuntahiShowAuctionState {}
+final class FinishedShowAuctionLoading extends FinishedShowAuctionState {}
 
-final class MuntahiShowAuctionSuccess extends MuntahiShowAuctionState {
-  final MuntahiShowAuctionModel model;
+final class FinishedShowAuctionSuccess extends FinishedShowAuctionState {
+  final FinishedShowAuctionModel model;
 
-  MuntahiShowAuctionSuccess(this.model);
+  FinishedShowAuctionSuccess(this.model);
 }
 
-final class MuntahiShowAuctionError extends MuntahiShowAuctionState {
+final class FinishedShowAuctionError extends FinishedShowAuctionState {
   final String message;
 
-  MuntahiShowAuctionError(this.message);
+  FinishedShowAuctionError(this.message);
 }

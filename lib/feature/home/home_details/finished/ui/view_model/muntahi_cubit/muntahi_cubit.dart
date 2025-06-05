@@ -4,19 +4,19 @@ import 'package:mzaodina_app/feature/home/home_details/finished/data/repo/muntah
 
 part 'muntahi_state.dart';
 
-class MuntahiCubit extends Cubit<MuntahiState> {
-  MuntahiCubit(this.muntahiAuctionRepo) : super(MuntahiInitial());
-  final MuntahiAuctionRepo muntahiAuctionRepo;
+class FinishedCubit extends Cubit<FinishedState> {
+  FinishedCubit(this.muntahiAuctionRepo) : super(FinishedInitial());
+  final FinishedAuctionRepo muntahiAuctionRepo;
   Future<void> getFinishedAuctions() async {
-    emit(MuntahiLoading());
+    emit(FinishedLoading());
     final response = await muntahiAuctionRepo.getFinishedAuctions();
 
     response.fold(
       (failure) {
-        emit(MuntahiError(failure.errMessage));
+        emit(FinishedError(failure.errMessage));
       },
       (success) {
-        emit(MuntahiSuccess(success));
+        emit(FinishedSuccess(success));
       },
     );
   }

@@ -75,8 +75,8 @@ class AppRouter {
                 child: HomeDetailsQadimScreen(qadimDetails: args),
               ),
         );
-      case AppRoutes.homeDetailsMuntahiScreenRoute:
-        final args = settings.arguments as MuntahiAction;
+      case AppRoutes.homeDetailsFinishedScreenRoute:
+        final args = settings.arguments as FinishedAction;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
@@ -84,12 +84,11 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<MuntahiShowAuctionCubit>()
-                              ..getMuntahiShowAuction(args.slug),
+                            getIt<FinishedShowAuctionCubit>()
+                              ..getFinishedShowAuction(args.slug),
                   ),
-        
                 ],
-                child: HomeDetailsMuntahiScreen(muntahiDetails: args),
+                child: HomeDetailsFinishedScreen(muntahiDetails: args),
               ),
         );
 

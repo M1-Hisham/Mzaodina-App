@@ -43,7 +43,8 @@ class HomeScreen extends StatelessWidget {
                 ),
                 BlocProvider(
                   create:
-                      (context) => getIt<MuntahiCubit>()..getFinishedAuctions(),
+                      (context) =>
+                          getIt<FinishedCubit>()..getFinishedAuctions(),
                 ),
                 BlocProvider(
                   create:

@@ -9,16 +9,16 @@ import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/data/model/muntahi_auctions_response.dart';
 import 'package:share_plus/share_plus.dart';
 
-class CustomMuntahiCardViewItem extends StatefulWidget {
-  final MuntahiAction muntahiDataModel;
-  const CustomMuntahiCardViewItem({super.key, required this.muntahiDataModel});
+class CustomFinishedCardViewItem extends StatefulWidget {
+  final FinishedAction muntahiDataModel;
+  const CustomFinishedCardViewItem({super.key, required this.muntahiDataModel});
 
   @override
-  State<CustomMuntahiCardViewItem> createState() =>
+  State<CustomFinishedCardViewItem> createState() =>
       _CustomQadimCardViewItemState();
 }
 
-class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
+class _CustomQadimCardViewItemState extends State<CustomFinishedCardViewItem> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -130,7 +130,7 @@ class _CustomQadimCardViewItemState extends State<CustomMuntahiCardViewItem> {
                         onPressed: () {
                           Navigator.pushNamed(
                             context,
-                            AppRoutes.homeDetailsMuntahiScreenRoute,
+                            AppRoutes.homeDetailsFinishedScreenRoute,
                             arguments: widget.muntahiDataModel,
                           );
                         },

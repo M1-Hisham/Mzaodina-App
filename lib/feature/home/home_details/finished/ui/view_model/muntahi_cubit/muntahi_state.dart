@@ -1,19 +1,19 @@
 part of 'muntahi_cubit.dart';
 
-sealed class MuntahiState {}
+sealed class FinishedState {}
 
-final class MuntahiInitial extends MuntahiState {}
+final class FinishedInitial extends FinishedState {}
 
-final class MuntahiLoading extends MuntahiState {}
+final class FinishedLoading extends FinishedState {}
 
-final class MuntahiSuccess extends MuntahiState {
-  final MuntahiAuctionsResponse data;
+final class FinishedSuccess extends FinishedState {
+  final FinishedAuctionsResponse data;
 
-  MuntahiSuccess(this.data);
+  FinishedSuccess(this.data);
 }
 
-final class MuntahiError extends MuntahiState {
+final class FinishedError extends FinishedState {
   final String errorMessage;
 
-  MuntahiError(this.errorMessage);
+  FinishedError(this.errorMessage);
 }

@@ -16,9 +16,9 @@ import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/mu
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
-class HomeDetailsMuntahiScreen extends StatelessWidget {
-  final MuntahiAction muntahiDetails;
-  const HomeDetailsMuntahiScreen({super.key, required this.muntahiDetails});
+class HomeDetailsFinishedScreen extends StatelessWidget {
+  final FinishedAction muntahiDetails;
+  const HomeDetailsFinishedScreen({super.key, required this.muntahiDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +35,19 @@ class HomeDetailsMuntahiScreen extends StatelessWidget {
               ),
             ),
           ),
-          BlocBuilder<MuntahiShowAuctionCubit, MuntahiShowAuctionState>(
+          BlocBuilder<FinishedShowAuctionCubit, FinishedShowAuctionState>(
             builder: (context, state) {
-              if (state is MuntahiShowAuctionLoading) {
+              if (state is FinishedShowAuctionLoading) {
                 return const MazadDetailsShimmer();
-              } else if (state is MuntahiShowAuctionError) {
+              } else if (state is FinishedShowAuctionError) {
                 return CustomErorrWidget(
                   message: state.message,
                   onRefresh:
                       () => context
-                          .read<MuntahiShowAuctionCubit>()
-                          .getMuntahiShowAuction(muntahiDetails.slug),
+                          .read<FinishedShowAuctionCubit>()
+                          .getFinishedShowAuction(muntahiDetails.slug),
                 );
-              } else if (state is MuntahiShowAuctionSuccess) {
+              } else if (state is FinishedShowAuctionSuccess) {
                 final data = state.model.data;
                 return Expanded(
                   child: SingleChildScrollView(

@@ -3,20 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'muntahi_show_auction_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class MuntahiShowAuctionModel {
+class FinishedShowAuctionModel {
   final bool status;
   final String message;
   final AuctionData data;
 
-  MuntahiShowAuctionModel({
+  FinishedShowAuctionModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory MuntahiShowAuctionModel.fromJson(Map<String, dynamic> json) =>
-      _$MuntahiShowAuctionModelFromJson(json);
-  Map<String, dynamic> toJson() => _$MuntahiShowAuctionModelToJson(this);
+  factory FinishedShowAuctionModel.fromJson(Map<String, dynamic> json) =>
+      _$FinishedShowAuctionModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FinishedShowAuctionModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

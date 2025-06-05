@@ -4,16 +4,16 @@ import 'package:mzaodina_app/feature/home/home_details/finished/data/repo/muntah
 
 part 'muntahi_show_auction_state.dart';
 
-class MuntahiShowAuctionCubit extends Cubit<MuntahiShowAuctionState> {
-  MuntahiShowAuctionCubit(this.muntahiAuctionRepo)
-    : super(MuntahiShowAuctionInitial());
-  final MuntahiShowAuctionRepo muntahiAuctionRepo;
-  Future<void> getMuntahiShowAuction(String slug) async {
-    emit(MuntahiShowAuctionLoading());
-    final result = await muntahiAuctionRepo.getMuntahiShowAuction(slug);
+class FinishedShowAuctionCubit extends Cubit<FinishedShowAuctionState> {
+  FinishedShowAuctionCubit(this.muntahiAuctionRepo)
+    : super(FinishedShowAuctionInitial());
+  final FinishedShowAuctionRepo muntahiAuctionRepo;
+  Future<void> getFinishedShowAuction(String slug) async {
+    emit(FinishedShowAuctionLoading());
+    final result = await muntahiAuctionRepo.getFinishedShowAuction(slug);
     result.fold(
-      (failure) => emit(MuntahiShowAuctionError(failure.errMessage)),
-      (model) => emit(MuntahiShowAuctionSuccess(model)),
+      (failure) => emit(FinishedShowAuctionError(failure.errMessage)),
+      (model) => emit(FinishedShowAuctionSuccess(model)),
     );
   }
 }

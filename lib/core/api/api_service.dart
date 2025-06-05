@@ -126,9 +126,9 @@ abstract class ApiService {
     @Query("filter") String filter = "ongoing",
   });
 
-  /// service for auctions Muntahi
+  /// service for auctions Finished
   @GET(ApiConstants.auctions)
-  Future<MuntahiAuctionsResponse> getFinishedAuctions({
+  Future<FinishedAuctionsResponse> getFinishedAuctions({
     @Query("filter") String filter = "finished",
   });
 
@@ -136,7 +136,7 @@ abstract class ApiService {
   Future<QadimShowAuctionModel> getQadimShowAuction(@Path("slug") String slug);
 
   @GET(ApiConstants.showAuctions)
-  Future<MuntahiShowAuctionModel> getMuntahiShowAuction(
+  Future<FinishedShowAuctionModel> getFinishedShowAuction(
     @Path("slug") String slug,
   );
   @GET(ApiConstants.showAuctions)

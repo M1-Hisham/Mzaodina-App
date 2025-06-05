@@ -491,14 +491,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<MuntahiAuctionsResponse> getFinishedAuctions({
+  Future<FinishedAuctionsResponse> getFinishedAuctions({
     String filter = "finished",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MuntahiAuctionsResponse>(
+    final _options = _setStreamType<FinishedAuctionsResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -509,9 +509,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MuntahiAuctionsResponse _value;
+    late FinishedAuctionsResponse _value;
     try {
-      _value = MuntahiAuctionsResponse.fromJson(_result.data!);
+      _value = FinishedAuctionsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -547,12 +547,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<MuntahiShowAuctionModel> getMuntahiShowAuction(String slug) async {
+  Future<FinishedShowAuctionModel> getFinishedShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MuntahiShowAuctionModel>(
+    final _options = _setStreamType<FinishedShowAuctionModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -563,9 +563,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MuntahiShowAuctionModel _value;
+    late FinishedShowAuctionModel _value;
     try {
-      _value = MuntahiShowAuctionModel.fromJson(_result.data!);
+      _value = FinishedShowAuctionModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

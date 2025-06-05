@@ -6,16 +6,16 @@ part of 'muntahi_show_auction_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MuntahiShowAuctionModel _$MuntahiShowAuctionModelFromJson(
+FinishedShowAuctionModel _$FinishedShowAuctionModelFromJson(
   Map<String, dynamic> json,
-) => MuntahiShowAuctionModel(
+) => FinishedShowAuctionModel(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: AuctionData.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$MuntahiShowAuctionModelToJson(
-  MuntahiShowAuctionModel instance,
+Map<String, dynamic> _$FinishedShowAuctionModelToJson(
+  FinishedShowAuctionModel instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,

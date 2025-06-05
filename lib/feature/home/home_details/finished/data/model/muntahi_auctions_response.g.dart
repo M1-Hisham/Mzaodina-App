@@ -6,16 +6,16 @@ part of 'muntahi_auctions_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MuntahiAuctionsResponse _$MuntahiAuctionsResponseFromJson(
+FinishedAuctionsResponse _$FinishedAuctionsResponseFromJson(
   Map<String, dynamic> json,
-) => MuntahiAuctionsResponse(
+) => FinishedAuctionsResponse(
   status: json['status'] as bool,
   message: json['message'] as String,
   data: Data.fromJson(json['data'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$MuntahiAuctionsResponseToJson(
-  MuntahiAuctionsResponse instance,
+Map<String, dynamic> _$FinishedAuctionsResponseToJson(
+  FinishedAuctionsResponse instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
@@ -25,7 +25,7 @@ Map<String, dynamic> _$MuntahiAuctionsResponseToJson(
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
   auctions:
       (json['auctions'] as List<dynamic>)
-          .map((e) => MuntahiAction.fromJson(e as Map<String, dynamic>))
+          .map((e) => FinishedAction.fromJson(e as Map<String, dynamic>))
           .toList(),
   total: (json['total'] as num?)?.toInt(),
   currentPage: (json['current_page'] as num?)?.toInt(),
@@ -43,8 +43,8 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
   'prev_page_url': instance.prevPageUrl,
 };
 
-MuntahiAction _$MuntahiActionFromJson(Map<String, dynamic> json) =>
-    MuntahiAction(
+FinishedAction _$FinishedActionFromJson(Map<String, dynamic> json) =>
+    FinishedAction(
       id: (json['id'] as num).toInt(),
       slug: json['slug'] as String,
       status: json['status'] as String,
@@ -53,7 +53,7 @@ MuntahiAction _$MuntahiActionFromJson(Map<String, dynamic> json) =>
       winner: Winner.fromJson(json['winner'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$MuntahiActionToJson(MuntahiAction instance) =>
+Map<String, dynamic> _$FinishedActionToJson(FinishedAction instance) =>
     <String, dynamic>{
       'id': instance.id,
       'slug': instance.slug,

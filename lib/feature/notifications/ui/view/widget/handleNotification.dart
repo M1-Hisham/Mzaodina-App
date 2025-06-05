@@ -66,7 +66,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsMuntahiScreenRoute,
+          AppRoutes.homeDetailsFinishedScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -133,10 +133,10 @@ void _handleTypeBasedRouting(
               arguments: {'slug': slug},
             );
             break;
-          case 'muntahi':
+          case 'finished':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsMuntahiScreenRoute,
+              AppRoutes.homeDetailsFinishedScreenRoute,
               arguments: {'slug': slug},
             );
             break;
