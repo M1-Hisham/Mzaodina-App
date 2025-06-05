@@ -12,19 +12,19 @@ import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/home_details_jaraa_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/data/model/muntahi_auctions_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/home_details_muntahi_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/model/qadim_auction_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/home_details_qadim_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/home_details_sayantaliq_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/home_details_jaraa_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/data/model/muntahi_auctions_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/home_details_muntahi_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/home_details_sayantaliq_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
@@ -45,11 +45,13 @@ import 'package:mzaodina_app/feature/profile/about-us/view/about_us_screen.dart'
 import 'package:mzaodina_app/feature/profile/account-details/view/account_details_screen.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view/change_password_screen.dart';
+import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/privacy-policy/view/privacy_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
@@ -61,20 +63,21 @@ class AppRouter {
 
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case AppRoutes.homeDetailsQadimScreenRoute:
-        final args = settings.arguments as QadimAuction;
+      case AppRoutes.homeDetailsNotstartScreenRoute:
+        final args = settings.arguments as NotstartAuction;
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
                 create:
                     (context) =>
-                        getIt<QadimShowActionCubit>()..getShowAction(args.slug),
+                        getIt<NotstartShowActionCubit>()
+                          ..getShowAction(args.slug),
 
-                child: HomeDetailsQadimScreen(qadimDetails: args),
+                child: HomeDetailsNotstartScreen(qadimDetails: args),
               ),
         );
-      case AppRoutes.homeDetailsMuntahiScreenRoute:
-        final args = settings.arguments as MuntahiAction;
+      case AppRoutes.homeDetailsFinishedScreenRoute:
+        final args = settings.arguments as FinishedAction;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
@@ -82,21 +85,15 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<MuntahiShowAuctionCubit>()
-                              ..getMuntahiShowAuction(args.slug),
-                  ),
-                  BlocProvider(
-                    create:
-                        (context) =>
-                            getIt<AuctionsBiddingHistoryCubit>()
-                              ..getAuctionsBiddingHistory(args.slug),
+                            getIt<FinishedShowAuctionCubit>()
+                              ..getFinishedShowAuction(args.slug),
                   ),
                 ],
-                child: HomeDetailsMuntahiScreen(muntahiDetails: args),
+                child: HomeDetailsFinishedScreen(muntahiDetails: args),
               ),
         );
 
-      case AppRoutes.homeDetailsJaraaScreenRoute:
+      case AppRoutes.homeDetailsOngoingScreenRoute:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
@@ -105,8 +102,8 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<JaraaShowAuctionCubit>()
-                              ..getJaraaShowAuctionCubit(
+                            getIt<OngoingShowAuctionCubit>()
+                              ..getOngoingShowAuctionCubit(
                                 args['jaraaDataModel'].slug,
                               ),
                   ),
@@ -123,15 +120,15 @@ class AppRouter {
                   ),
                   BlocProvider(create: (context) => WebSocketCubit()),
                 ],
-                child: HomeDetailsJaraaScreen(
+                child: HomeDetailsOngoingScreen(
                   eventTimeFromApi: args['eventTime']!,
                   jaraaDetails: args['jaraaDataModel'],
                 ),
               ),
         );
 
-      /// Home Details Sayantaliq Screen
-      case AppRoutes.homeDetailsSayantaliqScreenRoute:
+      /// Home Details Ready Screen
+      case AppRoutes.homeDetailsReadyScreenRoute:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder:
@@ -140,14 +137,14 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<SayantaliqShowAustionCubit>()
-                              ..getSayantaliqShowAuctionCubit(
+                            getIt<ReadyShowAustionCubit>()
+                              ..getReadyShowAuctionCubit(
                                 args['sayantaliqDataModel'].slug,
                               ),
                   ),
                   BlocProvider(create: (context) => WebSocketCubit()),
                 ],
-                child: HomeDetailsSayantaliqScreen(
+                child: HomeDetailsReadyScreen(
                   eventTimeFromApi: args['eventTime']!,
                   sayantaliqDetails: args['sayantaliqDataModel'],
                   s: args['s'] ?? 0,
@@ -169,6 +166,7 @@ class AppRouter {
       case AppRoutes.aboutUsScreenRoute:
         return MaterialPageRoute(builder: (_) => AboutUsScreen());
       case AppRoutes.accountDetailsScreenRoute:
+        final args = settings.arguments as UserData;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
@@ -180,8 +178,10 @@ class AppRouter {
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),
+
+                  BlocProvider(create: (context) => getIt<UserDataCubit>()),
                 ],
-                child: AccountDetailsScreen(),
+                child: AccountDetailsScreen(userData: args),
               ),
         );
       case AppRoutes.changePasswordScreenRoute:
@@ -237,7 +237,11 @@ class AppRouter {
         );
       case AppRoutes.completeShippingInformationScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => CompleteShippingInformationScreen(),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => CountryCubit(),
+                child: CompleteShippingInformationScreen(),
+              ),
         );
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
@@ -253,6 +257,9 @@ class AppRouter {
                     create: (context) => getIt<SubscribeAuctionCubit>(),
                   ),
                   BlocProvider(
+                    create: (context) => getIt<NotstartShowActionCubit>(),
+                  ),
+                  BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
                   ),
                 ],
@@ -261,6 +268,7 @@ class AppRouter {
                   openingAmount: args['openingAmount'],
                   registrationAmount: args['registrationAmount'],
                   auctionId: args['auctionId'],
+                  slug: args['slug'],
                 ),
               ),
         );

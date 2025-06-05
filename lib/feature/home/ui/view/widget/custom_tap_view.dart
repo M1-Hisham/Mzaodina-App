@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_card_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/widget/custom_muntahi_cart_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/custom_qadim_card_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/widget/custom_sayantaliq_cart_virew_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_jaraa_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/widget/custom_muntahi_cart_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantaliq_list_view.dart';
+import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
+import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
+import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
 
 class CustomTapView extends StatefulWidget {
   const CustomTapView({super.key});
@@ -31,25 +33,20 @@ class _CustomTapViewState extends State<CustomTapView>
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(length: 4, vsync: this);
-    _tabController.addListener(_handleTabSelection);
 
     _tabController.animation?.addListener(() {
       final newIndex = _tabController.animation!.value.round();
+
       if (newIndex != selectedIndex) {
         setState(() {
           selectedIndex = newIndex;
         });
+
+        context.read<LastInvoiceCubit>().lastInvoiceChecker();
       }
     });
-  }
-
-  void _handleTabSelection() {
-    if (_tabController.indexIsChanging == false) {
-      setState(() {
-        selectedIndex = _tabController.index;
-      });
-    }
   }
 
   @override
@@ -60,224 +57,203 @@ class _CustomTapViewState extends State<CustomTapView>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TabBar(
-          controller: _tabController,
-          labelPadding: const EdgeInsets.all(0),
-          dividerHeight: 0,
-          indicatorColor: Colors.transparent,
-          labelColor: R.colors.primaryColorLight,
+    return BlocBuilder<ActionsCountCubit, ActionsCountState>(
+      bloc: getIt<ActionsCountCubit>()..fetchActionsCount(),
 
-          tabs:
-              tapViewModel.asMap().entries.map((entry) {
-                final index = entry.key;
-                final item = entry.value;
-                final isSelected = index == selectedIndex;
-                final color =
-                    isSelected
-                        ? selectedTabColors[index]
-                        : Colors.grey.shade300;
-                return CustomTapItem(
-                  item: item,
-                  isSelected: isSelected,
-                  selectedColor: color,
-                );
-              }).toList(),
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: BlocBuilder<QadimCubit, QadimState>(
-                  builder: (context, state) {
-                    if (state is QadimLoading) {
-                      return const Center(child: MazadShimmer());
-                    } else if (state is QadimError) {
-                      return CustomErorrWidget(
-                        message: state.errorMessage,
-                        onRefresh:
-                            () =>
-                                context
-                                    .read<QadimCubit>()
-                                    .getNotStartAuctions(),
-                      );
-                    } else if (state is QadimSuccess) {
-                      final qadimAuctionResponse = state.data;
-                      return RefreshIndicator(
-                        onRefresh:
-                            () =>
-                                context
-                                    .read<QadimCubit>()
-                                    .getNotStartAuctions(),
-                        child: ListView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          padding: EdgeInsets.zero,
-
-                          itemCount: qadimAuctionResponse.data.auctions.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: CustomQadimCardViewItem(
-                                qadimDataModel:
-                                    qadimAuctionResponse.data.auctions[index],
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return const Center(child: Text('لا يوجد بيانات'));
+      buildWhen: (previous, current) => previous != current,
+      builder: (context, state) {
+        int? qadimCount;
+        int? sayantaliqCount;
+        int? jaraaCount;
+        int? muntahiCount;
+        if (state is ActionsCountSuccess) {
+          final counts = state.response.data;
+          qadimCount = counts.notstart.total;
+          sayantaliqCount = counts.ready.total;
+          jaraaCount = counts.ongoing.total;
+          muntahiCount = counts.finished.total;
+        }
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TabBar(
+              controller: _tabController,
+              labelPadding: const EdgeInsets.all(0),
+              dividerHeight: 0,
+              indicatorColor: Colors.transparent,
+              labelColor: R.colors.primaryColorLight,
+              tabs:
+                  tapViewModel.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final item = entry.value;
+                    final isSelected = index == selectedIndex;
+                    final color =
+                        isSelected
+                            ? selectedTabColors[index]
+                            : Colors.grey.shade300;
+                    String? counter;
+                    if (index == 0) {
+                      counter =
+                          qadimCount == null ? ' ' : qadimCount.toString();
                     }
-                  },
+                    if (index == 1) {
+                      counter =
+                          sayantaliqCount == null
+                              ? ' '
+                              : sayantaliqCount.toString();
+                    }
+                    if (index == 2) {
+                      counter =
+                          jaraaCount == null ? ' ' : jaraaCount.toString();
+                    }
+                    if (index == 3) {
+                      counter =
+                          muntahiCount == null ? ' ' : muntahiCount.toString();
+                    }
+                    return CustomTapItem(
+                      item: item,
+                      isSelected: isSelected,
+                      selectedColor: color,
+                      counter: counter ?? '0',
+                    );
+                  }).toList(),
+            ),
+            Expanded(
+              child: BlocListener<LastInvoiceCubit, LastInvoiceState>(
+                listener: (context, state) {
+                  if (state is LastInvoiceSuccess) {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.invoiceDetailsScreenRoute,
+                    );
+                  }
+                },
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: CustomNotstartListView(
+                        qadimCounter: qadimCount ?? 0,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: BlocProvider(
+                        create: (context) => WebSocketCubit(),
+                        child: CustomSayantiqListView(
+                          sayantaliqCounter: sayantaliqCount ?? 0,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: BlocProvider(
+                        create: (context) => WebSocketCubit(),
+                        child: CustomOngoingListView(
+                          jaraaCounter: jaraaCount ?? 0,
+                        ),
+                      ),
+                    ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.all(16.0),
+                    //   child: BlocBuilder<OngoingCubit, OngoingState>(
+                    //     bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
+                    //     builder: (context, state) {
+                    //       if (state is OngoingLoading) {
+                    //         return const Center(child: MazadShimmer());
+                    //       } else if (state is OngoingError) {
+                    //         if (jaraaCount == 0) {
+                    //           return CustomNotItem();
+                    //         } else {
+                    //           return CustomErorrWidget(
+                    //             message: state.errorMessage,
+                    //             onRefresh:
+                    //                 () =>
+                    //                     context
+                    //                         .read<OngoingCubit>()
+                    //                         .getOngoingAuctions(),
+                    //           );
+                    //         }
+                    //       } else if (state is OngoingSuccess) {
+                    //         final jaraaAuctionResponse = state.data;
+                    //         return ListView.builder(
+                    //           padding: EdgeInsets.zero,
+                    //           itemCount:
+                    //               jaraaAuctionResponse.data.auctions.length,
+                    //           itemBuilder: (context, index) {
+                    //             return Padding(
+                    //               padding: const EdgeInsets.only(bottom: 16.0),
+                    //               child: BlocProvider(
+                    //                 create: (context) => WebSocketCubit(),
+                    //                 child: CustomOngoingCardViewItem(
+                    //                   jaraaDataModel:
+                    //                       jaraaAuctionResponse
+                    //                           .data
+                    //                           .auctions[index],
+                    //                 ),
+                    //               ),
+                    //             );
+                    //           },
+                    //         );
+                    //       } else {
+                    //         return const Center(child: Text('لا يوجد بيانات'));
+                    //       }
+                    //     },
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: BlocBuilder<FinishedCubit, FinishedState>(
+                        bloc: getIt<FinishedCubit>()..getFinishedAuctions(),
+                        builder: (context, state) {
+                          if (state is FinishedLoading) {
+                            return const Center(child: MazadShimmer());
+                          } else if (state is FinishedError) {
+                            if (muntahiCount == 0) {
+                              return CustomNotItem();
+                            } else {
+                              return CustomErorrWidget(
+                                message: state.errorMessage,
+                                onRefresh:
+                                    () =>
+                                        context
+                                            .read<FinishedCubit>()
+                                            .getFinishedAuctions(),
+                              );
+                            }
+                          } else if (state is FinishedSuccess) {
+                            final muntaliAuctionResponse = state.data;
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount:
+                                  muntaliAuctionResponse.data.auctions.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: CustomFinishedCardViewItem(
+                                    muntahiDataModel:
+                                        muntaliAuctionResponse
+                                            .data
+                                            .auctions[index],
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            return const Center(child: Text('لا يوجد بيانات'));
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: BlocBuilder<SayantaliqCubit, SayantaliqState>(
-                  builder: (context, state) {
-                    if (state is SayantaliqLoading) {
-                      return const Center(child: MazadShimmer());
-                    } else if (state is SayantaliqError) {
-                      return CustomErorrWidget(
-                        message: state.errorMessage,
-                        onRefresh:
-                            () =>
-                                context
-                                    .read<SayantaliqCubit>()
-                                    .getReadyAuctions(),
-                      );
-                    } else if (state is SayantaliqSuccess) {
-                      final sayantaliqAuctionResponse = state.data;
-                      return RefreshIndicator(
-                        onRefresh:
-                            () =>
-                                context
-                                    .read<SayantaliqCubit>()
-                                    .getReadyAuctions(),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-
-                          itemCount:
-                              sayantaliqAuctionResponse.data.auctions.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: BlocProvider(
-                                create: (context) => WebSocketCubit(),
-                                child: CustomSayantaliqCardViewItem(
-                                  sayantaliqDataModel:
-                                      sayantaliqAuctionResponse
-                                          .data
-                                          .auctions[index],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return const Center(child: Text('لا يوجد بيانات'));
-                    }
-                  },
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: BlocBuilder<JaraaCubit, JaraaState>(
-                  builder: (context, state) {
-                    if (state is JaraaLoading) {
-                      return const Center(child: MazadShimmer());
-                    } else if (state is JaraaError) {
-                      return CustomErorrWidget(
-                        message: state.errorMessage,
-                        onRefresh:
-                            () =>
-                                context.read<JaraaCubit>().getOngoingAuctions(),
-                      );
-                    } else if (state is JaraaSuccess) {
-                      final jaraaAuctionResponse = state.data;
-                      return RefreshIndicator(
-                        onRefresh:
-                            () =>
-                                context.read<JaraaCubit>().getOngoingAuctions(),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-
-                          itemCount: jaraaAuctionResponse.data.auctions.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: BlocProvider(
-                                create: (context) => WebSocketCubit(),
-                                child: CustomJaraaCardViewItem(
-                                  jaraaDataModel:
-                                      jaraaAuctionResponse.data.auctions[index],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return const Center(child: Text('لا يوجد بيانات'));
-                    }
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: BlocBuilder<MuntahiCubit, MuntahiState>(
-                  builder: (context, state) {
-                    if (state is MuntahiLoading) {
-                      return const Center(child: MazadShimmer());
-                    } else if (state is MuntahiError) {
-                      return CustomErorrWidget(
-                        message: state.errorMessage,
-                        onRefresh:
-                            () =>
-                                context
-                                    .read<MuntahiCubit>()
-                                    .getFinishedAuctions(),
-                      );
-                    } else if (state is MuntahiSuccess) {
-                      final muntaliAuctionResponse = state.data;
-                      return RefreshIndicator(
-                        onRefresh:
-                            () =>
-                                context
-                                    .read<MuntahiCubit>()
-                                    .getFinishedAuctions(),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-
-                          itemCount:
-                              muntaliAuctionResponse.data.auctions.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: CustomMuntahiCardViewItem(
-                                muntahiDataModel:
-                                    muntaliAuctionResponse.data.auctions[index],
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return const Center(child: Text('لا يوجد بيانات'));
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

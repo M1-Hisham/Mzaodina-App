@@ -55,7 +55,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsQadimScreenRoute,
+          AppRoutes.homeDetailsNotstartScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -66,7 +66,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsMuntahiScreenRoute,
+          AppRoutes.homeDetailsFinishedScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -77,7 +77,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsJaraaScreenRoute,
+          AppRoutes.homeDetailsOngoingScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -88,7 +88,7 @@ void _handleRoute(
       if (slug != null) {
         Navigator.pushNamed(
           context,
-          AppRoutes.homeDetailsSayantaliqScreenRoute,
+          AppRoutes.homeDetailsReadyScreenRoute,
           arguments: {'slug': slug},
         );
       }
@@ -129,28 +129,28 @@ void _handleTypeBasedRouting(
           case 'qadim':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsQadimScreenRoute,
+              AppRoutes.homeDetailsNotstartScreenRoute,
               arguments: {'slug': slug},
             );
             break;
-          case 'muntahi':
+          case 'finished':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsMuntahiScreenRoute,
+              AppRoutes.homeDetailsFinishedScreenRoute,
               arguments: {'slug': slug},
             );
             break;
           case 'jaraa':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsJaraaScreenRoute,
+              AppRoutes.homeDetailsOngoingScreenRoute,
               arguments: {'slug': slug},
             );
             break;
           case 'sayantaliq':
             Navigator.pushNamed(
               context,
-              AppRoutes.homeDetailsSayantaliqScreenRoute,
+              AppRoutes.homeDetailsReadyScreenRoute,
               arguments: {'slug': slug},
             );
             break;

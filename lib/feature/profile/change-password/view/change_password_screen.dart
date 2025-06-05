@@ -19,124 +19,133 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: R.colors.whiteLight,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            CustomAppBarAccount(title: 'تغير كلمة المرور'),
-            SingleChildScrollView(
-              child: BlocListener<ChangePasswordCubit, ChangePasswordState>(
-                listener: (context, state) {
-                  if (state is ChangePasswordLoading) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder:
-                          (context) =>
-                              const Center(child: CircularProgressIndicator()),
-                    );
-                  } else if (state is ChangePasswordSuccess) {
-                    Navigator.pop(context);
-
-                    showDialog(
-                      context: context,
-                      builder:
-                          (BuildContext context) => CustomDialogWidget(
-                            buttonText: 'اغلاق',
-                            message: state.message,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                    );
-                  } else if (state is ChangePasswordFailure) {
-                    Navigator.pop(context); // Close Dialog
-                    showDialog(
-                      context: context,
-                      builder:
-                          (BuildContext context) => CustomDialogWidget(
-                            buttonText: 'اغلاق',
-                            message: state.errorMessage,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                    );
-                  }
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'كلمة المرور القديمة',
-                      style: R.textStyles.font14Grey3W500Light,
-                    ),
-                    const SizedBox(height: 8),
-                    CustomTextForm(
-                      controller: oldPasswordController,
-                      hintText: 'كلمة المرور القديمة',
-                      fillColor: R.colors.whiteLight,
-                      hintStyle: R.textStyles.font12Grey3W500Light,
-                    ),
-                    const SizedBox(height: 14),
-                    Text(
-                      'كلمة المرور الجديدة',
-                      style: R.textStyles.font14Grey3W500Light,
-                    ),
-                    const SizedBox(height: 8),
-                    CustomTextForm(
-                      controller: newPasswordController,
-                      hintText: 'كلمة المرور الجديدة',
-                      fillColor: R.colors.whiteLight,
-                      hintStyle: R.textStyles.font12Grey3W500Light,
-                    ),
-                    const SizedBox(height: 14),
-                    const SizedBox(height: 14),
-                    Text(
-                      'تاكيد كلمة المرور الجديدة',
-                      style: R.textStyles.font14Grey3W500Light,
-                    ),
-                    const SizedBox(height: 8),
-                    CustomTextForm(
-                      controller: confirmPasswordController,
-                      hintText: 'تاكيد كلمة المرور الجديدة',
-                      fillColor: R.colors.whiteLight,
-                      hintStyle: R.textStyles.font12Grey3W500Light,
-                    ),
-                    const SizedBox(height: 24),
-                    CustomElevatedButton(
-                      text: 'تغير كلمة المرور',
-                      onPressed: () {
-                        final changePasswordModel = ChangePasswordModel(
-                          currentPassword: oldPasswordController.text,
-                          newPassword: newPasswordController.text,
-                          newPasswordConfirmation:
-                              confirmPasswordController.text,
-                        );
-
-                        if (newPasswordController.text ==
-                            confirmPasswordController.text) {
-                          context.read<ChangePasswordCubit>().changePassword(
-                            changePasswordModel,
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('كلمة المرور الجديدة غير متطابقة.'),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              CustomAppBarAccount(title: 'تغير كلمة المرور'),
+              SingleChildScrollView(
+                child: BlocListener<ChangePasswordCubit, ChangePasswordState>(
+                  listener: (context, state) {
+                    if (state is ChangePasswordLoading) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder:
+                            (context) => const Center(
+                              child: CircularProgressIndicator(),
                             ),
-                          );
-                        }
-                      },
-                    ),
-                  ],
+                      );
+                    } else if (state is ChangePasswordSuccess) {
+                      Navigator.pop(context);
+
+                      showDialog(
+                        context: context,
+                        builder:
+                            (BuildContext context) => CustomDialogWidget(
+                              buttonText: 'اغلاق',
+                              message: state.message,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                      );
+                    } else if (state is ChangePasswordFailure) {
+                      Navigator.pop(context); // Close Dialog
+                      showDialog(
+                        context: context,
+                        builder:
+                            (BuildContext context) => CustomDialogWidget(
+                              buttonText: 'اغلاق',
+                              message: state.errorMessage,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                      );
+                    }
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'كلمة المرور القديمة',
+                        style: R.textStyles.font14Grey3W500Light,
+                      ),
+                      const SizedBox(height: 8),
+                      CustomTextForm(
+                        controller: oldPasswordController,
+                        hintText: 'كلمة المرور القديمة',
+                        fillColor: R.colors.whiteLight,
+                        hintStyle: R.textStyles.font12Grey3W500Light,
+                      ),
+                      const SizedBox(height: 14),
+                      Text(
+                        'كلمة المرور الجديدة',
+                        style: R.textStyles.font14Grey3W500Light,
+                      ),
+                      const SizedBox(height: 8),
+                      CustomTextForm(
+                        controller: newPasswordController,
+                        hintText: 'كلمة المرور الجديدة',
+                        fillColor: R.colors.whiteLight,
+                        hintStyle: R.textStyles.font12Grey3W500Light,
+                      ),
+                      const SizedBox(height: 14),
+                      const SizedBox(height: 14),
+                      Text(
+                        'تاكيد كلمة المرور الجديدة',
+                        style: R.textStyles.font14Grey3W500Light,
+                      ),
+                      const SizedBox(height: 8),
+                      CustomTextForm(
+                        controller: confirmPasswordController,
+                        hintText: 'تاكيد كلمة المرور الجديدة',
+                        fillColor: R.colors.whiteLight,
+                        hintStyle: R.textStyles.font12Grey3W500Light,
+                      ),
+                      const SizedBox(height: 24),
+                      CustomElevatedButton(
+                        text: 'تغير كلمة المرور',
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            final changePasswordModel = ChangePasswordModel(
+                              currentPassword: oldPasswordController.text,
+                              newPassword: newPasswordController.text,
+                              newPasswordConfirmation:
+                                  confirmPasswordController.text,
+                            );
+
+                            if (newPasswordController.text ==
+                                confirmPasswordController.text) {
+                              context
+                                  .read<ChangePasswordCubit>()
+                                  .changePassword(changePasswordModel);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'كلمة المرور الجديدة غير متطابقة.',
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

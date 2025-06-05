@@ -7,6 +7,11 @@ class WebSocketServerTimeUpdated extends WebSocketState {
   WebSocketServerTimeUpdated(this.serverTime);
 }
 
+class WebSocketAuctionUpdate extends WebSocketState {
+  final Map<String, dynamic> auctionData;
+  WebSocketAuctionUpdate(this.auctionData);
+}
+
 class WebSocketError extends WebSocketState {
   final String error;
   WebSocketError(this.error);

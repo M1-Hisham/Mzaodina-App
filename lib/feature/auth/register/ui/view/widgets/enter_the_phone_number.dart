@@ -97,6 +97,7 @@ import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/c
 class EnterThePhoneNumber extends StatefulWidget {
   final TextStyle? hintStyle;
   final Color? fillColor;
+  final bool? isValidator;
 
   final TextEditingController? phoneNumberController;
   const EnterThePhoneNumber({
@@ -104,6 +105,7 @@ class EnterThePhoneNumber extends StatefulWidget {
     this.hintStyle,
     this.fillColor,
     this.phoneNumberController,
+    this.isValidator,
   });
 
   @override
@@ -126,6 +128,7 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
         return CustomTextForm(
           controller: widget.phoneNumberController,
           keyboardType: TextInputType.number,
+          isValidator: widget.isValidator == null ? true : widget.isValidator!,
           hintText: 'رقم الهاتف',
           fillColor: widget.fillColor ?? R.colors.formColorLight,
           hintStyle:

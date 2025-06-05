@@ -13,6 +13,7 @@ class ApiConstants {
   static const String changePassword = "/user/change/password";
   static const String forgotPassword = "/user/forgot/password";
   static const String auctions = "/auctions";
+  static const String auctionsCount = "/auctions/count";
   static const String auctionsBidding = "/auctions/bidding";
   static const String auctionsBiddingHistory = "/auctions/bidding/{slug}/history";
   static const String showAuctions = "/auctions/{slug}";

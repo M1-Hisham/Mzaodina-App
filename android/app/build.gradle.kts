@@ -1,12 +1,15 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
-    id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
+    id("com.google.gms.google-services") // FlutterFire
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+// ✅ توليد versionCode من التاريخ بشكل آمن
+val date = SimpleDateFormat("yyyyMMddHH").format(Date())  // HH لضمان فريدة كل ساعة
 
 android {
     namespace = "com.mzaodin.app"
@@ -24,21 +27,31 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.mzaodin.app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk =21
+        minSdk = 21
         targetSdk = 35
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionCode = date.toInt()
+        versionName = "1.0.${date.takeLast(2)}"
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("/media/islam/islam/mzaodin-key.jks")
+            storePassword = "islamroot$$"
+            keyAlias = "mzaodin"
+            keyPassword = "islamroot$$"
+        }
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }
@@ -46,6 +59,7 @@ android {
 flutter {
     source = "../.."
 }
+
 dependencies {
-   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

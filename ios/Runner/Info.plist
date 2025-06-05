@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to the microphone to enable voice features.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Mzaodin</string>
 	<key>CFBundleExecutable</key>
@@ -31,8 +33,8 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-      			<string>com.googleusercontent.apps.412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm</string>
-    		</array>
+				<string>com.googleusercontent.apps.412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
@@ -41,7 +43,7 @@
 	<array>
 		<string>googlechrome</string>
 		<string>google</string>
-  		<string>com.googleusercontent.apps.412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm</string>
+		<string>com.googleusercontent.apps.412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm</string>
 		<string>http</string>
 		<string>https</string>
 		<string>mailto</string>
