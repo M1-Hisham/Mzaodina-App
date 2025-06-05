@@ -134,10 +134,19 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                             title: 'سعر المنتج بالأسواق',
                             price:
                                 (double.tryParse(
-                                      state.sayantaliqShowAuctionMode.data.product.price
+                                      state
+                                          .sayantaliqShowAuctionMode
+                                          .data
+                                          .product
+                                          .price
                                           .toString(),
                                     )?.toStringAsFixed(2) ??
-                                    state.sayantaliqShowAuctionMode.data.product.price.toString()),
+                                    state
+                                        .sayantaliqShowAuctionMode
+                                        .data
+                                        .product
+                                        .price
+                                        .toString()),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -147,7 +156,10 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: ' بداية المزاد',
-                            price: (state.sayantaliqShowAuctionMode.data.openingAmount
+                            price: (state
+                                .sayantaliqShowAuctionMode
+                                .data
+                                .openingAmount
                                 .toStringAsFixed(2)),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
@@ -158,10 +170,12 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                           color: R.colors.blackColor2,
                           child: CoustomRowItem(
                             title: 'رسوم تنظيم',
-                            price:
-                                (state.sayantaliqShowAuctionMode.data.registrationAmount
-                                    .toStringAsFixed(2)),
-                                
+                            price: (state
+                                .sayantaliqShowAuctionMode
+                                .data
+                                .registrationAmount
+                                .toStringAsFixed(2)),
+
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -283,7 +297,11 @@ class HomeDetailsSayantaliqScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: HtmlWidget(
-                            state.sayantaliqShowAuctionMode.data.product.productDetails,
+                            state
+                                .sayantaliqShowAuctionMode
+                                .data
+                                .product
+                                .productDetails,
                             textStyle: R.textStyles.font12Grey3W500Light,
                           ),
                         ),
