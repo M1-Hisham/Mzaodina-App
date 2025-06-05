@@ -51,12 +51,7 @@ class WebViewJoinToAuctionScreen extends StatelessWidget {
                       if (data['status'] == 'success') {
                         Navigator.pop(context);
                         await _showAuctionSuccessDialog(context);
-                        // if (Navigator.canPop(context)) {
-                        //   Navigator.pop(context);
-                        //   await _showAuctionSuccessDialog(
-                        //     context,
-                        //   ); // ✅ استدعيه وانتظر ينتهي
-                        // }
+                  
                       } else {
                         _showAuctionErrorDialog(
                           context,
@@ -169,7 +164,10 @@ class WebViewJoinToAuctionScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     CustomElevatedButton(
                       text: 'إغلاق',
-                      onPressed: () => Navigator.pop(context2),
+                      onPressed: () {
+                        Navigator.pop(context2);
+                        Navigator.pop(context2);
+                      },
                     ),
                   ],
                 ),

@@ -107,7 +107,7 @@ class CounterView extends StatelessWidget {
               /// الزرار:
               CustomElevatedButton(
                 text: 'تاكيد دفع الرسوم التنظيمية',
-                onPressed: () {
+                onPressed: () async {
                   log('message');
                   bool termsAccepted =
                       context.read<CheckboxCubit>().state.isChecked;
@@ -121,13 +121,46 @@ class CounterView extends StatelessWidget {
                   if (!termsAccepted || !warningAccepted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('يرجى الموافقة على الشروط والأحكام'),
+                        content: Text('يرى الجموافقة على الشروط والأحكام'),
                       ),
                     );
                     return;
                   }
 
-                  // هنا بنشغل الكيوبت
+                  // ✅ عرض Dialog تحميل على طول
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder:
+                        (_) => AlertDialog(
+                          backgroundColor: R.colors.whiteLight,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(22),
+                          ),
+                          title: Container(
+                            padding: EdgeInsets.all(18),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'لاتغلق النافذه',
+                                  style: R.textStyles.font18blackW500Light,
+                                ),
+                                SizedBox(height: 16),
+                                Image.asset(
+                                  R.images.loadingJsonIcon,
+
+                                  width: 75,
+                                  height: 75,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                  );
+
+                  // ✅ نفذ الكيوبت فورًا
                   context.read<SubscribeAuctionCubit>().subscribeToAuction(
                     SubscribeAutionBody(
                       registrationCount: count,

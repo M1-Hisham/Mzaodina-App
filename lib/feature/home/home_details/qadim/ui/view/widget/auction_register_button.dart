@@ -40,20 +40,27 @@ class AuctionRegisterButton extends StatelessWidget {
       builder: (context, registerState) {
         if (auctionData.type == 'joinable') {
           return CustomElevatedButton(
-            text: 'الانضمام الى المزاد',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.joinTheAuction,
-                arguments: {
-                  'openingAmount': auctionData.openingAmount.toDouble(),
-                  'registrationAmount':
-                      auctionData.registrationAmount.toDouble(),
-                  'requiredBidders': auctionData.requiredBidders,
-                  'auctionId': auctionData.id,
-                },
-              );
-            },
+            text:
+                auctionData.auctionStartRate == 100
+                    ? 'اكتمل المزاد'
+                    : 'الانضمام الى المزاد',
+            onPressed:
+                auctionData.auctionStartRate == 100
+                    ? () {}
+                    : () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.joinTheAuction,
+                        arguments: {
+                          'openingAmount': auctionData.openingAmount.toDouble(),
+                          'registrationAmount':
+                              auctionData.registrationAmount.toDouble(),
+                          'requiredBidders': auctionData.requiredBidders,
+                          'auctionId': auctionData.id,
+                          'slug': auctionData.slug,
+                        },
+                      );
+                    },
           );
         }
         if (auctionData.isRegister == false &&

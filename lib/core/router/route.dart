@@ -87,12 +87,7 @@ class AppRouter {
                             getIt<MuntahiShowAuctionCubit>()
                               ..getMuntahiShowAuction(args.slug),
                   ),
-                  BlocProvider(
-                    create:
-                        (context) =>
-                            getIt<AuctionsBiddingHistoryCubit>()
-                              ..getAuctionsBiddingHistory(args.slug),
-                  ),
+        
                 ],
                 child: HomeDetailsMuntahiScreen(muntahiDetails: args),
               ),
@@ -262,6 +257,9 @@ class AppRouter {
                     create: (context) => getIt<SubscribeAuctionCubit>(),
                   ),
                   BlocProvider(
+                    create: (context) => getIt<QadimShowActionCubit>(),
+                  ),
+                  BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
                   ),
                 ],
@@ -270,6 +268,7 @@ class AppRouter {
                   openingAmount: args['openingAmount'],
                   registrationAmount: args['registrationAmount'],
                   auctionId: args['auctionId'],
+                  slug: args['slug'],
                 ),
               ),
         );

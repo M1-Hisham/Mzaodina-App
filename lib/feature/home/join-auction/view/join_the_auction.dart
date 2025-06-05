@@ -14,6 +14,7 @@ class JoinTheAuction extends StatelessWidget {
   final double registrationAmount;
   final int requiredBidders;
   final int auctionId;
+  final String slug;
 
   const JoinTheAuction({
     super.key,
@@ -21,6 +22,7 @@ class JoinTheAuction extends StatelessWidget {
     required this.registrationAmount,
     required this.requiredBidders,
     required this.auctionId,
+    required this.slug,
   });
 
   @override
@@ -28,10 +30,12 @@ class JoinTheAuction extends StatelessWidget {
     return BlocListener<SubscribeAuctionCubit, SubscribeToAuctionState>(
       listener: (context, state) {
         if (state is SubscribeAuctionError) {
+          Navigator.pop(context);
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is SubscribeAuctionSuccess) {
+          Navigator.pop(context);
           Navigator.push(
             context,
             MaterialPageRoute(

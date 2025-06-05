@@ -14,10 +14,38 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dia
 import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
+import 'package:mzaodina_app/mzaodina_app.dart';
 
-class HomeDetailsQadimScreen extends StatelessWidget {
+class HomeDetailsQadimScreen extends StatefulWidget {
   final QadimAuction qadimDetails;
   const HomeDetailsQadimScreen({super.key, required this.qadimDetails});
+
+  @override
+  State<HomeDetailsQadimScreen> createState() => _HomeDetailsQadimScreenState();
+}
+
+class _HomeDetailsQadimScreenState extends State<HomeDetailsQadimScreen>
+    with RouteAware {
+  @override
+  void didPopNext() {
+    BlocProvider.of<QadimShowActionCubit>(
+      context,
+    ).getShowAction(widget.qadimDetails.slug);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // تسجيل الصفحة في RouteObserver
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    // دايمًا لازم تلغي التسجيل
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +57,8 @@ class HomeDetailsQadimScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomAppBar(
-                title: qadimDetails.product.nameAr,
-                slug: qadimDetails.slug,
+                title: widget.qadimDetails.product.nameAr,
+                slug: widget.qadimDetails.slug,
               ),
             ),
           ),
@@ -62,15 +90,17 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                           child: CustomIndcatorItem(
                             title: 'نسبة انطلاق المزاد',
                             showIndicator: true,
-                            value: qadimDetails.auctionStartRate?.toInt() ?? 0,
+                            value:
+                                state.showActionModel.data.auctionStartRate
+                                    .toInt(),
                           ),
                         ),
 
                         const SizedBox(height: 8),
                         Hero(
-                          tag: qadimDetails.slug,
+                          tag: state.showActionModel.data.slug,
                           child: CustomCardImageDetails(
-                            images: qadimDetails.product.images,
+                            images: state.showActionModel.data.product.images,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -86,7 +116,9 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: 'سعر المنتج بالأسواق',
-                            price: qadimDetails.product.price.toString(),
+                            price:
+                                state.showActionModel.data.product.price
+                                    .toString(),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -96,9 +128,8 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: ' بداية المزاد',
-                            price: qadimDetails.openingAmount.toStringAsFixed(
-                              2,
-                            ),
+                            price: state.showActionModel.data.openingAmount
+                                .toStringAsFixed(2),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -109,11 +140,8 @@ class HomeDetailsQadimScreen extends StatelessWidget {
 
                           child: CoustomRowItem(
                             title: 'رسوم تنظيم',
-                            price:
-                                qadimDetails.registrationAmount != null
-                                    ? qadimDetails.registrationAmount!
-                                        .toStringAsFixed(2)
-                                    : '0.00',
+                            price: state.showActionModel.data.registrationAmount
+                                .toStringAsFixed(2),
                             style: R.textStyles.font14Grey3W500Light,
                             priceStyle: R.textStyles.font14primaryW500Light,
                           ),
@@ -125,7 +153,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                             title: 'انطلاق المزاد',
                             showIndicator: false,
                             style: R.textStyles.font14Grey3W500Light,
-                            value: qadimDetails.auctionStartRate ?? 0,
+                            value: state.showActionModel.data.auctionStartRate,
                           ),
                         ),
                         Container(
@@ -195,7 +223,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: HtmlWidget(
-                            qadimDetails.product.productDetails,
+                            widget.qadimDetails.product.productDetails,
                             textStyle: R.textStyles.font12Grey3W500Light,
                           ),
                         ),
@@ -214,7 +242,7 @@ class HomeDetailsQadimScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: CustomVerificationToRegisterAuctionBotton(
-        slug: qadimDetails.slug,
+        slug: widget.qadimDetails.slug,
         showActionCubit: context.read<QadimShowActionCubit>(),
       ),
     );

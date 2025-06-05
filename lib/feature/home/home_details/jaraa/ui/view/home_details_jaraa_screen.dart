@@ -19,8 +19,9 @@ import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/cus
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
+import 'package:mzaodina_app/mzaodina_app.dart';
 
-class HomeDetailsJaraaScreen extends StatelessWidget {
+class HomeDetailsJaraaScreen extends StatefulWidget {
   final DateTime eventTimeFromApi;
   final JaraaAuction jaraaDetails;
 
@@ -31,8 +32,39 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
   });
 
   @override
+  State<HomeDetailsJaraaScreen> createState() => _HomeDetailsJaraaScreenState();
+}
+
+class _HomeDetailsJaraaScreenState extends State<HomeDetailsJaraaScreen>
+    with RouteAware {
+  @override
+  void didPopNext() {
+    BlocProvider.of<AuctionsBiddingHistoryCubit>(
+      context,
+    ).getAuctionsBiddingHistory(widget.jaraaDetails.slug);
+    BlocProvider.of<JaraaShowAuctionCubit>(
+      context,
+    ).getJaraaShowAuctionCubit(widget.jaraaDetails.slug);
+    
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // تسجيل الصفحة في RouteObserver
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    // دايمًا لازم تلغي التسجيل
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    DateTime eventTimeFromApi = DateTime.parse(jaraaDetails.endAt);
+    DateTime eventTimeFromApi = DateTime.parse(widget.jaraaDetails.endAt);
 
     return GestureDetector(
       onTap: () {
@@ -49,8 +81,8 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                   horizontal: 16,
                 ),
                 child: CustomAppBar(
-                  title: jaraaDetails.product.nameAr,
-                  slug: jaraaDetails.slug,
+                  title: widget.jaraaDetails.product.nameAr,
+                  slug: widget.jaraaDetails.slug,
                 ),
               ),
             ),
@@ -122,7 +154,9 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                             color: R.colors.blackColor2,
                             child: CoustomRowItem(
                               title: 'سعر المنتج بالأسواق',
-                              price: jaraaDetails.product.price.toString(),
+                              price:
+                                  state.jaraaShowAuctionMode.data.product.price
+                                      .toString(),
                               style: R.textStyles.font14Grey3W500Light,
                               priceStyle: R.textStyles.font14primaryW500Light,
                             ),
@@ -134,7 +168,9 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
 
                             child: CoustomRowItem(
                               title: 'أعلى مبلغ مزايدة',
-                              price: jaraaDetails.maxBid.bid.toStringAsFixed(2),
+                              price:
+                                  state.jaraaShowAuctionMode.data.maxBid.bid
+                                      .toString(),
                               style: R.textStyles.font14Grey3W500Light,
                               priceStyle: R.textStyles.font14primaryW500Light,
                             ),
@@ -154,7 +190,13 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                                 ),
                                 Spacer(),
                                 Text(
-                                  jaraaDetails.maxBid.user.username.toString(),
+                                  state
+                                          .jaraaShowAuctionMode
+                                          .data
+                                          .maxBid
+                                          .user
+                                          ?.username ??
+                                      '0',
                                   style: R.textStyles.font14primaryW500Light,
                                 ),
                               ],
@@ -175,7 +217,14 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                                 ),
                                 Spacer(),
                                 Text(
-                                  jaraaDetails.maxBid.user.country.toString(),
+                                  state
+                                          .jaraaShowAuctionMode
+                                          .data
+                                          .maxBid
+                                          .user
+                                          ?.country
+                                          .toString() ??
+                                      '',
                                   style: R.textStyles.font14primaryW500Light,
                                 ),
                               ],
@@ -315,7 +364,11 @@ class HomeDetailsJaraaScreen extends StatelessWidget {
                               horizontal: 16.0,
                             ),
                             child: HtmlWidget(
-                              jaraaDetails.product.productDetails,
+                              state
+                                  .jaraaShowAuctionMode
+                                  .data
+                                  .product
+                                  .productDetails,
                               textStyle: R.textStyles.font12Grey3W500Light,
                             ),
                           ),
