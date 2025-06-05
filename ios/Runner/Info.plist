@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to the microphone to enable voice features.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Mzaodin</string>
 	<key>CFBundleExecutable</key>
