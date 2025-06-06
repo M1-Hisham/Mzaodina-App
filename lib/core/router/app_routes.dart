@@ -6,11 +6,10 @@ class AppRoutes {
   static const profileRoute = '/ProfileScreen';
   static const navBarRoute = '/NavBarScreen';
   static const joinTheAuction = '/JoinTheAuction';
-  static const homeDetailsQadimScreenRoute = '/homeDetailsQadimScreen';
-  static const homeDetailsMuntahiScreenRoute = '/HomeDetailsMuntahiScreen';
-  static const homeDetailsJaraaScreenRoute = '/homeDetailsJaraaScreen';
-  static const homeDetailsSayantaliqScreenRoute =
-      '/HomeDetailsSayantaliqScreen';
+  static const homeDetailsNotstartScreenRoute = '/homeDetailsNotstartScreen';
+  static const homeDetailsFinishedScreenRoute = '/HomeDetailsFinishedScreen';
+  static const homeDetailsOngoingScreenRoute = '/homeDetailsOngoingScreen';
+  static const homeDetailsReadyScreenRoute = '/HomeDetailsReadyScreen';
   static const aboutUsScreenRoute = '/aboutUsScreen';
   static const accountDetailsScreenRoute = '/accountDetailsScreen';
   static const changePasswordScreenRoute = '/changePasswordScreen';

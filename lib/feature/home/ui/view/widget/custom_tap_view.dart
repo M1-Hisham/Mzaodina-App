@@ -7,11 +7,11 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view/widgets/custom_jaraa_list_view.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view/widget/custom_muntahi_cart_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view/widget/custom_qadim_list_view.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view/widget/custom_sayantaliq_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_jaraa_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/widget/custom_muntahi_cart_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantaliq_list_view.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
@@ -133,7 +133,9 @@ class _CustomTapViewState extends State<CustomTapView>
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: CustomQadimListView(qadimCounter: qadimCount ?? 0),
+                      child: CustomNotstartListView(
+                        qadimCounter: qadimCount ?? 0,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -148,7 +150,7 @@ class _CustomTapViewState extends State<CustomTapView>
                       padding: const EdgeInsets.all(16.0),
                       child: BlocProvider(
                         create: (context) => WebSocketCubit(),
-                        child: CustomJaraaListView(
+                        child: CustomOngoingListView(
                           jaraaCounter: jaraaCount ?? 0,
                         ),
                       ),
@@ -156,12 +158,12 @@ class _CustomTapViewState extends State<CustomTapView>
 
                     // Padding(
                     //   padding: const EdgeInsets.all(16.0),
-                    //   child: BlocBuilder<JaraaCubit, JaraaState>(
-                    //     bloc: getIt<JaraaCubit>()..getOngoingAuctions(),
+                    //   child: BlocBuilder<OngoingCubit, OngoingState>(
+                    //     bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
                     //     builder: (context, state) {
-                    //       if (state is JaraaLoading) {
+                    //       if (state is OngoingLoading) {
                     //         return const Center(child: MazadShimmer());
-                    //       } else if (state is JaraaError) {
+                    //       } else if (state is OngoingError) {
                     //         if (jaraaCount == 0) {
                     //           return CustomNotItem();
                     //         } else {
@@ -170,11 +172,11 @@ class _CustomTapViewState extends State<CustomTapView>
                     //             onRefresh:
                     //                 () =>
                     //                     context
-                    //                         .read<JaraaCubit>()
+                    //                         .read<OngoingCubit>()
                     //                         .getOngoingAuctions(),
                     //           );
                     //         }
-                    //       } else if (state is JaraaSuccess) {
+                    //       } else if (state is OngoingSuccess) {
                     //         final jaraaAuctionResponse = state.data;
                     //         return ListView.builder(
                     //           padding: EdgeInsets.zero,
@@ -185,7 +187,7 @@ class _CustomTapViewState extends State<CustomTapView>
                     //               padding: const EdgeInsets.only(bottom: 16.0),
                     //               child: BlocProvider(
                     //                 create: (context) => WebSocketCubit(),
-                    //                 child: CustomJaraaCardViewItem(
+                    //                 child: CustomOngoingCardViewItem(
                     //                   jaraaDataModel:
                     //                       jaraaAuctionResponse
                     //                           .data
@@ -203,12 +205,12 @@ class _CustomTapViewState extends State<CustomTapView>
                     // ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: BlocBuilder<MuntahiCubit, MuntahiState>(
-                        bloc: getIt<MuntahiCubit>()..getFinishedAuctions(),
+                      child: BlocBuilder<FinishedCubit, FinishedState>(
+                        bloc: getIt<FinishedCubit>()..getFinishedAuctions(),
                         builder: (context, state) {
-                          if (state is MuntahiLoading) {
+                          if (state is FinishedLoading) {
                             return const Center(child: MazadShimmer());
-                          } else if (state is MuntahiError) {
+                          } else if (state is FinishedError) {
                             if (muntahiCount == 0) {
                               return CustomNotItem();
                             } else {
@@ -217,11 +219,11 @@ class _CustomTapViewState extends State<CustomTapView>
                                 onRefresh:
                                     () =>
                                         context
-                                            .read<MuntahiCubit>()
+                                            .read<FinishedCubit>()
                                             .getFinishedAuctions(),
                               );
                             }
-                          } else if (state is MuntahiSuccess) {
+                          } else if (state is FinishedSuccess) {
                             final muntaliAuctionResponse = state.data;
                             return ListView.builder(
                               padding: EdgeInsets.zero,
@@ -230,7 +232,7 @@ class _CustomTapViewState extends State<CustomTapView>
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 16.0),
-                                  child: CustomMuntahiCardViewItem(
+                                  child: CustomFinishedCardViewItem(
                                     muntahiDataModel:
                                         muntaliAuctionResponse
                                             .data

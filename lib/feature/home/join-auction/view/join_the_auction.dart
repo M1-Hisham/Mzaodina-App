@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/web_view_join_to_auction_screen.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';

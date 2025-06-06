@@ -12,30 +12,30 @@ import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_
 import 'package:mzaodina_app/feature/auth/register/data/repo/register_repo.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/home/data/repo/actions_count_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/auction_bidding_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/auctions_bidding_history_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/jaraa_show_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/data/repo/muntahi_show_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_show_action_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/data/repo/jaraa_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/jaraa/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/data/repo/muntahi_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/muntahi/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/qadim_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/register_to_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/data/repo/subscribe_to_auction_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_cubit/qadim_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_aution_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/data/repo/sayantaliq_show_aution_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/sayantaliq/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/auction_bidding_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/auctions_bidding_history_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/jaraa_show_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/data/repo/muntahi_show_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/qadim_show_action_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/jaraa_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/data/repo/muntahi_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/qadim_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/register_to_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/subscribe_to_auction_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/sayantaliq_aution_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/sayantaliq_show_aution_repo.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_repo.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/mark_notifacation_repo.dart';
@@ -143,71 +143,69 @@ Future<void> setupGetIt() async {
     () => ActionsCountCubit(getIt<ActionsCountRepo>()),
   );
 
-  // ✅ Register QadimRepo
-  getIt.registerLazySingleton<QadimAuctionRepo>(
-    () => QadimAuctionRepo(getIt<ApiService>()),
+  // ✅ Register NotstartRepo
+  getIt.registerLazySingleton<NotstartAuctionRepo>(
+    () => NotstartAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ Qadim Cubit
-  getIt.registerFactory<QadimCubit>(
-    () => QadimCubit(getIt<QadimAuctionRepo>()),
+  // ✅ Notstart Cubit
+  getIt.registerFactory<NotstartCubit>(
+    () => NotstartCubit(getIt<NotstartAuctionRepo>()),
   );
-  // ✅ Register SayantaliqRepo
-  getIt.registerLazySingleton<SayantaliqAutionRepo>(
-    () => SayantaliqAutionRepo(getIt<ApiService>()),
+  // ✅ Register ReadyRepo
+  getIt.registerLazySingleton<ReadyAutionRepo>(
+    () => ReadyAutionRepo(getIt<ApiService>()),
   );
-  // ✅ Sayantaliq Cubit
-  getIt.registerFactory<SayantaliqCubit>(
-    () => SayantaliqCubit(getIt<SayantaliqAutionRepo>()),
+  // ✅ Ready Cubit
+  getIt.registerFactory<ReadyCubit>(() => ReadyCubit(getIt<ReadyAutionRepo>()));
+  // ✅ Register OngoingRepo
+  getIt.registerLazySingleton<OngoingAuctionRepo>(
+    () => OngoingAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ Register JaraaRepo
-  getIt.registerLazySingleton<JaraaAuctionRepo>(
-    () => JaraaAuctionRepo(getIt<ApiService>()),
+  // ✅ Ongoing Cubit
+  getIt.registerFactory<OngoingCubit>(
+    () => OngoingCubit(getIt<OngoingAuctionRepo>()),
   );
-  // ✅ Jaraa Cubit
-  getIt.registerFactory<JaraaCubit>(
-    () => JaraaCubit(getIt<JaraaAuctionRepo>()),
+  // ✅ Register FinishedRepo
+  getIt.registerLazySingleton<FinishedAuctionRepo>(
+    () => FinishedAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ Register MuntahiRepo
-  getIt.registerLazySingleton<MuntahiAuctionRepo>(
-    () => MuntahiAuctionRepo(getIt<ApiService>()),
-  );
-  // ✅ Muntahi Cubit
-  getIt.registerFactory<MuntahiCubit>(
-    () => MuntahiCubit(getIt<MuntahiAuctionRepo>()),
+  // ✅ Finished Cubit
+  getIt.registerFactory<FinishedCubit>(
+    () => FinishedCubit(getIt<FinishedAuctionRepo>()),
   );
 
   //============ShowAuction=================
-  // ✅ Register QadimShowActionRepo
-  getIt.registerLazySingleton<QadimShowActionRepo>(
-    () => QadimShowActionRepo(getIt<ApiService>()),
+  // ✅ Register NotstartShowActionRepo
+  getIt.registerLazySingleton<NotstartShowActionRepo>(
+    () => NotstartShowActionRepo(getIt<ApiService>()),
   );
-  // ✅ QadimShowActionCubit Cubit
-  getIt.registerFactory<QadimShowActionCubit>(
-    () => QadimShowActionCubit(getIt<QadimShowActionRepo>()),
+  // ✅ NotstartShowActionCubit Cubit
+  getIt.registerFactory<NotstartShowActionCubit>(
+    () => NotstartShowActionCubit(getIt<NotstartShowActionRepo>()),
   );
-  // ✅ Register MuntahiShowActionRepo
-  getIt.registerLazySingleton<MuntahiShowAuctionRepo>(
-    () => MuntahiShowAuctionRepo(getIt<ApiService>()),
+  // ✅ Register FinishedShowActionRepo
+  getIt.registerLazySingleton<FinishedShowAuctionRepo>(
+    () => FinishedShowAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ MuntahiShowActionCubit Cubit
-  getIt.registerFactory<MuntahiShowAuctionCubit>(
-    () => MuntahiShowAuctionCubit(getIt<MuntahiShowAuctionRepo>()),
+  // ✅ FinishedShowActionCubit Cubit
+  getIt.registerFactory<FinishedShowAuctionCubit>(
+    () => FinishedShowAuctionCubit(getIt<FinishedShowAuctionRepo>()),
   );
-  // ✅ Register SayantaliqShowActionRepo
-  getIt.registerLazySingleton<SayantaliqShowAutionRepo>(
-    () => SayantaliqShowAutionRepo(getIt<ApiService>()),
+  // ✅ Register ReadyShowActionRepo
+  getIt.registerLazySingleton<ReadyShowAutionRepo>(
+    () => ReadyShowAutionRepo(getIt<ApiService>()),
   );
-  // ✅ SayantaliqShowActionCubit Cubit
-  getIt.registerFactory<SayantaliqShowAustionCubit>(
-    () => SayantaliqShowAustionCubit(getIt<SayantaliqShowAutionRepo>()),
+  // ✅ ReadyShowActionCubit Cubit
+  getIt.registerFactory<ReadyShowAustionCubit>(
+    () => ReadyShowAustionCubit(getIt<ReadyShowAutionRepo>()),
   );
-  // ✅ Register JaraaShowActionRepo
-  getIt.registerLazySingleton<JaraaShowAuctionRepo>(
-    () => JaraaShowAuctionRepo(getIt<ApiService>()),
+  // ✅ Register OngoingShowActionRepo
+  getIt.registerLazySingleton<OngoingShowAuctionRepo>(
+    () => OngoingShowAuctionRepo(getIt<ApiService>()),
   );
-  // ✅ JaraaShowActionCubit Cubit
-  getIt.registerFactory<JaraaShowAuctionCubit>(
-    () => JaraaShowAuctionCubit(getIt<JaraaShowAuctionRepo>()),
+  // ✅ OngoingShowActionCubit Cubit
+  getIt.registerFactory<OngoingShowAuctionCubit>(
+    () => OngoingShowAuctionCubit(getIt<OngoingShowAuctionRepo>()),
   );
   // ✅ Register AuctionsBiddingHistoryRepo
   getIt.registerLazySingleton<AuctionsBiddingHistoryRepo>(

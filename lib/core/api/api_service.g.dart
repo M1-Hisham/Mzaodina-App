@@ -404,14 +404,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<QadimAuctionResponse> getNotStartAuctions({
+  Future<NotstartAuctionResponse> getNotStartAuctions({
     String filter = "notstart",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<QadimAuctionResponse>(
+    final _options = _setStreamType<NotstartAuctionResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -422,9 +422,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late QadimAuctionResponse _value;
+    late NotstartAuctionResponse _value;
     try {
-      _value = QadimAuctionResponse.fromJson(_result.data!);
+      _value = NotstartAuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -433,14 +433,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SayantaliqAuctionResponse> getReadyAuctions({
+  Future<ReadyAuctionResponse> getReadyAuctions({
     String filter = "ready",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SayantaliqAuctionResponse>(
+    final _options = _setStreamType<ReadyAuctionResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -451,9 +451,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SayantaliqAuctionResponse _value;
+    late ReadyAuctionResponse _value;
     try {
-      _value = SayantaliqAuctionResponse.fromJson(_result.data!);
+      _value = ReadyAuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -462,14 +462,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<JaraaAuctionResponse> getOngoingAuctions({
+  Future<OngoingAuctionResponse> getOngoingAuctions({
     String filter = "ongoing",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<JaraaAuctionResponse>(
+    final _options = _setStreamType<OngoingAuctionResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -480,9 +480,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late JaraaAuctionResponse _value;
+    late OngoingAuctionResponse _value;
     try {
-      _value = JaraaAuctionResponse.fromJson(_result.data!);
+      _value = OngoingAuctionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -491,14 +491,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<MuntahiAuctionsResponse> getFinishedAuctions({
+  Future<FinishedAuctionsResponse> getFinishedAuctions({
     String filter = "finished",
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MuntahiAuctionsResponse>(
+    final _options = _setStreamType<FinishedAuctionsResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -509,9 +509,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MuntahiAuctionsResponse _value;
+    late FinishedAuctionsResponse _value;
     try {
-      _value = MuntahiAuctionsResponse.fromJson(_result.data!);
+      _value = FinishedAuctionsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -520,12 +520,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<QadimShowAuctionModel> getQadimShowAuction(String slug) async {
+  Future<NotstartShowAuctionModel> getNotstartShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<QadimShowAuctionModel>(
+    final _options = _setStreamType<NotstartShowAuctionModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -536,9 +536,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late QadimShowAuctionModel _value;
+    late NotstartShowAuctionModel _value;
     try {
-      _value = QadimShowAuctionModel.fromJson(_result.data!);
+      _value = NotstartShowAuctionModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -547,12 +547,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<MuntahiShowAuctionModel> getMuntahiShowAuction(String slug) async {
+  Future<FinishedShowAuctionModel> getFinishedShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MuntahiShowAuctionModel>(
+    final _options = _setStreamType<FinishedShowAuctionModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -563,9 +563,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MuntahiShowAuctionModel _value;
+    late FinishedShowAuctionModel _value;
     try {
-      _value = MuntahiShowAuctionModel.fromJson(_result.data!);
+      _value = FinishedShowAuctionModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -574,12 +574,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<JaraaShowAuctionModel> getJaraaShowAuction(String slug) async {
+  Future<OngoingShowAuctionModel> getOngoingShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<JaraaShowAuctionModel>(
+    final _options = _setStreamType<OngoingShowAuctionModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -590,9 +590,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late JaraaShowAuctionModel _value;
+    late OngoingShowAuctionModel _value;
     try {
-      _value = JaraaShowAuctionModel.fromJson(_result.data!);
+      _value = OngoingShowAuctionModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -601,14 +601,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SayantaliqShowAuctionMode> getSayantaliqShowAuction(
-    String slug,
-  ) async {
+  Future<ReadyShowAuctionMode> getReadyShowAuction(String slug) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SayantaliqShowAuctionMode>(
+    final _options = _setStreamType<ReadyShowAuctionMode>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -619,9 +617,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SayantaliqShowAuctionMode _value;
+    late ReadyShowAuctionMode _value;
     try {
-      _value = SayantaliqShowAuctionMode.fromJson(_result.data!);
+      _value = ReadyShowAuctionMode.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

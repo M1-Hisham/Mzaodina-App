@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/feature/home/home_details/qadim/ui/view_model/image_switcher_cubit/image_switcher_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/image_switcher_cubit/image_switcher_cubit.dart';
 
 class CustomCardImageDetails extends StatelessWidget {
   final List<String> images;
