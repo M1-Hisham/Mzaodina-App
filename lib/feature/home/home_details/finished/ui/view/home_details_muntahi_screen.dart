@@ -50,138 +50,158 @@ class HomeDetailsFinishedScreen extends StatelessWidget {
               } else if (state is FinishedShowAuctionSuccess) {
                 final data = state.model.data;
                 return Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomCardImageDetails(images: data.product.images),
-                        const SizedBox(height: 8),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: RefreshIndicator(
+                    onRefresh:
+                        () => context
+                            .read<FinishedShowAuctionCubit>()
+                            .getFinishedShowAuction(muntahiDetails.slug),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomCardImageDetails(images: data.product.images),
+                          const SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
 
-                          child: CustomTextMazadDetails(title: 'تفاصيل المزاد'),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          color: R.colors.blackColor2,
-                          child: CoustomRowItem(
-                            title: 'سعر المنتج بالأسواق',
-                            price: data.product.price.toString(),
-                            style: R.textStyles.font14Grey3W500Light,
-                            priceStyle: R.textStyles.font14primaryW500Light,
+                            child: CustomTextMazadDetails(
+                              title: 'تفاصيل المزاد',
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 6.h,
-                            horizontal: 16,
-                          ),
-                          color: R.colors.transparent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'مبلغ ترسية المزاد',
-                                style: R.textStyles.font14Grey3W500Light,
-                              ),
-                              Spacer(),
-                              Text(
-                                'انتظار دفع الفاتورة',
-                                style: R.textStyles.font12primaryW600Light,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 6.h,
-                            horizontal: 16,
-                          ),
-                          decoration: BoxDecoration(
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
                             color: R.colors.blackColor2,
-                            borderRadius: BorderRadius.circular(12),
+                            child: CoustomRowItem(
+                              title: 'سعر المنتج بالأسواق',
+                              price: data.product.price.toString(),
+                              style: R.textStyles.font14Grey3W500Light,
+                              priceStyle: R.textStyles.font14primaryW500Light,
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'المزاود',
-                                style: R.textStyles.font14Grey3W500Light,
-                              ),
-                              Spacer(),
-                              Text(
-                                data.winner.user.username,
-                                style: R.textStyles.font12primaryW600Light,
-                              ),
-                            ],
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 6.h,
+                              horizontal: 16,
+                            ),
+                            color: R.colors.transparent,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'مبلغ ترسية المزاد',
+                                  style: R.textStyles.font14Grey3W500Light,
+                                ),
+                                Spacer(),
+                                Text(
+                                  'انتظار دفع الفاتورة',
+                                  style: R.textStyles.font12primaryW600Light,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 6.h,
-                            horizontal: 16,
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 6.h,
+                              horizontal: 16,
+                            ),
+                            decoration: BoxDecoration(
+                              color: R.colors.blackColor2,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'المزاود',
+                                  style: R.textStyles.font14Grey3W500Light,
+                                ),
+                                Spacer(),
+                                Text(
+                                  data.winner.user.username,
+                                  style: R.textStyles.font12primaryW600Light,
+                                ),
+                              ],
+                            ),
                           ),
-                          color: R.colors.transparent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'الدولة',
-                                style: R.textStyles.font14Grey3W500Light,
-                              ),
-                              Spacer(),
-                              Text(
-                                data.winner.user.country,
-                                style: R.textStyles.font12primaryW600Light,
-                              ),
-                            ],
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 6.h,
+                              horizontal: 16,
+                            ),
+                            color: R.colors.transparent,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'الدولة',
+                                  style: R.textStyles.font14Grey3W500Light,
+                                ),
+                                Spacer(),
+                                Text(
+                                  data.winner.user.country,
+                                  style: R.textStyles.font12primaryW600Light,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          color: R.colors.blackColor2,
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          Container(
+                            color: R.colors.blackColor2,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
 
-                          child: Row(
-                            children: [
-                              Text(
-                                'الحالة',
-                                style: R.textStyles.font14Grey3W500Light,
-                              ),
-                              Spacer(),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 12,
+                            child: Row(
+                              children: [
+                                Text(
+                                  'الحالة',
+                                  style: R.textStyles.font14Grey3W500Light,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: R.colors.redColor,
-                                  borderRadius: BorderRadius.circular(99),
+                                Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: R.colors.redColor,
+                                    borderRadius: BorderRadius.circular(99),
+                                  ),
+                                  child: Text(
+                                    'منتهي',
+                                    style: R.textStyles.font10whiteW500Light,
+                                  ),
                                 ),
-                                child: Text(
-                                  'منتهي',
-                                  style: R.textStyles.font10whiteW500Light,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 12.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          SizedBox(height: 12.h),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
 
-                          child: CustomTextMazadDetails(title: 'تفاصيل المنتج'),
-                        ),
-                        SizedBox(height: 12.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: HtmlWidget(
-                            muntahiDetails.product.productDetails,
-                            textStyle: R.textStyles.font12Grey3W500Light,
+                            child: CustomTextMazadDetails(
+                              title: 'تفاصيل المنتج',
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 80),
-                      ],
+                          SizedBox(height: 12.h),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: HtmlWidget(
+                              muntahiDetails.product.productDetails,
+                              textStyle: R.textStyles.font12Grey3W500Light,
+                            ),
+                          ),
+                          const SizedBox(height: 80),
+                        ],
+                      ),
                     ),
                   ),
                 );

@@ -29,4 +29,27 @@ class UpdateProfileBody {
       _$UpdateProfileBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateProfileBodyToJson(this);
+  UpdateProfileBody copyWith({
+    String? name,
+    String? username,
+    String? email,
+    String? phone,
+    String? phoneCountryCode,
+    String? country,
+    String? city,
+    String? street,
+    String? neighborhood,
+  }) {
+    return UpdateProfileBody(
+      name: name ?? this.name,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      phoneCountryCode: phoneCountryCode ?? this.phoneCountryCode,
+      country: country ?? this.country,
+      city: city ?? this.city,
+      street: street ?? this.street,
+      neighborhood: neighborhood ?? this.neighborhood,
+    );
+  }
 }

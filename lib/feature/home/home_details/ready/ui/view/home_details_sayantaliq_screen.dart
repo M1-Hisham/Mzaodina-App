@@ -61,252 +61,284 @@ class HomeDetailsReadyScreen extends StatelessWidget {
                 );
               } else if (state is ReadyShowAustionSuccess) {
                 return Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 40.w,
-                            vertical: 12,
+                  child: RefreshIndicator(
+                    onRefresh:
+                        () => context
+                            .read<ReadyShowAustionCubit>()
+                            .getReadyShowAuctionCubit(sayantaliqDetails.slug),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 40.w,
+                              vertical: 12,
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: CountdownUnitWidget(
+                                    value: s,
+                                    label: 'ثانية',
+                                    maxValue: 60,
+                                    progressColor: R.colors.orangeColor,
+                                    backgroundColor: R.colors.orangeColor2,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CountdownUnitWidget(
+                                    value: m,
+                                    label: 'دقيقة',
+                                    maxValue: 60,
+                                    progressColor: R.colors.orangeColor,
+                                    backgroundColor: R.colors.orangeColor2,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CountdownUnitWidget(
+                                    value: h,
+                                    maxValue: 24,
+                                    label: 'ساعة',
+                                    progressColor: R.colors.orangeColor,
+                                    backgroundColor: R.colors.orangeColor2,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CountdownUnitWidget(
+                                    value: d,
+                                    label: 'يوم',
+                                    maxValue: 365,
+                                    progressColor: R.colors.orangeColor,
+                                    backgroundColor: R.colors.orangeColor2,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: CountdownUnitWidget(
-                                  value: s,
-                                  label: 'ثانية',
-                                  maxValue: 60,
-                                  progressColor: R.colors.orangeColor,
-                                  backgroundColor: R.colors.orangeColor2,
-                                ),
-                              ),
-                              Expanded(
-                                child: CountdownUnitWidget(
-                                  value: m,
-                                  label: 'دقيقة',
-                                  maxValue: 60,
-                                  progressColor: R.colors.orangeColor,
-                                  backgroundColor: R.colors.orangeColor2,
-                                ),
-                              ),
-                              Expanded(
-                                child: CountdownUnitWidget(
-                                  value: h,
-                                  maxValue: 24,
-                                  label: 'ساعة',
-                                  progressColor: R.colors.orangeColor,
-                                  backgroundColor: R.colors.orangeColor2,
-                                ),
-                              ),
-                              Expanded(
-                                child: CountdownUnitWidget(
-                                  value: d,
-                                  label: 'يوم',
-                                  maxValue: 365,
-                                  progressColor: R.colors.orangeColor,
-                                  backgroundColor: R.colors.orangeColor2,
-                                ),
-                              ),
-                            ],
+                          const SizedBox(height: 8),
+                          CustomCardImageDetails(
+                            images:
+                                state
+                                    .sayantaliqShowAuctionMode
+                                    .data
+                                    .product
+                                    .images,
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        CustomCardImageDetails(
-                          images:
-                              state
-                                  .sayantaliqShowAuctionMode
-                                  .data
-                                  .product
-                                  .images,
-                        ),
-                        const SizedBox(height: 8),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          const SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
 
-                          child: CustomTextMazadDetails(title: 'تفاصيل المزاد'),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          color: R.colors.blackColor2,
-                          child: CoustomRowItem(
-                            title: 'سعر المنتج بالأسواق',
-                            price:
-                                (double.tryParse(
+                            child: CustomTextMazadDetails(
+                              title: 'تفاصيل المزاد',
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            color: R.colors.blackColor2,
+                            child: CoustomRowItem(
+                              title: 'سعر المنتج بالأسواق',
+                              price:
+                                  (double.tryParse(
+                                        state
+                                            .sayantaliqShowAuctionMode
+                                            .data
+                                            .product
+                                            .price
+                                            .toString(),
+                                      )?.toStringAsFixed(2) ??
                                       state
                                           .sayantaliqShowAuctionMode
                                           .data
                                           .product
                                           .price
-                                          .toString(),
-                                    )?.toStringAsFixed(2) ??
-                                    state
-                                        .sayantaliqShowAuctionMode
-                                        .data
-                                        .product
-                                        .price
-                                        .toString()),
-                            style: R.textStyles.font14Grey3W500Light,
-                            priceStyle: R.textStyles.font14primaryW500Light,
+                                          .toString()),
+                              style: R.textStyles.font14Grey3W500Light,
+                              priceStyle: R.textStyles.font14primaryW500Light,
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                          child: CoustomRowItem(
-                            title: ' بداية المزاد',
-                            price: (state
-                                .sayantaliqShowAuctionMode
-                                .data
-                                .openingAmount
-                                .toStringAsFixed(2)),
-                            style: R.textStyles.font14Grey3W500Light,
-                            priceStyle: R.textStyles.font14primaryW500Light,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          color: R.colors.blackColor2,
-                          child: CoustomRowItem(
-                            title: 'رسوم تنظيم',
-                            price: (state
-                                .sayantaliqShowAuctionMode
-                                .data
-                                .registrationAmount
-                                .toStringAsFixed(2)),
-
-                            style: R.textStyles.font14Grey3W500Light,
-                            priceStyle: R.textStyles.font14primaryW500Light,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 6.h,
-                            horizontal: 16,
-                          ),
-                          color: R.colors.transparent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'انطلاق المزاد',
-                                style: R.textStyles.font12Grey3W500Light,
-                              ),
-                              Spacer(),
-                              BlocProvider(
-                                create:
-                                    (_) => CounterCubit(
-                                      eventTime: eventTimeFromApi,
-                                      getNow: () {
-                                        final cubit =
-                                            context.read<WebSocketCubit>();
-                                        try {
-                                          return cubit.latestServerTime != null
-                                              ? DateTime.parse(
-                                                cubit.latestServerTime!,
-                                              )
-                                              : DateTime.now();
-                                        } catch (_) {
-                                          return DateTime.now();
-                                        }
-                                      },
-                                    ),
-                                child: BlocBuilder<CounterCubit, CounterState>(
-                                  builder: (context, state) {
-                                    if (state is CountdownRunning) {
-                                      return Text(
-                                        '${state.hours}:${state.minutes}:${state.seconds}',
-                                        style:
-                                            R.textStyles.font16primaryW600Light,
-                                      );
-                                    } else {
-                                      return Text(
-                                        '00:00:00',
-                                        style:
-                                            R.textStyles.font16primaryW600Light,
-                                      );
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          color: R.colors.blackColor2,
-
-                          child: Row(
-                            children: [
-                              Text(
-                                'الحالة',
-                                style: R.textStyles.font14Grey3W500Light,
-                              ),
-                              Spacer(),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 12,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: R.colors.orangeColor,
-                                  borderRadius: BorderRadius.circular(99),
-                                ),
-                                child: Text(
-                                  'فى انتظار البدء',
-                                  style: R.textStyles.font10whiteW500Light,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 22.h),
-                        InkWell(
-                          onTap:
-                              () => showDialog<String>(
-                                context: context,
-                                builder:
-                                    (BuildContext context) =>
-                                        CustomDialogTaelimatItem(),
-                              ),
-                          child: Container(
+                          Container(
                             padding: const EdgeInsets.symmetric(
-                              vertical: 12,
+                              horizontal: 16.0,
+                            ),
+
+                            child: CoustomRowItem(
+                              title: ' بداية المزاد',
+                              price: (state
+                                  .sayantaliqShowAuctionMode
+                                  .data
+                                  .openingAmount
+                                  .toStringAsFixed(2)),
+                              style: R.textStyles.font14Grey3W500Light,
+                              priceStyle: R.textStyles.font14primaryW500Light,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            color: R.colors.blackColor2,
+                            child: CoustomRowItem(
+                              title: 'رسوم تنظيم',
+                              price: (state
+                                  .sayantaliqShowAuctionMode
+                                  .data
+                                  .registrationAmount
+                                  .toStringAsFixed(2)),
+
+                              style: R.textStyles.font14Grey3W500Light,
+                              priceStyle: R.textStyles.font14primaryW500Light,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 6.h,
                               horizontal: 16,
                             ),
+                            color: R.colors.transparent,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                SvgPicture.asset(R.images.taelimatIcon),
-                                const SizedBox(width: 8),
                                 Text(
-                                  'تعليمات المزاد',
-                                  style: R.textStyles.font16primaryW600Light,
+                                  'انطلاق المزاد',
+                                  style: R.textStyles.font12Grey3W500Light,
+                                ),
+                                Spacer(),
+                                BlocProvider(
+                                  create:
+                                      (_) => CounterCubit(
+                                        eventTime: eventTimeFromApi,
+                                        getNow: () {
+                                          final cubit =
+                                              context.read<WebSocketCubit>();
+                                          try {
+                                            return cubit.latestServerTime !=
+                                                    null
+                                                ? DateTime.parse(
+                                                  cubit.latestServerTime!,
+                                                )
+                                                : DateTime.now();
+                                          } catch (_) {
+                                            return DateTime.now();
+                                          }
+                                        },
+                                      ),
+                                  child: BlocBuilder<
+                                    CounterCubit,
+                                    CounterState
+                                  >(
+                                    builder: (context, state) {
+                                      if (state is CountdownRunning) {
+                                        return Text(
+                                          '${state.hours}:${state.minutes}:${state.seconds}',
+                                          style:
+                                              R
+                                                  .textStyles
+                                                  .font16primaryW600Light,
+                                        );
+                                      } else {
+                                        return Text(
+                                          '00:00:00',
+                                          style:
+                                              R
+                                                  .textStyles
+                                                  .font16primaryW600Light,
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(height: 12.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            color: R.colors.blackColor2,
 
-                          child: CustomTextMazadDetails(title: 'تفاصيل المنتج'),
-                        ),
-                        const SizedBox(height: 8),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: HtmlWidget(
-                            state
-                                .sayantaliqShowAuctionMode
-                                .data
-                                .product
-                                .productDetails,
-                            textStyle: R.textStyles.font12Grey3W500Light,
+                            child: Row(
+                              children: [
+                                Text(
+                                  'الحالة',
+                                  style: R.textStyles.font14Grey3W500Light,
+                                ),
+                                Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: R.colors.orangeColor,
+                                    borderRadius: BorderRadius.circular(99),
+                                  ),
+                                  child: Text(
+                                    'فى انتظار البدء',
+                                    style: R.textStyles.font10whiteW500Light,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 80),
-                      ],
+                          SizedBox(height: 22.h),
+                          InkWell(
+                            onTap:
+                                () => showDialog<String>(
+                                  context: context,
+                                  builder:
+                                      (BuildContext context) =>
+                                          CustomDialogTaelimatItem(),
+                                ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 12,
+                                horizontal: 16,
+                              ),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(R.images.taelimatIcon),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'تعليمات المزاد',
+                                    style: R.textStyles.font16primaryW600Light,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+
+                            child: CustomTextMazadDetails(
+                              title: 'تفاصيل المنتج',
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: HtmlWidget(
+                              state
+                                  .sayantaliqShowAuctionMode
+                                  .data
+                                  .product
+                                  .productDetails,
+                              textStyle: R.textStyles.font12Grey3W500Light,
+                            ),
+                          ),
+                          const SizedBox(height: 80),
+                        ],
+                      ),
                     ),
                   ),
                 );

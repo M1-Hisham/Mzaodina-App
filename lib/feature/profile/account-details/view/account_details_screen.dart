@@ -12,6 +12,7 @@ import 'package:mzaodina_app/feature/profile/account-details/data/model/update_p
 import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 class AccountDetailsScreen extends StatelessWidget {
   final UserData userData;
@@ -170,12 +171,12 @@ class AccountDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(color: R.colors.whiteLight),
                       child: CustomElevatedButton(
                         text: 'الاستمرار',
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             _formKey.currentState?.save();
                             log('Form data: $_formData');
-                            // _updateUserProfile(context);
-                            Navigator.pop(context);
+                            await _updateUserProfile(context);
+                            // Navigator.pop(context);
                           }
                         },
                       ),
@@ -190,19 +191,52 @@ class AccountDetailsScreen extends StatelessWidget {
     );
   }
 
-  void _updateUserProfile(BuildContext context) {
-    final UpdateProfileBody updateProfileBody = UpdateProfileBody(
+  // void _updateUserProfile(BuildContext context) {
+  //   final UpdateProfileBody updateProfileBody = UpdateProfileBody(
+  //     name: _formData['name'],
+  //     username: _formData['username'],
+  //     email: _formData['email'],
+  //     country: _formData['country'],
+  //     phone: _formData['phone'],
+  //     city: _formData['city'],
+  //     neighborhood: _formData['neighborhood'],
+  //     street: _formData['street'],
+  //   );
+  //   final cubit = BlocProvider.of<UpdateProfileCubit>(context);
+  //   cubit.updateUserData(updateProfileBody);
+  //   log('Updating user profile with data: $_formData');
+  // }
+  Future<void> _updateUserProfile(BuildContext context) async {
+    final initialProfile = UpdateProfileBody(
+      name: userData.name,
+      username: userData.username,
+      email: userData.email,
+      phone: userData.phone,
+      phoneCountryCode: userData.phone,
+      country: userData.country,
+      city: userData.address?.city,
+      street: userData.address?.street,
+      neighborhood: userData.address?.neighborhood,
+    );
+
+    final updatedProfile = initialProfile.copyWith(
       name: _formData['name'],
       username: _formData['username'],
       email: _formData['email'],
-      country: _formData['country'],
       phone: _formData['phone'],
+      country: _formData['country'],
       city: _formData['city'],
       neighborhood: _formData['neighborhood'],
       street: _formData['street'],
     );
+
     final cubit = BlocProvider.of<UpdateProfileCubit>(context);
-    cubit.updateUserData(updateProfileBody);
-    log('Updating user profile with data: $_formData');
+    cubit.updateUserData(updatedProfile);
+    log('Updating user profile with data: ${updatedProfile.toJson()}');
+    final userDataCubit = BlocProvider.of<UserDataCubit>(context);
+    await userDataCubit.fetchUserData();
+    log(
+      'fetching user profile with data==========: ${userDataCubit.fetchUserData()}',
+    );
   }
 }
