@@ -36,7 +36,7 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("/media/islam/islam/mzaodin-key.jks")
+            storeFile = file("./mzaodin-key.jks")
             storePassword = "islamroot$$"
             keyAlias = "mzaodin"
             keyPassword = "islamroot$$"
