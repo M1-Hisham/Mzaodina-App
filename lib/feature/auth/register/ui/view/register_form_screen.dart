@@ -87,6 +87,7 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
                     country: flag,
                     phone: phoneController.text,
                     phoneCode: flag,
+                    
                   );
                   log(registerModel.toString());
                   if (_formKey.currentState!.validate()) {

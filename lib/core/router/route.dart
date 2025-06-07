@@ -187,7 +187,7 @@ class AppRouter {
 
                   BlocProvider(create: (context) => getIt<UserDataCubit>()),
                 ],
-                child: AccountDetailsScreen(userData: args),
+                child: AccountDetailsScreen(), //userData: args),
               ),
         );
       case AppRoutes.changePasswordScreenRoute:
@@ -299,6 +299,9 @@ class AppRouter {
                   ),
                   BlocProvider<SaveTokenCubit>(
                     create: (context) => getIt<SaveTokenCubit>(),
+                  ),
+                  BlocProvider<UserDataCubit>(
+                    create: (context) => getIt<UserDataCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
