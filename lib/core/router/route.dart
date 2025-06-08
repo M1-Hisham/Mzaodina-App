@@ -52,6 +52,10 @@ import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/about_us_cubit/about_us_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/privacy_cubit/privacy_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/shipping_cubit/shipping_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/terms_cubit/terms_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
 
@@ -168,7 +172,13 @@ class AppRouter {
               ),
         );
       case AppRoutes.aboutUsScreenRoute:
-        return MaterialPageRoute(builder: (_) => AboutUsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<AboutUsCubit>()..getAboutUs(),
+                child: AboutUsScreen(),
+              ),
+        );
       case AppRoutes.accountDetailsScreenRoute:
         final args = settings.arguments as UserData;
         return MaterialPageRoute(
@@ -202,9 +212,21 @@ class AppRouter {
               ),
         );
       case AppRoutes.termsAndConditionsScreenRoute:
-        return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<TermsCubit>()..getTerms(),
+                child: TermsAndConditionsScreen(),
+              ),
+        );
       case AppRoutes.privacyPolicyScreenRoute:
-        return MaterialPageRoute(builder: (_) => PrivacyPolicyScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<PrivacyCubit>()..getPrivacy(),
+                child: PrivacyPolicyScreen(),
+              ),
+        );
       case AppRoutes.settingScreenRoute:
         return MaterialPageRoute(builder: (_) => SettingScreen());
       case AppRoutes.notificationsScreenRoute:
@@ -262,7 +284,12 @@ class AppRouter {
         );
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => ShippingAndReturnPolicyScreen(),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) => getIt<ShippingCubit>()..getShippingAndReturn(),
+                child: ShippingAndReturnPolicyScreen(),
+              ),
         );
       case AppRoutes.joinTheAuction:
         final args = settings.arguments as Map<String, dynamic>;
