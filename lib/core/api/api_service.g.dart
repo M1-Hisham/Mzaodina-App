@@ -296,9 +296,10 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetAllNotificationModel> getAllNotifications() async {
+  Future<GetAllNotificationModel> getAllNotifications({int? page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetAllNotificationModel>(
