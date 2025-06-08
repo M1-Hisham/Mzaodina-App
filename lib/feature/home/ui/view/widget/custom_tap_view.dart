@@ -156,53 +156,6 @@ class _CustomTapViewState extends State<CustomTapView>
                       ),
                     ),
 
-                    // Padding(
-                    //   padding: const EdgeInsets.all(16.0),
-                    //   child: BlocBuilder<OngoingCubit, OngoingState>(
-                    //     bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
-                    //     builder: (context, state) {
-                    //       if (state is OngoingLoading) {
-                    //         return const Center(child: MazadShimmer());
-                    //       } else if (state is OngoingError) {
-                    //         if (jaraaCount == 0) {
-                    //           return CustomNotItem();
-                    //         } else {
-                    //           return CustomErorrWidget(
-                    //             message: state.errorMessage,
-                    //             onRefresh:
-                    //                 () =>
-                    //                     context
-                    //                         .read<OngoingCubit>()
-                    //                         .getOngoingAuctions(),
-                    //           );
-                    //         }
-                    //       } else if (state is OngoingSuccess) {
-                    //         final jaraaAuctionResponse = state.data;
-                    //         return ListView.builder(
-                    //           padding: EdgeInsets.zero,
-                    //           itemCount:
-                    //               jaraaAuctionResponse.data.auctions.length,
-                    //           itemBuilder: (context, index) {
-                    //             return Padding(
-                    //               padding: const EdgeInsets.only(bottom: 16.0),
-                    //               child: BlocProvider(
-                    //                 create: (context) => WebSocketCubit(),
-                    //                 child: CustomOngoingCardViewItem(
-                    //                   jaraaDataModel:
-                    //                       jaraaAuctionResponse
-                    //                           .data
-                    //                           .auctions[index],
-                    //                 ),
-                    //               ),
-                    //             );
-                    //           },
-                    //         );
-                    //       } else {
-                    //         return const Center(child: Text('لا يوجد بيانات'));
-                    //       }
-                    //     },
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: BlocBuilder<FinishedCubit, FinishedState>(

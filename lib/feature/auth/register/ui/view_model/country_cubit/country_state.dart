@@ -8,8 +8,10 @@ class CountrySelected extends CountryState {
   final String flag;
   final String dialCode;
   final String name;
+  final String code;
 
   CountrySelected({
+    required this.code,
     required this.flag,
     required this.dialCode,
     required this.name,

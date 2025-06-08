@@ -20,7 +20,7 @@ import 'package:mzaodina_app/feature/home/home_details/finished/data/model/munta
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/home_details_notstart_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
@@ -87,6 +87,12 @@ class AppRouter {
                         (context) =>
                             getIt<FinishedShowAuctionCubit>()
                               ..getFinishedShowAuction(args.slug),
+                  ),
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<AuctionsBiddingHistoryCubit>()
+                              ..getAuctionsBiddingHistory(args.slug),
                   ),
                 ],
                 child: HomeDetailsFinishedScreen(muntahiDetails: args),
@@ -181,7 +187,7 @@ class AppRouter {
 
                   BlocProvider(create: (context) => getIt<UserDataCubit>()),
                 ],
-                child: AccountDetailsScreen(userData: args),
+                child: AccountDetailsScreen(), //userData: args),
               ),
         );
       case AppRoutes.changePasswordScreenRoute:
@@ -293,6 +299,9 @@ class AppRouter {
                   ),
                   BlocProvider<SaveTokenCubit>(
                     create: (context) => getIt<SaveTokenCubit>(),
+                  ),
+                  BlocProvider<UserDataCubit>(
+                    create: (context) => getIt<UserDataCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),

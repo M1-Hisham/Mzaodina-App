@@ -25,10 +25,14 @@ class UserDataCubit extends Cubit<UserDataState> {
     result.fold(
       (failure) {
         debugPrint('Error fetching user data: ${failure.errMessage}');
+        if (isClosed) return;
+
         emit(UserDataError(failure.errMessage));
       },
       (userData) {
         debugPrint('User data fetched successfully: ${userData.toString()}');
+        if (isClosed) return;
+
         emit(UserDataSuccess(userData));
       },
     );

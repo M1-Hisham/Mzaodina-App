@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_account_list_tile.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 class CustomUserDataDetailsSection extends StatelessWidget {
   final UserData userData;
@@ -22,12 +24,14 @@ class CustomUserDataDetailsSection extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap:
-                () => Navigator.pushNamed(
-                  context,
-                  AppRoutes.accountDetailsScreenRoute,
-                  arguments: userData,
-                ),
+            onTap: () {
+              context.read<UserDataCubit>().fetchUserData();
+              Navigator.pushNamed(
+                context,
+                AppRoutes.accountDetailsScreenRoute,
+                arguments: userData,
+              );
+            },
             child: CustomAccountListTile(
               title: 'معلومات الحساب',
               leading: SvgPicture.asset(
