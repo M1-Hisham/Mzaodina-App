@@ -37,7 +37,7 @@ class ReadyAuction {
   @JsonKey(name: 'auction_duration_minutes')
   final int auctionDurationMinutes;
   @JsonKey(name: 'auction_start_rate')
-  final int auctionStartRate;
+  final double auctionStartRate;
   @JsonKey(name: 'product_sku')
   final String productSku;
   @JsonKey(name: 'start_at')

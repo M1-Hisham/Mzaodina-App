@@ -62,7 +62,7 @@ class NotstartAuction {
   final int? auctionDurationMinutes;
 
   @JsonKey(name: 'auction_start_rate')
-  final int? auctionStartRate;
+  final double? auctionStartRate;
 
   @JsonKey(name: 'product_sku')
   final String? productSku;

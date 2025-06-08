@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:mzaodina_app/feature/home/home_details/ready/data/model/sayantal
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_state.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomSayantilqCardItem extends StatefulWidget {
@@ -24,25 +26,31 @@ class CustomSayantilqCardItem extends StatefulWidget {
 }
 
 class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
-  late final int eventTimeFromApi;
+  late final DateTime eventTimeFromApi;
+  late final Duration initialDuration;
   int d = 0, h = 0, m = 0, s = 0;
+
   @override
   void initState() {
     super.initState();
-    eventTimeFromApi = widget.sayantaliqDataModel.auctionDurationMinutes ?? 0;
+    eventTimeFromApi = DateTime.parse(
+      widget.sayantaliqDataModel.startAt ?? DateTime.now().toIso8601String(),
+    );
+    initialDuration = Duration(
+      minutes: widget.sayantaliqDataModel.auctionDurationMinutes ?? 0,
+    );
+    _updateDuration();
+  }
 
-    Duration duration = Duration(minutes: eventTimeFromApi);
-    d = duration.inDays;
-    h = duration.inHours % 24;
-    m = duration.inMinutes % 60;
-    s = duration.inSeconds % 60;
+  void _updateDuration() {
+    d = initialDuration.inDays;
+    h = initialDuration.inHours % 24;
+    m = initialDuration.inMinutes % 60;
+    s = initialDuration.inSeconds % 60;
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime eventTimeFromApi = DateTime.parse(
-      widget.sayantaliqDataModel.startAt ?? DateTime.now().toIso8601String(),
-    );
     return Column(
       children: [
         Container(
@@ -147,41 +155,44 @@ class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
                                 style: R.textStyles.font12Grey3W500Light,
                               ),
                               const Spacer(),
-                              BlocProvider(
-                                create:
-                                    (_) => CounterCubit(
-                                      eventTime: eventTimeFromApi,
-                                      getNow: () {
-                                        final cubit =
-                                            context.read<WebSocketCubit>();
-                                        try {
-                                          return cubit.latestServerTime != null
-                                              ? DateTime.parse(
-                                                cubit.latestServerTime!,
-                                              )
-                                              : DateTime.now();
-                                        } catch (_) {
-                                          return DateTime.now();
+                              BlocBuilder<WebSocketCubit, WebSocketState>(
+                                builder: (context, state) {
+                                  return BlocProvider(
+                                    create:
+                                        (_) => CounterCubit(
+                                          eventTime: eventTimeFromApi,
+                                          getNow:
+                                              () =>
+                                                  context
+                                                      .read<WebSocketCubit>()
+                                                      .getCurrentServerTime(),
+                                        ),
+                                    child: BlocBuilder<
+                                      CounterCubit,
+                                      CounterState
+                                    >(
+                                      builder: (context, state) {
+                                        if (state is CountdownRunning) {
+                                          return Text(
+                                            '${state.hours.toString().padLeft(2, '0')}:${state.minutes.toString().padLeft(2, '0')}:${state.seconds.toString().padLeft(2, '0')}',
+                                            style:
+                                                R
+                                                    .textStyles
+                                                    .font16primaryW600Light,
+                                          );
+                                        } else {
+                                          return Text(
+                                            '00:00:00',
+                                            style:
+                                                R
+                                                    .textStyles
+                                                    .font16primaryW600Light,
+                                          );
                                         }
                                       },
                                     ),
-                                child: BlocBuilder<CounterCubit, CounterState>(
-                                  builder: (context, state) {
-                                    if (state is CountdownRunning) {
-                                      return Text(
-                                        '${state.hours}:${state.minutes}:${state.seconds}',
-                                        style:
-                                            R.textStyles.font16primaryW600Light,
-                                      );
-                                    } else {
-                                      return Text(
-                                        '00:00:00',
-                                        style:
-                                            R.textStyles.font16primaryW600Light,
-                                      );
-                                    }
-                                  },
-                                ),
+                                  );
+                                },
                               ),
                             ],
                           ),

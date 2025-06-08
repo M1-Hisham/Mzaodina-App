@@ -33,7 +33,7 @@ ReadyAuction _$ReadyAuctionFromJson(Map<String, dynamic> json) => ReadyAuction(
   isRegister: json['isRegister'] as bool,
   registrationAmount: (json['registration_amount'] as num).toInt(),
   auctionDurationMinutes: (json['auction_duration_minutes'] as num).toInt(),
-  auctionStartRate: (json['auction_start_rate'] as num).toInt(),
+  auctionStartRate: (json['auction_start_rate'] as num).toDouble(),
   productSku: json['product_sku'] as String,
   startAt: json['start_at'] as String,
   product: Product.fromJson(json['product'] as Map<String, dynamic>),

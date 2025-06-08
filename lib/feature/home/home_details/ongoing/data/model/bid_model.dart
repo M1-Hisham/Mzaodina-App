@@ -21,7 +21,7 @@ List<BidModel> convertToBids(List<BiddingHistoryItem> dataList) {
 
     return BidModel(
       number: index + 1, // ترتيب المزايدة
-      name: item.user.name ?? 'غير معروف',
+      name: item.user.username,
       amount: item.bid.toDouble(),
       dateTime: DateTime.parse(item.time),
     );
