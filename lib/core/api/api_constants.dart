@@ -15,7 +15,8 @@ class ApiConstants {
   static const String auctions = "/auctions";
   static const String auctionsCount = "/auctions/count";
   static const String auctionsBidding = "/auctions/bidding";
-  static const String auctionsBiddingHistory = "/auctions/bidding/{slug}/history";
+  static const String auctionsBiddingHistory =
+      "/auctions/bidding/{slug}/history";
   static const String showAuctions = "/auctions/{slug}";
   static const String registerAuctions = "/auctions/{slug}/register";
   static const String subscribeAuctions = "/auctions/subscribe";
@@ -26,4 +27,9 @@ class ApiConstants {
   static const String markAsReadNotifications = "/user/notifications/{id}";
   static const String lastIinvoice = "/invoice/exist/checker";
   static const String paymentIinvoice = "/invoice/pay";
+  static const String aboutUs = "/pages/about-us";
+  static const String auctionTerms = "/pages/auction-terms";
+  static const String privacy = "/pages/privacy";
+  static const String terms = "/pages/terms";
+  static const String shippingAndReturn = "/pages/shipping-and-return";
 }
