@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mzaodina_app/core/helper/country_helper.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/enter_the_phone_number.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/select_country.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 import 'package:mzaodina_app/feature/profile/account-details/data/model/update_profile_body.dart';
 import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
@@ -125,13 +127,39 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('رقم الهاتف'),
-                                  EnterThePhoneNumber(
-                                    phoneNumberController: _phoneController,
-                                    isValidator: false,
-                                    fillColor: R.colors.whiteLight,
-                                    hintStyle:
-                                        R.textStyles.font12Grey3W500Light,
+                                  FutureBuilder<String>(
+                                    future: CountryHelper.getDialCodeFromIso(
+                                      user.data?.phoneCode ?? 'SA',
+                                    ),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData)
+                                        return CircularProgressIndicator();
+
+                                      return EnterThePhoneNumber(
+                                        initialPhoneCode: snapshot.data,
+                                        initialPhoneFlag:
+                                            CountryHelper.getFlagFromIsoCode(
+                                              user.data?.phoneCode ?? 'SA',
+                                            ),
+                                        phoneNumberController: _phoneController,
+                                        isValidator: false,
+                                        fillColor: R.colors.whiteLight,
+                                        hintStyle:
+                                            R.textStyles.font12Grey3W500Light,
+                                      );
+                                    },
                                   ),
+
+                                  //                                   EnterThePhoneNumber(
+                                  //                                   initialPhoneCode: await CountryHelper.getDialCodeFromIso(user.data?.phoneCode ?? 'SA'),
+                                  // initialPhoneFlag: CountryHelper.getFlagFromIsoCode(user.data?.phoneCode ?? 'SA'),
+
+                                  //                                     phoneNumberController: _phoneController,
+                                  //                                     isValidator: false,
+                                  //                                     fillColor: R.colors.whiteLight,
+                                  //                                     hintStyle:
+                                  //                                         R.textStyles.font12Grey3W500Light,
+                                  //                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('المدينة'),
                                   CustomTextForm(
@@ -199,9 +227,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
 
                                   return CustomElevatedButton(
                                     text:
-                                        isLoading
-                                            ? 'جاري التحديث...'
-                                            : 'الاستمرار',
+                                        isLoading ? 'جاري التحديث...' : 'تحديث',
                                     onPressed:
                                         isLoading
                                             ? () {}
@@ -252,14 +278,20 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
   Future<void> _updateUserProfile(BuildContext context, UserModel user) async {
     final countryState = context.read<CountryCubit>().state;
     String? countryCode;
-    String? phoneCode;
+
+    final phoneCodeState = context.read<PhoneCodeCubit>().state;
+    String phoneIso = user.data?.phoneCode ?? 'EG';
 
     if (countryState is CountrySelected) {
       countryCode = countryState.code;
-      phoneCode = countryState.code;
     } else {
       countryCode = user.data?.country;
-      phoneCode = user.data?.country;
+    }
+
+    if (phoneCodeState is PhoneCodeSelected) {
+      phoneIso = await CountryHelper.getIsoFromDialCode(
+        phoneCodeState.dialCode,
+      );
     }
 
     final updatedProfile = UpdateProfileBody(
@@ -267,7 +299,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
       username: _formData['username']?.trim(),
       email: _formData['email']?.trim(),
       phone: _phoneController.text.trim(),
-      phoneCountryCode: phoneCode ?? user.data?.country ?? 'EG',
+      phoneCountryCode: phoneIso, // ?? user.data?.phoneCode ?? 'EG',
       country: countryCode ?? user.data?.country ?? 'EG',
       city: _formData['city']?.trim(),
       street: _formData['street']?.trim(),

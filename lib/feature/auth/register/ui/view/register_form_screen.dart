@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mzaodina_app/core/helper/country_helper.dart';
 import 'package:mzaodina_app/core/helper/notification_helper.dart';
 import 'package:mzaodina_app/core/helper/spacing.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
@@ -12,6 +13,7 @@ import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dar
 import 'package:mzaodina_app/feature/auth/register/ui/view/widgets/custom_column_register_text_field.dart';
 
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/save_token_cubit/save_token_cubit.dart';
 
@@ -74,8 +76,16 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
               spacingV(10.h),
               CustomElevatedButton(
                 text: 'انشاء حساب',
-                onPressed: () {
+                onPressed: () async {
                   final flag = context.read<CountryCubit>().flagSelected;
+                  final phoneCodeState = context.read<PhoneCodeCubit>().state;
+
+                  String phoneCode = '+966'; // Default
+                  if (phoneCodeState is PhoneCodeSelected) {
+                    phoneCode = await CountryHelper.getIsoFromDialCode(
+                      phoneCodeState.dialCode,
+                    );
+                  }
                   final termsAccepted =
                       context.read<CheckboxCubit>().state.isChecked;
                   log('termsAccepted = $termsAccepted');
@@ -86,8 +96,7 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
                     terms: termsAccepted,
                     country: flag,
                     phone: phoneController.text,
-                    phoneCode: flag,
-                    
+                    phoneCode: phoneCode,
                   );
                   log(registerModel.toString());
                   if (_formKey.currentState!.validate()) {

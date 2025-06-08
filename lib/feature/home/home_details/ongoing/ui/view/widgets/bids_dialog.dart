@@ -74,7 +74,7 @@ class _BidsDialogState extends State<BidsDialog> {
       children: [
         _headerCell("#"),
         Spacer(),
-        _headerCell("اسم المزايد"),
+        _headerCell("المزايد"),
         Spacer(),
         _headerCell("المبلغ"),
         Spacer(flex: 2),

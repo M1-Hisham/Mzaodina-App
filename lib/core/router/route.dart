@@ -11,6 +11,7 @@ import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_
 import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
@@ -53,7 +54,6 @@ import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_con
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
-import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -124,7 +124,6 @@ class AppRouter {
                   BlocProvider(
                     create: (context) => getIt<AuctionBiddingCubit>(),
                   ),
-                  BlocProvider(create: (context) => WebSocketCubit()),
                 ],
                 child: HomeDetailsOngoingScreen(
                   eventTimeFromApi: args['eventTime']!,
@@ -148,7 +147,6 @@ class AppRouter {
                                 args['sayantaliqDataModel'].slug,
                               ),
                   ),
-                  BlocProvider(create: (context) => WebSocketCubit()),
                 ],
                 child: HomeDetailsReadyScreen(
                   eventTimeFromApi: args['eventTime']!,
@@ -179,6 +177,11 @@ class AppRouter {
                 providers: [
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
+                  ),
+                  BlocProvider<PhoneCodeCubit>(
+                    create:
+                        (context) =>
+                            PhoneCodeCubit()..updatePhoneCode('🇸🇦', '+966'),
                   ),
 
                   BlocProvider(
@@ -244,8 +247,15 @@ class AppRouter {
       case AppRoutes.completeShippingInformationScreenRoute:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create: (context) => CountryCubit(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (context) => CountryCubit()),
+                  BlocProvider(create: (context) => PhoneCodeCubit()),
+                  BlocProvider(create: (context) => getIt<UserDataCubit>()),
+                  BlocProvider(
+                    create: (context) => getIt<UpdateProfileCubit>(),
+                  ),
+                ],
                 child: CompleteShippingInformationScreen(),
               ),
         );
@@ -275,6 +285,8 @@ class AppRouter {
                   registrationAmount: args['registrationAmount'],
                   auctionId: args['auctionId'],
                   slug: args['slug'],
+                  auctionStartRate: args['auctionStartRate'],
+                  currentBidders: args['currentBidders'],
                 ),
               ),
         );
@@ -296,6 +308,11 @@ class AppRouter {
                   ),
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
+                  ),
+                  BlocProvider<PhoneCodeCubit>(
+                    create:
+                        (context) =>
+                            PhoneCodeCubit()..updatePhoneCode('🇸🇦', '+966'),
                   ),
                   BlocProvider<SaveTokenCubit>(
                     create: (context) => getIt<SaveTokenCubit>(),

@@ -17,12 +17,16 @@ class CounterView extends StatelessWidget {
   final double openingAmount;
   final double registrationAmount;
   final int auctionId;
+  final double auctionStartRate;
+  final int currentBidders;
   const CounterView({
     super.key,
     required this.requiredBidders,
     required this.openingAmount,
     required this.registrationAmount,
     required this.auctionId,
+    required this.auctionStartRate,
+    required this.currentBidders,
   });
 
   @override
@@ -30,7 +34,9 @@ class CounterView extends StatelessWidget {
     return BlocProvider(
       create:
           (_) => CounterCubitIncDec(
-            maxValue: requiredBidders + CounterCubitIncDec.minValue,
+            maxValue:
+                (requiredBidders - currentBidders) +
+                CounterCubitIncDec.minValue,
             price: registrationAmount.toDouble(),
           ),
       child: BlocBuilder<CounterCubitIncDec, int>(
@@ -40,7 +46,9 @@ class CounterView extends StatelessWidget {
               CustomIndcatorItem(
                 title: 'نسبة انطلاق المزاد',
                 showIndicator: false,
-                value: ((100 / requiredBidders) * count).toInt(),
+                value:
+                    (auctionStartRate + ((100 / (requiredBidders)) * count))
+                        .round(),
                 style: R.textStyles.font14Grey3W500Light,
               ),
               const SizedBox(height: 20),
@@ -96,8 +104,10 @@ class CounterView extends StatelessWidget {
               const SizedBox(height: 10),
               CoustomRowItem(
                 title: 'مجموع القيمة',
-                price:
-                    context.read<CounterCubitIncDec>().totalAmount.toString(),
+                price: context
+                    .read<CounterCubitIncDec>()
+                    .totalAmount
+                    .toStringAsFixed(2),
               ),
               const SizedBox(height: 25),
               WarningCheckbox(),
@@ -121,7 +131,7 @@ class CounterView extends StatelessWidget {
                   if (!termsAccepted || !warningAccepted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('يرى الجموافقة على الشروط والأحكام'),
+                        content: Text('يجب الموافقة على الشروط والأحكام'),
                       ),
                     );
                     return;

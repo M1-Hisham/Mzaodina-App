@@ -98,7 +98,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
                               showIndicator: true,
                               value:
                                   state.showActionModel.data.auctionStartRate
-                                      .toInt(),
+                                      .round(),
                             ),
                           ),
 
@@ -175,7 +175,8 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
                               showIndicator: false,
                               style: R.textStyles.font14Grey3W500Light,
                               value:
-                                  state.showActionModel.data.auctionStartRate,
+                                  state.showActionModel.data.auctionStartRate
+                                      .round(),
                             ),
                           ),
                           Container(

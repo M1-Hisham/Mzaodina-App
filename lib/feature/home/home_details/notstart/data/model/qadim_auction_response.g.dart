@@ -53,7 +53,7 @@ NotstartAuction _$NotstartAuctionFromJson(Map<String, dynamic> json) =>
       registrationAmount: (json['registration_amount'] as num?)?.toInt(),
       auctionDurationMinutes:
           (json['auction_duration_minutes'] as num?)?.toInt(),
-      auctionStartRate: (json['auction_start_rate'] as num?)?.toInt(),
+      auctionStartRate: (json['auction_start_rate'] as num?)?.toDouble(),
       productSku: json['product_sku'] as String?,
       isRegister: json['isRegister'] as bool?,
       type: json['type'] as String?,

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
-import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
-import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
-import 'package:uni_country_city_picker/uni_country_city_picker.dart';
+import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 
 class EnterThePhoneNumber extends StatefulWidget {
   final TextStyle? hintStyle;
   final Color? fillColor;
   final bool? isValidator;
   final TextEditingController? phoneNumberController;
+  final String? initialPhoneCode;
+  final String? initialPhoneFlag;
 
   const EnterThePhoneNumber({
     super.key,
@@ -20,6 +21,8 @@ class EnterThePhoneNumber extends StatefulWidget {
     this.fillColor,
     this.phoneNumberController,
     this.isValidator,
+    this.initialPhoneCode,
+    this.initialPhoneFlag,
   });
 
   @override
@@ -27,94 +30,102 @@ class EnterThePhoneNumber extends StatefulWidget {
 }
 
 class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
-  final _uniCountryServices = UniCountryServices.instance;
-  List<Country> countries = [];
-
   @override
   void initState() {
     super.initState();
-    loadCountries();
-  }
+    final phoneCodeCubit = context.read<PhoneCodeCubit>();
 
-  Future<void> loadCountries() async {
-    countries = await _uniCountryServices.getCountriesAndCities();
-    setState(() {});
+    // نعيد التهيئة دايمًا لو فيه قيم مبدئية
+    if (widget.initialPhoneCode != null && widget.initialPhoneFlag != null) {
+      phoneCodeCubit.updatePhoneCode(
+        widget.initialPhoneFlag!,
+        widget.initialPhoneCode!,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CountryCubit, CountryState>(
-      builder: (context, state) {
-        String countryCode = '+966';
-        String countryFlag = '🇸🇦';
-
-        if (state is CountrySelected) {
-          countryFlag = state.flag;
-          countryCode = state.dialCode;
-        } else {
-          final userState = context.read<UserDataCubit>().state;
-
-          if (userState is UserDataSuccess && countries.isNotEmpty) {
-            final iso =
-                userState.userModel.data?.country?.toUpperCase() ?? 'SA';
-
-            final foundCountry = countries.firstWhere(
-              (c) => c.isoCode == iso,
-              orElse:
-                  () => Country(
-                    name: 'Unknown',
-                    nameEn: 'Unknown',
-                    dialCode: '+966',
-                    flag: '',
-                    isoCode: iso,
-                    cities: [],
-                    phoneDigitsLength: 0,
-                    phoneDigitsLengthMax: 0,
-                  ),
-            );
-
-            countryCode = foundCountry.dialCode;
-            countryFlag = iso.replaceAllMapped(
-              RegExp(r'[A-Z]'),
-              (m) => String.fromCharCode(m.group(0)!.codeUnitAt(0) + 127397),
-            );
-          }
-        }
-
-        return CustomTextForm(
-          controller: widget.phoneNumberController,
-          keyboardType: TextInputType.number,
-          isValidator: widget.isValidator ?? true,
-          hintText: 'رقم الهاتف',
-          fillColor: widget.fillColor ?? R.colors.formColorLight,
-          hintStyle:
-              widget.hintStyle ??
-              R.textStyles.font12Grey3W500Light.copyWith(
-                color: R.colors.hintTextColorLight,
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            showBottomSheet(
+              showDragHandle: true,
+              enableDrag: true,
+              backgroundColor: R.colors.whiteLight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40.r),
+                  topRight: Radius.circular(40.r),
+                ),
               ),
-          prefixIcon: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '$countryFlag $countryCode',
-                  style: R.textStyles.font16BlackW400Light,
-                ),
-                SizedBox(width: 6.w),
-                SvgPicture.asset(
-                  R.images.dropDownIcon,
-                  width: 14.w,
-                  height: 8.h,
-                ),
-                SizedBox(width: 8.w),
-                Container(height: 20.h, width: 1, color: Colors.grey.shade400),
-                SizedBox(width: 6.w),
-              ],
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height / 1.8,
+              ),
+              context: context,
+              builder: (context) {
+                return CountriesAndCitiesView(
+                  country: true,
+                  onCountrySelected: (country) {
+                    context.read<PhoneCodeCubit>().updatePhoneCode(
+                      country.flag,
+                      country.dialCode,
+                    );
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.all(9.5.r),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8.r)),
+              color: widget.fillColor ?? R.colors.formColorLight,
+              border: Border.all(color: R.colors.borderColorsLight),
+            ),
+            child: BlocBuilder<PhoneCodeCubit, PhoneCodeState>(
+              builder: (context, state) {
+                String flag = '🇸🇦';
+                String code = '+966';
+
+                if (state is PhoneCodeSelected) {
+                  flag = state.flag;
+                  code = state.dialCode;
+                }
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('$flag $code', style: TextStyle(fontSize: 17.sp)),
+                    SvgPicture.asset(
+                      R.images.dropDownIcon,
+                      width: 14.w,
+                      height: 8.h,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
-        );
-      },
+        ),
+        SizedBox(width: 10.w),
+        Expanded(
+          child: CustomTextForm(
+            controller: widget.phoneNumberController,
+            keyboardType: TextInputType.number,
+            isValidator: widget.isValidator ?? true,
+            hintText: 'رقم الهاتف',
+            fillColor: widget.fillColor ?? R.colors.formColorLight,
+            hintStyle:
+                widget.hintStyle ??
+                R.textStyles.font12Grey3W500Light.copyWith(
+                  color: R.colors.hintTextColorLight,
+                ),
+          ),
+        ),
+      ],
     );
   }
 }

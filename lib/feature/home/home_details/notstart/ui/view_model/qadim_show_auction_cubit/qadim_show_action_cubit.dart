@@ -23,9 +23,7 @@ class NotstartShowActionCubit extends Cubit<NotstartShowActionState> {
         emit(NotstartShowActionError(failure.errMessage));
       },
       (showActionModel) {
-        if (!isClosed) {
-          emit(NotstartShowActionSuccess(showActionModel));
-        }
+        if (!isClosed) emit(NotstartShowActionSuccess(showActionModel));
       },
     );
   }
