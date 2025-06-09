@@ -16,7 +16,7 @@ val versionProps = Properties()
 if (versionPropsFile.exists()) {
     versionProps.load(FileInputStream(versionPropsFile))
 } else {
-    versionProps["VERSION_CODE"] = "1"
+    versionProps["VERSION_CODE"] = "4"
     versionProps["MAJOR_VERSION"] = "1"
     versionProps["MINOR_VERSION"] = "0"
 }
