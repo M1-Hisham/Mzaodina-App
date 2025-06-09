@@ -103,6 +103,8 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<GetNotificationCubit>();
+
     return Scaffold(
       backgroundColor: R.colors.whiteLight,
       body: Padding(
@@ -112,10 +114,10 @@ class NotificationsScreen extends StatelessWidget {
           children: [
             _customAppBar(title: 'الإشعارات', context: context),
             SizedBox(height: 12.h),
+
             InkWell(
               onTap: () {
-                final getNotificationState =
-                    context.read<GetNotificationCubit>().state;
+                final getNotificationState = cubit.state;
 
                 if (getNotificationState is GetAllNotificationSuccess) {
                   final allIds =
@@ -128,60 +130,114 @@ class NotificationsScreen extends StatelessWidget {
                   );
                 }
               },
-
               child: Text(
                 'تحديد الكل كمقروء',
                 style: R.textStyles.font14primaryW500Light,
               ),
             ),
 
+            SizedBox(height: 12.h),
+
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
-                  context.read<GetNotificationCubit>().fetchNotifications();
+                  cubit.fetchNotifications(1);
                 },
-                child:
-                    BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
-                      builder: (context, state) {
-                        if (state is GetAllNotificationLoading) {
-                          return Center(child: NotificationsShimmer());
-                        } else if (state is GetAllNotificationFailure) {
-                          return CustomErorrWidget(
-                            message: 'لا توجد اشعارات جديدة',
-                            onRefresh:
-                                () =>
-                                    context
-                                        .read<GetNotificationCubit>()
-                                        .fetchNotifications(),
-                          );
-                        } else if (state is GetAllNotificationSuccess) {
-                          final notifications =
-                              state.response.notifications.data;
+                child: BlocBuilder<
+                  GetNotificationCubit,
+                  GetAllNotificationState
+                >(
+                  builder: (context, state) {
+                    if (state is GetAllNotificationLoading) {
+                      return Center(child: NotificationsShimmer());
+                    } else if (state is GetAllNotificationFailure) {
+                      return CustomErorrWidget(
+                        message: 'لا توجد اشعارات جديدة',
+                        onRefresh: () => cubit.fetchNotifications(1),
+                      );
+                    } else if (state is GetAllNotificationSuccess) {
+                      final notifications = state.response.notifications.data;
+                      final currentPage = cubit.currentPage;
+                      final totalPages = cubit.totalPages;
 
-                          if (notifications.isEmpty) {
-                            return Center(
-                              child: Text(
-                                'لا توجد إشعارات جديدة',
-                                style: R.textStyles.font14BlackW500Light,
-                              ),
-                            );
-                          }
+                      if (notifications.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'لا توجد إشعارات جديدة',
+                            style: R.textStyles.font14BlackW500Light,
+                          ),
+                        );
+                      }
 
-                          return ListView.separated(
-                            itemCount: state.response.notifications.data.length,
-                            separatorBuilder: (_, __) => SizedBox(height: 12.h),
-                            itemBuilder: (context, index) {
-                              final notification = notifications[index];
-                              return CustomNotificationItem(
-                                notification: notification,
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: ListView.separated(
+                              itemCount: notifications.length,
+                              separatorBuilder:
+                                  (_, __) => SizedBox(height: 12.h),
+                              itemBuilder: (context, index) {
+                                final notification = notifications[index];
+                                return CustomNotificationItem(
+                                  notification: notification,
+                                );
+                              },
+                            ),
+                          ),
+
+                          SizedBox(height: 14),
+
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 15,
+                            children: List.generate(totalPages, (index) {
+                              final page = index + 1;
+                              final isSelected = page == currentPage;
+
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5,
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    cubit.fetchNotifications(page);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          isSelected
+                                              ? R.colors.primaryColorLight
+                                              : Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      '$page',
+                                      style: TextStyle(
+                                        color:
+                                            isSelected
+                                                ? Colors.white
+                                                : Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               );
-                            },
-                          );
-                        }
+                            }),
+                          ),
 
-                        return const SizedBox(); // default empty state
-                      },
-                    ),
+                          SizedBox(height: 25.h),
+                        ],
+                      );
+                    }
+
+                    return const SizedBox();
+                  },
+                ),
               ),
             ),
           ],

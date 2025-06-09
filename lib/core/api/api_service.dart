@@ -95,7 +95,9 @@ abstract class ApiService {
   );
 
   @GET(ApiConstants.getAllNotifications)
-  Future<GetAllNotificationModel> getAllNotifications();
+  Future<GetAllNotificationModel> getAllNotifications({
+    @Query("page") int? page = 1,
+  });
 
   @GET(ApiConstants.markAllReadNotifications)
   Future<MarkNotificationModel> markAllReadNotifications();

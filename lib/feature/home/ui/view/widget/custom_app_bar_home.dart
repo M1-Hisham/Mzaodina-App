@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 class CustomAppBarHome extends StatelessWidget {
@@ -73,34 +75,55 @@ class CustomAppBarHome extends StatelessWidget {
                         },
                       ),
                       Spacer(),
-                      Stack(
-                        children: [
-                          InkWell(
-                            onTap:
-                                () => Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.notificationsScreenRoute,
-                                  // AppRoutes.notificationsScreenRoute,
+                      BlocProvider(
+                        create:
+                            (context) =>
+                                getIt<GetNotificationCubit>()
+                                  ..fetchNotifications(null),
+                        child: BlocBuilder<
+                          GetNotificationCubit,
+                          GetAllNotificationState
+                        >(
+                          builder: (context, state) {
+                            return Stack(
+                              children: [
+                                InkWell(
+                                  onTap:
+                                      () => Navigator.pushNamed(
+                                        context,
+                                        AppRoutes.notificationsScreenRoute,
+                                        // AppRoutes.notificationsScreenRoute,
+                                      ),
+                                  child: SvgPicture.asset(
+                                    R.images.iconNotiv,
+                                    width: 26.w,
+                                    height: 26.h,
+                                  ),
                                 ),
-                            child: SvgPicture.asset(
-                              R.images.iconNotiv,
-                              width: 26.w,
-                              height: 26.h,
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            child: Container(
-                              width: 8.w,
-                              height: 8.h,
-                              decoration: BoxDecoration(
-                                color: R.colors.redColor,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ],
+                                state is GetAllNotificationSuccess
+                                    ? state
+                                            .response
+                                            .notifications
+                                            .data
+                                            .isNotEmpty
+                                        ? Positioned(
+                                          right: 0,
+                                          top: 0,
+                                          child: Container(
+                                            width: 8.w,
+                                            height: 8.h,
+                                            decoration: BoxDecoration(
+                                              color: R.colors.redColor,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        )
+                                        : SizedBox.shrink()
+                                    : SizedBox.shrink(),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
