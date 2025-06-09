@@ -115,24 +115,28 @@ abstract class ApiService {
   @GET(ApiConstants.auctions)
   Future<NotstartAuctionResponse> getNotStartAuctions({
     @Query("filter") String filter = "notstart",
+    @Query("page") int? page = 1,
   });
 
   /// service for auctions Ready
   @GET(ApiConstants.auctions)
   Future<ReadyAuctionResponse> getReadyAuctions({
     @Query("filter") String filter = "ready",
+    @Query("page") int? page = 1,
   });
 
   /// service for auctions Ongoing
   @GET(ApiConstants.auctions)
   Future<OngoingAuctionResponse> getOngoingAuctions({
     @Query("filter") String filter = "ongoing",
+    @Query("page") int? page = 1,
   });
 
   /// service for auctions Finished
   @GET(ApiConstants.auctions)
   Future<FinishedAuctionsResponse> getFinishedAuctions({
     @Query("filter") String filter = "finished",
+    @Query("page") int? page = 1,
   });
 
   @GET(ApiConstants.showAuctions)

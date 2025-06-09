@@ -5,18 +5,22 @@ import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/qadim_
 part 'qadim_state.dart';
 
 class NotstartCubit extends Cubit<NotstartState> {
-  NotstartCubit(this.qadimAuctionRepo) : super(NotstartInitial());
   final NotstartAuctionRepo qadimAuctionRepo;
+  int currentPage = 1;
+  int totalPages = 1;
+  NotstartCubit(this.qadimAuctionRepo) : super(NotstartInitial());
 
-  Future<void> getNotStartAuctions() async {
+  Future<void> getNotStartAuctions({int? page}) async {
     emit(NotstartLoading());
-    final response = await qadimAuctionRepo.getNotStartAuctions();
+    final response = await qadimAuctionRepo.getNotStartAuctions(page ?? 1);
 
     response.fold(
       (failure) {
         emit(NotstartError(failure.errMessage));
       },
       (success) {
+        currentPage = page ?? currentPage;
+        totalPages = success.data.meta?.lastPage ?? 1;
         emit(NotstartSuccess(success));
       },
     );
