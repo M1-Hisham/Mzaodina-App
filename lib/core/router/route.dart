@@ -11,6 +11,7 @@ import 'package:mzaodina_app/feature/auth/login/ui/view-model/login_cubit/login_
 import 'package:mzaodina_app/feature/auth/login/ui/view/login_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/home_details_jaraa_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
@@ -20,7 +21,7 @@ import 'package:mzaodina_app/feature/home/home_details/finished/data/model/munta
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/home_details_muntahi_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/home_details_qadim_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/home_details_notstart_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
@@ -51,9 +52,12 @@ import 'package:mzaodina_app/feature/profile/setting/view/setting_screen.dart';
 import 'package:mzaodina_app/feature/profile/shipping&return-policy/view/shipping_and_return_policy_screen.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/about_us_cubit/about_us_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/privacy_cubit/privacy_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/shipping_cubit/shipping_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/terms_cubit/terms_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:mzaodina_app/feature/splash/splash_screen.dart';
-import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -88,6 +92,12 @@ class AppRouter {
                             getIt<FinishedShowAuctionCubit>()
                               ..getFinishedShowAuction(args.slug),
                   ),
+                  BlocProvider(
+                    create:
+                        (context) =>
+                            getIt<AuctionsBiddingHistoryCubit>()
+                              ..getAuctionsBiddingHistory(args.slug),
+                  ),
                 ],
                 child: HomeDetailsFinishedScreen(muntahiDetails: args),
               ),
@@ -118,7 +128,6 @@ class AppRouter {
                   BlocProvider(
                     create: (context) => getIt<AuctionBiddingCubit>(),
                   ),
-                  BlocProvider(create: (context) => WebSocketCubit()),
                 ],
                 child: HomeDetailsOngoingScreen(
                   eventTimeFromApi: args['eventTime']!,
@@ -142,7 +151,6 @@ class AppRouter {
                                 args['sayantaliqDataModel'].slug,
                               ),
                   ),
-                  BlocProvider(create: (context) => WebSocketCubit()),
                 ],
                 child: HomeDetailsReadyScreen(
                   eventTimeFromApi: args['eventTime']!,
@@ -164,7 +172,13 @@ class AppRouter {
               ),
         );
       case AppRoutes.aboutUsScreenRoute:
-        return MaterialPageRoute(builder: (_) => AboutUsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<AboutUsCubit>()..getAboutUs(),
+                child: AboutUsScreen(),
+              ),
+        );
       case AppRoutes.accountDetailsScreenRoute:
         final args = settings.arguments as UserData;
         return MaterialPageRoute(
@@ -174,6 +188,11 @@ class AppRouter {
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
                   ),
+                  BlocProvider<PhoneCodeCubit>(
+                    create:
+                        (context) =>
+                            PhoneCodeCubit()..updatePhoneCode('🇸🇦', '+966'),
+                  ),
 
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
@@ -181,7 +200,7 @@ class AppRouter {
 
                   BlocProvider(create: (context) => getIt<UserDataCubit>()),
                 ],
-                child: AccountDetailsScreen(userData: args),
+                child: AccountDetailsScreen(), //userData: args),
               ),
         );
       case AppRoutes.changePasswordScreenRoute:
@@ -193,9 +212,21 @@ class AppRouter {
               ),
         );
       case AppRoutes.termsAndConditionsScreenRoute:
-        return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<TermsCubit>()..getTerms(),
+                child: TermsAndConditionsScreen(),
+              ),
+        );
       case AppRoutes.privacyPolicyScreenRoute:
-        return MaterialPageRoute(builder: (_) => PrivacyPolicyScreen());
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<PrivacyCubit>()..getPrivacy(),
+                child: PrivacyPolicyScreen(),
+              ),
+        );
       case AppRoutes.settingScreenRoute:
         return MaterialPageRoute(builder: (_) => SettingScreen());
       case AppRoutes.notificationsScreenRoute:
@@ -206,7 +237,8 @@ class AppRouter {
                   BlocProvider(
                     create:
                         (context) =>
-                            getIt<GetNotificationCubit>()..fetchNotifications(),
+                            getIt<GetNotificationCubit>()
+                              ..fetchNotifications(null),
                   ),
                   BlocProvider(
                     create: (context) => getIt<MarkNotificationCubit>(),
@@ -238,14 +270,26 @@ class AppRouter {
       case AppRoutes.completeShippingInformationScreenRoute:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create: (context) => CountryCubit(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (context) => CountryCubit()),
+                  BlocProvider(create: (context) => PhoneCodeCubit()),
+                  BlocProvider(create: (context) => getIt<UserDataCubit>()),
+                  BlocProvider(
+                    create: (context) => getIt<UpdateProfileCubit>(),
+                  ),
+                ],
                 child: CompleteShippingInformationScreen(),
               ),
         );
       case AppRoutes.shippingAndReturnPolicyScreenRoute:
         return MaterialPageRoute(
-          builder: (_) => ShippingAndReturnPolicyScreen(),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) => getIt<ShippingCubit>()..getShippingAndReturn(),
+                child: ShippingAndReturnPolicyScreen(),
+              ),
         );
       case AppRoutes.joinTheAuction:
         final args = settings.arguments as Map<String, dynamic>;
@@ -269,6 +313,8 @@ class AppRouter {
                   registrationAmount: args['registrationAmount'],
                   auctionId: args['auctionId'],
                   slug: args['slug'],
+                  auctionStartRate: args['auctionStartRate'],
+                  currentBidders: args['currentBidders'],
                 ),
               ),
         );
@@ -291,8 +337,16 @@ class AppRouter {
                   BlocProvider<CountryCubit>(
                     create: (context) => CountryCubit(),
                   ),
+                  BlocProvider<PhoneCodeCubit>(
+                    create:
+                        (context) =>
+                            PhoneCodeCubit()..updatePhoneCode('🇸🇦', '+966'),
+                  ),
                   BlocProvider<SaveTokenCubit>(
                     create: (context) => getIt<SaveTokenCubit>(),
+                  ),
+                  BlocProvider<UserDataCubit>(
+                    create: (context) => getIt<UserDataCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),

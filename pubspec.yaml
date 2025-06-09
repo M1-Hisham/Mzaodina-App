@@ -75,6 +75,7 @@ dependencies:
   flutter_local_notifications: ^19.2.1
   webview_flutter: ^4.13.0
   web_socket_channel: ^3.0.3
+  package_info_plus: ^8.3.0
 
 
 dev_dependencies:

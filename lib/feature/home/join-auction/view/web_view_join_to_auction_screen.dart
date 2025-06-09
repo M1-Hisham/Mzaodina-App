@@ -89,9 +89,9 @@ class WebViewJoinToAuctionScreen extends StatelessWidget {
       }
       return left('Invalid response format');
     } on DioException catch (dioError) {
-      return left(ServerFailure.fromDioError(dioError) as String);
+      return left(ServerFailure.fromDioError(dioError).errMessage );
     } catch (e) {
-      return left(ServerFailure(e.toString()) as String);
+      return left(ServerFailure(e.toString()).errMessage);
     }
   }
 

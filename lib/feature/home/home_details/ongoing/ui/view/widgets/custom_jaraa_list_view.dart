@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/core/DI/setup_get_it.dart';
+import 'package:mzaodina_app/core/resources/resources.dart';
 
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
@@ -44,7 +44,11 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OngoingCubit, OngoingState>(
-      bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
+      buildWhen:
+          (previous, current) =>
+              current is OngoingLoading ||
+              current is OngoingSuccess ||
+              current is OngoingError,
       builder: (context, state) {
         if (state is OngoingLoading) {
           return const Center(child: MazadShimmer());
@@ -60,16 +64,68 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
           }
         } else if (state is OngoingSuccess) {
           final jaraaAuction = state.data;
+          final totalPage = context.read<OngoingCubit>().totalPages;
+          final currentPage = context.read<OngoingCubit>().currentPage;
           return RefreshIndicator(
             onRefresh: () => context.read<OngoingCubit>().getOngoingAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: jaraaAuction.data.auctions.length,
+              itemCount: jaraaAuction.data.auctions.length + 1,
               itemBuilder: (context, index) {
-                return CustomOngoingCardViewItem(
-                  jaraaDataModel: jaraaAuction.data.auctions[index],
-                );
+                if (index < jaraaAuction.data.auctions.length) {
+                  return CustomOngoingCardViewItem(
+                    jaraaDataModel: jaraaAuction.data.auctions[index],
+                  );
+                } else {
+                  return totalPage > 1
+                      ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 15,
+                          children: List.generate(totalPage, (i) {
+                            final page = i + 1;
+                            final isSelected = page == currentPage;
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: InkWell(
+                                onTap: () {
+                                  context
+                                      .read<OngoingCubit>()
+                                      .getOngoingAuctions(page: page);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        isSelected
+                                            ? R.colors.primaryColorLight
+                                            : Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    '$page',
+                                    style: TextStyle(
+                                      color:
+                                          isSelected
+                                              ? Colors.white
+                                              : Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      )
+                      : SizedBox.shrink();
+                }
               },
             ),
           );

@@ -1,74 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
-// import 'package:mzaodina_app/core/resources/resources.dart';
-// import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
-
-// class SelectCountry extends StatefulWidget {
-//   final Color? color;
-//   const SelectCountry({super.key, this.color});
-
-//   @override
-//   State<SelectCountry> createState() => _SelectCountryState();
-// }
-
-// class _SelectCountryState extends State<SelectCountry> {
-//   String? selectedCountryName;
-//   String? selectedCountryFlag;
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         showBottomSheet(
-//           showDragHandle: true,
-//           enableDrag: true,
-//           backgroundColor: R.colors.whiteLight,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.only(
-//               topLeft: Radius.circular(40.r),
-//               topRight: Radius.circular(40.r),
-//             ),
-//           ),
-//           constraints: BoxConstraints(
-//             maxHeight: MediaQuery.of(context).size.height / 1.8,
-//           ),
-//           context: context,
-//           builder: (context) {
-//             return CountriesAndCitiesView(
-//               country: true,
-//               onCountrySelected: (country) {
-//                 setState(() {
-//                   selectedCountryName = country.name;
-//                   selectedCountryFlag = country.flag;
-//                 });
-//                 Navigator.of(context).pop();
-//               },
-//             );
-//           },
-//         );
-//       },
-//       child: Container(
-//         padding: EdgeInsets.all(9.5.r),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.all(Radius.circular(8.r)),
-
-//           color: widget.color ?? R.colors.formColorLight,
-//           border: Border.all(color: R.colors.borderColorsLight),
-//         ),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             Text(
-//               '${selectedCountryFlag ?? ''} ${selectedCountryName ?? '🇸🇦 المملكة العربية السعودية'}',
-//               style: TextStyle(fontSize: 17.sp),
-//             ),
-//             SvgPicture.asset(R.images.dropDownIcon, width: 14.w, height: 8.h),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,10 +5,74 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
+import 'package:uni_country_city_picker/uni_country_city_picker.dart';
 
-class SelectCountry extends StatelessWidget {
+class SelectCountry extends StatefulWidget {
   final Color? color;
-  const SelectCountry({super.key, this.color});
+  final String? initialCountryCode;
+  final String? initialPhoneCode;
+  const SelectCountry({
+    super.key,
+    this.color,
+    this.initialCountryCode,
+    this.initialPhoneCode,
+  });
+
+  @override
+  State<SelectCountry> createState() => _SelectCountryState();
+}
+
+class _SelectCountryState extends State<SelectCountry> {
+  final _uniCountryServices = UniCountryServices.instance;
+  List<Country> countries = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadCountries();
+  }
+
+  Future<void> loadCountries() async {
+    countries = await _uniCountryServices.getCountriesAndCities();
+    if (mounted) {
+      setState(() {});
+      if (widget.initialCountryCode != null) {
+        _initializeCountryState();
+      }
+    }
+  }
+
+  void _initializeCountryState() {
+    final country = countries.firstWhere(
+      (c) => c.isoCode == widget.initialCountryCode,
+      orElse:
+          () => Country(
+            name: 'Unknown',
+            nameEn: 'Unknown',
+            dialCode: widget.initialPhoneCode ?? '+00',
+            flag: _getFlagEmoji(widget.initialCountryCode!),
+            isoCode: widget.initialCountryCode!,
+            cities: [],
+            phoneDigitsLength: 0,
+            phoneDigitsLengthMax: 0,
+          ),
+    );
+
+    context.read<CountryCubit>().updateCountry(
+      country.flag,
+      country.dialCode,
+      country.name,
+      country.isoCode,
+    );
+  }
+
+  String _getFlagEmoji(String countryCode) {
+    return countryCode.toUpperCase().replaceAllMapped(
+      RegExp(r'[A-Z]'),
+      (m) => String.fromCharCode(m.group(0)!.codeUnitAt(0) + 127397),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +100,7 @@ class SelectCountry extends StatelessWidget {
                   country.flag,
                   country.dialCode,
                   country.name,
+                  country.isoCode,
                 );
                 Navigator.of(context).pop();
               },
@@ -118,44 +112,68 @@ class SelectCountry extends StatelessWidget {
         padding: EdgeInsets.all(9.5.r),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8.r)),
-          color: color ?? R.colors.formColorLight,
+          color: widget.color ?? R.colors.formColorLight,
           border: Border.all(color: R.colors.borderColorsLight),
         ),
         child: BlocBuilder<CountryCubit, CountryState>(
-          builder: (context, state) {
-            if (state is CountrySelected) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${state.flag} ${state.name}',
-                    style: TextStyle(fontSize: 17.sp),
-                  ),
-                  SvgPicture.asset(
-                    R.images.dropDownIcon,
-                    width: 14.w,
-                    height: 8.h,
-                  ),
-                ],
+          builder: (context, countryState) {
+            if (countryState is CountrySelected) {
+              return _buildCountryRow(
+                flag: countryState.flag,
+                name: countryState.name,
+              );
+            } else {
+              return BlocBuilder<UserDataCubit, UserDataState>(
+                builder: (context, userDataState) {
+                  if (userDataState is UserDataSuccess &&
+                      countries.isNotEmpty) {
+                    final code = userDataState.userModel.data?.country;
+                    if (code != null) {
+                      final country = countries.firstWhere(
+                        (c) => c.isoCode == code,
+                        orElse:
+                            () => Country(
+                              name: 'Unknown',
+                              nameEn: 'Unknown',
+                              dialCode:
+                                  userDataState.userModel.data?.phoneCode ??
+                                  '+00',
+                              flag: _getFlagEmoji(code),
+                              isoCode: code,
+                              cities: [],
+                              phoneDigitsLength: 0,
+                              phoneDigitsLengthMax: 0,
+                            ),
+                      );
+
+                      return _buildCountryRow(
+                        flag: country.flag,
+                        name: country.name,
+                      );
+                    }
+                  }
+
+                  // Default value
+                  return _buildCountryRow(
+                    flag: '🇸🇦',
+                    name: 'المملكة العربية السعودية',
+                  );
+                },
               );
             }
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '🇸🇦 المملكة العربية السعودية',
-                  style: TextStyle(fontSize: 17.sp),
-                ),
-                SvgPicture.asset(
-                  R.images.dropDownIcon,
-                  width: 14.w,
-                  height: 8.h,
-                ),
-              ],
-            );
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildCountryRow({required String flag, required String name}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('$flag $name', style: TextStyle(fontSize: 17.sp)),
+        SvgPicture.asset(R.images.dropDownIcon, width: 14.w, height: 8.h),
+      ],
     );
   }
 }

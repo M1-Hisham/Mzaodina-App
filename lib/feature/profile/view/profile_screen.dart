@@ -10,9 +10,31 @@ import 'package:mzaodina_app/feature/profile/view/widget/custom_logout_botton.da
 import 'package:mzaodina_app/feature/profile/view/widget/custom_row_social_media.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_user_data_details_section.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String _version = '';
+  final String _year = DateTime.now().year.toString();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _version = info.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +67,7 @@ class ProfileScreen extends StatelessWidget {
                 final UserData userData = state.userModel.data!;
                 return Column(
                   children: [
-                    _buildHeader(
-                      state.userModel.data?.username ?? 'فهد القحطاني',
-                    ),
+                    _buildHeader(userData.username ?? 'مستخدم'),
                     CustomUserDataDetailsSection(userData: userData),
                     SizedBox(height: 30.h),
                     CustomAppInformationSection(),
@@ -108,12 +128,12 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 24),
-        Text('الاصدار : 1.0.0', style: R.textStyles.font12Grey3W500Light),
+        Text('الاصدار : $_version', style: R.textStyles.font12Grey3W500Light),
         Text(
-          'جميع الحقوق محفوظة لمنصة مزاود اين©2024',
+          'جميع الحقوق محفوظة لمنصة مزاود اين©$_year',
           style: R.textStyles.font12Grey3W500Light,
         ),
-        SizedBox(height: 24.h),
+        SizedBox(height: 24),
       ],
     );
   }

@@ -9,9 +9,11 @@ class GetNotificationRepo {
 
   GetNotificationRepo(this.apiService);
 
-  Future<Either<Failure, GetAllNotificationModel>> getAllNotifications() async {
+  Future<Either<Failure, GetAllNotificationModel>> getAllNotifications(
+    int page,
+  ) async {
     try {
-      final response = await apiService.getAllNotifications();
+      final response = await apiService.getAllNotifications(page: page);
       return Right(response);
     } on DioException catch (dioError) {
       return Left(ServerFailure.fromDioError(dioError));

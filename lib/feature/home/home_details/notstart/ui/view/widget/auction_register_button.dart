@@ -58,6 +58,8 @@ class AuctionRegisterButton extends StatelessWidget {
                           'requiredBidders': auctionData.requiredBidders,
                           'auctionId': auctionData.id,
                           'slug': auctionData.slug,
+                          'auctionStartRate': auctionData.auctionStartRate,
+                          'currentBidders': auctionData.currentBidders,
                         },
                       );
                     },

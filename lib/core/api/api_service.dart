@@ -26,6 +26,7 @@ import 'package:mzaodina_app/feature/profile/account-details/data/model/update_p
 import 'package:mzaodina_app/feature/profile/change-password/data/model/change_password_model.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_request_body.dart';
 import 'package:mzaodina_app/feature/auth/login/data/model/login_response_model.dart';
+import 'package:mzaodina_app/feature/profile/data/model/info_response.dart';
 import 'package:mzaodina_app/feature/profile/data/model/password_update_response.dart';
 import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -94,7 +95,9 @@ abstract class ApiService {
   );
 
   @GET(ApiConstants.getAllNotifications)
-  Future<GetAllNotificationModel> getAllNotifications();
+  Future<GetAllNotificationModel> getAllNotifications({
+    @Query("page") int? page = 1,
+  });
 
   @GET(ApiConstants.markAllReadNotifications)
   Future<MarkNotificationModel> markAllReadNotifications();
@@ -112,24 +115,28 @@ abstract class ApiService {
   @GET(ApiConstants.auctions)
   Future<NotstartAuctionResponse> getNotStartAuctions({
     @Query("filter") String filter = "notstart",
+    @Query("page") int? page = 1,
   });
 
   /// service for auctions Ready
   @GET(ApiConstants.auctions)
   Future<ReadyAuctionResponse> getReadyAuctions({
     @Query("filter") String filter = "ready",
+    @Query("page") int? page = 1,
   });
 
   /// service for auctions Ongoing
   @GET(ApiConstants.auctions)
   Future<OngoingAuctionResponse> getOngoingAuctions({
     @Query("filter") String filter = "ongoing",
+    @Query("page") int? page = 1,
   });
 
   /// service for auctions Finished
   @GET(ApiConstants.auctions)
   Future<FinishedAuctionsResponse> getFinishedAuctions({
     @Query("filter") String filter = "finished",
+    @Query("page") int? page = 1,
   });
 
   @GET(ApiConstants.showAuctions)
@@ -172,4 +179,16 @@ abstract class ApiService {
   Future<LastInvoiceModel> lastInvoiceChecker();
   @POST(ApiConstants.paymentIinvoice)
   Future<PaymentInvoiceModel> paymentInvoice(@Body() Map<String, dynamic> body);
+
+  //===================info==================
+  @GET(ApiConstants.aboutUs)
+  Future<InfoResponse> aboutUs();
+  @GET(ApiConstants.auctionTerms)
+  Future<InfoResponse> auctionTerms();
+  @GET(ApiConstants.privacy)
+  Future<InfoResponse> privacy();
+  @GET(ApiConstants.terms)
+  Future<InfoResponse> terms();
+  @GET(ApiConstants.shippingAndReturn)
+  Future<InfoResponse> shippingAndReturn();
 }

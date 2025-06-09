@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/core/DI/setup_get_it.dart';
+import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_card_item.dart';
@@ -42,7 +42,11 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotstartCubit, NotstartState>(
-      bloc: getIt<NotstartCubit>()..getNotStartAuctions(),
+      buildWhen:
+          (previous, current) =>
+              current is NotstartLoading ||
+              current is NotstartSuccess ||
+              current is NotstartError,
       builder: (context, state) {
         if (state is NotstartLoading) {
           return const Center(child: MazadShimmer());
@@ -58,17 +62,69 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           }
         } else if (state is NotstartSuccess) {
           final qadimAuctionResponse = state.data;
+          final totalPage = context.read<NotstartCubit>().totalPages;
+          final currentPage = context.read<NotstartCubit>().currentPage;
           return RefreshIndicator(
             onRefresh:
                 () => context.read<NotstartCubit>().getNotStartAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: qadimAuctionResponse.data.auctions.length,
+              itemCount: qadimAuctionResponse.data.auctions.length + 1,
               itemBuilder: (context, index) {
-                return CustomNotstartCardItem(
-                  qadimDataModel: qadimAuctionResponse.data.auctions[index],
-                );
+                if (index < qadimAuctionResponse.data.auctions.length) {
+                  return CustomNotstartCardItem(
+                    qadimDataModel: qadimAuctionResponse.data.auctions[index],
+                  );
+                } else {
+                  return totalPage > 1
+                      ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 15,
+                          children: List.generate(totalPage, (i) {
+                            final page = i + 1;
+                            final isSelected = page == currentPage;
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: InkWell(
+                                onTap: () {
+                                  context
+                                      .read<NotstartCubit>()
+                                      .getNotStartAuctions(page: page);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        isSelected
+                                            ? R.colors.primaryColorLight
+                                            : Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    '$page',
+                                    style: TextStyle(
+                                      color:
+                                          isSelected
+                                              ? Colors.white
+                                              : Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      )
+                      : SizedBox.shrink();
+                }
               },
             ),
           );

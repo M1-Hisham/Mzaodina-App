@@ -23,25 +23,24 @@ class ReadyAuctionResponse {
 @JsonSerializable()
 class Data {
   final List<ReadyAuction> auctions;
-  final int? total;
-  @JsonKey(name: 'current_page')
-  final int? currentPage;
-  @JsonKey(name: 'last_page')
-  final int? lastPage;
-  @JsonKey(name: 'next_page_url')
-  final String? nextPageUrl;
-  @JsonKey(name: 'prev_page_url')
-  final String? prevPageUrl;
-  Data({
-    required this.auctions,
-    this.total,
-    this.currentPage,
-    this.lastPage,
-    this.nextPageUrl,
-    this.prevPageUrl,
-  });
+  final Meta? meta;
+  Data({required this.auctions, this.meta});
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
   Map<String, dynamic> toJson() => _$DataToJson(this);
+}
+
+@JsonSerializable()
+class Meta {
+  @JsonKey(name: 'current_page')
+  final int currentPage;
+
+  @JsonKey(name: 'last_page')
+  final int lastPage;
+
+  Meta({required this.currentPage, required this.lastPage});
+
+  factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
+  Map<String, dynamic> toJson() => _$MetaToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -58,7 +57,7 @@ class ReadyAuction {
   @JsonKey(name: 'auction_duration_minutes')
   final int? auctionDurationMinutes;
   @JsonKey(name: 'auction_start_rate')
-  final int? auctionStartRate;
+  final double? auctionStartRate;
   @JsonKey(name: 'product_sku')
   final String? productSku;
   final bool? isRegister;

@@ -18,6 +18,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
     result.fold(
       (failure) {
         log('Error fetching user data: ${failure.errMessage}');
+        if (isClosed) return;
         emit(UpdateProfileError(failure.errMessage));
       },
       (userData) {

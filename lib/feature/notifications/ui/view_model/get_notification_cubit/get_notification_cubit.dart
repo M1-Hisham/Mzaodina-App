@@ -7,27 +7,23 @@ import 'package:mzaodina_app/feature/notifications/data/repo/get_notification_re
 part 'get_notification_state.dart';
 
 class GetNotificationCubit extends Cubit<GetAllNotificationState> {
-  GetNotificationCubit(this.notificationRepo)
-    : super(GetAllNotificationInitial());
-  final GetNotificationRepo notificationRepo;
+  final GetNotificationRepo repo;
+  int currentPage = 1;
+  int totalPages = 1;
 
-  Future<void> fetchNotifications() async {
-    log('Fetching notifications...');
+  GetNotificationCubit(this.repo) : super(GetAllNotificationInitial());
+
+  Future<void> fetchNotifications(int? page) async {
     emit(GetAllNotificationLoading());
-
-    final result = await notificationRepo.getAllNotifications();
-
+    final result = await repo.getAllNotifications(page ?? currentPage);
     result.fold(
-      (failure) {
-        log('Error fetching notifications: ${failure.errMessage}');
-        emit(GetAllNotificationFailure(failure.errMessage));
-      },
-      (response) {
-        log(
-          'Notifications fetched successfully: ${response.notifications.data.length}',
-        );
-        // هنا يمكنك التعامل مع البيانات المسترجعة
-        emit(GetAllNotificationSuccess(response));
+      (failure) => emit(GetAllNotificationFailure(failure.errMessage)),
+      (data) {
+        currentPage = page ?? currentPage;
+        log('Current Page: $currentPage');
+        totalPages = data.notifications.lastPage;
+        log('Total Pages: $totalPages');
+        emit(GetAllNotificationSuccess(data));
       },
     );
   }

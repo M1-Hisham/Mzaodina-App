@@ -14,6 +14,8 @@ class JoinTheAuction extends StatelessWidget {
   final double registrationAmount;
   final int requiredBidders;
   final int auctionId;
+  final double auctionStartRate;
+  final int currentBidders;
   final String slug;
 
   const JoinTheAuction({
@@ -23,6 +25,8 @@ class JoinTheAuction extends StatelessWidget {
     required this.requiredBidders,
     required this.auctionId,
     required this.slug,
+    required this.auctionStartRate,
+    required this.currentBidders,
   });
 
   @override
@@ -56,13 +60,15 @@ class JoinTheAuction extends StatelessWidget {
                 const CustomAppBarAccount(title: 'الرسوم التنظيمية'),
                 CoustomRowItem(
                   title: 'الرسوم التنظيمية',
-                  price: '$registrationAmount',
+                  price: registrationAmount.toStringAsFixed(2),
                 ),
                 CounterView(
                   auctionId: auctionId,
                   requiredBidders: requiredBidders,
                   openingAmount: openingAmount,
                   registrationAmount: registrationAmount,
+                  auctionStartRate: auctionStartRate,
+                  currentBidders: currentBidders,
                 ),
               ],
             ),

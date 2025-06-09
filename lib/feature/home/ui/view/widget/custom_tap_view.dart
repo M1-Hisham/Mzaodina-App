@@ -7,11 +7,14 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_jaraa_list_view.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/widget/custom_muntahi_cart_view_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantaliq_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
@@ -43,6 +46,19 @@ class _CustomTapViewState extends State<CustomTapView>
         setState(() {
           selectedIndex = newIndex;
         });
+        if (newIndex == 0) {
+          context.read<NotstartCubit>().getNotStartAuctions();
+        }
+        if (newIndex == 1) {
+          context.read<ReadyCubit>().getReadyAuctions();
+        }
+        if (newIndex == 2) {
+          context.read<OngoingCubit>().getOngoingAuctions();
+        }
+
+        if (newIndex == 3) {
+          context.read<FinishedCubit>().getFinishedAuctions(page: 1);
+        }
 
         context.read<LastInvoiceCubit>().lastInvoiceChecker();
       }
@@ -156,57 +172,14 @@ class _CustomTapViewState extends State<CustomTapView>
                       ),
                     ),
 
-                    // Padding(
-                    //   padding: const EdgeInsets.all(16.0),
-                    //   child: BlocBuilder<OngoingCubit, OngoingState>(
-                    //     bloc: getIt<OngoingCubit>()..getOngoingAuctions(),
-                    //     builder: (context, state) {
-                    //       if (state is OngoingLoading) {
-                    //         return const Center(child: MazadShimmer());
-                    //       } else if (state is OngoingError) {
-                    //         if (jaraaCount == 0) {
-                    //           return CustomNotItem();
-                    //         } else {
-                    //           return CustomErorrWidget(
-                    //             message: state.errorMessage,
-                    //             onRefresh:
-                    //                 () =>
-                    //                     context
-                    //                         .read<OngoingCubit>()
-                    //                         .getOngoingAuctions(),
-                    //           );
-                    //         }
-                    //       } else if (state is OngoingSuccess) {
-                    //         final jaraaAuctionResponse = state.data;
-                    //         return ListView.builder(
-                    //           padding: EdgeInsets.zero,
-                    //           itemCount:
-                    //               jaraaAuctionResponse.data.auctions.length,
-                    //           itemBuilder: (context, index) {
-                    //             return Padding(
-                    //               padding: const EdgeInsets.only(bottom: 16.0),
-                    //               child: BlocProvider(
-                    //                 create: (context) => WebSocketCubit(),
-                    //                 child: CustomOngoingCardViewItem(
-                    //                   jaraaDataModel:
-                    //                       jaraaAuctionResponse
-                    //                           .data
-                    //                           .auctions[index],
-                    //                 ),
-                    //               ),
-                    //             );
-                    //           },
-                    //         );
-                    //       } else {
-                    //         return const Center(child: Text('لا يوجد بيانات'));
-                    //       }
-                    //     },
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: BlocBuilder<FinishedCubit, FinishedState>(
-                        bloc: getIt<FinishedCubit>()..getFinishedAuctions(),
+                        buildWhen:
+                            (previous, current) =>
+                                current is FinishedSuccess ||
+                                current is FinishedLoading ||
+                                current is FinishedError,
                         builder: (context, state) {
                           if (state is FinishedLoading) {
                             return const Center(child: MazadShimmer());
@@ -225,20 +198,90 @@ class _CustomTapViewState extends State<CustomTapView>
                             }
                           } else if (state is FinishedSuccess) {
                             final muntaliAuctionResponse = state.data;
+                            final totalPage =
+                                context.read<FinishedCubit>().totalPages;
+                            final currentPage =
+                                context.read<FinishedCubit>().currentPage;
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount:
-                                  muntaliAuctionResponse.data.auctions.length,
+                                  muntaliAuctionResponse.data.auctions.length +
+                                  1,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 16.0),
-                                  child: CustomFinishedCardViewItem(
-                                    muntahiDataModel:
-                                        muntaliAuctionResponse
-                                            .data
-                                            .auctions[index],
-                                  ),
-                                );
+                                if (index <
+                                    muntaliAuctionResponse
+                                        .data
+                                        .auctions
+                                        .length) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 16.0,
+                                    ),
+                                    child: CustomFinishedCardViewItem(
+                                      muntahiDataModel:
+                                          muntaliAuctionResponse
+                                              .data
+                                              .auctions[index],
+                                    ),
+                                  );
+                                } else if (totalPage > 1) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: Wrap(
+                                      alignment: WrapAlignment.center,
+                                      spacing: 15,
+                                      children: List.generate(totalPage, (i) {
+                                        final page = i + 1;
+                                        final isSelected = page == currentPage;
+
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 6,
+                                          ),
+                                          child: InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<FinishedCubit>()
+                                                  .getFinishedAuctions(
+                                                    page: page,
+                                                  );
+                                            },
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 6,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    isSelected
+                                                        ? R
+                                                            .colors
+                                                            .primaryColorLight
+                                                        : Colors.grey[200],
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Text(
+                                                '$page',
+                                                style: TextStyle(
+                                                  color:
+                                                      isSelected
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                  );
+                                }
+                                return const SizedBox.shrink();
                               },
                             );
                           } else {

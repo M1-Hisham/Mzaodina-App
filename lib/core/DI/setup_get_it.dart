@@ -51,8 +51,14 @@ import 'package:mzaodina_app/feature/profile/account-details/data/repo/update_pr
 import 'package:mzaodina_app/feature/profile/account-details/view_model/update_profile_cubit/update_profile_cubit.dart';
 import 'package:mzaodina_app/feature/profile/change-password/data/repo/change_password_repo.dart';
 import 'package:mzaodina_app/feature/auth/login/data/repo/lodin_repo.dart';
+import 'package:mzaodina_app/feature/profile/data/repo/info_repo.dart';
 import 'package:mzaodina_app/feature/profile/data/repo/user_data_repo.dart';
 import 'package:mzaodina_app/feature/profile/change-password/view_model/change_password_cubit/change_password_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/about_us_cubit/about_us_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/auction_terms_cubit/auction_terms_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/privacy_cubit/privacy_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/shipping_cubit/shipping_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/terms_cubit/terms_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 
 /// This is the dependency injection file for the app.
@@ -282,4 +288,31 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<PaymentInvoiceCubit>(
     () => PaymentInvoiceCubit(getIt<PaymentInvoiceRepo>()),
   );
+//==================info============
+
+  // ✅ Register InfoRepoRepo
+  getIt.registerLazySingleton<InfoRepo>(
+    () => InfoRepo(getIt<ApiService>()),
+  );
+  // ✅ AboutUsCubit Cubit
+  getIt.registerFactory<AboutUsCubit>(
+    () => AboutUsCubit(getIt<InfoRepo>()),
+  );
+  // ✅ AuctionTermsCubit Cubit
+  getIt.registerFactory<AuctionTermsCubit>(
+    () => AuctionTermsCubit(getIt<InfoRepo>()),
+  );
+  // ✅ PrivacyCubit Cubit
+  getIt.registerFactory<PrivacyCubit>(
+    () => PrivacyCubit(getIt<InfoRepo>()),
+  );
+  // ✅ ShippingCubit Cubit
+  getIt.registerFactory<ShippingCubit>(
+    () => ShippingCubit(getIt<InfoRepo>()),
+  );
+  // ✅ TermsCubit Cubit
+  getIt.registerFactory<TermsCubit>(
+    () => TermsCubit(getIt<InfoRepo>()),
+  );
+
 }
