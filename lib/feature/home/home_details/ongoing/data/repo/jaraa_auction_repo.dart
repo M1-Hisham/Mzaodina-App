@@ -9,9 +9,9 @@ class OngoingAuctionRepo {
 
   OngoingAuctionRepo(this.apiService);
 
-  Future<Either<Failure, OngoingAuctionResponse>> getOngoingAuctions() async {
+  Future<Either<Failure, OngoingAuctionResponse>> getOngoingAuctions(int page) async {
     try {
-      final response = await apiService.getOngoingAuctions();
+      final response = await apiService.getOngoingAuctions(page: page);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

@@ -9,9 +9,11 @@ class NotstartAuctionRepo {
 
   NotstartAuctionRepo(this.apiService);
 
-  Future<Either<Failure, NotstartAuctionResponse>> getNotStartAuctions() async {
+  Future<Either<Failure, NotstartAuctionResponse>> getNotStartAuctions(
+    int page,
+  ) async {
     try {
-      final response = await apiService.getNotStartAuctions();
+      final response = await apiService.getNotStartAuctions(page: page);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

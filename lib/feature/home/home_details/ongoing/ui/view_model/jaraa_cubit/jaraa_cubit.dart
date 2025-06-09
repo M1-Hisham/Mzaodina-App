@@ -5,18 +5,22 @@ import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/jaraa_a
 part 'jaraa_state.dart';
 
 class OngoingCubit extends Cubit<OngoingState> {
-  OngoingCubit(this.jaraaAuctionRepo) : super(OngoingInitial());
   final OngoingAuctionRepo jaraaAuctionRepo;
+  int currentPage = 1;
+  int totalPages = 1;
+  OngoingCubit(this.jaraaAuctionRepo) : super(OngoingInitial());
 
-  Future<void> getOngoingAuctions() async {
+  Future<void> getOngoingAuctions({int? page}) async {
     emit(OngoingLoading());
-    final response = await jaraaAuctionRepo.getOngoingAuctions();
+    final response = await jaraaAuctionRepo.getOngoingAuctions(page ?? currentPage);
 
     response.fold(
       (failure) {
         emit(OngoingError(failure.errMessage));
       },
       (success) {
+        currentPage = page ?? currentPage;
+        totalPages = success.data.meta?.lastPage ?? 1;
         emit(OngoingSuccess(success));
       },
     );
