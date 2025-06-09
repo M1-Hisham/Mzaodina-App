@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
@@ -40,7 +40,6 @@ class CustomAppBarHome extends StatelessWidget {
                     'أهلاً وسهلاً,',
                     style: R.textStyles.font18GreyW500Light,
                   ),
-
                   SizedBox(height: 7.h),
                   Row(
                     children: [
@@ -61,11 +60,6 @@ class CustomAppBarHome extends StatelessWidget {
                               '👋 ${state.userModel.data?.username ?? ''}',
                               style: R.textStyles.font18WhiteW500Light,
                             );
-                          } else if (state is UserDataError) {
-                            return Text(
-                              '👋 كزائر',
-                              style: R.textStyles.font18WhiteW500Light,
-                            );
                           } else {
                             return Text(
                               '👋 كزائر',
@@ -74,56 +68,54 @@ class CustomAppBarHome extends StatelessWidget {
                           }
                         },
                       ),
-                      Spacer(),
-                      BlocProvider(
-                        create:
-                            (context) =>
-                                getIt<GetNotificationCubit>()
-                                  ..fetchNotifications(null),
-                        child: BlocBuilder<
-                          GetNotificationCubit,
-                          GetAllNotificationState
-                        >(
-                          builder: (context, state) {
-                            return Stack(
-                              children: [
-                                InkWell(
-                                  onTap:
-                                      () => Navigator.pushNamed(
-                                        context,
-                                        AppRoutes.notificationsScreenRoute,
-                                        // AppRoutes.notificationsScreenRoute,
+
+                      const Spacer(),
+
+                      /// الإشعارات تظهر فقط لو المستخدم مسجل دخول
+                      BlocBuilder<UserDataCubit, UserDataState>(
+                        builder: (context, userState) {
+                          if (userState is UserDataSuccess) {
+                            return BlocProvider(
+                              create: (context) => getIt<GetNotificationCubit>()
+                                ..fetchNotifications(null),
+                              child: BlocBuilder<GetNotificationCubit,
+                                  GetAllNotificationState>(
+                                builder: (context, notifState) {
+                                  final hasNotifications =
+                                      notifState is GetAllNotificationSuccess &&
+                                          notifState.response.notifications.data
+                                              .isNotEmpty;
+
+                                  return Stack(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            AppRoutes.notificationsScreenRoute,
+                                          );
+                                        },
+                                        child: SvgPicture.asset(
+                                          R.images.iconNotiv,
+                                          width: 26.w,
+                                          height: 26.h,
+                                        ),
                                       ),
-                                  child: SvgPicture.asset(
-                                    R.images.iconNotiv,
-                                    width: 26.w,
-                                    height: 26.h,
-                                  ),
-                                ),
-                                state is GetAllNotificationSuccess
-                                    ? state
-                                            .response
-                                            .notifications
-                                            .data
-                                            .isNotEmpty
-                                        ? Positioned(
+                                      if (hasNotifications)
+                                        Positioned(
                                           right: 0,
                                           top: 0,
-                                          child: Container(
-                                            width: 8.w,
-                                            height: 8.h,
-                                            decoration: BoxDecoration(
-                                              color: R.colors.redColor,
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
-                                        )
-                                        : SizedBox.shrink()
-                                    : SizedBox.shrink(),
-                              ],
+                                          child: _FlashingDot(),
+                                        ),
+                                    ],
+                                  );
+                                },
+                              ),
                             );
-                          },
-                        ),
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -132,6 +124,50 @@ class CustomAppBarHome extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _FlashingDot extends StatefulWidget {
+  const _FlashingDot({super.key});
+
+  @override
+  State<_FlashingDot> createState() => _FlashingDotState();
+}
+
+class _FlashingDotState extends State<_FlashingDot>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    )..repeat(reverse: true);
+    _animation = Tween<double>(begin: 0.6, end: 1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _animation,
+      child: Container(
+        width: 8.w,
+        height: 8.h,
+        decoration: BoxDecoration(
+          color: R.colors.redColor,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }
