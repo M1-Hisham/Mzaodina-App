@@ -1,95 +1,7 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
-// import 'package:mzaodina_app/core/resources/resources.dart';
-// import 'package:mzaodina_app/core/router/app_routes.dart';
-
-// class NotificationsScreen extends StatelessWidget {
-//   const NotificationsScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: R.colors.whiteLight,
-//       body: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-//         child: Column(
-//           children: [
-//             _customAppBar(title: 'الإشعارات', context: context),
-//             Expanded(
-//               child: SingleChildScrollView(
-//                 child: Column(
-//                   children: [
-//                     Container(
-//                       padding: EdgeInsets.symmetric(horizontal: 12.w),
-//                       decoration: BoxDecoration(
-//                         color: R.colors.blackColor3,
-
-//                         borderRadius: BorderRadius.circular(8.r),
-//                       ),
-//                       child: Row(
-//                         children: [
-//                           Text(
-//                             'تم اختيارك للفوز – أكمل الآن واحتفل بجائزتك!',
-//                             style: R.textStyles.font14BlackW500Light,
-//                           ),
-//                           Spacer(),
-//                           TextButton(
-//                             onPressed: () {
-//                               Navigator.pushNamed(
-//                                 context,
-//                                 AppRoutes.invoiceDetailsScreenRoute,
-//                               );
-//                             },
-//                             child: Text(
-//                               'اضغط',
-//                               style: R.textStyles.font14primaryW500Light,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-
-//                     Padding(
-//                       padding: EdgeInsets.only(top: 20.h),
-//                       child: Container(
-//                         padding: EdgeInsets.symmetric(horizontal: 12.w),
-//                         decoration: BoxDecoration(
-//                           color: R.colors.blackColor3,
-//                           borderRadius: BorderRadius.circular(8),
-//                         ),
-//                         child: Row(
-//                           children: [
-//                             Text(
-//                               'تم اختيارك للفوز – أكمل الآن واحتفل بجائزتك!',
-//                               style: R.textStyles.font14BlackW500Light,
-//                             ),
-//                             Spacer(),
-//                             TextButton(
-//                               onPressed: () {},
-//                               child: Text(
-//                                 'اضغط',
-//                                 style: R.textStyles.font14primaryW500Light,
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
@@ -98,8 +10,38 @@ import 'package:mzaodina_app/feature/notifications/data/model/get_all_notificati
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
+
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(() {
+      final cubit = context.read<GetNotificationCubit>();
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final currentScroll = _scrollController.position.pixels;
+
+      if (currentScroll >= (maxScroll - 200) &&
+          !cubit.isLoadingMore &&
+          cubit.currentPage < cubit.totalPages) {
+        cubit.fetchNotifications(cubit.currentPage + 1, append: true);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,20 +56,17 @@ class NotificationsScreen extends StatelessWidget {
           children: [
             _customAppBar(title: 'الإشعارات', context: context),
             SizedBox(height: 12.h),
-
             InkWell(
               onTap: () {
                 final getNotificationState = cubit.state;
 
                 if (getNotificationState is GetAllNotificationSuccess) {
-                  final allIds =
-                      getNotificationState.response.notifications.data
-                          .map((e) => e.id)
-                          .toList();
-
+                  final allIds = getNotificationState.response.notifications.data
+                      .map((e) => e.id)
+                      .toList();
                   context.read<MarkNotificationCubit>().markAllNotifications(
-                    allIds,
-                  );
+                        allIds,
+                      );
                 }
               },
               child: Text(
@@ -135,18 +74,13 @@ class NotificationsScreen extends StatelessWidget {
                 style: R.textStyles.font14primaryW500Light,
               ),
             ),
-
             SizedBox(height: 12.h),
-
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
                   cubit.fetchNotifications(1);
                 },
-                child: BlocBuilder<
-                  GetNotificationCubit,
-                  GetAllNotificationState
-                >(
+                child: BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
                   builder: (context, state) {
                     if (state is GetAllNotificationLoading) {
                       return Center(child: NotificationsShimmer());
@@ -157,9 +91,6 @@ class NotificationsScreen extends StatelessWidget {
                       );
                     } else if (state is GetAllNotificationSuccess) {
                       final notifications = state.response.notifications.data;
-                      final currentPage = cubit.currentPage;
-                      final totalPages = cubit.totalPages;
-
                       if (notifications.isEmpty) {
                         return Center(
                           child: Text(
@@ -169,69 +100,25 @@ class NotificationsScreen extends StatelessWidget {
                         );
                       }
 
-                      return Column(
-                        children: [
-                          Expanded(
-                            child: ListView.separated(
-                              itemCount: notifications.length,
-                              separatorBuilder:
-                                  (_, __) => SizedBox(height: 12.h),
-                              itemBuilder: (context, index) {
-                                final notification = notifications[index];
-                                return CustomNotificationItem(
-                                  notification: notification,
-                                );
-                              },
-                            ),
-                          ),
-
-                          SizedBox(height: 14),
-
-                          Wrap(
-                            alignment: WrapAlignment.center,
-                            spacing: 15,
-                            children: List.generate(totalPages, (index) {
-                              final page = index + 1;
-                              final isSelected = page == currentPage;
-
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5,
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    cubit.fetchNotifications(page);
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          isSelected
-                                              ? R.colors.primaryColorLight
-                                              : Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Text(
-                                      '$page',
-                                      style: TextStyle(
-                                        color:
-                                            isSelected
-                                                ? Colors.white
-                                                : Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
-                          ),
-
-                          SizedBox(height: 25.h),
-                        ],
+                      return ListView.separated(
+                        controller: _scrollController,
+                        itemCount: notifications.length + 1,
+                        separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                        itemBuilder: (context, index) {
+                          if (index < notifications.length) {
+                            final notification = notifications[index];
+                            return CustomNotificationItem(notification: notification);
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Center(
+                                child: cubit.currentPage < cubit.totalPages
+                                    ? CircularProgressIndicator()
+                                    : SizedBox(),
+                              ),
+                            );
+                          }
+                        },
                       );
                     }
 
@@ -297,9 +184,8 @@ class CustomNotificationSelected extends StatelessWidget {
           TextButton(
             onPressed: () {
               context.read<MarkNotificationCubit>().markSingleNotification(
-                id: notification.id,
-              );
-
+                    id: notification.id,
+                  );
               Navigator.pushNamed(
                 context,
                 AppRoutes.invoiceDetailsScreenRoute,
@@ -347,9 +233,8 @@ class CustomNotificationUnSelected extends StatelessWidget {
           TextButton(
             onPressed: () {
               context.read<MarkNotificationCubit>().markSingleNotification(
-                id: notification.id,
-              );
-
+                    id: notification.id,
+                  );
               Navigator.pushNamed(
                 context,
                 AppRoutes.invoiceDetailsScreenRoute,

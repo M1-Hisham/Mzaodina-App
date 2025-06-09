@@ -77,7 +77,7 @@ class CustomAppBarHome extends StatelessWidget {
                           if (userState is UserDataSuccess) {
                             return BlocProvider(
                               create: (context) => getIt<GetNotificationCubit>()
-                                ..fetchNotifications(null),
+                                ..fetchNotifications(1),
                               child: BlocBuilder<GetNotificationCubit,
                                   GetAllNotificationState>(
                                 builder: (context, notifState) {

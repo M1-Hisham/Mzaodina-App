@@ -17,6 +17,17 @@ class GetAllNotificationModel {
       _$GetAllNotificationModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetAllNotificationModelToJson(this);
+
+  // ✅ copyWith
+  GetAllNotificationModel copyWith({
+    Notifications? notifications,
+    int? unreadCount,
+  }) {
+    return GetAllNotificationModel(
+      notifications: notifications ?? this.notifications,
+      unreadCount: unreadCount ?? this.unreadCount,
+    );
+  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -62,6 +73,39 @@ class Notifications {
       _$NotificationsFromJson(json);
 
   Map<String, dynamic> toJson() => _$NotificationsToJson(this);
+
+  // ✅ copyWith
+  Notifications copyWith({
+    int? currentPage,
+    List<NotificationItem>? data,
+    String? firstPageUrl,
+    int? from,
+    int? lastPage,
+    String? lastPageUrl,
+    List<PaginationLink>? links,
+    String? nextPageUrl,
+    String? path,
+    int? perPage,
+    String? prevPageUrl,
+    int? to,
+    int? total,
+  }) {
+    return Notifications(
+      currentPage: currentPage ?? this.currentPage,
+      data: data ?? this.data,
+      firstPageUrl: firstPageUrl ?? this.firstPageUrl,
+      from: from ?? this.from,
+      lastPage: lastPage ?? this.lastPage,
+      lastPageUrl: lastPageUrl ?? this.lastPageUrl,
+      links: links ?? this.links,
+      nextPageUrl: nextPageUrl ?? this.nextPageUrl,
+      path: path ?? this.path,
+      perPage: perPage ?? this.perPage,
+      prevPageUrl: prevPageUrl ?? this.prevPageUrl,
+      to: to ?? this.to,
+      total: total ?? this.total,
+    );
+  }
 }
 
 @JsonSerializable(explicitToJson: true)
