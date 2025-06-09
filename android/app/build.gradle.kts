@@ -1,4 +1,3 @@
-import java.text.SimpleDateFormat
 import java.util.Date
 
 plugins {
@@ -8,8 +7,13 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// ✅ توليد versionCode من التاريخ بشكل آمن
-val date = SimpleDateFormat("yyyyMMddHH").format(Date())  // HH لضمان فريدة كل ساعة
+// ✅ أرقام الإصدار بشكل تسلسلي يدوي
+val versionMajor = 1
+val versionMinor = 2
+val versionPatch = 5
+
+val versionCode = (versionMajor * 10000) + (versionMinor * 100) + versionPatch
+val versionName = "$versionMajor.$versionMinor.$versionPatch"
 
 android {
     namespace = "com.mzaodin.app"
@@ -30,8 +34,8 @@ android {
         applicationId = "com.mzaodin.app"
         minSdk = 21
         targetSdk = 35
-        versionCode = date.toInt()
-        versionName = "1.0.${date.takeLast(2)}"
+        this.versionCode = versionCode
+        this.versionName = versionName
     }
 
     signingConfigs {
