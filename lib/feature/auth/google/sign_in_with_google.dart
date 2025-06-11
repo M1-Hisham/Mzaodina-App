@@ -7,18 +7,23 @@ import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/auth/google/data/repo/google_repo.dart';
 import 'package:mzaodina_app/feature/auth/google/view-model/google_cubit/google_cubit.dart';
+import 'package:flutter/foundation.dart';
+
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
-  clientId:
-      Platform.isIOS
-          ? '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com'
-          : '412322100407-sk8ombseep97jd99moejq862c1k6190o.apps.googleusercontent.com',
+  clientId: Platform.isIOS
+      ? '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com'
+      : kReleaseMode
+          ? '412322100407-t0cdnq7vjc4kdsb1u06d3ieii2g0gkas.apps.googleusercontent.com'
+          : '412322100407-c19h7leo0nkb57frbp5v5o343gq9c0n1.apps.googleusercontent.com',
   scopes: ['email', 'profile'],
 );
 
 Future<void> loginWithGoogle(context) async {
   try {
     log('🔑 Attempting to sign in with Google...');
+        log('🆔 Google Client ID in use: ${_googleSignIn.clientId}');
+
     // Force sign out first to allow selecting a different account
     await _googleSignIn.signOut();
     if (_googleSignIn.currentUser != null) {
@@ -75,11 +80,11 @@ Future<void> loginWithGoogle(context) async {
       (Route<dynamic> route) => false,
     );
     log('تم تسجيل الدخول بنجاح');
-  } catch (e) {
-    log("خطأ أثناء تسجيل الدخول: $e");
+  } catch (e, s) {
+    log("❌ Exception: $e", stackTrace: s);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.'),
+        content: Text('حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى. Exception: $e"'),
       ),
     );
   }
