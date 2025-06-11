@@ -12,7 +12,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
   clientId:
       Platform.isIOS
           ? '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com'
-          : null,
+          : '412322100407-sk8ombseep97jd99moejq862c1k6190o.apps.googleusercontent.com',
   scopes: ['email', 'profile'],
 );
 

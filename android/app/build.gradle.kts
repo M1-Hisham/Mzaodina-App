@@ -1,6 +1,6 @@
-import java.util.Properties
-import java.io.FileInputStream
-import java.io.FileOutputStream
+
+import java.text.SimpleDateFormat
+import java.util.Date
 
 plugins {
     id("com.android.application")
@@ -9,28 +9,8 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// ✅ تحميل وتحديث version تلقائيًا
-val versionPropsFile = file("../version.properties")
-val versionProps = Properties()
-
-if (versionPropsFile.exists()) {
-    versionProps.load(FileInputStream(versionPropsFile))
-} else {
-    versionProps["VERSION_CODE"] = "4"
-    versionProps["MAJOR_VERSION"] = "1"
-    versionProps["MINOR_VERSION"] = "0"
-}
-
-val currentVersionCode = versionProps["VERSION_CODE"].toString().toInt()
-val newVersionCode = currentVersionCode + 1
-versionProps["VERSION_CODE"] = newVersionCode.toString()
-
-val major = versionProps["MAJOR_VERSION"].toString()
-val minor = versionProps["MINOR_VERSION"].toString()
-val versionName = "$major.$minor.$newVersionCode" // ← تلقائي
-
-// ✅ حفظ التحديث في الملف
-versionProps.store(FileOutputStream(versionPropsFile), null)
+// ✅ توليد versionCode من التاريخ بشكل آمن
+val date = SimpleDateFormat("yyyyMMddHH").format(Date())  // HH لضمان فريدة كل ساعة
 
 android {
     namespace = "com.mzaodin.app"
@@ -51,8 +31,8 @@ android {
         applicationId = "com.mzaodin.app"
         minSdk = 21
         targetSdk = 35
-        versionCode = newVersionCode
-        versionName = versionName
+        versionCode = date.toInt()+1
+        versionName = "1.0.${date.takeLast(2)}"
     }
 
     signingConfigs {
