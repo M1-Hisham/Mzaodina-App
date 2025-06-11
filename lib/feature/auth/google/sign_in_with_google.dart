@@ -13,9 +13,7 @@ import 'package:flutter/foundation.dart';
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   clientId: Platform.isIOS
       ? '412322100407-a58r9tpblb2dp6l0at9scou4nm6jv6mm.apps.googleusercontent.com'
-      : kReleaseMode
-          ? '412322100407-t0cdnq7vjc4kdsb1u06d3ieii2g0gkas.apps.googleusercontent.com'
-          : '412322100407-c19h7leo0nkb57frbp5v5o343gq9c0n1.apps.googleusercontent.com',
+      : null, // Use null for Android to use default client ID
   scopes: ['email', 'profile'],
 );
 
