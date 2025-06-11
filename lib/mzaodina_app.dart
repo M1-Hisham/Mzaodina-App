@@ -87,7 +87,7 @@ class MzaodinaApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: [Locale('ar')],
-        title: 'Mzaodina',
+        title: 'Mzaodin',
         debugShowCheckedModeBanner: false,
         theme: R.themeData.themeLight,
         initialRoute: AppRoutes.splasahRouter,
