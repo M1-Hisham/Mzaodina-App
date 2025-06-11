@@ -1,3 +1,4 @@
+
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -30,7 +31,7 @@ android {
         applicationId = "com.mzaodin.app"
         minSdk = 21
         targetSdk = 35
-        versionCode = date.toInt()
+        versionCode = date.toInt()+1
         versionName = "1.0.${date.takeLast(2)}"
     }
 

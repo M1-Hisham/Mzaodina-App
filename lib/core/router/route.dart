@@ -238,7 +238,7 @@ class AppRouter {
                     create:
                         (context) =>
                             getIt<GetNotificationCubit>()
-                              ..fetchNotifications(null),
+                              ..fetchNotifications(1),
                   ),
                   BlocProvider(
                     create: (context) => getIt<MarkNotificationCubit>(),
