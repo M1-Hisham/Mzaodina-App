@@ -33,10 +33,10 @@ class WebViewJoinToAuctionScreen extends StatelessWidget {
                 log("❌ حصل خطأ في الويب: ${error.description}");
               },
 
-              // onNavigationRequest: (NavigationRequest request) {
+             // onNavigationRequest: (NavigationRequest request) {
               //   log("🔁 محاولة التنقل إلى: ${request.url}");
               //   return NavigationDecision.navigate;
-              // },
+              // }, 
               onNavigationRequest: (NavigationRequest request) async {
                 if (request.url.contains(
                   "/api/v1/auctions/subscribe/callback",
