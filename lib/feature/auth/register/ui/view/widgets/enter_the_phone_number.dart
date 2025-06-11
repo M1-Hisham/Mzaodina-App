@@ -6,6 +6,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
+import 'package:uni_country_city_picker/uni_country_city_picker.dart';
 
 class EnterThePhoneNumber extends StatefulWidget {
   final TextStyle? hintStyle;
@@ -30,18 +31,65 @@ class EnterThePhoneNumber extends StatefulWidget {
 }
 
 class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
+  final _uniCountryServices = UniCountryServices.instance;
+  List<Country> countries = [];
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final phoneCodeCubit = context.read<PhoneCodeCubit>();
+
+  // نعيد التهيئة دايمًا لو فيه قيم مبدئية
+  // if (widget.initialPhoneCode != null && widget.initialPhoneFlag != null) {
+  //   phoneCodeCubit.updatePhoneCode(
+  //     widget.initialPhoneFlag!,
+  //     widget.initialPhoneCode!,
+  //   );
+  // }
+  // }
+
   @override
   void initState() {
     super.initState();
-    final phoneCodeCubit = context.read<PhoneCodeCubit>();
+    loadCountries();
+  }
 
-    // نعيد التهيئة دايمًا لو فيه قيم مبدئية
-    if (widget.initialPhoneCode != null && widget.initialPhoneFlag != null) {
-      phoneCodeCubit.updatePhoneCode(
-        widget.initialPhoneFlag!,
-        widget.initialPhoneCode!,
-      );
+  Future<void> loadCountries() async {
+    countries = await _uniCountryServices.getCountriesAndCities();
+    if (mounted) {
+      setState(() {});
+      if (widget.initialPhoneCode != null) {
+        _initializeCountryState();
+      }
     }
+  }
+
+  void _initializeCountryState() {
+    final country = countries.firstWhere(
+      (c) => c.isoCode == widget.initialPhoneCode,
+      orElse:
+          () => Country(
+            name: 'Unknown',
+            nameEn: 'Unknown',
+            dialCode: widget.initialPhoneCode ?? '+00',
+            flag: _getFlagEmoji(widget.initialPhoneFlag!),
+            isoCode: widget.initialPhoneCode!,
+            cities: [],
+            phoneDigitsLength: 0,
+            phoneDigitsLengthMax: 0,
+          ),
+    );
+
+    context.read<PhoneCodeCubit>().updatePhoneCode(
+      country.flag,
+      country.dialCode,
+    );
+  }
+
+  String _getFlagEmoji(String countryCode) {
+    return countryCode.toUpperCase().replaceAllMapped(
+      RegExp(r'[A-Z]'),
+      (m) => String.fromCharCode(m.group(0)!.codeUnitAt(0) + 127397),
+    );
   }
 
   @override
@@ -65,14 +113,61 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
               ),
               context: context,
               builder: (context) {
-                return CountriesAndCitiesView(
-                  country: true,
-                  onCountrySelected: (country) {
-                    context.read<PhoneCodeCubit>().updatePhoneCode(
-                      country.flag,
-                      country.dialCode,
+                List<Country> filteredCountries = countries;
+                final searchController = TextEditingController();
+
+                return StatefulBuilder(
+                  builder: (context, setState) {
+                    void onSearch(String? query) {
+                      setState(() {
+                        filteredCountries =
+                            countries
+                                .where(
+                                  (country) =>
+                                      country.name.contains(query!) ||
+                                      country.nameEn.toLowerCase().contains(
+                                        query.toLowerCase(),
+                                      ),
+                                )
+                                .toList();
+                      });
+                    }
+
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomTextForm(
+                            controller: searchController,
+                            hintText: 'ابحث عن دولة...',
+                            onSaved: onSearch,
+                          ),
+                        ),
+
+                        SizedBox(height: 12.h),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: filteredCountries.length,
+
+                            itemBuilder: (context, index) {
+                              final country = filteredCountries[index];
+                              return ListTile(
+                                title: Text('${country.flag} ${country.name}'),
+                                onTap: () {
+                                  context
+                                      .read<PhoneCodeCubit>()
+                                      .updatePhoneCode(
+                                        country.flag,
+                                        country.dialCode,
+                                      );
+                                  Navigator.of(context).pop();
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     );
-                    Navigator.of(context).pop();
                   },
                 );
               },
