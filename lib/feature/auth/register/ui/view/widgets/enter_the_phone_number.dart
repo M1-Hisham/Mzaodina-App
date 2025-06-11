@@ -79,7 +79,7 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
             );
           },
           child: Container(
-            padding: EdgeInsets.all(9.5.r),
+            padding: EdgeInsets.symmetric(horizontal: 9, vertical: 14),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8.r)),
               color: widget.fillColor ?? R.colors.formColorLight,
