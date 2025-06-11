@@ -188,7 +188,7 @@ class HomeDetailsReadyScreen extends StatelessWidget {
                               price: (state
                                   .sayantaliqShowAuctionMode
                                   .data
-                                  .registrationAmount
+                                  .registrationAmount!
                                   .toStringAsFixed(2)),
 
                               style: R.textStyles.font14Grey3W500Light,
