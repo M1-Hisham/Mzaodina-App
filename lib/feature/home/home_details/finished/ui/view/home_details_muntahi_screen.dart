@@ -98,7 +98,7 @@ class HomeDetailsFinishedScreen extends StatelessWidget {
                                 ),
                                 Spacer(),
                                 Text(
-                                  'انتظار دفع الفاتورة',
+                                  data.winner.invoicePrice,
                                   style: R.textStyles.font12primaryW600Light,
                                 ),
                               ],
