@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,9 +68,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       getNotificationState.response.notifications.data
                           .map((e) => e.id)
                           .toList();
-                  context.read<MarkNotificationCubit>().markAllNotifications(
-                    allIds,
-                  );
+                  context
+                      .read<MarkNotificationCubit>()
+                      .markAllNotifications(allIds)
+                      .then((_) {
+                        // Refresh notifications after marking all as read
+                        cubit.fetchNotifications(1);
+                      });
                 }
               },
               child: Text(
@@ -151,9 +154,7 @@ class CustomNotificationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRead = context.select<MarkNotificationCubit, bool>(
-      (cubit) => cubit.isRead(notification.id),
-    );
+    final isRead = notification.readAt != null;
 
     return isRead
         ? CustomNotificationUnSelected(notification: notification)
@@ -193,9 +194,13 @@ class CustomNotificationSelected extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.read<MarkNotificationCubit>().markSingleNotification(
-                id: notification.id,
-              );
+              context
+                  .read<MarkNotificationCubit>()
+                  .markSingleNotification(id: notification.id)
+                  .then((_) {
+                    // Refresh notifications after marking as read
+                    context.read<GetNotificationCubit>().fetchNotifications(1);
+                  });
               Navigator.pushNamed(
                 context,
                 AppRoutes.invoiceDetailsScreenRoute,
@@ -242,14 +247,15 @@ class CustomNotificationUnSelected extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              extractIdFromUrl(
-                notification.data.actions[0].url,
-                context,
-              );
+              extractIdFromUrl(notification.data.actions[0].url, context);
               log('==============${notification.data.actions[0].url}');
-              context.read<MarkNotificationCubit>().markSingleNotification(
-                id: notification.id,
-              );
+              context
+                  .read<MarkNotificationCubit>()
+                  .markSingleNotification(id: notification.id)
+                  .then((_) {
+                    // Refresh notifications after marking as read
+                    context.read<GetNotificationCubit>().fetchNotifications(1);
+                  });
               // Navigator.pushNamed(
               //   context,
               //   AppRoutes.invoiceDetailsScreenRoute,

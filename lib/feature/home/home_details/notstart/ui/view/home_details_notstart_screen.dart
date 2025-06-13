@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
@@ -14,6 +15,7 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dia
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
+import 'package:mzaodina_app/feature/profile/view_model/auction_terms_cubit/auction_terms_cubit.dart';
 import 'package:mzaodina_app/mzaodina_app.dart';
 
 class HomeDetailsNotstartScreen extends StatefulWidget {
@@ -222,7 +224,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0,
                               ),
-
+                          
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,

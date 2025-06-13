@@ -191,13 +191,12 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen>
 
                                   child: CoustomRowItem(
                                     title: 'أعلى مبلغ مزايدة',
-                                    price:
-                                        state
-                                            .jaraaShowAuctionMode
-                                            .data
-                                            .maxBid
-                                            .bid
-                                            .toString(),
+                                    price: state
+                                        .jaraaShowAuctionMode
+                                        .data
+                                        .maxBid
+                                        .bid!
+                                        .toStringAsFixed(2),
                                     style: R.textStyles.font14Grey3W500Light,
                                     priceStyle:
                                         R.textStyles.font14primaryW500Light,

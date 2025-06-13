@@ -7,6 +7,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 
 class CustomAppBarHome extends StatelessWidget {
   const CustomAppBarHome({super.key});
@@ -75,40 +76,56 @@ class CustomAppBarHome extends StatelessWidget {
                       BlocBuilder<UserDataCubit, UserDataState>(
                         builder: (context, userState) {
                           if (userState is UserDataSuccess) {
-                            return BlocProvider(
-                              create: (context) => getIt<GetNotificationCubit>()
-                                ..fetchNotifications(1),
-                              child: BlocBuilder<GetNotificationCubit,
-                                  GetAllNotificationState>(
+                            return BlocListener<
+                              MarkNotificationCubit,
+                              MarkNotificationState
+                            >(
+                              listener: (context, state) {
+                                if (state is MarkNotificationSuccess) {
+                                  context
+                                      .read<GetNotificationCubit>()
+                                      .fetchNotifications(1);
+                                }
+                              },
+                              child: BlocBuilder<
+                                GetNotificationCubit,
+                                GetAllNotificationState
+                              >(
                                 builder: (context, notifState) {
-                                  final hasNotifications =
-                                      notifState is GetAllNotificationSuccess &&
-                                          notifState.response.notifications.data
-                                              .isNotEmpty;
-
-                                  return Stack(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            AppRoutes.notificationsScreenRoute,
-                                          );
-                                        },
-                                        child: SvgPicture.asset(
-                                          R.images.iconNotiv,
-                                          width: 26.w,
-                                          height: 26.h,
+                                  if (notifState is GetAllNotificationSuccess) {
+                                    final hasUnreadNotifications =
+                                        notifState.response.unreadCount > 0;
+                                    return Stack(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              AppRoutes
+                                                  .notificationsScreenRoute,
+                                            );
+                                          },
+                                          child: SvgPicture.asset(
+                                            R.images.iconNotiv,
+                                            width: 26.w,
+                                            height: 26.h,
+                                          ),
                                         ),
-                                      ),
-                                      if (hasNotifications)
-                                        Positioned(
-                                          right: 0,
-                                          top: 0,
-                                          child: _FlashingDot(),
-                                        ),
-                                    ],
-                                  );
+                                        if (hasUnreadNotifications)
+                                          Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: _FlashingDot(),
+                                          ),
+                                      ],
+                                    );
+                                  } else {
+                                    return SvgPicture.asset(
+                                      R.images.iconNotiv,
+                                      width: 26.w,
+                                      height: 26.h,
+                                    );
+                                  }
                                 },
                               ),
                             );
