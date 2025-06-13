@@ -90,7 +90,7 @@ class CustomFinishedCardViewItem extends StatelessWidget {
                             style: R.textStyles.font12Grey3W500Light,
                           ),
                           Text(
-                            muntahiDataModel.product.price.toString(),
+                            muntahiDataModel.winner.invoicePrice,
                             style: R.textStyles.font12primaryW600Light,
                             overflow: TextOverflow.ellipsis,
                           ),
