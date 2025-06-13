@@ -1,3 +1,4 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/mark_notification.dart';
 import 'package:mzaodina_app/feature/notifications/data/repo/mark_notifacation_repo.dart';
@@ -9,11 +10,6 @@ class MarkNotificationCubit extends Cubit<MarkNotificationState> {
 
   final MarkNotifacationRepo markRepo;
 
-  // ✅ تخزين الـ IDs اللي تم تعليمها كمقروء
-  final List<String> _readNotificationIds = [];
-
-  List<String> get readNotificationIds => _readNotificationIds;
-
   Future<void> markAllNotifications(List<String> allIds) async {
     emit(MarkNotificationLoading());
 
@@ -22,7 +18,6 @@ class MarkNotificationCubit extends Cubit<MarkNotificationState> {
     failureOrSuccess.fold(
       (failure) => emit(MarkNotificationFailure(failure.errMessage)),
       (success) {
-        _readNotificationIds.addAll(allIds); // علم الكل كمقروء
         emit(MarkNotificationSuccess(success));
       },
     );
@@ -36,11 +31,8 @@ class MarkNotificationCubit extends Cubit<MarkNotificationState> {
     failureOrSuccess.fold(
       (failure) => emit(MarkNotificationFailure(failure.errMessage)),
       (success) {
-        _readNotificationIds.add(id); // علم واحد كمقروء
         emit(MarkNotificationSuccess(success));
       },
     );
   }
-
-  bool isRead(String id) => _readNotificationIds.contains(id);
 }

@@ -234,15 +234,10 @@ class AppRouter {
           builder:
               (_) => MultiBlocProvider(
                 providers: [
-                  BlocProvider(
-                    create:
-                        (context) =>
-                            getIt<GetNotificationCubit>()
-                              ..fetchNotifications(1),
+                  BlocProvider.value(
+                    value: getIt<GetNotificationCubit>()..fetchNotifications(1),
                   ),
-                  BlocProvider(
-                    create: (context) => getIt<MarkNotificationCubit>(),
-                  ),
+                  BlocProvider.value(value: getIt<MarkNotificationCubit>()),
                 ],
                 child: NotificationsScreen(),
               ),
