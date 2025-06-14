@@ -70,8 +70,9 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
                 state.data.data.auctions
                     .map((toElement) => toElement.id.toString())
                     .toList(),
-            state: 'ongoing ',
+            state: 'ongoing',
           );
+
           return RefreshIndicator(
             onRefresh: () => context.read<ReadyCubit>().getReadyAuctions(),
             child: ListView.builder(

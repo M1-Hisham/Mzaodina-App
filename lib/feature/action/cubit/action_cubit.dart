@@ -91,7 +91,7 @@ class ActionCubit extends Cubit<ActionState> {
   }
 
   AuctionModel? auctionModel;
-
+  String? auctionId = "";
   void auctionState({required String id, required String state}) {
     emit(ActionEventLoadingStates());
 
@@ -168,7 +168,7 @@ class ActionCubit extends Cubit<ActionState> {
 
   void actionsLoop({required List<String> ids, required String state}) {
     emit(ActionEventLoadingStates());
-
+    print(ids);
     try {
       final uri = Uri.parse(
         "wss://mzaodin.com/app/k5n849mwzstmvbgppimp?protocol=7&client=js&version=7.0.3&flash=false",
@@ -213,9 +213,9 @@ class ActionCubit extends Cubit<ActionState> {
               final auction = payload['auction'];
               if (auction != null) {
                 print('[WebSocket] ✅ DATA: $auction');
-                final auctionId = auction['auction']['id'];
+                auctionId = auction['id'];
                 print(auctionId);
-                auctionModel = AuctionModel.fromJson(auction);
+                auctionModel = AuctionModel.fromJson(payload);
                 print('[WebSocket] ✅ auctionId: ${auctionModel!.auction}');
                 emit(
                   ActionEventSuccessStates(actionStatusModel: auctionModel!),
