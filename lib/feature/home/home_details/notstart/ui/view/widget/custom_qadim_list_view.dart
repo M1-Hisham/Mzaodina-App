@@ -24,6 +24,7 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
   void didPopNext() {
     BlocProvider.of<NotstartCubit>(context).getNotStartAuctions();
     BlocProvider.of<LastInvoiceCubit>(context).lastInvoiceChecker();
+    BlocProvider.of<GetNotificationCubit>(context).fetchNotifications(1);
   }
 
   @override
@@ -66,8 +67,14 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           final totalPage = context.read<NotstartCubit>().totalPages;
           final currentPage = context.read<NotstartCubit>().currentPage;
           return RefreshIndicator(
-            onRefresh:
-                () => context.read<NotstartCubit>().getNotStartAuctions(),
+            onRefresh: () async {
+              await Future.wait([
+                context.read<NotstartCubit>().getNotStartAuctions(),
+                BlocProvider.of<GetNotificationCubit>(
+                  context,
+                ).fetchNotifications(1),
+              ]);
+            },
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
