@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "412322100407-ia3tanc7a3fhossoslv9hvvmt3vr8hhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mzaodin.app",
+            "certificate_hash": "a3f831c5017be85bf8156448d995a0c18ddf93d8"
+          }
+        },
+        {
           "client_id": "412322100407-t0cdnq7vjc4kdsb1u06d3ieii2g0gkas.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
