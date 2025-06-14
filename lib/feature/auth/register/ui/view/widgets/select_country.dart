@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
-import 'package:mzaodina_app/core/widgets/uni_country_city_picker.dart';
+import 'package:mzaodina_app/core/widgets/custom_text_form.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:uni_country_city_picker/uni_country_city_picker.dart';
@@ -93,16 +93,61 @@ class _SelectCountryState extends State<SelectCountry> {
           ),
           context: context,
           builder: (context) {
-            return CountriesAndCitiesView(
-              country: true,
-              onCountrySelected: (country) {
-                context.read<CountryCubit>().updateCountry(
-                  country.flag,
-                  country.dialCode,
-                  country.name,
-                  country.isoCode,
+            List<Country> filteredCountries = countries;
+            final searchController = TextEditingController();
+
+            return StatefulBuilder(
+              builder: (context, setState) {
+                void onSearch(String? query) {
+                  setState(() {
+                    filteredCountries =
+                        countries
+                            .where(
+                              (country) =>
+                                  country.name.contains(query!) ||
+                                  country.nameEn.toLowerCase().contains(
+                                    query.toLowerCase(),
+                                  ),
+                            )
+                            .toList();
+                  });
+                }
+
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextForm(
+                        controller: searchController,
+                        hintText: 'ابحث عن دولة...',
+                        onSaved: onSearch,
+                      ),
+                    ),
+
+                    SizedBox(height: 12.h),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: filteredCountries.length,
+
+                        itemBuilder: (context, index) {
+                          final country = filteredCountries[index];
+                          return ListTile(
+                            title: Text('${country.flag} ${country.name}'),
+                            onTap: () {
+                              context.read<CountryCubit>().updateCountry(
+                                country.flag,
+                                country.dialCode,
+                                country.name,
+                                country.isoCode,
+                              );
+                              Navigator.of(context).pop();
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
-                Navigator.of(context).pop();
               },
             );
           },
@@ -153,7 +198,6 @@ class _SelectCountryState extends State<SelectCountry> {
                     }
                   }
 
-                  // Default value
                   return _buildCountryRow(
                     flag: '🇸🇦',
                     name: 'المملكة العربية السعودية',

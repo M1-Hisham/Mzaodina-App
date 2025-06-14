@@ -31,158 +31,167 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:
-          (_) => CounterCubitIncDec(
-            maxValue:
-                (requiredBidders - currentBidders) +
-                CounterCubitIncDec.minValue,
-            price: registrationAmount.toDouble(),
-          ),
-      child: BlocBuilder<CounterCubitIncDec, int>(
-        builder: (context, count) {
-          return Column(
-            children: [
-              CustomIndcatorItem(
-                title: 'نسبة انطلاق المزاد',
-                showIndicator: false,
-                value:
-                    (auctionStartRate + ((100 / (requiredBidders)) * count))
-                        .round(),
-                style: R.textStyles.font14Grey3W500Light,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // increment button
-                  IconButton(
-                    icon: const Icon(Icons.add, color: Colors.white),
-                    style: IconButton.styleFrom(
-                      backgroundColor: R.colors.primaryColorLight,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+    return BlocListener<SubscribeAuctionCubit, SubscribeToAuctionState>(
+      listener: (context, state) {
+        if (state is SubscribeAuctionError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+          );
+        }
+      },
+      child: BlocProvider(
+        create:
+            (_) => CounterCubitIncDec(
+              maxValue:
+                  (requiredBidders - currentBidders) +
+                  CounterCubitIncDec.minValue,
+              price: registrationAmount.toDouble(),
+            ),
+        child: BlocBuilder<CounterCubitIncDec, int>(
+          builder: (context, count) {
+            return Column(
+              children: [
+                CustomIndcatorItem(
+                  title: 'نسبة انطلاق المزاد',
+                  showIndicator: false,
+                  value:
+                      (auctionStartRate + ((100 / (requiredBidders)) * count))
+                          .round(),
+                  style: R.textStyles.font14Grey3W500Light,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // increment button
+                    IconButton(
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      style: IconButton.styleFrom(
+                        backgroundColor: R.colors.primaryColorLight,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.all(10),
                       ),
-                      padding: const EdgeInsets.all(10),
+                      onPressed:
+                          () => context.read<CounterCubitIncDec>().increment(),
                     ),
-                    onPressed:
-                        () => context.read<CounterCubitIncDec>().increment(),
-                  ),
-                  const SizedBox(width: 20),
-                  // result
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
+                    const SizedBox(width: 20),
+                    // result
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(child: Text('$count')),
                       ),
-                      child: Center(child: Text('$count')),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  // decrement button
-                  IconButton(
-                    icon: const Icon(Icons.remove, color: Colors.white),
-                    style: IconButton.styleFrom(
-                      backgroundColor: const Color(0xFF18224F),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                    const SizedBox(width: 20),
+                    // decrement button
+                    IconButton(
+                      icon: const Icon(Icons.remove, color: Colors.white),
+                      style: IconButton.styleFrom(
+                        backgroundColor: const Color(0xFF18224F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.all(10),
                       ),
-                      padding: const EdgeInsets.all(10),
+                      onPressed:
+                          () =>
+                              count == 0
+                                  ? null
+                                  : context
+                                      .read<CounterCubitIncDec>()
+                                      .decrement(),
                     ),
-                    onPressed:
-                        () =>
-                            count == 0
-                                ? null
-                                : context
-                                    .read<CounterCubitIncDec>()
-                                    .decrement(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              CoustomRowItem(
-                title: 'مجموع القيمة',
-                price: context
-                    .read<CounterCubitIncDec>()
-                    .totalAmount
-                    .toStringAsFixed(2),
-              ),
-              const SizedBox(height: 25),
-              WarningCheckbox(),
-              TermsAndConditionsCheckbox(),
-              const SizedBox(height: 20),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                CoustomRowItem(
+                  title: 'مجموع القيمة',
+                  price: context
+                      .read<CounterCubitIncDec>()
+                      .totalAmount
+                      .toStringAsFixed(2),
+                ),
+                const SizedBox(height: 25),
+                WarningCheckbox(),
+                TermsAndConditionsCheckbox(),
+                const SizedBox(height: 20),
 
-              /// الزرار:
-              CustomElevatedButton(
-                text: 'تاكيد دفع الرسوم التنظيمية',
-                onPressed: () async {
-                  log('message');
-                  bool termsAccepted =
-                      context.read<CheckboxCubit>().state.isChecked;
-                  bool warningAccepted =
-                      context.read<CheckboxCubit>().state.isChecked;
+                /// الزرار:
+                CustomElevatedButton(
+                  text: 'تاكيد دفع الرسوم التنظيمية',
+                  onPressed: () async {
+                    log('message');
+                    bool termsAccepted =
+                        context.read<CheckboxCubit>().state.isChecked;
+                    bool warningAccepted =
+                        context.read<CheckboxCubit>().state.isChecked;
 
-                  log(
-                    'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
-                  );
-
-                  if (!termsAccepted || !warningAccepted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('يجب الموافقة على الشروط والأحكام'),
-                      ),
+                    log(
+                      'termsAccepted = $termsAccepted warningAccepted = $warningAccepted',
                     );
-                    return;
-                  }
 
-                  // ✅ عرض Dialog تحميل على طول
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder:
-                        (_) => AlertDialog(
-                          backgroundColor: R.colors.whiteLight,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(22),
-                          ),
-                          title: Container(
-                            padding: EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'لاتغلق النافذه',
-                                  style: R.textStyles.font18blackW500Light,
-                                ),
-                                SizedBox(height: 16),
-                                Image.asset(
-                                  R.images.loadingJsonIcon,
+                    if (!termsAccepted || !warningAccepted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('يجب الموافقة على الشروط والأحكام'),
+                        ),
+                      );
+                      return;
+                    }
 
-                                  width: 75,
-                                  height: 75,
-                                  fit: BoxFit.cover,
-                                ),
-                              ],
+                    // ✅ عرض Dialog تحميل على طول
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder:
+                          (_) => AlertDialog(
+                            backgroundColor: R.colors.whiteLight,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(22),
+                            ),
+                            title: Container(
+                              padding: EdgeInsets.all(18),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'لاتغلق النافذه',
+                                    style: R.textStyles.font18blackW500Light,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Image.asset(
+                                    R.images.loadingJsonIcon,
+
+                                    width: 75,
+                                    height: 75,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                  );
+                    );
 
-                  // ✅ نفذ الكيوبت فورًا
-                  context.read<SubscribeAuctionCubit>().subscribeToAuction(
-                    SubscribeAutionBody(
-                      registrationCount: count,
-                      auctionId: auctionId.toInt(),
-                      termsConditions: true,
-                    ),
-                  );
-                },
-              ),
-            ],
-          );
-        },
+                    // ✅ نفذ الكيوبت فورًا
+                    context.read<SubscribeAuctionCubit>().subscribeToAuction(
+                      SubscribeAutionBody(
+                        registrationCount: count,
+                        auctionId: auctionId.toInt(),
+                        termsConditions: true,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -140,7 +140,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 18.h),
                           Text(
-                            'نشكرك على اهتمامك السريع بها الامر. اذ كان لديك استفساء او تحتاج الى مساعدة لاتتردد فى الاتصال بنا .',
+                            'نشكرك على اهتمامك السريع بها الامر. اذ كان لديك استفسار او تحتاج الى مساعدة لاتتردد فى الاتصال بنا .',
                             style: R.textStyles.font14BlackW500Light,
                           ),
                           SizedBox(height: 22.h),

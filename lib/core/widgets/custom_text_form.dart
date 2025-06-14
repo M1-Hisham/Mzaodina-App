@@ -70,7 +70,7 @@ class CustomTextForm extends StatelessWidget {
       onFieldSubmitted:
           (value) => FocusScope.of(context).requestFocus(nextFocusNode),
       focusNode: focusNode,
-      onSaved: onSaved,
+      onChanged: onSaved,
       maxLines: maxLines ?? 1,
       textAlign: textAlign ?? TextAlign.start,
       decoration: InputDecoration(

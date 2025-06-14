@@ -5,18 +5,24 @@ import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/sayantali
 part 'sayantaliq_state.dart';
 
 class ReadyCubit extends Cubit<ReadyState> {
-  ReadyCubit(this.sayantaliqAuctionRepo) : super(ReadyInitial());
   final ReadyAutionRepo sayantaliqAuctionRepo;
+  int currentPage = 1;
+  int totalPages = 1;
+  ReadyCubit(this.sayantaliqAuctionRepo) : super(ReadyInitial());
 
-  Future<void> getReadyAuctions() async {
+  Future<void> getReadyAuctions({int? page}) async {
     emit(ReadyLoading());
-    final response = await sayantaliqAuctionRepo.getReadyAuctions();
+    final response = await sayantaliqAuctionRepo.getReadyAuctions(
+      page ?? currentPage,
+    );
 
     response.fold(
       (failure) {
         emit(ReadyError(failure.errMessage));
       },
       (success) {
+        currentPage = page ?? currentPage;
+        totalPages = success.data.meta?.lastPage ?? 1;
         emit(ReadySuccess(success));
       },
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/core/DI/setup_get_it.dart';
+import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantilq_card_item.dart';
@@ -43,7 +43,11 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReadyCubit, ReadyState>(
-      bloc: getIt<ReadyCubit>()..getReadyAuctions(),
+      buildWhen:
+          (previous, current) =>
+              current is ReadyLoading ||
+              current is ReadySuccess ||
+              current is ReadyError,
       builder: (context, state) {
         if (state is ReadyLoading) {
           return const Center(child: MazadShimmer());
@@ -58,16 +62,68 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
           }
         } else if (state is ReadySuccess) {
           final sayantaliqAuction = state.data;
+          final totalPage = context.read<ReadyCubit>().totalPages;
+          final currentPage = context.read<ReadyCubit>().currentPage;
           return RefreshIndicator(
             onRefresh: () => context.read<ReadyCubit>().getReadyAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: sayantaliqAuction.data.auctions.length,
+              itemCount: sayantaliqAuction.data.auctions.length + 1,
               itemBuilder: (context, index) {
-                return CustomSayantilqCardItem(
-                  sayantaliqDataModel: sayantaliqAuction.data.auctions[index],
-                );
+                if (index < sayantaliqAuction.data.auctions.length) {
+                  return CustomSayantilqCardItem(
+                    sayantaliqDataModel: sayantaliqAuction.data.auctions[index],
+                  );
+                } else {
+                  return totalPage > 1
+                      ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 15,
+                          children: List.generate(totalPage, (i) {
+                            final page = i + 1;
+                            final isSelected = page == currentPage;
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: InkWell(
+                                onTap: () {
+                                  context.read<ReadyCubit>().getReadyAuctions(
+                                    page: page,
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        isSelected
+                                            ? R.colors.primaryColorLight
+                                            : Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    '$page',
+                                    style: TextStyle(
+                                      color:
+                                          isSelected
+                                              ? Colors.white
+                                              : Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      )
+                      : SizedBox.shrink();
+                }
               },
             ),
           );

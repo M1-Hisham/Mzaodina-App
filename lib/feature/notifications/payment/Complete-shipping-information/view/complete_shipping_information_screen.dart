@@ -300,12 +300,24 @@ class _CompleteShippingInformationScreenState
       );
     }
 
-    final updatedProfile = UpdateProfileBody(
+    final oldProfile = UpdateProfileBody(
+      name: user.data?.name,
+      username: user.data?.username,
+      email: user.data?.email,
+      phone: user.data?.phone,
+      phoneCountryCode: user.data?.phoneCode,
+      country: user.data?.country,
+      city: user.data?.address?.city,
+      street: user.data?.address?.street,
+      neighborhood: user.data?.address?.neighborhood,
+    );
+
+    final updatedProfile = oldProfile.copyWith(
       name: _formData['name']?.trim(),
       username: _formData['username']?.trim(),
       email: _formData['email']?.trim(),
       phone: _phoneController.text.trim(),
-      phoneCountryCode: phoneIso, // ?? user.data?.phoneCode ?? 'EG',
+      phoneCountryCode: phoneIso,
       country: countryCode ?? user.data?.country ?? 'EG',
       city: _formData['city']?.trim(),
       street: _formData['street']?.trim(),

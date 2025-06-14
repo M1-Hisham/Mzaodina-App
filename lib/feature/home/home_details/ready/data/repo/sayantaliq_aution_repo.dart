@@ -9,9 +9,11 @@ class ReadyAutionRepo {
 
   ReadyAutionRepo(this.apiService);
 
-  Future<Either<Failure, ReadyAuctionResponse>> getReadyAuctions() async {
+  Future<Either<Failure, ReadyAuctionResponse>> getReadyAuctions(
+    int page,
+  ) async {
     try {
-      final response = await apiService.getReadyAuctions();
+      final response = await apiService.getReadyAuctions(page: page);
       return Right(response);
     } on DioException catch (dioError) {
       return left(ServerFailure.fromDioError(dioError));

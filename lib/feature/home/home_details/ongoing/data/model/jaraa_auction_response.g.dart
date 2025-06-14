@@ -27,20 +27,25 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       (json['auctions'] as List<dynamic>)
           .map((e) => OngoingAuction.fromJson(e as Map<String, dynamic>))
           .toList(),
-  total: (json['total'] as num?)?.toInt(),
-  currentPage: (json['current_page'] as num?)?.toInt(),
-  lastPage: (json['last_page'] as num?)?.toInt(),
-  nextPageUrl: json['next_page_url'] as String?,
-  prevPageUrl: json['prev_page_url'] as String?,
+  meta:
+      json['meta'] == null
+          ? null
+          : Meta.fromJson(json['meta'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
   'auctions': instance.auctions,
-  'total': instance.total,
+  'meta': instance.meta,
+};
+
+Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
+  currentPage: (json['current_page'] as num).toInt(),
+  lastPage: (json['last_page'] as num).toInt(),
+);
+
+Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
   'current_page': instance.currentPage,
   'last_page': instance.lastPage,
-  'next_page_url': instance.nextPageUrl,
-  'prev_page_url': instance.prevPageUrl,
 };
 
 OngoingAuction _$OngoingAuctionFromJson(Map<String, dynamic> json) =>
