@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
+import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
@@ -66,6 +67,13 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           final qadimAuctionResponse = state.data;
           final totalPage = context.read<NotstartCubit>().totalPages;
           final currentPage = context.read<NotstartCubit>().currentPage;
+          ActionCubit.get(context).actionsLoop(
+            ids:
+                state.data.data.auctions
+                    .map((toElement) => toElement.id.toString())
+                    .toList(),
+            state: 'ready',
+          );
           return RefreshIndicator(
             onRefresh: () async {
               await Future.wait([
