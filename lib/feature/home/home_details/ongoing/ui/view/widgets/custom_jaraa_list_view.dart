@@ -4,6 +4,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
+import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/Custom_jaraa_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
@@ -66,6 +67,13 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
           final jaraaAuction = state.data;
           final totalPage = context.read<OngoingCubit>().totalPages;
           final currentPage = context.read<OngoingCubit>().currentPage;
+          ActionCubit.get(context).actionsLoop(
+            ids:
+                state.data.data.auctions
+                    .map((toElement) => toElement.id.toString())
+                    .toList(),
+            state: 'finished',
+          );
           return RefreshIndicator(
             onRefresh: () => context.read<OngoingCubit>().getOngoingAuctions(),
             child: ListView.builder(
