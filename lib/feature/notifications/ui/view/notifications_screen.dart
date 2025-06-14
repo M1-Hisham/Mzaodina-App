@@ -7,8 +7,6 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/notifications_shimmer.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/sayantaliq_show_aution_repo.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/home_details_sayantaliq_screen.dart';
 import 'package:mzaodina_app/feature/notifications/data/model/get_all_notification_model.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
@@ -169,47 +167,42 @@ class CustomNotificationSelected extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        color: R.colors.colorUnSelected,
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  notification.data.title,
-                  style: R.textStyles.font12Grey3W500Light,
-                ),
-                Text(
-                  notification.data.body,
-                  style: R.textStyles.font14BlackW500Light,
-                ),
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        context
+            .read<MarkNotificationCubit>()
+            .markSingleNotification(id: notification.id)
+            .then((_) {
+              // Refresh notifications after marking as read
+              context.read<GetNotificationCubit>().fetchNotifications(1);
+            });
+        Navigator.pushNamed(
+          context,
+          AppRoutes.invoiceDetailsScreenRoute,
+          arguments: notification,
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: R.colors.colorUnSelected,
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                notification.data.title,
+                style: R.textStyles.font12Grey3W500Light,
+              ),
+              Text(
+                notification.data.body,
+                style: R.textStyles.font14BlackW500Light,
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              context
-                  .read<MarkNotificationCubit>()
-                  .markSingleNotification(id: notification.id)
-                  .then((_) {
-                    // Refresh notifications after marking as read
-                    context.read<GetNotificationCubit>().fetchNotifications(1);
-                  });
-              Navigator.pushNamed(
-                context,
-                AppRoutes.invoiceDetailsScreenRoute,
-                arguments: notification,
-              );
-            },
-            child: Text('اضغط', style: R.textStyles.font14primaryW500Light),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -222,49 +215,44 @@ class CustomNotificationUnSelected extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        color: R.colors.blackColor3,
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  notification.data.title,
-                  style: R.textStyles.font12Grey3W500Light,
-                ),
-                Text(
-                  notification.data.body,
-                  style: R.textStyles.font14BlackW500Light,
-                ),
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        // extractIdFromUrl(notification.data.actions[0].url, context);
+        log('==============${notification.data.actions[0].url}');
+        context
+            .read<MarkNotificationCubit>()
+            .markSingleNotification(id: notification.id)
+            .then((_) {
+              // Refresh notifications after marking as read
+              context.read<GetNotificationCubit>().fetchNotifications(1);
+            });
+        Navigator.pushNamed(
+          context,
+          AppRoutes.invoiceDetailsScreenRoute,
+          // arguments: notification,
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: R.colors.blackColor3,
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                notification.data.title,
+                style: R.textStyles.font12Grey3W500Light,
+              ),
+              Text(
+                notification.data.body,
+                style: R.textStyles.font14BlackW500Light,
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              extractIdFromUrl(notification.data.actions[0].url, context);
-              log('==============${notification.data.actions[0].url}');
-              context
-                  .read<MarkNotificationCubit>()
-                  .markSingleNotification(id: notification.id)
-                  .then((_) {
-                    // Refresh notifications after marking as read
-                    context.read<GetNotificationCubit>().fetchNotifications(1);
-                  });
-              // Navigator.pushNamed(
-              //   context,
-              //   AppRoutes.invoiceDetailsScreenRoute,
-              //   // arguments: notification,
-              // );
-            },
-            child: Text('اضغط', style: R.textStyles.font14primaryW500Light),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -99,7 +99,6 @@ class HomeDetailsFinishedScreen extends StatelessWidget {
                                 Spacer(),
                                 Text(
                                   data.winner.invoicePrice,
-
                                   style: R.textStyles.font12primaryW600Light,
                                 ),
                               ],

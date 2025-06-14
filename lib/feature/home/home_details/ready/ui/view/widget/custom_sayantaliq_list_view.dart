@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
+import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantilq_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
@@ -64,6 +65,14 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
           final sayantaliqAuction = state.data;
           final totalPage = context.read<ReadyCubit>().totalPages;
           final currentPage = context.read<ReadyCubit>().currentPage;
+          ActionCubit.get(context).actionsLoop(
+            ids:
+                state.data.data.auctions
+                    .map((toElement) => toElement.id.toString())
+                    .toList(),
+            state: 'ongoing',
+          );
+
           return RefreshIndicator(
             onRefresh: () => context.read<ReadyCubit>().getReadyAuctions(),
             child: ListView.builder(

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +5,7 @@ import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/router/route.dart';
+import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 import 'package:mzaodina_app/main.dart';
@@ -23,6 +23,10 @@ class MzaodinaApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<WebSocketCubit>(create: (context) => WebSocketCubit()),
+        BlocProvider(
+          create:
+              (context) => ActionCubit()..auctionState(id: "7", state: "ready"),
+        ),
         BlocProvider(create: (context) => getIt<MarkNotificationCubit>()),
         BlocProvider(
           create:
@@ -55,6 +59,7 @@ class MzaodinaApp extends StatelessWidget {
         title: 'Mzaodin',
         debugShowCheckedModeBanner: false,
         theme: R.themeData.themeLight,
+        // home: ActionScreen(),
         initialRoute: AppRoutes.splasahRouter,
         onGenerateRoute: AppRouter.generateRoute,
       ),
