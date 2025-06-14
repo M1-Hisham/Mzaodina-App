@@ -48,6 +48,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/router/route.dart';
+import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
+import 'package:mzaodina_app/feature/action/presentaition/screen/action_screen.dart';
 import 'package:mzaodina_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
@@ -63,6 +65,10 @@ class MzaodinaApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<WebSocketCubit>(create: (context) => WebSocketCubit()),
+        BlocProvider(
+          create:
+              (context) => ActionCubit()..auctionState(id: "7", state: "ready"),
+        ),
       ],
       child: MaterialApp(
         navigatorObservers: [routeObserver],
@@ -90,6 +96,7 @@ class MzaodinaApp extends StatelessWidget {
         title: 'Mzaodina',
         debugShowCheckedModeBanner: false,
         theme: R.themeData.themeLight,
+        // home: ActionScreen(),
         initialRoute: AppRoutes.splasahRouter,
         onGenerateRoute: AppRouter.generateRoute,
       ),

@@ -53,6 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
               children: [
                 Positioned(
                   top: 0,
+
                   right: 0,
                   child: SvgPicture.asset(R.images.appLogoFram37, width: 150.w),
                 ),
