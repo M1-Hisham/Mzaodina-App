@@ -306,9 +306,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                   child: CustomElevatedButton(
                     text: 'عرض التفاصيل',
                     onPressed: () {
-                      ActionCubit.get(context).connectToAuctionWebSocket(
-                        id: widget.jaraaDataModel.id.toString(),
-                      );
+                      ActionCubit.get(context).disconnectWebSocket();
                       Navigator.pushNamed(
                         context,
                         AppRoutes.homeDetailsOngoingScreenRoute,
@@ -316,6 +314,9 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                           'eventTime': eventTimeFromApi,
                           'jaraaDataModel': widget.jaraaDataModel,
                         },
+                      );
+                      ActionCubit.get(context).connectToAuctionWebSocket(
+                        id: widget.jaraaDataModel.id.toString(),
                       );
                     },
                     backgroundColor: R.colors.primaryColorLight,

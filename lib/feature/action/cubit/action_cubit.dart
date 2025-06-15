@@ -19,6 +19,9 @@ class ActionCubit extends Cubit<ActionState> {
   String btcUsdtPrice = "";
   MaxBid? maxBid;
   void connectToAuctionWebSocket({required String id}) {
+    print("dddddddddddddfg");
+    channel!.sink.close();
+
     emit(ActionLoadingStates());
 
     try {
@@ -61,9 +64,9 @@ class ActionCubit extends Cubit<ActionState> {
 
               final maxBd = payload['auction']?['max_bid'];
               if (maxBd != null) {
-                print('[max_bid: $maxBd');
+                // print('[max_bid: $maxBd');
                 maxBid = MaxBid.fromJson(maxBd);
-                print(' max_bid: ${maxBid!.user}');
+                // print(' max_bid: ${maxBid!.user}');
                 emit(ActionSuccessStates(actionStatusModel: maxBid!));
               } else {
                 print(' لا يوجد max_bid في الرسالة');
