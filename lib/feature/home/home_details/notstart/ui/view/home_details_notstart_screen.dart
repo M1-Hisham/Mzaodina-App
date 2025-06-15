@@ -3,24 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/notstart_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_verification_to_register_auction_botton.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_show_auction_cubit/notstart_show_action_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
-import 'package:mzaodina_app/feature/profile/view_model/auction_terms_cubit/auction_terms_cubit.dart';
+
 import 'package:mzaodina_app/mzaodina_app.dart';
 
 class HomeDetailsNotstartScreen extends StatefulWidget {
-  final NotstartAuction qadimDetails;
-  const HomeDetailsNotstartScreen({super.key, required this.qadimDetails});
+  final NotstartAuction notstartDetails;
+  const HomeDetailsNotstartScreen({super.key, required this.notstartDetails});
 
   @override
   State<HomeDetailsNotstartScreen> createState() =>
@@ -33,7 +32,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
   void didPopNext() {
     BlocProvider.of<NotstartShowActionCubit>(
       context,
-    ).getShowAction(widget.qadimDetails.slug);
+    ).getShowAction(widget.notstartDetails.slug);
   }
 
   @override
@@ -60,8 +59,8 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomAppBar(
-                title: widget.qadimDetails.product.nameAr,
-                slug: widget.qadimDetails.slug,
+                title: widget.notstartDetails.product.nameAr,
+                slug: widget.notstartDetails.slug,
               ),
             ),
           ),
@@ -83,7 +82,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
                     onRefresh:
                         () => context
                             .read<NotstartShowActionCubit>()
-                            .getShowAction(widget.qadimDetails.slug),
+                            .getShowAction(widget.notstartDetails.slug),
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
 
@@ -259,7 +258,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
                               horizontal: 16.0,
                             ),
                             child: HtmlWidget(
-                              widget.qadimDetails.product.productDetails,
+                              widget.notstartDetails.product.productDetails,
                               textStyle: R.textStyles.font12Grey3W500Light,
                             ),
                           ),
@@ -279,7 +278,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
       ),
 
       bottomNavigationBar: CustomVerificationToRegisterAuctionBotton(
-        slug: widget.qadimDetails.slug,
+        slug: widget.notstartDetails.slug,
         showActionCubit: context.read<NotstartShowActionCubit>(),
       ),
     );

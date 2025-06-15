@@ -13,19 +13,19 @@ import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/home_details_jaraa_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/home_details_ongoing_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_show_auction_cubit/jaraa_show_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/finished/data/model/muntahi_auctions_response.dart';
-import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/home_details_muntahi_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_shoe_auction_cubit/muntahi_show_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_show_auction_cubit/ongoing_show_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/data/model/finished_auctions_response.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/home_details_finished_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_show_auction_cubit/finished_show_auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/notstart_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/home_details_notstart_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/subscribe_auction-cubit/subscribe_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/home_details_sayantaliq_screen.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_show_austion_cubit/sayantaliq_show_austion_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/home_details_ready_screen.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_show_auction_cubit/notstart_show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/ready_show_austion_cubit/ready_show_austion_cubit.dart';
 import 'package:mzaodina_app/feature/home/join-auction/view/join_the_auction.dart';
 import 'package:mzaodina_app/feature/home/ui/view/home_screen.dart';
 import 'package:mzaodina_app/feature/notifications/payment/Complete-shipping-information/view/complete_shipping_information_screen.dart';
@@ -77,7 +77,7 @@ class AppRouter {
                         getIt<NotstartShowActionCubit>()
                           ..getShowAction(args.slug),
 
-                child: HomeDetailsNotstartScreen(qadimDetails: args),
+                child: HomeDetailsNotstartScreen(notstartDetails: args),
               ),
         );
       case AppRoutes.homeDetailsFinishedScreenRoute:
@@ -99,7 +99,7 @@ class AppRouter {
                               ..getAuctionsBiddingHistory(args.slug),
                   ),
                 ],
-                child: HomeDetailsFinishedScreen(muntahiDetails: args),
+                child: HomeDetailsFinishedScreen(finishedDetails: args),
               ),
         );
 
@@ -131,7 +131,7 @@ class AppRouter {
                 ],
                 child: HomeDetailsOngoingScreen(
                   eventTimeFromApi: args['eventTime']!,
-                  jaraaDetails: args['jaraaDataModel'],
+                  ongoingDetails: args['jaraaDataModel'],
                 ),
               ),
         );
@@ -154,7 +154,7 @@ class AppRouter {
                 ],
                 child: HomeDetailsReadyScreen(
                   eventTimeFromApi: args['eventTime']!,
-                  sayantaliqDetails: args['sayantaliqDataModel'],
+                  readyDetails: args['sayantaliqDataModel'],
                   s: args['s'] ?? 0,
                   m: args['m'] ?? 0,
                   h: args['h'] ?? 0,
@@ -269,7 +269,7 @@ class AppRouter {
                 providers: [
                   BlocProvider(create: (context) => CountryCubit()),
                   BlocProvider(create: (context) => PhoneCodeCubit()),
-                  BlocProvider.value(value:  getIt<UserDataCubit>()),
+                  BlocProvider.value(value: getIt<UserDataCubit>()),
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),
@@ -340,9 +340,7 @@ class AppRouter {
                   BlocProvider<SaveTokenCubit>(
                     create: (context) => getIt<SaveTokenCubit>(),
                   ),
-                  BlocProvider.value(
-                    value:  getIt<UserDataCubit>(),
-                  ),
+                  BlocProvider.value(value: getIt<UserDataCubit>()),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),
                   ),

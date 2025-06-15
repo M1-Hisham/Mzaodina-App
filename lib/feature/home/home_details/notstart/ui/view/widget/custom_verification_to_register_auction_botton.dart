@@ -7,7 +7,7 @@ import 'package:mzaodina_app/core/widgets/custom_dialog_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/auction_register_button.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_show_auction_cubit/qadim_show_action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_show_auction_cubit/notstart_show_action_cubit.dart';
 
 class CustomVerificationToRegisterAuctionBotton extends StatelessWidget {
   final String slug;

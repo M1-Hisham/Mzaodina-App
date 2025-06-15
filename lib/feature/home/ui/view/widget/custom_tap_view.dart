@@ -7,14 +7,14 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_jaraa_list_view.dart';
-import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/widget/custom_muntahi_cart_view_item.dart';
-import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/muntahi_cubit/muntahi_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_list_view.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantaliq_list_view.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_cubit/notstart_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_ongoing_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/widget/custom_finished_cart_view_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_cubit/finished_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_notstart_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_ready_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/ready_cubit/ready_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_tap_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
@@ -78,16 +78,16 @@ class _CustomTapViewState extends State<CustomTapView>
 
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
-        int? qadimCount;
-        int? sayantaliqCount;
-        int? jaraaCount;
-        int? muntahiCount;
+        int? notstartCount;
+        int? readyCount;
+        int? ongoingCount;
+        int? finishedCount;
         if (state is ActionsCountSuccess) {
           final counts = state.response.data;
-          qadimCount = counts.notstart.total;
-          sayantaliqCount = counts.ready.total;
-          jaraaCount = counts.ongoing.total;
-          muntahiCount = counts.finished.total;
+          notstartCount = counts.notstart.total;
+          readyCount = counts.ready.total;
+          ongoingCount = counts.ongoing.total;
+          finishedCount = counts.finished.total;
         }
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -110,21 +110,23 @@ class _CustomTapViewState extends State<CustomTapView>
                     String? counter;
                     if (index == 0) {
                       counter =
-                          qadimCount == null ? ' ' : qadimCount.toString();
+                          notstartCount == null
+                              ? ' '
+                              : notstartCount.toString();
                     }
                     if (index == 1) {
                       counter =
-                          sayantaliqCount == null
-                              ? ' '
-                              : sayantaliqCount.toString();
+                          readyCount == null ? ' ' : readyCount.toString();
                     }
                     if (index == 2) {
                       counter =
-                          jaraaCount == null ? ' ' : jaraaCount.toString();
+                          ongoingCount == null ? ' ' : ongoingCount.toString();
                     }
                     if (index == 3) {
                       counter =
-                          muntahiCount == null ? ' ' : muntahiCount.toString();
+                          finishedCount == null
+                              ? ' '
+                              : finishedCount.toString();
                     }
                     return CustomTapItem(
                       item: item,
@@ -152,15 +154,15 @@ class _CustomTapViewState extends State<CustomTapView>
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: CustomNotstartListView(
-                          qadimCounter: qadimCount ?? 0,
+                          notstartCounter: notstartCount ?? 0,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: BlocProvider(
                           create: (context) => WebSocketCubit(),
-                          child: CustomSayantiqListView(
-                            sayantaliqCounter: sayantaliqCount ?? 0,
+                          child: CustomreadyListView(
+                            readyCounter: readyCount ?? 0,
                           ),
                         ),
                       ),
@@ -169,7 +171,7 @@ class _CustomTapViewState extends State<CustomTapView>
                         child: BlocProvider(
                           create: (context) => WebSocketCubit(),
                           child: CustomOngoingListView(
-                            jaraaCounter: jaraaCount ?? 0,
+                            ongoingCounter: ongoingCount ?? 0,
                           ),
                         ),
                       ),
@@ -186,7 +188,7 @@ class _CustomTapViewState extends State<CustomTapView>
                             if (state is FinishedLoading) {
                               return const Center(child: MazadShimmer());
                             } else if (state is FinishedError) {
-                              if (muntahiCount == 0) {
+                              if (finishedCount == 0) {
                                 return CustomNotItem();
                               } else {
                                 return CustomErorrWidget(
@@ -223,7 +225,7 @@ class _CustomTapViewState extends State<CustomTapView>
                                         bottom: 16.0,
                                       ),
                                       child: CustomFinishedCardViewItem(
-                                        muntahiDataModel:
+                                        finishedDataModel:
                                             muntaliAuctionResponse
                                                 .data
                                                 .auctions[index],
