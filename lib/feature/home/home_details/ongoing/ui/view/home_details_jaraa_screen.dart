@@ -21,7 +21,6 @@ import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/c
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
-import 'package:mzaodina_app/mzaodina_app.dart';
 
 class HomeDetailsOngoingScreen extends StatefulWidget {
   final DateTime eventTimeFromApi;
@@ -38,8 +37,7 @@ class HomeDetailsOngoingScreen extends StatefulWidget {
       _HomeDetailsOngoingScreenState();
 }
 
-class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen>
-    with RouteAware {
+class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
   late DateTime eventTimeFromApi;
   late WebSocketCubit _webSocketCubit;
 
@@ -58,28 +56,6 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen>
     if (!_webSocketCubit.isConnected) {
       _webSocketCubit.connect();
     }
-  }
-
-  @override
-  void didPopNext() {
-    BlocProvider.of<AuctionsBiddingHistoryCubit>(
-      context,
-    ).getAuctionsBiddingHistory(widget.jaraaDetails.slug);
-    BlocProvider.of<OngoingShowAuctionCubit>(
-      context,
-    ).getOngoingShowAuctionCubit(widget.jaraaDetails.slug);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
-  }
-
-  @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
   }
 
   @override

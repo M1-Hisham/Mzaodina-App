@@ -13,5 +13,6 @@ final class UpdateProfileSuccess extends UpdateProfileState {
 
 final class UpdateProfileError extends UpdateProfileState {
   final String errMessage;
-  UpdateProfileError(this.errMessage);
+   final Failure? failure;
+  UpdateProfileError(this.errMessage,{this.failure});
 }

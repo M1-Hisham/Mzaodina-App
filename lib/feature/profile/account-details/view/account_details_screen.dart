@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mzaodina_app/core/error/failure.dart';
 import 'package:mzaodina_app/core/helper/country_helper.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
@@ -28,6 +29,15 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
   final Map<String, dynamic> _formData = {};
   late TextEditingController _phoneController;
 
+  // Add state variables for API errors
+  String? _usernameError;
+  String? _nameError;
+  String? _emailError;
+  String? _phoneError;
+  String? _cityError;
+  String? _neighborhoodError;
+  String? _streetError;
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +49,18 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
   void dispose() {
     _phoneController.dispose();
     super.dispose();
+  }
+
+  void _clearErrors() {
+    setState(() {
+      _usernameError = null;
+      _nameError = null;
+      _emailError = null;
+      _phoneError = null;
+      _cityError = null;
+      _neighborhoodError = null;
+      _streetError = null;
+    });
   }
 
   @override
@@ -54,9 +76,24 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
           }
         } else if (state is UpdateProfileError) {
           if (mounted) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.errMessage)));
+            if (state.failure is ServerFailure &&
+                (state.failure as ServerFailure).validationErrors != null) {
+              final validationErrors =
+                  (state.failure as ServerFailure).validationErrors!;
+              setState(() {
+                _usernameError = validationErrors['username']?.first;
+                _nameError = validationErrors['name']?.first;
+                _emailError = validationErrors['email']?.first;
+                _phoneError = validationErrors['phone']?.first;
+                _cityError = validationErrors['city']?.first;
+                _neighborhoodError = validationErrors['neighborhood']?.first;
+                _streetError = validationErrors['street']?.first;
+              });
+            } else {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.errMessage)));
+            }
           }
         }
       },
@@ -94,6 +131,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                     fillColor: R.colors.whiteLight,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
+                                    apiError: _usernameError,
                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('الاسم الحقيقي'),
@@ -106,6 +144,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
+                                    apiError: _nameError,
                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('البريد الالكترونى'),
@@ -117,6 +156,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
+                                    apiError: _emailError,
                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('اختر الدولة'),
@@ -146,20 +186,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                         fillColor: R.colors.whiteLight,
                                         hintStyle:
                                             R.textStyles.font12Grey3W500Light,
+                                        apiError: _phoneError,
                                       );
                                     },
                                   ),
-
-                                  //                                   EnterThePhoneNumber(
-                                  //                                   initialPhoneCode: await CountryHelper.getDialCodeFromIso(user.data?.phoneCode ?? 'SA'),
-                                  // initialPhoneFlag: CountryHelper.getFlagFromIsoCode(user.data?.phoneCode ?? 'SA'),
-
-                                  //                                     phoneNumberController: _phoneController,
-                                  //                                     isValidator: false,
-                                  //                                     fillColor: R.colors.whiteLight,
-                                  //                                     hintStyle:
-                                  //                                         R.textStyles.font12Grey3W500Light,
-                                  //                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('المدينة'),
                                   CustomTextForm(
@@ -172,6 +202,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
+                                    apiError: _cityError,
                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('الحي'),
@@ -183,9 +214,9 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                         (value) =>
                                             _formData['neighborhood'] = value,
                                     fillColor: Colors.white,
-                                    isValidator: false,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
+                                    apiError: _neighborhoodError,
                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('الشارع'),
@@ -199,6 +230,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
+                                    apiError: _streetError,
                                   ),
                                   SizedBox(height: 150.h),
                                 ],
@@ -232,11 +264,11 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                         isLoading
                                             ? () {}
                                             : () async {
+                                              _clearErrors();
                                               if (_formKey.currentState
                                                       ?.validate() ??
                                                   false) {
                                                 _formKey.currentState?.save();
-
                                                 await _updateUserProfile(
                                                   context,
                                                   user,
@@ -274,7 +306,6 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
       ],
     );
   }
-
 
   Future<void> _updateUserProfile(BuildContext context, UserModel user) async {
     final countryState = context.read<CountryCubit>().state;

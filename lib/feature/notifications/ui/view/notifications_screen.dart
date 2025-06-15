@@ -188,20 +188,18 @@ class CustomNotificationSelected extends StatelessWidget {
           color: R.colors.colorUnSelected,
           borderRadius: BorderRadius.circular(8.r),
         ),
-        child: Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                notification.data.title,
-                style: R.textStyles.font12Grey3W500Light,
-              ),
-              Text(
-                notification.data.body,
-                style: R.textStyles.font14BlackW500Light,
-              ),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              notification.data.title,
+              style: R.textStyles.font12Grey3W500Light,
+            ),
+            Text(
+              notification.data.body,
+              style: R.textStyles.font14BlackW500Light,
+            ),
+          ],
         ),
       ),
     );
@@ -238,20 +236,18 @@ class CustomNotificationUnSelected extends StatelessWidget {
           color: R.colors.blackColor3,
           borderRadius: BorderRadius.circular(8.r),
         ),
-        child: Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                notification.data.title,
-                style: R.textStyles.font12Grey3W500Light,
-              ),
-              Text(
-                notification.data.body,
-                style: R.textStyles.font14BlackW500Light,
-              ),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              notification.data.title,
+              style: R.textStyles.font12Grey3W500Light,
+            ),
+            Text(
+              notification.data.body,
+              style: R.textStyles.font14BlackW500Light,
+            ),
+          ],
         ),
       ),
     );

@@ -32,6 +32,13 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+
+  // Add state variables for API errors
+  String? usernameError;
+  String? emailError;
+  String? passwordError;
+  String? phoneError;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,9 +65,22 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
               Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
             } else if (state is RegisterError) {
               Navigator.pop(context); // Close Dialog
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+
+              // Check if the error contains validation errors
+              if (state.failure.validationErrors != null) {
+                setState(() {
+                  usernameError =
+                      state.failure.validationErrors!['username']?.first;
+                  emailError = state.failure.validationErrors!['email']?.first;
+                  passwordError =
+                      state.failure.validationErrors!['password']?.first;
+                  phoneError = state.failure.validationErrors!['phone']?.first;
+                });
+              } else {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.message)));
+              }
             }
           },
           child: Column(
@@ -71,12 +91,24 @@ class _RegisterFormScreenState extends State<RegisterFormScreen> {
                 emailController: emailController,
                 passwordController: passwordController,
                 confirmPasswordController: confirmPasswordController,
+                usernameError: usernameError,
+                emailError: emailError,
+                passwordError: passwordError,
+                phoneError: phoneError,
               ),
 
               spacingV(10.h),
               CustomElevatedButton(
                 text: 'انشاء حساب',
                 onPressed: () async {
+                  // Clear previous errors
+                  setState(() {
+                    usernameError = null;
+                    emailError = null;
+                    passwordError = null;
+                    phoneError = null;
+                  });
+
                   final flag = context.read<CountryCubit>().flagSelected;
                   final phoneCodeState = context.read<PhoneCodeCubit>().state;
 
