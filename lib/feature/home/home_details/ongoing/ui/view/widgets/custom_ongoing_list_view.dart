@@ -64,7 +64,6 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
             );
           }
         } else if (state is OngoingSuccess) {
-          final ongoingAuction = state.data;
           final filteredData =
               context
                   .read<OngoingCubit>()
