@@ -224,7 +224,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0,
                               ),
-                          
+
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,

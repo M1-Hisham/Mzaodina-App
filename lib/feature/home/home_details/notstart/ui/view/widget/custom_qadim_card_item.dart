@@ -134,7 +134,7 @@ class _CustomNotstartCardItemState extends State<CustomNotstartCardItem> {
                           title: 'انطلاق المزاد',
                           showIndicator: true,
                           value:
-                              widget.qadimDataModel.auctionStartRate!.round()
+                              widget.qadimDataModel.auctionStartRate!.round(),
                         ),
                       ],
                     ),
