@@ -46,6 +46,9 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen>
 
   @override
   void initState() {
+    ActionCubit.get(
+      context,
+    ).connectToAuctionWebSocket(id: widget.jaraaDetails.id.toString());
     super.initState();
     eventTimeFromApi = DateTime.parse(widget.jaraaDetails.endAt);
     _webSocketCubit = context.read<WebSocketCubit>();
