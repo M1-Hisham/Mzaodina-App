@@ -2,9 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/action/model/actions_model.dart';
 import 'package:mzaodina_app/feature/action/model/actionstatus_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -141,9 +145,7 @@ class ActionCubit extends Cubit<ActionState> {
                 print('[WebSocket] ✅ DATA: $auction');
                 auctionModel = AuctionModel.fromJson(auction);
                 print('[WebSocket] ✅ max_bid: ${auctionModel!.auction}');
-                emit(
-                  ActionEventSuccessStates(actionStatusModel: auctionModel!),
-                );
+                emit(ActionEventSuccessStates());
               } else {
                 print('[WebSocket] ⚠️ لا يوجد max_bid في الرسالة');
               }
@@ -169,7 +171,11 @@ class ActionCubit extends Cubit<ActionState> {
     }
   }
 
-  void actionsLoop({required List<String> ids, required String state}) {
+  void actionsLoop({
+    required List<String> ids,
+    required String state,
+    required BuildContext context,
+  }) {
     emit(ActionEventLoadingStates());
     print(ids);
     try {
@@ -216,13 +222,16 @@ class ActionCubit extends Cubit<ActionState> {
               final auction = payload['auction'];
               if (auction != null) {
                 print('[WebSocket] ✅ DATA: $auction');
-                auctionId = auction['id'];
+                auctionId = auction['id'].toString();
+                BlocProvider.of<ReadyCubit>(context).filterData(auctionId!);
+                BlocProvider.of<NotstartCubit>(context).filterData(auctionId!);
+                BlocProvider.of<OngoingCubit>(context).filterData(auctionId!);
+                print("sss");
+
                 print(auctionId);
-                auctionModel = AuctionModel.fromJson(payload);
-                print('[WebSocket] ✅ auctionId: ${auctionModel!.auction}');
-                emit(
-                  ActionEventSuccessStates(actionStatusModel: auctionModel!),
-                );
+
+                auctionModel = AuctionModel.fromJson(auction);
+                emit(ActionEventSuccessStates());
               } else {
                 print('[WebSocket] ⚠️ لا يوجد max_bid في الرسالة');
               }
@@ -238,7 +247,7 @@ class ActionCubit extends Cubit<ActionState> {
         onDone: () {
           print('[WebSocket] ℹ️ تم إغلاق الاتصال، سيتم إعادة المحاولة...');
           Future.delayed(Duration(seconds: 3), () {
-            actionsLoop(ids: ids, state: state);
+            actionsLoop(ids: ids, state: state, context: context);
           });
         },
       );

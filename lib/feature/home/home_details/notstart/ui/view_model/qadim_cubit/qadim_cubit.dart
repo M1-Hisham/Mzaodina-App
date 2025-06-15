@@ -8,6 +8,8 @@ class NotstartCubit extends Cubit<NotstartState> {
   final NotstartAuctionRepo qadimAuctionRepo;
   int currentPage = 1;
   int totalPages = 1;
+  NotstartAuctionResponse? notstartAuctionResponse;
+
   NotstartCubit(this.qadimAuctionRepo) : super(NotstartInitial());
 
   Future<void> getNotStartAuctions({int? page}) async {
@@ -21,8 +23,21 @@ class NotstartCubit extends Cubit<NotstartState> {
       (success) {
         currentPage = page ?? currentPage;
         totalPages = success.data.meta?.lastPage ?? 1;
+        notstartAuctionResponse = success;
         emit(NotstartSuccess(success));
       },
     );
+  }
+
+  List<NotstartAuction> filterData(String id) {
+    final filtered =
+        notstartAuctionResponse?.data.auctions
+            .where((model) => model.id.toString() != id)
+            .toList();
+
+    emit(FilterState());
+    print("sss");
+
+    return filtered ?? [];
   }
 }

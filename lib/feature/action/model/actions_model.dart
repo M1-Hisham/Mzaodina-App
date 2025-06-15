@@ -90,7 +90,7 @@ class Product {
   String? nameAr;
   String? keywords;
   String? productDetails;
-  int? price;
+  String? price;
   int? weight;
   List<String>? images;
 
