@@ -251,35 +251,9 @@ class ActionCubit extends Cubit<ActionState> {
   void disconnectWebSocket() {
     channel!.sink.close();
   }
-
-  ////this Void To Remove Aution From Actios Model=================
-
-  List<MyModel> filteredList =
-      mainList.where((mainItem) {
-        return !secondaryList.any((secondItem) => secondItem.id == mainItem.id);
-      }).toList();
-  //====================================================================================
-  @override
-  Future<void> close() {
-    channel!.sink.close();
-    return super.close();
-  }
 }
 
-class MyModel {
-  final int id;
-  final String name;
-
-  MyModel({required this.id, required this.name});
-}
-
-List<MyModel> mainList = [
-  MyModel(id: 1, name: 'Item 1'),
-  MyModel(id: 2, name: 'Item 2'),
-  MyModel(id: 3, name: 'Item 3'),
-];
-
-List<MyModel> secondaryList = [
-  MyModel(id: 2, name: 'Item 2'),
-  MyModel(id: 3, name: 'Item 3'),
-];
+// void getModel(onGoaingModel ongoingModel) {
+//   ongoingModel.data.where((model) => model.id != auctionId);
+//   emit(UpdateState);
+// }
