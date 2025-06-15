@@ -17,3 +17,5 @@ final class OngoingError extends OngoingState {
 
   OngoingError(this.errorMessage);
 }
+
+class FilterState extends OngoingState {}

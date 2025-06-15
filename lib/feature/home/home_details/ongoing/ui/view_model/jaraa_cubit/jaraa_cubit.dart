@@ -8,11 +8,14 @@ class OngoingCubit extends Cubit<OngoingState> {
   final OngoingAuctionRepo jaraaAuctionRepo;
   int currentPage = 1;
   int totalPages = 1;
+  OngoingAuctionResponse? ongoingAuctionResponse;
   OngoingCubit(this.jaraaAuctionRepo) : super(OngoingInitial());
 
   Future<void> getOngoingAuctions({int? page}) async {
     emit(OngoingLoading());
-    final response = await jaraaAuctionRepo.getOngoingAuctions(page ?? currentPage);
+    final response = await jaraaAuctionRepo.getOngoingAuctions(
+      page ?? currentPage,
+    );
 
     response.fold(
       (failure) {
@@ -21,8 +24,19 @@ class OngoingCubit extends Cubit<OngoingState> {
       (success) {
         currentPage = page ?? currentPage;
         totalPages = success.data.meta?.lastPage ?? 1;
+        ongoingAuctionResponse = success;
         emit(OngoingSuccess(success));
       },
     );
+  }
+
+  List<OngoingAuction> filterData(String id) {
+    final filtered =
+        ongoingAuctionResponse?.data.auctions
+            .where((model) => model.id.toString() != id)
+            .toList();
+
+    emit(FilterState());
+    return filtered ?? [];
   }
 }

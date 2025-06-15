@@ -22,9 +22,9 @@ class ActionErrorStates extends ActionState {
 class ActionEventLoadingStates extends ActionState {}
 
 class ActionEventSuccessStates extends ActionState {
-  final AuctionModel actionStatusModel;
+  // final AuctionModel actionStatusModel;
 
-  ActionEventSuccessStates({required this.actionStatusModel});
+  // ActionEventSuccessStates({required this.actionStatusModel});
 }
 
 class ActionEventErrorStates extends ActionState {
