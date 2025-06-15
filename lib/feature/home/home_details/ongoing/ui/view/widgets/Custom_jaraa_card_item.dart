@@ -306,6 +306,9 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                   child: CustomElevatedButton(
                     text: 'عرض التفاصيل',
                     onPressed: () {
+                      ActionCubit.get(context).connectToAuctionWebSocket(
+                        id: widget.jaraaDataModel.id.toString(),
+                      );
                       Navigator.pushNamed(
                         context,
                         AppRoutes.homeDetailsOngoingScreenRoute,
