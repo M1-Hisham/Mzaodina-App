@@ -8,6 +8,7 @@ class ReadyCubit extends Cubit<ReadyState> {
   final ReadyAutionRepo sayantaliqAuctionRepo;
   int currentPage = 1;
   int totalPages = 1;
+  ReadyAuctionResponse? readyAuctionResponse;
   ReadyCubit(this.sayantaliqAuctionRepo) : super(ReadyInitial());
 
   Future<void> getReadyAuctions({int? page}) async {
@@ -23,8 +24,20 @@ class ReadyCubit extends Cubit<ReadyState> {
       (success) {
         currentPage = page ?? currentPage;
         totalPages = success.data.meta?.lastPage ?? 1;
+        readyAuctionResponse = success;
+
         emit(ReadySuccess(success));
       },
     );
+  }
+
+  List<ReadyAuction> filterData(String id) {
+    final filtered =
+        readyAuctionResponse?.data.auctions
+            .where((model) => model.id.toString() != id)
+            .toList();
+
+    emit(FilterState());
+    return filtered ?? [];
   }
 }

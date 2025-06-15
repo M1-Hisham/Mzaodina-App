@@ -17,3 +17,5 @@ final class NotstartError extends NotstartState {
 
   NotstartError(this.errorMessage);
 }
+
+class FilterState extends NotstartState {}

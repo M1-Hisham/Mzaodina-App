@@ -17,3 +17,5 @@ final class ReadyError extends ReadyState {
 
   ReadyError(this.errorMessage);
 }
+
+class FilterState extends ReadyState {}
