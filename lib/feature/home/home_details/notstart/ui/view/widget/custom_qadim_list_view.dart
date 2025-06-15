@@ -65,6 +65,7 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           }
         } else if (state is NotstartSuccess) {
           final qadimAuctionResponse = state.data;
+          // final qadimModel = state.data.data.auctions.where((model)=> model.id != ActionCubit.get(context))
           final totalPage = context.read<NotstartCubit>().totalPages;
           final currentPage = context.read<NotstartCubit>().currentPage;
           ActionCubit.get(context).actionsLoop(
