@@ -176,11 +176,13 @@ class CustomNotificationSelected extends StatelessWidget {
               // Refresh notifications after marking as read
               context.read<GetNotificationCubit>().fetchNotifications(1);
             });
-        Navigator.pushNamed(
-          context,
-          AppRoutes.invoiceDetailsScreenRoute,
-          arguments: notification,
-        );
+        if (notification.data.actions.isNotEmpty) {
+          final url = notification.data.actions[0].url;
+          extractIdFromUrl(url, context);
+        } else {
+          // If no URL is available, go to home
+          Navigator.pushNamed(context, AppRoutes.homeRoute);
+        }
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
@@ -215,7 +217,6 @@ class CustomNotificationUnSelected extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // extractIdFromUrl(notification.data.actions[0].url, context);
         log('==============${notification.data.actions[0].url}');
         context
             .read<MarkNotificationCubit>()
@@ -224,11 +225,13 @@ class CustomNotificationUnSelected extends StatelessWidget {
               // Refresh notifications after marking as read
               context.read<GetNotificationCubit>().fetchNotifications(1);
             });
-        Navigator.pushNamed(
-          context,
-          AppRoutes.invoiceDetailsScreenRoute,
-          // arguments: notification,
-        );
+        if (notification.data.actions.isNotEmpty) {
+          final url = notification.data.actions[0].url;
+          extractIdFromUrl(url, context);
+        } else {
+          // If no URL is available, go to home
+          Navigator.pushNamed(context, AppRoutes.homeRoute);
+        }
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
@@ -255,29 +258,37 @@ class CustomNotificationUnSelected extends StatelessWidget {
 }
 
 void extractIdFromUrl(String url, BuildContext context) {
+  if (url == '#') {
+    Navigator.pushNamed(context, AppRoutes.homeRoute);
+    return;
+  }
+
   Uri uri = Uri.parse(url);
   List<String> pathSegments = uri.pathSegments;
 
-  if (pathSegments.length >= 2) {
-    String type = pathSegments[1]; // 'invoice' أو أي جزء ثابت
-    String id =
-        pathSegments.last; // القيمة المتغيرة (FZnlS9T7fZ أو INV-32651428)
-
-    if (pathSegments.contains('invoice')) {
-      print("فاتورة - المعرف: $id"); // INV-32651428
-    } else {
-      print("مزاد - المعرف: $id");
-
-      Navigator.pushNamed(
-        context,
-        AppRoutes.homeDetailsReadyScreenRoute,
-        // arguments: notification,
-      );
-      // FZnlS9T7fZ
-    }
-  } else if (pathSegments.isNotEmpty) {
-    print("مزاد - المعرف: ${pathSegments.last}"); // FZnlS9T7fZ
+  if (pathSegments.isEmpty) {
+    Navigator.pushNamed(context, AppRoutes.homeRoute);
+    return;
   }
+
+  // Handle invoice URLs
+  if (pathSegments.contains('invoice')) {
+    String invoiceId = pathSegments.last;
+    Navigator.pushNamed(context, AppRoutes.invoiceDetailsScreenRoute);
+    return;
+  }
+
+  // Handle shipping URLs
+  if (pathSegments.contains('shipping')) {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.completeShippingInformationScreenRoute,
+    );
+    return;
+  }
+
+  // Default to home if no specific pattern matches
+  Navigator.pushNamed(context, AppRoutes.homeRoute);
 }
 
 Widget _customAppBar({required String title, context}) {

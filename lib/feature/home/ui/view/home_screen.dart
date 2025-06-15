@@ -20,8 +20,8 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: R.colors.whiteLight,
       body: Column(
         children: [
-          BlocProvider(
-            create: (context) => getIt<UserDataCubit>()..fetchUserData(),
+          BlocProvider.value(
+            value: getIt<UserDataCubit>()..fetchUserData(),
             child: CustomAppBarHome(),
           ),
           // SizedBox(height: 20),

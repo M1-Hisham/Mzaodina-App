@@ -6,7 +6,6 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
-import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_jaraa_list_view.dart';
@@ -49,7 +48,6 @@ class _CustomTapViewState extends State<CustomTapView>
         });
         if (newIndex == 0) {
           context.read<NotstartCubit>().getNotStartAuctions();
-        
         }
         if (newIndex == 1) {
           context.read<ReadyCubit>().getReadyAuctions();
@@ -137,162 +135,171 @@ class _CustomTapViewState extends State<CustomTapView>
                   }).toList(),
             ),
             Expanded(
-              child: BlocListener<LastInvoiceCubit, LastInvoiceState>(
-                listener: (context, state) {
-                  if (state is LastInvoiceSuccess) {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.invoiceDetailsScreenRoute,
-                    );
-                  }
-                },
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: CustomNotstartListView(
-                        qadimCounter: qadimCount ?? 0,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: BlocProvider(
-                        create: (context) => WebSocketCubit(),
-                        child: CustomSayantiqListView(
-                          sayantaliqCounter: sayantaliqCount ?? 0,
+              child: BlocProvider(
+                create: (context) => getIt<LastInvoiceCubit>(),
+                child: BlocListener<LastInvoiceCubit, LastInvoiceState>(
+                  listener: (context, state) {
+                    if (state is LastInvoiceSuccess) {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.invoiceDetailsScreenRoute,
+                      );
+                    }
+                  },
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CustomNotstartListView(
+                          qadimCounter: qadimCount ?? 0,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: BlocProvider(
-                        create: (context) => WebSocketCubit(),
-                        child: CustomOngoingListView(
-                          jaraaCounter: jaraaCount ?? 0,
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: BlocProvider(
+                          create: (context) => WebSocketCubit(),
+                          child: CustomSayantiqListView(
+                            sayantaliqCounter: sayantaliqCount ?? 0,
+                          ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: BlocProvider(
+                          create: (context) => WebSocketCubit(),
+                          child: CustomOngoingListView(
+                            jaraaCounter: jaraaCount ?? 0,
+                          ),
+                        ),
+                      ),
 
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: BlocBuilder<FinishedCubit, FinishedState>(
-                        buildWhen:
-                            (previous, current) =>
-                                current is FinishedSuccess ||
-                                current is FinishedLoading ||
-                                current is FinishedError,
-                        builder: (context, state) {
-                          if (state is FinishedLoading) {
-                            return const Center(child: MazadShimmer());
-                          } else if (state is FinishedError) {
-                            if (muntahiCount == 0) {
-                              return CustomNotItem();
-                            } else {
-                              return CustomErorrWidget(
-                                message: state.errorMessage,
-                                onRefresh:
-                                    () =>
-                                        context
-                                            .read<FinishedCubit>()
-                                            .getFinishedAuctions(),
-                              );
-                            }
-                          } else if (state is FinishedSuccess) {
-                            final muntaliAuctionResponse = state.data;
-                            final totalPage =
-                                context.read<FinishedCubit>().totalPages;
-                            final currentPage =
-                                context.read<FinishedCubit>().currentPage;
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount:
-                                  muntaliAuctionResponse.data.auctions.length +
-                                  1,
-                              itemBuilder: (context, index) {
-                                if (index <
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: BlocBuilder<FinishedCubit, FinishedState>(
+                          buildWhen:
+                              (previous, current) =>
+                                  current is FinishedSuccess ||
+                                  current is FinishedLoading ||
+                                  current is FinishedError,
+                          builder: (context, state) {
+                            if (state is FinishedLoading) {
+                              return const Center(child: MazadShimmer());
+                            } else if (state is FinishedError) {
+                              if (muntahiCount == 0) {
+                                return CustomNotItem();
+                              } else {
+                                return CustomErorrWidget(
+                                  message: state.errorMessage,
+                                  onRefresh:
+                                      () =>
+                                          context
+                                              .read<FinishedCubit>()
+                                              .getFinishedAuctions(),
+                                );
+                              }
+                            } else if (state is FinishedSuccess) {
+                              final muntaliAuctionResponse = state.data;
+                              final totalPage =
+                                  context.read<FinishedCubit>().totalPages;
+                              final currentPage =
+                                  context.read<FinishedCubit>().currentPage;
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount:
                                     muntaliAuctionResponse
                                         .data
                                         .auctions
-                                        .length) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(
-                                      bottom: 16.0,
-                                    ),
-                                    child: CustomFinishedCardViewItem(
-                                      muntahiDataModel:
-                                          muntaliAuctionResponse
-                                              .data
-                                              .auctions[index],
-                                    ),
-                                  );
-                                } else if (totalPage > 1) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                    ),
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      spacing: 15,
-                                      children: List.generate(totalPage, (i) {
-                                        final page = i + 1;
-                                        final isSelected = page == currentPage;
+                                        .length +
+                                    1,
+                                itemBuilder: (context, index) {
+                                  if (index <
+                                      muntaliAuctionResponse
+                                          .data
+                                          .auctions
+                                          .length) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 16.0,
+                                      ),
+                                      child: CustomFinishedCardViewItem(
+                                        muntahiDataModel:
+                                            muntaliAuctionResponse
+                                                .data
+                                                .auctions[index],
+                                      ),
+                                    );
+                                  } else if (totalPage > 1) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: Wrap(
+                                        alignment: WrapAlignment.center,
+                                        spacing: 15,
+                                        children: List.generate(totalPage, (i) {
+                                          final page = i + 1;
+                                          final isSelected =
+                                              page == currentPage;
 
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 6,
-                                          ),
-                                          child: InkWell(
-                                            onTap: () {
-                                              context
-                                                  .read<FinishedCubit>()
-                                                  .getFinishedAuctions(
-                                                    page: page,
-                                                  );
-                                            },
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 6,
-                                                  ),
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    isSelected
-                                                        ? R
-                                                            .colors
-                                                            .primaryColorLight
-                                                        : Colors.grey[200],
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Text(
-                                                '$page',
-                                                style: TextStyle(
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 6,
+                                            ),
+                                            child: InkWell(
+                                              onTap: () {
+                                                context
+                                                    .read<FinishedCubit>()
+                                                    .getFinishedAuctions(
+                                                      page: page,
+                                                    );
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 6,
+                                                    ),
+                                                decoration: BoxDecoration(
                                                   color:
                                                       isSelected
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                  fontWeight: FontWeight.bold,
+                                                          ? R
+                                                              .colors
+                                                              .primaryColorLight
+                                                          : Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Text(
+                                                  '$page',
+                                                  style: TextStyle(
+                                                    color:
+                                                        isSelected
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      }),
-                                    ),
-                                  );
-                                }
-                                return const SizedBox.shrink();
-                              },
-                            );
-                          } else {
-                            return const Center(child: Text('لا يوجد بيانات'));
-                          }
-                        },
+                                          );
+                                        }),
+                                      ),
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              );
+                            } else {
+                              return const Center(
+                                child: Text('لا يوجد بيانات'),
+                              );
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

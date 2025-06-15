@@ -198,7 +198,7 @@ class AppRouter {
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),
 
-                  BlocProvider(create: (context) => getIt<UserDataCubit>()),
+                  BlocProvider.value(value: getIt<UserDataCubit>()),
                 ],
                 child: AccountDetailsScreen(), //userData: args),
               ),
@@ -269,7 +269,7 @@ class AppRouter {
                 providers: [
                   BlocProvider(create: (context) => CountryCubit()),
                   BlocProvider(create: (context) => PhoneCodeCubit()),
-                  BlocProvider(create: (context) => getIt<UserDataCubit>()),
+                  BlocProvider.value(value:  getIt<UserDataCubit>()),
                   BlocProvider(
                     create: (context) => getIt<UpdateProfileCubit>(),
                   ),
@@ -340,8 +340,8 @@ class AppRouter {
                   BlocProvider<SaveTokenCubit>(
                     create: (context) => getIt<SaveTokenCubit>(),
                   ),
-                  BlocProvider<UserDataCubit>(
-                    create: (context) => getIt<UserDataCubit>(),
+                  BlocProvider.value(
+                    value:  getIt<UserDataCubit>(),
                   ),
                   BlocProvider(
                     create: (context) => CheckboxCubit(initialValue: false),

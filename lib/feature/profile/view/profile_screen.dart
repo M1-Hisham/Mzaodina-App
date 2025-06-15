@@ -47,8 +47,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, state) {
               if (state is UserDataLoading) {
                 return Center(
-                  child: CircularProgressIndicator(
-                    color: R.colors.primaryColorLight,
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(
+                        color: R.colors.primaryColorLight,
+                      ),
+                    ],
                   ),
                 );
               } else if (state is UserDataNotLoggedIn) {
@@ -67,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 final UserData userData = state.userModel.data!;
                 return Column(
                   children: [
-                    _buildHeader(userData.username ?? 'مستخدم'),
+                    _buildHeader(userData.username),
                     CustomUserDataDetailsSection(userData: userData),
                     SizedBox(height: 30.h),
                     CustomAppInformationSection(),
