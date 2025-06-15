@@ -44,8 +44,8 @@ class NavBarScreen extends StatelessWidget {
                 ),
               ),
 
-              BlocProvider(
-                create: (context) => getIt<UserDataCubit>()..fetchUserData(),
+              BlocProvider.value(
+                value: getIt<UserDataCubit>()..fetchUserData(),
                 child: ProfileScreen(),
               ),
             ],

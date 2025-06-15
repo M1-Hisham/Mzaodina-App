@@ -16,6 +16,10 @@ class CustomColumnRegisterTextField extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
     required this.confirmPasswordController,
+    this.usernameError,
+    this.emailError,
+    this.passwordError,
+    this.phoneError,
   });
 
   final TextEditingController usernameController;
@@ -23,6 +27,10 @@ class CustomColumnRegisterTextField extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
+  final String? usernameError;
+  final String? emailError;
+  final String? passwordError;
+  final String? phoneError;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +48,15 @@ class CustomColumnRegisterTextField extends StatelessWidget {
             ),
           ),
           keyboardType: TextInputType.name,
+          apiError: usernameError,
         ),
         spacingV(15.h),
         SelectCountry(),
         spacingV(15.h),
-        EnterThePhoneNumber(phoneNumberController: phoneController),
+        EnterThePhoneNumber(
+          phoneNumberController: phoneController,
+          apiError: phoneError,
+        ),
         spacingV(15.h),
         CustomTextForm(
           controller: emailController,
@@ -58,6 +70,7 @@ class CustomColumnRegisterTextField extends StatelessWidget {
             ),
           ),
           keyboardType: TextInputType.emailAddress,
+          apiError: emailError,
         ),
         spacingV(15.h),
         CustomTextForm(
@@ -73,6 +86,7 @@ class CustomColumnRegisterTextField extends StatelessWidget {
             ),
           ),
           keyboardType: TextInputType.visiblePassword,
+          apiError: passwordError,
         ),
         spacingV(15.h),
         CustomTextForm(

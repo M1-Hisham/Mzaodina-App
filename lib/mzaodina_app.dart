@@ -8,6 +8,7 @@ import 'package:mzaodina_app/core/router/route.dart';
 import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
+import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
 import 'package:mzaodina_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
@@ -31,6 +32,9 @@ class MzaodinaApp extends StatelessWidget {
         BlocProvider(
           create:
               (context) => getIt<GetNotificationCubit>()..fetchNotifications(1),
+        ),
+        BlocProvider(
+          create: (context) => getIt<UserDataCubit>()..fetchUserData(),
         ),
       ],
       child: MaterialApp(

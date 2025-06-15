@@ -123,9 +123,18 @@ class InvoiceDetailsScreen extends StatelessWidget {
                                     style: R.textStyles.font14Grey3W500Light,
                                   ),
                                   CountdownTimerInvoice(
-                                    expiresAt: DateTime.parse(
-                                      invoice.data.expiresAt,
-                                    ),
+                                    expiresAt: () {
+                                      try {
+                                        return DateTime.parse(
+                                          invoice.data.expiresAt,
+                                        );
+                                      } catch (e) {
+                                        // If parsing fails, return current time + 5 minutes as fallback
+                                        return DateTime.now().add(
+                                          const Duration(minutes: 5),
+                                        );
+                                      }
+                                    }(),
                                   ),
                                 ],
                               ),

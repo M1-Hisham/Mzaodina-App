@@ -15,7 +15,7 @@ class EnterThePhoneNumber extends StatefulWidget {
   final TextEditingController? phoneNumberController;
   final String? initialPhoneCode;
   final String? initialPhoneFlag;
-
+  final String? apiError;
   const EnterThePhoneNumber({
     super.key,
     this.hintStyle,
@@ -24,6 +24,7 @@ class EnterThePhoneNumber extends StatefulWidget {
     this.isValidator,
     this.initialPhoneCode,
     this.initialPhoneFlag,
+    this.apiError,
   });
 
   @override
@@ -208,6 +209,7 @@ class _EnterThePhoneNumberState extends State<EnterThePhoneNumber> {
         SizedBox(width: 10.w),
         Expanded(
           child: CustomTextForm(
+            apiError: widget.apiError,
             controller: widget.phoneNumberController,
             keyboardType: TextInputType.number,
             isValidator: widget.isValidator ?? true,

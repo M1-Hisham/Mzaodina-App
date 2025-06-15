@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_show_action_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/notstart_show_action_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/register_to_auction_cubit/register_to_auction_cubit.dart';
 
 class AuctionRegisterButton extends StatelessWidget {

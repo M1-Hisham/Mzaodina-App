@@ -29,7 +29,7 @@ class CustomTextForm extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final Key? valueKey;
   final Function()? onTap;
-
+  final String? apiError;
   const CustomTextForm({
     super.key,
     required this.hintText,
@@ -58,6 +58,7 @@ class CustomTextForm extends StatelessWidget {
     this.onTap,
     this.textAlign,
     this.isValidator,
+    this.apiError,
   });
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class CustomTextForm extends StatelessWidget {
         fillColor: fillColor ?? R.colors.formColorLight,
         alignLabelWithHint: true,
         prefixIcon: prefixIcon,
-
+        errorText: apiError,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(14.r)),
           borderSide: BorderSide(color: R.colors.borderColorsLight),

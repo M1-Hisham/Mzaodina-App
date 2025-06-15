@@ -3,13 +3,13 @@ import 'package:dio/dio.dart';
 /// Base Failure Class
 abstract class Failure {
   final String errMessage;
-
-  const Failure(this.errMessage);
+  final Map<String, List<String>>? validationErrors;
+  const Failure(this.errMessage, {this.validationErrors});
 }
 
 /// Server Failure Class for handling Dio Errors
 class ServerFailure extends Failure {
-  ServerFailure(super.errMessage);
+  ServerFailure(super.errMessage, {super.validationErrors});
 
   /// Factory constructor to generate failure from DioException
   factory ServerFailure.fromDioError(DioException dioError) {
@@ -64,17 +64,40 @@ class ServerFailure extends Failure {
         final errorsRaw = response['errors'];
 
         if (errorsRaw != null && errorsRaw is Map<String, dynamic>) {
-          final errors = errorsRaw;
-          String combinedErrors = errors.entries
-              .map((entry) => '${entry.value.join("\n\n ")}')
-              .join(" \n\n ");
-          return ServerFailure(' $combinedErrors');
+          // Convert the errors to a Map<String, List<String>>
+          final Map<String, List<String>> validationErrors = {};
+          errorsRaw.forEach((key, value) {
+            if (value is List) {
+              validationErrors[key] = value.map((e) => e.toString()).toList();
+            }
+          });
+
+          return ServerFailure(
+            response['message'] ?? 'Validation Error',
+            validationErrors: validationErrors,
+          );
         }
 
         return ServerFailure(
           response['message'] ?? 'Unprocessable Content Error',
         );
       }
+      // else if (statusCode == 422) {
+      //   if (response is Map<String, dynamic>) {
+      //     final errorsRaw = response['errors'];
+
+      //     if (errorsRaw != null && errorsRaw is Map<String, dynamic>) {
+      //       final errors = errorsRaw;
+      //       String combinedErrors = errors.entries
+      //           .map((entry) => '${entry.value.join("\n\n ")}')
+      //           .join(" \n\n ");
+      //       return ServerFailure(' $combinedErrors');
+      //     }
+
+      //     return ServerFailure(
+      //       response['message'] ?? 'Unprocessable Content Error',
+      //     );
+      //   }
 
       return ServerFailure('Invalid error response format');
     } else if (statusCode == 404) {
