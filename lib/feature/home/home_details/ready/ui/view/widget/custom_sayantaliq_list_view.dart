@@ -63,6 +63,10 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
           }
         } else if (state is ReadySuccess) {
           final sayantaliqAuction = state.data;
+          final sayantaliqModel = state.data.data.auctions.where(
+            (model) =>
+                model.id.toString() != ActionCubit.get(context).auctionId,
+          );
           final totalPage = context.read<ReadyCubit>().totalPages;
           final currentPage = context.read<ReadyCubit>().currentPage;
           ActionCubit.get(context).actionsLoop(
@@ -78,11 +82,11 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: sayantaliqAuction.data.auctions.length + 1,
+              itemCount: sayantaliqModel.length + 1,
               itemBuilder: (context, index) {
-                if (index < sayantaliqAuction.data.auctions.length) {
+                if (index < sayantaliqModel.length) {
                   return CustomSayantilqCardItem(
-                    sayantaliqDataModel: sayantaliqAuction.data.auctions[index],
+                    sayantaliqDataModel: sayantaliqModel[index],
                   );
                 } else {
                   return totalPage > 1

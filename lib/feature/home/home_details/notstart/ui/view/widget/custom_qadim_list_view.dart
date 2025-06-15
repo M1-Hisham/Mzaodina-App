@@ -65,6 +65,10 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           }
         } else if (state is NotstartSuccess) {
           final qadimAuctionResponse = state.data;
+          final qadimModel = state.data.data.auctions.where(
+            (model) =>
+                model.id.toString() != ActionCubit.get(context).auctionId,
+          );
           final totalPage = context.read<NotstartCubit>().totalPages;
           final currentPage = context.read<NotstartCubit>().currentPage;
           ActionCubit.get(context).actionsLoop(
@@ -86,11 +90,11 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: qadimAuctionResponse.data.auctions.length + 1,
+              itemCount: qadimModel.length,
               itemBuilder: (context, index) {
-                if (index < qadimAuctionResponse.data.auctions.length) {
+                if (index < qadimModel.length) {
                   return CustomNotstartCardItem(
-                    qadimDataModel: qadimAuctionResponse.data.auctions[index],
+                    qadimDataModel: qadimModel[index],
                   );
                 } else {
                   return totalPage > 1

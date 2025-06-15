@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/core/DI/setup_get_it.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/check-box/view/custom_check_box.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
@@ -8,6 +9,7 @@ import 'package:mzaodina_app/feature/home/join-auction/view/web_view_join_to_auc
 import 'package:mzaodina_app/feature/home/join-auction/view/widgets/counter_view.dart';
 import 'package:mzaodina_app/feature/profile/terms&conditions/view/terms_and_conditions_screen.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
+import 'package:mzaodina_app/feature/profile/view_model/terms_cubit/terms_cubit.dart';
 
 class JoinTheAuction extends StatelessWidget {
   final double openingAmount;
@@ -113,7 +115,11 @@ class TermsAndConditionsCheckbox extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const TermsAndConditionsScreen(),
+                builder:
+                    (context) => BlocProvider(
+                      create: (context) =>getIt<TermsCubit>()..getTerms(),
+                      child: const TermsAndConditionsScreen(),
+                    ),
               ),
             );
           },

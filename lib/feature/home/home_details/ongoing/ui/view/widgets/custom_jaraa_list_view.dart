@@ -65,6 +65,10 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
           }
         } else if (state is OngoingSuccess) {
           final jaraaAuction = state.data;
+          final jaraaModel = state.data.data.auctions.where(
+            (model) =>
+                model.id.toString() != ActionCubit.get(context).auctionId,
+          );
           final totalPage = context.read<OngoingCubit>().totalPages;
           final currentPage = context.read<OngoingCubit>().currentPage;
           ActionCubit.get(context).actionsLoop(
@@ -79,11 +83,11 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: jaraaAuction.data.auctions.length + 1,
+              itemCount: jaraaModel.length + 1,
               itemBuilder: (context, index) {
-                if (index < jaraaAuction.data.auctions.length) {
+                if (index < jaraaModel.length) {
                   return CustomOngoingCardViewItem(
-                    jaraaDataModel: jaraaAuction.data.auctions[index],
+                    jaraaDataModel: jaraaModel[index],
                   );
                 } else {
                   return totalPage > 1
