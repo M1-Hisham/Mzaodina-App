@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/data/model/finished_auctions_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/data/repo/finished_auction_repo.dart';
 
@@ -25,6 +26,7 @@ class FinishedCubit extends Cubit<FinishedState> {
         currentPage = page ?? currentPage;
         log('Current Page: $currentPage');
         totalPages = success.data.meta?.lastPage ?? 1;
+    
         log('Total Pages: $totalPages');
         emit(FinishedSuccess(success));
       },

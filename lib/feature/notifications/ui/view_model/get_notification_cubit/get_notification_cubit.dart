@@ -31,10 +31,8 @@ class GetNotificationCubit extends Cubit<GetAllNotificationState> {
         totalPages = data.notifications.lastPage;
 
         if (append && state is GetAllNotificationSuccess) {
-          final oldData = (state as GetAllNotificationSuccess)
-              .response
-              .notifications
-              .data;
+          final oldData =
+              (state as GetAllNotificationSuccess).response.notifications.data;
 
           final newData = [...oldData, ...data.notifications.data];
 

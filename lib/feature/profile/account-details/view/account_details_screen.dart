@@ -140,7 +140,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                     initialValue: user.data?.name,
                                     onSaved:
                                         (value) => _formData['name'] = value,
-                                    isValidator: false,
+
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
@@ -182,7 +182,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                               user.data?.phoneCode ?? 'SA',
                                             ),
                                         phoneNumberController: _phoneController,
-                                        isValidator: false,
+
                                         fillColor: R.colors.whiteLight,
                                         hintStyle:
                                             R.textStyles.font12Grey3W500Light,
@@ -198,7 +198,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                         user.data?.address?.city ?? '',
                                     onSaved:
                                         (value) => _formData['city'] = value,
-                                    isValidator: false,
+
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,
@@ -226,7 +226,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                         user.data?.address?.street ?? '',
                                     onSaved:
                                         (value) => _formData['street'] = value,
-                                    isValidator: false,
+
                                     fillColor: Colors.white,
                                     hintStyle:
                                         R.textStyles.font12Grey3W500Light,

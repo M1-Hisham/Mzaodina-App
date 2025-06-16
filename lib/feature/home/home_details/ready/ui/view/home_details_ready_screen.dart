@@ -7,6 +7,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_app_bar.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/data/model/ready_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/ready_show_austion_cubit/ready_show_austion_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
@@ -18,7 +19,7 @@ import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class HomeDetailsReadyScreen extends StatelessWidget {
   final DateTime eventTimeFromApi;
-  final ReadyAuction readyDetails;
+  final UnifiedAuction readyDetails;
   final int d, h, m, s;
   const HomeDetailsReadyScreen({
     super.key,
@@ -42,7 +43,7 @@ class HomeDetailsReadyScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomAppBar(
-                title: readyDetails.product.nameAr,
+                title: readyDetails.product?.nameAr ?? '',
                 slug: readyDetails.slug,
               ),
             ),

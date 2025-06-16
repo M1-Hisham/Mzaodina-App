@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mzaodina_app/core/api/api_service.dart';
 import 'package:mzaodina_app/core/error/failure.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/notstart_auction_response.dart';
 
 class NotstartAuctionRepo {
@@ -9,7 +10,7 @@ class NotstartAuctionRepo {
 
   NotstartAuctionRepo(this.apiService);
 
-  Future<Either<Failure, NotstartAuctionResponse>> getNotStartAuctions(
+  Future<Either<Failure, HomeDetailsModel>> getNotStartAuctions(
     int page,
   ) async {
     try {

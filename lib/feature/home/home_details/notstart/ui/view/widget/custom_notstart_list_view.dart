@@ -65,6 +65,18 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
             );
           }
         } else if (state is NotstartSuccess) {
+
+          final filteredData =
+              context
+                  .read<NotstartCubit>()
+                  .filterData(ActionCubit.get(context).auctionId!)
+                  .where(
+                    (auction) =>
+                        auction.id.toString() !=
+                        ActionCubit.get(context).auctionId,
+                  )
+                  .toList();
+
           final qadimAuctionResponse = state.data;
           // final filteredData =
           //     context
@@ -76,6 +88,7 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           //               AuctionCubit.get(context).auctionId,
           //         )
           //         .toList();
+
 
           final totalPage = context.read<NotstartCubit>().totalPages;
           final currentPage = context.read<NotstartCubit>().currentPage;

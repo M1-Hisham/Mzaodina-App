@@ -7,7 +7,7 @@ final class ReadyInitial extends ReadyState {}
 final class ReadyLoading extends ReadyState {}
 
 final class ReadySuccess extends ReadyState {
-  final ReadyAuctionResponse data;
+  final HomeDetailsModel data;
 
   ReadySuccess(this.data);
 }

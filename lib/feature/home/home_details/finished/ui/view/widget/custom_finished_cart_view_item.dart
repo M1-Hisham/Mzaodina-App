@@ -6,11 +6,12 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/data/model/finished_auctions_response.dart';
 import 'package:share_plus/share_plus.dart';
 
 class FinishedCardList extends StatelessWidget {
-  final List<FinishedAction> finishedItems;
+  final List<UnifiedAuction> finishedItems;
 
   const FinishedCardList({super.key, required this.finishedItems});
 
@@ -31,7 +32,7 @@ class FinishedCardList extends StatelessWidget {
 }
 
 class CustomFinishedCardViewItem extends StatelessWidget {
-  final FinishedAction finishedDataModel;
+  final UnifiedAuction finishedDataModel;
 
   const CustomFinishedCardViewItem({
     super.key,
@@ -56,7 +57,7 @@ class CustomFinishedCardViewItem extends StatelessWidget {
               Hero(
                 tag: finishedDataModel.slug,
                 child: CachedNetworkImage(
-                  imageUrl: finishedDataModel.product.images[0],
+                  imageUrl: finishedDataModel.product!.images[0],
                   width: 120.w,
                   height: 158.h,
                   fit: BoxFit.cover,
@@ -74,14 +75,14 @@ class CustomFinishedCardViewItem extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.h),
                       child: Text(
-                        finishedDataModel.product.nameAr,
+                        finishedDataModel.product?.nameAr ?? '',
                         style: R.textStyles.font16BlackW500Light,
                       ),
                     ),
                     SizedBox(height: 12.h),
                     CoustomRowItem(
                       title: 'السعر بالأسواق',
-                      price: finishedDataModel.product.price.toString(),
+                      price: finishedDataModel.product?.price.toString() ?? '',
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -93,7 +94,7 @@ class CustomFinishedCardViewItem extends StatelessWidget {
                             style: R.textStyles.font12Grey3W500Light,
                           ),
                           Text(
-                            finishedDataModel.winner.invoicePrice,
+                            finishedDataModel.winner?.invoicePrice ?? '',
                             style: R.textStyles.font12primaryW600Light,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -113,7 +114,7 @@ class CustomFinishedCardViewItem extends StatelessWidget {
                           Expanded(
                             child: Text(
                               textAlign: TextAlign.end,
-                              finishedDataModel.winner.user.username,
+                              finishedDataModel.winner?.user.username ?? '',
                               style: R.textStyles.font16primaryW600Light,
                               overflow: TextOverflow.ellipsis,
                             ),

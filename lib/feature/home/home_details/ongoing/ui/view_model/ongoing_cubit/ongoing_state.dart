@@ -7,7 +7,7 @@ final class OngoingInitial extends OngoingState {}
 final class OngoingLoading extends OngoingState {}
 
 final class OngoingSuccess extends OngoingState {
-  final OngoingAuctionResponse data;
+  final HomeDetailsModel data;
 
   OngoingSuccess(this.data);
 }

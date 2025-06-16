@@ -6,13 +6,14 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/notstart_auction_response.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_indcator_item.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomNotstartCardItem extends StatefulWidget {
-  final NotstartAuction notstartDataModel;
+  final UnifiedAuction notstartDataModel;
 
   const CustomNotstartCardItem({super.key, required this.notstartDataModel});
 
@@ -56,7 +57,7 @@ class _CustomNotstartCardItemState extends State<CustomNotstartCardItem> {
                   Hero(
                     tag: widget.notstartDataModel.slug,
                     child: CachedNetworkImage(
-                      imageUrl: widget.notstartDataModel.product.images[0],
+                      imageUrl: widget.notstartDataModel.product!.images[0],
                       width: 120.w,
                       height: 158.h,
                       fit: BoxFit.cover,
@@ -75,7 +76,7 @@ class _CustomNotstartCardItemState extends State<CustomNotstartCardItem> {
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 8.h),
                           child: Text(
-                            widget.notstartDataModel.product.nameAr,
+                            widget.notstartDataModel.product?.nameAr ?? '',
                             style: R.textStyles.font16BlackW500Light,
                           ),
                         ),
@@ -124,7 +125,7 @@ class _CustomNotstartCardItemState extends State<CustomNotstartCardItem> {
                         CoustomRowItem(
                           title: 'السعر بالأسواق',
                           price:
-                              widget.notstartDataModel.product.price.toString(),
+                              widget.notstartDataModel.product?.price.toString() ?? '',
                         ),
                         CoustomRowItem(
                           title: 'بداية المزاد',
