@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
-import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
+import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/qadim_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_qadim_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
@@ -66,20 +66,20 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
           }
         } else if (state is NotstartSuccess) {
           final qadimAuctionResponse = state.data;
-          final filteredData =
-              context
-                  .read<NotstartCubit>()
-                  .filterData(ActionCubit.get(context).auctionId!)
-                  .where(
-                    (auction) =>
-                        auction.id.toString() !=
-                        ActionCubit.get(context).auctionId,
-                  )
-                  .toList();
+          // final filteredData =
+          //     context
+          //         .read<NotstartCubit>()
+          //         .filterData(AuctionCubit.get(context).auctionId!)
+          //         .where(
+          //           (auction) =>
+          //               auction.id.toString() !=
+          //               AuctionCubit.get(context).auctionId,
+          //         )
+          //         .toList();
 
           final totalPage = context.read<NotstartCubit>().totalPages;
           final currentPage = context.read<NotstartCubit>().currentPage;
-          ActionCubit.get(context).actionsLoop(
+          AuctionCubit.get(context).auctionsLoop(
             ids:
                 state.data.data.auctions
                     .map((toElement) => toElement.id.toString())
@@ -99,11 +99,11 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: filteredData.length,
+              itemCount: qadimAuctionResponse.data.auctions.length,
               itemBuilder: (context, index) {
-                if (index < filteredData.length) {
+                if (index < qadimAuctionResponse.data.auctions.length) {
                   return CustomNotstartCardItem(
-                    qadimDataModel: filteredData[index],
+                    qadimDataModel: qadimAuctionResponse.data.auctions[index],
                   );
                 } else {
                   return totalPage > 1

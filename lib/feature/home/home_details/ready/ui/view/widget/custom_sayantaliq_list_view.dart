@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
-import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
+import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view/widget/custom_sayantilq_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
@@ -63,19 +63,19 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
           }
         } else if (state is ReadySuccess) {
           final sayantaliqAuction = state.data;
-          final filteredData =
-              context
-                  .read<ReadyCubit>()
-                  .filterData(ActionCubit.get(context).auctionId!)
-                  .where(
-                    (auction) =>
-                        auction.id.toString() !=
-                        ActionCubit.get(context).auctionId,
-                  )
-                  .toList();
+          // final filteredData =
+          //     context
+          //         .read<ReadyCubit>()
+          //         .filterData(AuctionCubit.get(context).auctionId!)
+          //         .where(
+          //           (auction) =>
+          //               auction.id.toString() !=
+          //               AuctionCubit.get(context).auctionId,
+          //         )
+          //         .toList();
           final totalPage = context.read<ReadyCubit>().totalPages;
           final currentPage = context.read<ReadyCubit>().currentPage;
-          ActionCubit.get(context).actionsLoop(
+          AuctionCubit.get(context).auctionsLoop(
             ids:
                 state.data.data.auctions
                     .map((toElement) => toElement.id.toString())
@@ -89,11 +89,11 @@ class _CustomNotstartCardViewItemState extends State<CustomSayantiqListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: filteredData.length + 1,
+              itemCount: sayantaliqAuction.data.auctions.length + 1,
               itemBuilder: (context, index) {
-                if (index < filteredData.length) {
+                if (index < sayantaliqAuction.data.auctions.length) {
                   return CustomSayantilqCardItem(
-                    sayantaliqDataModel: filteredData[index],
+                    sayantaliqDataModel: sayantaliqAuction.data.auctions[index],
                   );
                 } else {
                   return totalPage > 1

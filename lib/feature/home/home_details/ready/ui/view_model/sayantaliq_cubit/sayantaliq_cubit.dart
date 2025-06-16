@@ -31,13 +31,13 @@ class ReadyCubit extends Cubit<ReadyState> {
     );
   }
 
-  List<ReadyAuction> filterData(String id) {
-    final filtered =
-        readyAuctionResponse?.data.auctions
-            .where((model) => model.id.toString() != id)
-            .toList();
+  // List<ReadyAuction> filterData(String id) {
+  //   final filtered =
+  //       readyAuctionResponse?.data.auctions
+  //           .where((model) => model.id.toString() != id)
+  //           .toList();
 
-    emit(FilterState());
-    return filtered ?? [];
-  }
+  //   emit(FilterState());
+  //   return filtered ?? [];
+  // }
 }

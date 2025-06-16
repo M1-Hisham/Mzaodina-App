@@ -4,19 +4,19 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/action/model/actions_model.dart';
-import 'package:mzaodina_app/feature/action/model/actionstatus_model.dart';
+import 'package:mzaodina_app/feature/auction/model/actionstatus_model.dart';
+import 'package:mzaodina_app/feature/auction/model/auctions_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-part 'action_state.dart';
+part 'auction_state.dart';
 
-class ActionCubit extends Cubit<ActionState> {
-  ActionCubit() : super(ActionLoadingStates());
-  static ActionCubit get(context) => BlocProvider.of(context);
+class AuctionCubit extends Cubit<AuctionState> {
+  AuctionCubit() : super(AuctionLoadingStates());
+  static AuctionCubit get(context) => BlocProvider.of(context);
 
   WebSocketChannel? channel;
   // String auctionChannel = "auction.3";
@@ -26,7 +26,7 @@ class ActionCubit extends Cubit<ActionState> {
     print("dddddddddddddfg");
     channel!.sink.close();
 
-    emit(ActionLoadingStates());
+    emit(AuctionLoadingStates());
 
     try {
       final uri = Uri.parse(
@@ -36,7 +36,7 @@ class ActionCubit extends Cubit<ActionState> {
       channel = IOWebSocketChannel.connect(uri);
 
       if (channel == null) {
-        emit(ActionErrorStates(error: 'فشل إنشاء اتصال.'));
+        emit(AuctionErrorStates(error: 'فشل إنشاء اتصال.'));
         return;
       }
 
@@ -47,7 +47,7 @@ class ActionCubit extends Cubit<ActionState> {
 
       channel!.stream.listen(
         (message) {
-          emit(ActionLoadingStates());
+          emit(AuctionLoadingStates());
 
           try {
             final decoded = jsonDecode(message);
@@ -71,7 +71,7 @@ class ActionCubit extends Cubit<ActionState> {
                 // print('[max_bid: $maxBd');
                 maxBid = MaxBid.fromJson(maxBd);
                 // print(' max_bid: ${maxBid!.user}');
-                emit(ActionSuccessStates(actionStatusModel: maxBid!));
+                emit(AuctionSuccessStates(auctionStatusModel: maxBid!));
               } else {
                 print(' لا يوجد max_bid في الرسالة');
               }
@@ -82,7 +82,7 @@ class ActionCubit extends Cubit<ActionState> {
         },
         onError: (error) {
           print(' خطأ في الاتصال: $error');
-          emit(ActionErrorStates(error: error.toString()));
+          emit(AuctionErrorStates(error: error.toString()));
         },
         onDone: () {
           print(' تم إغلاق الاتصال، سيتم إعادة المحاولة...');
@@ -93,14 +93,14 @@ class ActionCubit extends Cubit<ActionState> {
       );
     } catch (e) {
       print(' استثناء غير متوقع: $e');
-      emit(ActionErrorStates(error: 'حدث خطأ أثناء الاتصال: $e'));
+      emit(AuctionErrorStates(error: 'حدث خطأ أثناء الاتصال: $e'));
     }
   }
 
   AuctionModel? auctionModel;
   String? auctionId = "";
   void auctionState({required String id, required String state}) {
-    emit(ActionEventLoadingStates());
+    emit(AuctionEventLoadingStates());
 
     try {
       final uri = Uri.parse(
@@ -110,7 +110,7 @@ class ActionCubit extends Cubit<ActionState> {
       channel = IOWebSocketChannel.connect(uri);
 
       if (channel == null) {
-        emit(ActionEventErrorStates(error: 'فشل إنشاء اتصال WebSocket.'));
+        emit(AuctionEventErrorStates(error: 'فشل إنشاء اتصال WebSocket.'));
         return;
       }
 
@@ -121,7 +121,7 @@ class ActionCubit extends Cubit<ActionState> {
 
       channel!.stream.listen(
         (message) {
-          emit(ActionEventLoadingStates());
+          emit(AuctionEventLoadingStates());
 
           try {
             final decoded = jsonDecode(message);
@@ -145,7 +145,7 @@ class ActionCubit extends Cubit<ActionState> {
                 print('[WebSocket] ✅ DATA: $auction');
                 auctionModel = AuctionModel.fromJson(auction);
                 print('[WebSocket] ✅ max_bid: ${auctionModel!.auction}');
-                emit(ActionEventSuccessStates());
+                emit(AuctionEventSuccessStates());
               } else {
                 print('[WebSocket] ⚠️ لا يوجد max_bid في الرسالة');
               }
@@ -156,7 +156,7 @@ class ActionCubit extends Cubit<ActionState> {
         },
         onError: (error) {
           print('[WebSocket] ❌ خطأ في الاتصال: $error');
-          emit(ActionEventErrorStates(error: error.toString()));
+          emit(AuctionEventErrorStates(error: error.toString()));
         },
         onDone: () {
           print('[WebSocket] ℹ️ تم إغلاق الاتصال، سيتم إعادة المحاولة...');
@@ -167,16 +167,16 @@ class ActionCubit extends Cubit<ActionState> {
       );
     } catch (e) {
       print('[WebSocket] ❌ استثناء غير متوقع: $e');
-      emit(ActionEventErrorStates(error: 'حدث خطأ أثناء الاتصال: $e'));
+      emit(AuctionEventErrorStates(error: 'حدث خطأ أثناء الاتصال: $e'));
     }
   }
 
-  void actionsLoop({
+  void auctionsLoop({
     required List<String> ids,
     required String state,
     required BuildContext context,
   }) {
-    emit(ActionEventLoadingStates());
+    emit(AuctionEventLoadingStates());
     print(ids);
     try {
       final uri = Uri.parse(
@@ -186,13 +186,13 @@ class ActionCubit extends Cubit<ActionState> {
       channel = IOWebSocketChannel.connect(uri);
 
       if (channel == null) {
-        emit(ActionEventErrorStates(error: 'فشل إنشاء اتصال WebSocket.'));
+        emit(AuctionEventErrorStates(error: 'فشل إنشاء اتصال WebSocket.'));
         return;
       }
 
       channel!.stream.listen(
         (message) {
-          emit(ActionEventLoadingStates());
+          emit(AuctionEventLoadingStates());
 
           try {
             final decoded = jsonDecode(message);
@@ -223,15 +223,15 @@ class ActionCubit extends Cubit<ActionState> {
               if (auction != null) {
                 print('[WebSocket] ✅ DATA: $auction');
                 auctionId = auction['id'].toString();
-                BlocProvider.of<ReadyCubit>(context).filterData(auctionId!);
-                BlocProvider.of<NotstartCubit>(context).filterData(auctionId!);
-                BlocProvider.of<OngoingCubit>(context).filterData(auctionId!);
+                // BlocProvider.of<ReadyCubit>(context).filterData(auctionId!);
+                // BlocProvider.of<NotstartCubit>(context).filterData(auctionId!);
+                // BlocProvider.of<OngoingCubit>(context).filterData(auctionId!);
                 print("sss");
 
                 print(auctionId);
 
                 auctionModel = AuctionModel.fromJson(auction);
-                emit(ActionEventSuccessStates());
+                emit(AuctionEventSuccessStates());
               } else {
                 print('[WebSocket] ⚠️ لا يوجد max_bid في الرسالة');
               }
@@ -242,18 +242,18 @@ class ActionCubit extends Cubit<ActionState> {
         },
         onError: (error) {
           print('[WebSocket] ❌ خطأ في الاتصال: $error');
-          emit(ActionEventErrorStates(error: error.toString()));
+          emit(AuctionEventErrorStates(error: error.toString()));
         },
         onDone: () {
           print('[WebSocket] ℹ️ تم إغلاق الاتصال، سيتم إعادة المحاولة...');
           Future.delayed(Duration(seconds: 3), () {
-            actionsLoop(ids: ids, state: state, context: context);
+            auctionsLoop(ids: ids, state: state, context: context);
           });
         },
       );
     } catch (e) {
       print('[WebSocket] ❌ استثناء غير متوقع: $e');
-      emit(ActionEventErrorStates(error: 'حدث خطأ أثناء الاتصال: $e'));
+      emit(AuctionEventErrorStates(error: 'حدث خطأ أثناء الاتصال: $e'));
     }
   }
 

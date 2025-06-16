@@ -183,7 +183,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
-import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
+import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/jaraa_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
@@ -306,7 +306,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                   child: CustomElevatedButton(
                     text: 'عرض التفاصيل',
                     onPressed: () {
-                      ActionCubit.get(context).disconnectWebSocket();
+                      AuctionCubit.get(context).disconnectWebSocket();
                       Navigator.pushNamed(
                         context,
                         AppRoutes.homeDetailsOngoingScreenRoute,
@@ -315,7 +315,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                           'jaraaDataModel': widget.jaraaDataModel,
                         },
                       );
-                      ActionCubit.get(context).connectToAuctionWebSocket(
+                      AuctionCubit.get(context).connectToAuctionWebSocket(
                         id: widget.jaraaDataModel.id.toString(),
                       );
                     },
