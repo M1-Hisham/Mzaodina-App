@@ -3,6 +3,7 @@ import 'package:mzaodina_app/core/api/api_constants.dart';
 import 'package:mzaodina_app/feature/auth/forgot-password/data/model/forgot_password_response.dart';
 import 'package:mzaodina_app/feature/auth/register/data/model/register_model.dart';
 import 'package:mzaodina_app/feature/home/data/model/actions_count_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/bidding_response_model.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_checkout_url_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/auctions_bidding_body.dart';
@@ -113,28 +114,28 @@ abstract class ApiService {
 
   /// service for auctions Notstart
   @GET(ApiConstants.auctions)
-  Future<NotstartAuctionResponse> getNotStartAuctions({
+  Future<HomeDetailsModel> getNotStartAuctions({
     @Query("filter") String filter = "notstart",
     @Query("page") int? page = 1,
   });
 
   /// service for auctions Ready
   @GET(ApiConstants.auctions)
-  Future<ReadyAuctionResponse> getReadyAuctions({
+  Future<HomeDetailsModel> getReadyAuctions({
     @Query("filter") String filter = "ready",
     @Query("page") int? page = 1,
   });
 
   /// service for auctions Ongoing
   @GET(ApiConstants.auctions)
-  Future<OngoingAuctionResponse> getOngoingAuctions({
+  Future<HomeDetailsModel> getOngoingAuctions({
     @Query("filter") String filter = "ongoing",
     @Query("page") int? page = 1,
   });
 
   /// service for auctions Finished
   @GET(ApiConstants.auctions)
-  Future<FinishedAuctionsResponse> getFinishedAuctions({
+  Future<HomeDetailsModel> getFinishedAuctions({
     @Query("filter") String filter = "finished",
     @Query("page") int? page = 1,
   });

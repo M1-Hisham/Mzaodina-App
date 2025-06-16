@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/model/notstart_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/data/repo/notstart_auction_repo.dart';
 
@@ -8,7 +9,7 @@ class NotstartCubit extends Cubit<NotstartState> {
   final NotstartAuctionRepo notstartAuctionRepo;
   int currentPage = 1;
   int totalPages = 1;
-  NotstartAuctionResponse? notstartAuctionResponse;
+  HomeDetailsModel? notstartAuctionResponse;
 
   NotstartCubit(this.notstartAuctionRepo) : super(NotstartInitial());
 
@@ -29,7 +30,7 @@ class NotstartCubit extends Cubit<NotstartState> {
     );
   }
 
-  List<NotstartAuction> filterData(String id) {
+  List<UnifiedAuction> filterData(String id) {
     final filtered =
         notstartAuctionResponse?.data.auctions
             .where((model) => model.id.toString() != id)

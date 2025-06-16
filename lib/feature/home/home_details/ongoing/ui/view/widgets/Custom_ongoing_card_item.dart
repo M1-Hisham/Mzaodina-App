@@ -8,6 +8,7 @@ import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/ongoing_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
@@ -15,7 +16,7 @@ import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_state.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomOngoingCardViewItem extends StatefulWidget {
-  final OngoingAuction ongoingDataModel;
+  final UnifiedAuction ongoingDataModel;
 
   const CustomOngoingCardViewItem({super.key, required this.ongoingDataModel});
 
@@ -30,7 +31,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
   @override
   void initState() {
     super.initState();
-    eventTimeFromApi = DateTime.parse(widget.ongoingDataModel.endAt);
+    eventTimeFromApi = DateTime.parse(widget.ongoingDataModel.endAt!);
   }
 
   @override
@@ -52,7 +53,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                 Hero(
                   tag: widget.ongoingDataModel.slug,
                   child: CachedNetworkImage(
-                    imageUrl: widget.ongoingDataModel.product.images.first,
+                    imageUrl: widget.ongoingDataModel.product!.images.first,
                     width: 120.w,
                     height: 158.h,
                     fit: BoxFit.cover,
@@ -71,7 +72,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.h),
                         child: Text(
-                          widget.ongoingDataModel.product.nameAr,
+                          widget.ongoingDataModel.product?.nameAr ??'',
                           style: R.textStyles.font16BlackW500Light,
                         ),
                       ),
@@ -93,12 +94,12 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                       SizedBox(height: 12.h),
                       CoustomRowItem(
                         title: 'السعر بالأسواق',
-                        price: widget.ongoingDataModel.product.price.toString(),
+                        price: widget.ongoingDataModel.product?.price.toString() ??'',
                       ),
                       CoustomRowItem(
                         title: 'أعلى مزاد',
-                        price: widget.ongoingDataModel.maxBid.bid
-                            .toStringAsFixed(2),
+                        price: widget.ongoingDataModel.maxBid?.bid
+                            .toStringAsFixed(2) ?? '',
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -110,7 +111,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                             ),
                             const Spacer(),
                             Text(
-                              widget.ongoingDataModel.maxBid.user.username,
+                              widget.ongoingDataModel.maxBid?.user.username ??'',
                               style: R.textStyles.font16primaryW600Light,
                             ),
                           ],
@@ -134,7 +135,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                         context,
                         AppRoutes.homeDetailsOngoingScreenRoute,
                         arguments: {
-                          'eventTime': eventTimeFromApi,
+                        
                           'jaraaDataModel': widget.ongoingDataModel,
                         },
                       );

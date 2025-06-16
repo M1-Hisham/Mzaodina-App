@@ -13,6 +13,7 @@ import 'package:mzaodina_app/feature/auth/register/ui/view/register_form_screen.
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/country_cubit/country_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/phone_code_cubit/phone_code_cubit.dart';
 import 'package:mzaodina_app/feature/auth/register/ui/view_model/register_cubit/register_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/home_details_ongoing_screen.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
@@ -81,7 +82,7 @@ class AppRouter {
               ),
         );
       case AppRoutes.homeDetailsFinishedScreenRoute:
-        final args = settings.arguments as FinishedAction;
+        final args = settings.arguments as UnifiedAuction;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
@@ -130,7 +131,6 @@ class AppRouter {
                   ),
                 ],
                 child: HomeDetailsOngoingScreen(
-                  eventTimeFromApi: args['eventTime']!,
                   ongoingDetails: args['jaraaDataModel'],
                 ),
               ),

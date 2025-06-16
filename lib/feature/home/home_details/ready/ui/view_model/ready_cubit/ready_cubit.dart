@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/data/model/ready_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/data/repo/ready_aution_repo.dart';
 
@@ -8,7 +9,7 @@ class ReadyCubit extends Cubit<ReadyState> {
   final ReadyAutionRepo sayantaliqAuctionRepo;
   int currentPage = 1;
   int totalPages = 1;
-  ReadyAuctionResponse? readyAuctionResponse;
+  HomeDetailsModel? readyAuctionResponse;
   ReadyCubit(this.sayantaliqAuctionRepo) : super(ReadyInitial());
 
   Future<void> getReadyAuctions({int? page}) async {
@@ -31,7 +32,7 @@ class ReadyCubit extends Cubit<ReadyState> {
     );
   }
 
-  List<ReadyAuction> filterData(String id) {
+  List<UnifiedAuction> filterData(String id) {
     final filtered =
         readyAuctionResponse?.data.auctions
             .where((model) => model.id.toString() != id)

@@ -225,10 +225,8 @@ class _CustomTapViewState extends State<CustomTapView>
                                         bottom: 16.0,
                                       ),
                                       child: CustomFinishedCardViewItem(
-                                        finishedDataModel:
-                                            muntaliAuctionResponse
-                                                .data
-                                                .auctions[index],
+                                        finishedDataModel:    muntaliAuctionResponse.data.auctions[index]
+                                   
                                       ),
                                     );
                                   } else if (totalPage > 1) {

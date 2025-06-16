@@ -8,6 +8,7 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/bid_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/bids_dialog.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
@@ -17,7 +18,7 @@ import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_car
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 
 class HomeDetailsFinishedScreen extends StatelessWidget {
-  final FinishedAction finishedDetails;
+  final UnifiedAuction finishedDetails;
   const HomeDetailsFinishedScreen({super.key, required this.finishedDetails});
 
   @override
@@ -30,7 +31,7 @@ class HomeDetailsFinishedScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomAppBar(
-                title: finishedDetails.product.nameAr,
+                title: finishedDetails.product?.nameAr ?? '',
                 slug: finishedDetails.slug,
               ),
             ),
@@ -195,7 +196,7 @@ class HomeDetailsFinishedScreen extends StatelessWidget {
                               horizontal: 16.0,
                             ),
                             child: HtmlWidget(
-                              finishedDetails.product.productDetails,
+                              finishedDetails.product!.productDetails,
                               textStyle: R.textStyles.font12Grey3W500Light,
                             ),
                           ),

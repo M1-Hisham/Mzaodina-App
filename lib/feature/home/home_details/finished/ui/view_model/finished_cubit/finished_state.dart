@@ -7,7 +7,7 @@ final class FinishedInitial extends FinishedState {}
 final class FinishedLoading extends FinishedState {}
 
 final class FinishedSuccess extends FinishedState {
-  final FinishedAuctionsResponse data;
+  final HomeDetailsModel data;
 
   FinishedSuccess(this.data);
 }

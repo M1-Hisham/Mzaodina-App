@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/ongoing_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/repo/ongoing_auction_repo.dart';
 
@@ -8,7 +9,7 @@ class OngoingCubit extends Cubit<OngoingState> {
   final OngoingAuctionRepo ongoingAuctionRepo;
   int currentPage = 1;
   int totalPages = 1;
-  OngoingAuctionResponse? ongoingAuctionResponse;
+  HomeDetailsModel? ongoingAuctionResponse;
   OngoingCubit(this.ongoingAuctionRepo) : super(OngoingInitial());
 
   Future<void> getOngoingAuctions({int? page}) async {
@@ -30,7 +31,7 @@ class OngoingCubit extends Cubit<OngoingState> {
     );
   }
 
-  List<OngoingAuction> filterData(String id) {
+  List<UnifiedAuction> filterData(String id) {
     final filtered =
         ongoingAuctionResponse?.data.auctions
             .where((model) => model.id.toString() != id)

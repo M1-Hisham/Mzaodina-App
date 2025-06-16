@@ -7,7 +7,7 @@ final class NotstartInitial extends NotstartState {}
 final class NotstartLoading extends NotstartState {}
 
 final class NotstartSuccess extends NotstartState {
-  final NotstartAuctionResponse data;
+  final HomeDetailsModel data;
 
   NotstartSuccess(this.data);
 }

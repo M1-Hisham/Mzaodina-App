@@ -405,7 +405,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<NotstartAuctionResponse> getNotStartAuctions({
+  Future<HomeDetailsModel> getNotStartAuctions({
     String filter = "notstart",
     int? page = 1,
   }) async {
@@ -414,7 +414,7 @@ class _ApiService implements ApiService {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NotstartAuctionResponse>(
+    final _options = _setStreamType<HomeDetailsModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -425,9 +425,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NotstartAuctionResponse _value;
+    late HomeDetailsModel _value;
     try {
-      _value = NotstartAuctionResponse.fromJson(_result.data!);
+      _value = HomeDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -436,7 +436,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<ReadyAuctionResponse> getReadyAuctions({
+  Future<HomeDetailsModel> getReadyAuctions({
     String filter = "ready",
     int? page = 1,
   }) async {
@@ -445,7 +445,7 @@ class _ApiService implements ApiService {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ReadyAuctionResponse>(
+    final _options = _setStreamType<HomeDetailsModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -456,9 +456,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ReadyAuctionResponse _value;
+    late HomeDetailsModel _value;
     try {
-      _value = ReadyAuctionResponse.fromJson(_result.data!);
+      _value = HomeDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -467,7 +467,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<OngoingAuctionResponse> getOngoingAuctions({
+  Future<HomeDetailsModel> getOngoingAuctions({
     String filter = "ongoing",
     int? page = 1,
   }) async {
@@ -476,7 +476,7 @@ class _ApiService implements ApiService {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<OngoingAuctionResponse>(
+    final _options = _setStreamType<HomeDetailsModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -487,9 +487,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late OngoingAuctionResponse _value;
+    late HomeDetailsModel _value;
     try {
-      _value = OngoingAuctionResponse.fromJson(_result.data!);
+      _value = HomeDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -498,7 +498,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FinishedAuctionsResponse> getFinishedAuctions({
+  Future<HomeDetailsModel> getFinishedAuctions({
     String filter = "finished",
     int? page = 1,
   }) async {
@@ -507,7 +507,7 @@ class _ApiService implements ApiService {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<FinishedAuctionsResponse>(
+    final _options = _setStreamType<HomeDetailsModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -518,9 +518,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late FinishedAuctionsResponse _value;
+    late HomeDetailsModel _value;
     try {
-      _value = FinishedAuctionsResponse.fromJson(_result.data!);
+      _value = HomeDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

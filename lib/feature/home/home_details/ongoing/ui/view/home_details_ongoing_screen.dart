@@ -10,6 +10,7 @@ import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
 import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/bid_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/ongoing_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/bids_dialog.dart';
@@ -23,14 +24,9 @@ import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_detai
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class HomeDetailsOngoingScreen extends StatefulWidget {
-  final DateTime eventTimeFromApi;
-  final OngoingAuction ongoingDetails;
+  final UnifiedAuction ongoingDetails;
 
-  const HomeDetailsOngoingScreen({
-    super.key,
-    required this.ongoingDetails,
-    required this.eventTimeFromApi,
-  });
+  const HomeDetailsOngoingScreen({super.key, required this.ongoingDetails});
 
   @override
   State<HomeDetailsOngoingScreen> createState() =>
@@ -47,7 +43,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
       context,
     ).connectToAuctionWebSocket(id: widget.ongoingDetails.id.toString());
     super.initState();
-    eventTimeFromApi = DateTime.parse(widget.ongoingDetails.endAt);
+    eventTimeFromApi = DateTime.parse(widget.ongoingDetails.endAt!);
     _webSocketCubit = context.read<WebSocketCubit>();
     ActionCubit.get(
       context,
@@ -78,7 +74,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                   horizontal: 16,
                 ),
                 child: CustomAppBar(
-                  title: widget.ongoingDetails.product.nameAr,
+                  title: widget.ongoingDetails.product?.nameAr ?? '',
                   slug: widget.ongoingDetails.slug,
                 ),
               ),
@@ -118,7 +114,9 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                     vertical: 12.h,
                                   ),
                                   child: CustomBlocBuilderCountdown(
-                                    eventTime: eventTimeFromApi,
+                                    eventTime: DateTime.parse(
+                                      state.ongoingShowAuctionMode.data.endAt,
+                                    ),
                                     getNow:
                                         () =>
                                             _webSocketCubit

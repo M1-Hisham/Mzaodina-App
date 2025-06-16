@@ -7,6 +7,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/data/model/ready_auction_response.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
@@ -15,7 +16,7 @@ import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_state.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomSayantilqCardItem extends StatefulWidget {
-  final ReadyAuction sayantaliqDataModel;
+  final UnifiedAuction sayantaliqDataModel;
 
   const CustomSayantilqCardItem({super.key, required this.sayantaliqDataModel});
 
@@ -69,7 +70,7 @@ class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
                   Hero(
                     tag: widget.sayantaliqDataModel.slug,
                     child: CachedNetworkImage(
-                      imageUrl: widget.sayantaliqDataModel.product.images[0],
+                      imageUrl: widget.sayantaliqDataModel.product!.images[0],
                       width: 120.w,
                       height: 158.h,
                       fit: BoxFit.cover,
@@ -88,7 +89,7 @@ class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 8.h),
                           child: Text(
-                            widget.sayantaliqDataModel.product.nameAr,
+                            widget.sayantaliqDataModel.product?.nameAr ?? '',
                             style: R.textStyles.font16BlackW500Light,
                           ),
                         ),
@@ -137,8 +138,9 @@ class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
                         CoustomRowItem(
                           title: 'السعر بالأسواق',
                           price:
-                              widget.sayantaliqDataModel.product.price
-                                  .toString(),
+                              widget.sayantaliqDataModel.product?.price
+                                  .toString() ??
+                              ' ',
                         ),
                         CoustomRowItem(
                           title: 'بداية المزاد',

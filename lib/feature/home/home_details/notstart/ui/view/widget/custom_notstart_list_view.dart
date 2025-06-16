@@ -64,7 +64,6 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
             );
           }
         } else if (state is NotstartSuccess) {
-   
           final filteredData =
               context
                   .read<NotstartCubit>()
