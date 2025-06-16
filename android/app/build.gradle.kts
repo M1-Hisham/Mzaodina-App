@@ -14,7 +14,7 @@ plugins {
 
 // ✅ توليد versionCode من التاريخ بشكل آمن
 val date = SimpleDateFormat("yyyyMMddHH").format(Date())  // HH لضمان فريدة كل ساعة
-val versionPropsFile = rootProject.file("version.properties")
+val versionPropsFile = rootProject.file("local.properties")
 val versionProps = Properties()
 
 if (versionPropsFile.exists()) {
