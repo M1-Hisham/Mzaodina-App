@@ -38,7 +38,14 @@ class ReadyCubit extends Cubit<ReadyState> {
             .where((model) => model.id.toString() != id)
             .toList();
 
-    emit(FilterState());
-    return filtered ?? [];
-  }
+  // List<ReadyAuction> filterData(String id) {
+  //   final filtered =
+  //       readyAuctionResponse?.data.auctions
+  //           .where((model) => model.id.toString() != id)
+  //           .toList();
+
+
+  //   emit(FilterState());
+  //   return filtered ?? [];
+  // }
 }

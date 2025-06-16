@@ -31,13 +31,21 @@ class OngoingCubit extends Cubit<OngoingState> {
     );
   }
 
+
   List<UnifiedAuction> filterData(String id) {
     final filtered =
         ongoingAuctionResponse?.data.auctions
             .where((model) => model.id.toString() != id)
             .toList();
 
-    emit(FilterState());
-    return filtered ?? [];
-  }
+  // List<OngoingAuction> filterData(String id) {
+  //   final filtered =
+  //       ongoingAuctionResponse?.data.auctions
+  //           .where((model) => model.id.toString() != id)
+  //           .toList();
+
+
+  //   emit(FilterState());
+  //   return filtered ?? [];
+  // }
 }

@@ -4,8 +4,8 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
-import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/Custom_ongoing_card_item.dart';
+import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/Custom_jaraa_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
@@ -64,36 +64,27 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
             );
           }
         } else if (state is OngoingSuccess) {
-          final filteredData =
-              context
-                  .read<OngoingCubit>()
-                  .filterData(ActionCubit.get(context).auctionId!)
-                  .where(
-                    (auction) =>
-                        auction.id.toString() !=
-                        ActionCubit.get(context).auctionId,
-                  )
-                  .toList();
-          final totalPage = context.read<OngoingCubit>().totalPages;
-          final currentPage = context.read<OngoingCubit>().currentPage;
-          ActionCubit.get(context).actionsLoop(
-            ids:
-                state.data.data.auctions
-                    .map((toElement) => toElement.id.toString())
-                    .toList(),
-            state: 'finished',
-            context: context,
-          );
+          final jaraaAuction = state.data;
+          // final filteredData =
+          //     context
+          //         .read<OngoingCubit>()
+          //         .filterData(AuctionCubit.get(context).auctionId!)
+          //           (auction) =>
+          //               auction.id.toString() !=
+          //               AuctionCubit.get(context).auctionId,
+          //         )
+          //         .toList();
+       
           return RefreshIndicator(
             onRefresh: () => context.read<OngoingCubit>().getOngoingAuctions(),
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: filteredData.length + 1,
+              itemCount: jaraaAuction.data.auctions.length + 1,
               itemBuilder: (context, index) {
-                if (index < filteredData.length) {
+                if (index < jaraaAuction.data.auctions.length) {
                   return CustomOngoingCardViewItem(
-                    ongoingDataModel: filteredData[index],
+                    jaraaDataModel: jaraaAuction.data.auctions[index],
                   );
                 } else {
                   return totalPage > 1
@@ -108,11 +99,7 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 6),
-                              child: InkWell(
                                 onTap: () {
-                                  context
-                                      .read<OngoingCubit>()
-                                      .getOngoingAuctions(page: page);
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(

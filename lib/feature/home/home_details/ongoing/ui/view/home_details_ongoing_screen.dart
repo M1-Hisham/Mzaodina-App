@@ -9,8 +9,12 @@ import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_details_shimmer.dart';
+
 import 'package:mzaodina_app/feature/action/cubit/action_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/data/model/home_details_model.dart';
+
+import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
+
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/bid_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/ongoing_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/bids_dialog.dart';
@@ -39,13 +43,13 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
 
   @override
   void initState() {
-    ActionCubit.get(
+    AuctionCubit.get(
       context,
     ).connectToAuctionWebSocket(id: widget.ongoingDetails.id.toString());
     super.initState();
     eventTimeFromApi = DateTime.parse(widget.ongoingDetails.endAt!);
     _webSocketCubit = context.read<WebSocketCubit>();
-    ActionCubit.get(
+    AuctionCubit.get(
       context,
     ).connectToAuctionWebSocket(id: widget.ongoingDetails.id.toString());
     // Ensure WebSocket is connected
@@ -56,9 +60,6 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ActionCubit.get(
-      context,
-    ).connectToAuctionWebSocket(id: widget.ongoingDetails.id.toString());
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -102,7 +103,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                               .getOngoingShowAuctionCubit(
                                 widget.ongoingDetails.slug,
                               ),
-                      child: BlocBuilder<ActionCubit, ActionState>(
+                      child: BlocBuilder<AuctionCubit, AuctionState>(
                         builder: (context, statee) {
                           return SingleChildScrollView(
                             child: Column(
@@ -172,7 +173,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                   child: CoustomRowItem(
                                     title: 'أعلى مبلغ مزايدة',
                                     price:
-                                        ActionCubit.get(
+                                        AuctionCubit.get(
                                           context,
                                         ).maxBid?.bid.toString() ??
                                         state
@@ -202,7 +203,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                       ),
                                       Spacer(),
                                       Text(
-                                        ActionCubit.get(
+                                        AuctionCubit.get(
                                               context,
                                             ).maxBid?.user!.username ??
                                             state
@@ -234,7 +235,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                       ),
                                       Spacer(),
                                       Text(
-                                        ActionCubit.get(
+                                        AuctionCubit.get(
                                               context,
                                             ).maxBid?.user!.country ??
                                             state
