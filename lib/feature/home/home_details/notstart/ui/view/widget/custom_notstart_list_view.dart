@@ -89,12 +89,20 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: qadimAuctionResponse.data.auctions.length,
+              itemCount:
+                  BlocProvider.of<NotstartCubit>(
+                    context,
+                  ).notstartAuctionResponse!.data.auctions.length,
               itemBuilder: (context, index) {
-                if (index < qadimAuctionResponse.data.auctions.length) {
+                if (index <
+                    BlocProvider.of<NotstartCubit>(
+                      context,
+                    ).notstartAuctionResponse!.data.auctions.length) {
                   return CustomNotstartCardItem(
                     notstartDataModel:
-                        qadimAuctionResponse.data.auctions[index],
+                        BlocProvider.of<NotstartCubit>(
+                          context,
+                        ).notstartAuctionResponse!.data.auctions[index],
                   );
                 } else {
                   return totalPage > 1

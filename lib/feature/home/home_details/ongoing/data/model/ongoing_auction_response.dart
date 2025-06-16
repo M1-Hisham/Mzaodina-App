@@ -26,8 +26,14 @@ class Data {
   final Meta? meta;
 
   Data({required this.auctions, this.meta});
+
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
   Map<String, dynamic> toJson() => _$DataToJson(this);
+
+  // ✅ دالة copyWith
+  Data copyWith({List<OngoingAuction>? auctions, Meta? meta}) {
+    return Data(auctions: auctions ?? this.auctions, meta: meta ?? this.meta);
+  }
 }
 
 @JsonSerializable()

@@ -63,16 +63,7 @@ class _CustomNotstartCardViewItemState extends State<CustomreadyListView>
           }
         } else if (state is ReadySuccess) {
           final sayantaliqAuction = state.data;
-          // final filteredData =
-          //     context
-          //         .read<ReadyCubit>()
-          //         .filterData(AuctionCubit.get(context).auctionId!)
-          //         .where(
-          //           (auction) =>
-          //               auction.id.toString() !=
-          //               AuctionCubit.get(context).auctionId,
-          //         )
-          //         .toList();
+
           final totalPage = context.read<ReadyCubit>().totalPages;
           final currentPage = context.read<ReadyCubit>().currentPage;
           AuctionCubit.get(context).auctionsLoop(
@@ -89,11 +80,21 @@ class _CustomNotstartCardViewItemState extends State<CustomreadyListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: sayantaliqAuction.data.auctions.length + 1,
+              itemCount:
+                  BlocProvider.of<ReadyCubit>(
+                    context,
+                  ).readyAuctionResponse!.data.auctions.length +
+                  1,
               itemBuilder: (context, index) {
-                if (index < sayantaliqAuction.data.auctions.length) {
+                if (index <
+                    BlocProvider.of<ReadyCubit>(
+                      context,
+                    ).readyAuctionResponse!.data.auctions.length) {
                   return CustomSayantilqCardItem(
-                    sayantaliqDataModel: sayantaliqAuction.data.auctions[index],
+                    sayantaliqDataModel:
+                        BlocProvider.of<ReadyCubit>(
+                          context,
+                        ).readyAuctionResponse!.data.auctions[index],
                   );
                 } else {
                   return totalPage > 1

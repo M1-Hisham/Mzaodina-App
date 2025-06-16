@@ -81,11 +81,21 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
             child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: jaraaAuction.data.auctions.length + 1,
+              itemCount:
+                  BlocProvider.of<OngoingCubit>(
+                    context,
+                  ).ongoingAuctionResponse!.data.auctions.length +
+                  1,
               itemBuilder: (context, index) {
-                if (index < jaraaAuction.data.auctions.length) {
+                if (index <
+                    BlocProvider.of<OngoingCubit>(
+                      context,
+                    ).ongoingAuctionResponse!.data.auctions.length) {
                   return CustomOngoingCardViewItem(
-                    jaraaDataModel: jaraaAuction.data.auctions[index],
+                    jaraaDataModel:
+                        BlocProvider.of<OngoingCubit>(
+                          context,
+                        ).ongoingAuctionResponse!.data.auctions[index],
                   );
                 } else {
                   return totalPage > 1

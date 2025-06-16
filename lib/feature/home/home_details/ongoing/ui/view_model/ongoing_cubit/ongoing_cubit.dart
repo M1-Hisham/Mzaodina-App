@@ -30,13 +30,25 @@ class OngoingCubit extends Cubit<OngoingState> {
     );
   }
 
-  // List<OngoingAuction> filterData(String id) {
-  //   final filtered =
-  //       ongoingAuctionResponse?.data.auctions
-  //           .where((model) => model.id.toString() != id)
-  //           .toList();
+  void excludeAuctionById(String id) {
+    if (ongoingAuctionResponse == null) return;
 
-  //   emit(FilterState());
-  //   return filtered ?? [];
-  // }
+    final filteredList =
+        ongoingAuctionResponse!.data.auctions
+            .where((auction) => auction.id.toString() != id)
+            .toList();
+
+    final updatedData = ongoingAuctionResponse!.data.copyWith(
+      auctions: filteredList,
+    );
+
+    final updatedResponse = OngoingAuctionResponse(
+      status: ongoingAuctionResponse!.status,
+      message: ongoingAuctionResponse!.message,
+      data: updatedData,
+    );
+
+    ongoingAuctionResponse = updatedResponse;
+    emit(OngoingSuccess(updatedResponse));
+  }
 }

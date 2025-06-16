@@ -6,6 +6,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/router/route.dart';
 import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
+import 'package:mzaodina_app/feature/notifications/ui/view/notifications_screen.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/get_notification_cubit/get_notification_cubit.dart';
 import 'package:mzaodina_app/feature/notifications/ui/view_model/mark_notification_cubit/mark_notification_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
@@ -64,7 +65,7 @@ class MzaodinaApp extends StatelessWidget {
         title: 'Mzaodin',
         debugShowCheckedModeBanner: false,
         theme: R.themeData.themeLight,
-        // home: ActionScreen(),
+        // home: NotificationsScreen(),
         initialRoute: AppRoutes.splasahRouter,
         onGenerateRoute: AppRouter.generateRoute,
       ),

@@ -11,6 +11,7 @@ class FinishedCubit extends Cubit<FinishedState> {
   int currentPage = 1;
   int totalPages = 1;
   FinishedCubit(this.finishedAuctionRepo) : super(FinishedInitial());
+  FinishedAuctionsResponse? finishedAuctionsResponse;
   Future<void> getFinishedAuctions({int? page}) async {
     emit(FinishedLoading());
     final response = await finishedAuctionRepo.getFinishedAuctions(
@@ -26,8 +27,30 @@ class FinishedCubit extends Cubit<FinishedState> {
         log('Current Page: $currentPage');
         totalPages = success.data.meta?.lastPage ?? 1;
         log('Total Pages: $totalPages');
+        finishedAuctionsResponse = success;
         emit(FinishedSuccess(success));
       },
     );
+  }
+
+  void excludeAuctionById(String id) {
+    if (finishedAuctionsResponse == null) return;
+
+    final filteredList =
+        finishedAuctionsResponse!.data.auctions
+            .where((auction) => auction.id.toString() != id)
+            .toList();
+    final updatedData = finishedAuctionsResponse!.data.copyWith(
+      auctions: filteredList,
+    );
+
+    final updatedResponse = FinishedAuctionsResponse(
+      status: finishedAuctionsResponse!.status,
+      message: finishedAuctionsResponse!.message,
+      data: updatedData,
+    );
+
+    finishedAuctionsResponse = updatedResponse;
+    emit(FinishedSuccess(updatedResponse));
   }
 }

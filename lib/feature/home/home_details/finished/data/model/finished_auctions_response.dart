@@ -23,14 +23,17 @@ class FinishedAuctionsResponse {
 class Data {
   final List<FinishedAction> auctions;
   final Meta? meta;
-  
-  Data({
-    required this.auctions,
-     this.meta,
-  });
+
+  Data({required this.auctions, this.meta});
+
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
   Map<String, dynamic> toJson() => _$DataToJson(this);
+
+  Data copyWith({List<FinishedAction>? auctions, Meta? meta}) {
+    return Data(auctions: auctions ?? this.auctions, meta: meta ?? this.meta);
+  }
 }
+
 @JsonSerializable()
 class Meta {
   @JsonKey(name: 'current_page')
@@ -38,10 +41,7 @@ class Meta {
   @JsonKey(name: 'last_page')
   final int lastPage;
 
-  Meta({
-    required this.currentPage,
-    required this.lastPage,
-  });
+  Meta({required this.currentPage, required this.lastPage});
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
   Map<String, dynamic> toJson() => _$MetaToJson(this);

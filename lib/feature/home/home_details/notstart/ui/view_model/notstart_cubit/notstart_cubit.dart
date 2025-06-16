@@ -29,15 +29,24 @@ class NotstartCubit extends Cubit<NotstartState> {
     );
   }
 
-  // List<NotstartAuction> filterData(String id) {
-  //   final filtered =
-  //       notstartAuctionResponse?.data.auctions
-  //           .where((model) => model.id.toString() != id)
-  //           .toList();
+  void excludeAuctionById(String id) {
+    if (notstartAuctionResponse == null) return;
 
-  //   emit(FilterState());
-  //   print("sss");
+    final filteredList =
+        notstartAuctionResponse!.data.auctions
+            .where((auction) => auction.id.toString() != id)
+            .toList();
+    final updatedData = notstartAuctionResponse!.data.copyWith(
+      auctions: filteredList,
+    );
 
-  //   return filtered ?? [];
-  // }
+    final updatedResponse = NotstartAuctionResponse(
+      status: notstartAuctionResponse!.status,
+      message: notstartAuctionResponse!.message,
+      data: updatedData,
+    );
+
+    notstartAuctionResponse = updatedResponse;
+    emit(NotstartSuccess(updatedResponse));
+  }
 }

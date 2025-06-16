@@ -24,6 +24,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<GetNotificationCubit>().fetchNotifications(
+      context.read<GetNotificationCubit>().currentPage + 1,
+      append: true,
+    );
 
     _scrollController.addListener(() {
       final cubit = context.read<GetNotificationCubit>();
@@ -47,91 +51,105 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<GetNotificationCubit>();
+    return BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: R.colors.whiteLight,
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _customAppBar(title: 'الإشعارات', context: context),
+                SizedBox(height: 12.h),
+                InkWell(
+                  onTap: () {
+                    final getNotificationState = cubit.state;
 
-    return Scaffold(
-      backgroundColor: R.colors.whiteLight,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _customAppBar(title: 'الإشعارات', context: context),
-            SizedBox(height: 12.h),
-            InkWell(
-              onTap: () {
-                final getNotificationState = cubit.state;
-
-                if (getNotificationState is GetAllNotificationSuccess) {
-                  final allIds = getNotificationState.response.notifications.data.map((e) => e.id).toList();
-
-                  context.read<MarkNotificationCubit>().markAllNotifications(allIds).then((_) {
-                    for (final id in allIds) {
-                      cubit.markNotificationAsReadLocally(id);
+                    if (getNotificationState is GetAllNotificationSuccess) {
+                      final allIds =
+                          getNotificationState.response.notifications.data
+                              .map((e) => e.id)
+                              .toList();
+                      context
+                          .read<MarkNotificationCubit>()
+                          .markAllNotifications(allIds)
+                          .then((_) {
+                            // Refresh notifications after marking all as read
+                            cubit.fetchNotifications(1);
+                          });
                     }
-                  });
-                }
-              },
-              child: Text(
-                'تحديد الكل كمقروء',
-                style: R.textStyles.font14primaryW500Light,
-              ),
-            ),
-            SizedBox(height: 12.h),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  await cubit.fetchNotifications(1);
-                },
-                child: BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
-                  builder: (context, state) {
-                    if (state is GetAllNotificationLoading) {
-                      return Center(child: NotificationsShimmer());
-                    } else if (state is GetAllNotificationFailure) {
-                      return CustomErorrWidget(
-                        message: 'لا توجد اشعارات جديدة',
-                        onRefresh: () => cubit.fetchNotifications(1),
-                      );
-                    } else if (state is GetAllNotificationSuccess) {
-                      final notifications = state.response.notifications.data;
-                      if (notifications.isEmpty) {
-                        return Center(
-                          child: Text(
-                            'لا توجد إشعارات جديدة',
-                            style: R.textStyles.font14BlackW500Light,
-                          ),
-                        );
-                      }
-
-                      return ListView.separated(
-                        controller: _scrollController,
-                        itemCount: notifications.length + 1,
-                        separatorBuilder: (_, __) => SizedBox(height: 12.h),
-                        itemBuilder: (context, index) {
-                          if (index < notifications.length) {
-                            final notification = notifications[index];
-                            return CustomNotificationItem(notification: notification);
-                          } else {
-                            return Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Center(
-                                child: cubit.currentPage < cubit.totalPages
-                                    ? CircularProgressIndicator()
-                                    : SizedBox(),
+                  },
+                  child: Text(
+                    'تحديد الكل كمقروء',
+                    style: R.textStyles.font14primaryW500Light,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      cubit.fetchNotifications(1);
+                    },
+                    child: BlocBuilder<
+                      GetNotificationCubit,
+                      GetAllNotificationState
+                    >(
+                      builder: (context, state) {
+                        if (state is GetAllNotificationLoading) {
+                          return Center(child: NotificationsShimmer());
+                        } else if (state is GetAllNotificationFailure) {
+                          return CustomErorrWidget(
+                            message: 'لا توجد اشعارات جديدة',
+                            onRefresh: () => cubit.fetchNotifications(1),
+                          );
+                        } else if (state is GetAllNotificationSuccess) {
+                          final notifications =
+                              state.response.notifications.data;
+                          if (notifications.isEmpty) {
+                            return Center(
+                              child: Text(
+                                'لا توجد إشعارات جديدة',
+                                style: R.textStyles.font14BlackW500Light,
                               ),
                             );
                           }
-                        },
-                      );
-                    }
 
-                    return const SizedBox();
-                  },
+                          return ListView.separated(
+                            controller: _scrollController,
+                            itemCount: notifications.length + 1,
+                            separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                            itemBuilder: (context, index) {
+                              if (index < notifications.length) {
+                                final notification = notifications[index];
+                                return CustomNotificationItem(
+                                  notification: notification,
+                                );
+                              } else {
+                                return Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Center(
+                                    child:
+                                        cubit.currentPage < cubit.totalPages
+                                            ? CircularProgressIndicator()
+                                            : SizedBox(),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        }
+
+                        return const SizedBox();
+                      },
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -160,13 +178,18 @@ class CustomNotificationSelected extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.read<MarkNotificationCubit>().markSingleNotification(id: notification.id);
-        context.read<GetNotificationCubit>().markNotificationAsReadLocally(notification.id);
-
+        context
+            .read<MarkNotificationCubit>()
+            .markSingleNotification(id: notification.id)
+            .then((_) {
+              // Refresh notifications after marking as read
+              context.read<GetNotificationCubit>().fetchNotifications(1);
+            });
         if (notification.data.actions.isNotEmpty) {
           final url = notification.data.actions[0].url;
           extractIdFromUrl(url, context);
         } else {
+          // If no URL is available, go to home
           Navigator.pushNamed(context, AppRoutes.homeRoute);
         }
       },
@@ -179,8 +202,14 @@ class CustomNotificationSelected extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(notification.data.title, style: R.textStyles.font12Grey3W500Light),
-            Text(notification.data.body, style: R.textStyles.font14BlackW500Light),
+            Text(
+              notification.data.title,
+              style: R.textStyles.font12Grey3W500Light,
+            ),
+            Text(
+              notification.data.body,
+              style: R.textStyles.font14BlackW500Light,
+            ),
           ],
         ),
       ),
@@ -197,13 +226,19 @@ class CustomNotificationUnSelected extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.read<MarkNotificationCubit>().markSingleNotification(id: notification.id);
-        context.read<GetNotificationCubit>().markNotificationAsReadLocally(notification.id);
-
+        log('==============${notification.data.actions[0].url}');
+        context
+            .read<MarkNotificationCubit>()
+            .markSingleNotification(id: notification.id)
+            .then((_) {
+              // Refresh notifications after marking as read
+              context.read<GetNotificationCubit>().fetchNotifications(1);
+            });
         if (notification.data.actions.isNotEmpty) {
           final url = notification.data.actions[0].url;
           extractIdFromUrl(url, context);
         } else {
+          // If no URL is available, go to home
           Navigator.pushNamed(context, AppRoutes.homeRoute);
         }
       },
@@ -216,8 +251,14 @@ class CustomNotificationUnSelected extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(notification.data.title, style: R.textStyles.font12Grey3W500Light),
-            Text(notification.data.body, style: R.textStyles.font14BlackW500Light),
+            Text(
+              notification.data.title,
+              style: R.textStyles.font12Grey3W500Light,
+            ),
+            Text(
+              notification.data.body,
+              style: R.textStyles.font14BlackW500Light,
+            ),
           ],
         ),
       ),
@@ -239,16 +280,23 @@ void extractIdFromUrl(String url, BuildContext context) {
     return;
   }
 
+  // Handle invoice URLs
   if (pathSegments.contains('invoice')) {
+    String invoiceId = pathSegments.last;
     Navigator.pushNamed(context, AppRoutes.invoiceDetailsScreenRoute);
     return;
   }
 
+  // Handle shipping URLs
   if (pathSegments.contains('shipping')) {
-    Navigator.pushNamed(context, AppRoutes.completeShippingInformationScreenRoute);
+    Navigator.pushNamed(
+      context,
+      AppRoutes.completeShippingInformationScreenRoute,
+    );
     return;
   }
 
+  // Default to home if no specific pattern matches
   Navigator.pushNamed(context, AppRoutes.homeRoute);
 }
 
@@ -266,7 +314,9 @@ Widget _customAppBar({required String title, context}) {
           Align(
             alignment: Alignment.centerLeft,
             child: InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context);
+              },
               child: SvgPicture.asset(R.images.backIcon),
             ),
           ),

@@ -44,7 +44,7 @@ class _HomeDetailsNotstartScreenState extends State<HomeDetailsNotstartScreen>
 
   @override
   void dispose() {
-    // دايمًا لازم تلغي التسجيل
+    //   لازم تلغي التسجيل
     routeObserver.unsubscribe(this);
     super.dispose();
   }

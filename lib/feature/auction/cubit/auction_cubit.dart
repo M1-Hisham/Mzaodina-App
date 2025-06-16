@@ -4,6 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/auction/model/actionstatus_model.dart';
 import 'package:mzaodina_app/feature/auction/model/auctions_model.dart';
+import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_cubit/finished_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/ready_cubit/ready_cubit.dart';
+import 'package:mzaodina_app/main.dart';
 
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -219,9 +223,20 @@ class AuctionCubit extends Cubit<AuctionState> {
               if (auction != null) {
                 print('[WebSocket] ✅ DATA: $auction');
                 auctionId = auction['id'].toString();
-                // BlocProvider.of<ReadyCubit>(context).filterData(auctionId!);
-                // BlocProvider.of<NotstartCubit>(context).filterData(auctionId!);
-                // BlocProvider.of<OngoingCubit>(context).filterData(auctionId!);
+                if (state == "ongoing") {
+                  context.read<OngoingCubit>().excludeAuctionById(
+                    auctionId.toString(),
+                  );
+                } else if (state == "ready") {
+                  context.read<ReadyCubit>().excludeAuctionById(
+                    auctionId.toString(),
+                  );
+                } else {
+                  context.read<FinishedCubit>().excludeAuctionById(
+                    auctionId.toString(),
+                  );
+                }
+
                 print("sss");
 
                 print(auctionId);
