@@ -154,7 +154,7 @@ class _CustomTapViewState extends State<CustomTapView>
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: CustomNotstartListView(
-                          notstartCounter: notstartCount ?? 0,
+                          qadimCounter: notstartCount ?? 0,
                         ),
                       ),
                       Padding(
@@ -171,7 +171,7 @@ class _CustomTapViewState extends State<CustomTapView>
                         child: BlocProvider(
                           create: (context) => WebSocketCubit(),
                           child: CustomOngoingListView(
-                            ongoingCounter: ongoingCount ?? 0,
+                            jaraaCounter: ongoingCount ?? 0,
                           ),
                         ),
                       ),

@@ -18,7 +18,6 @@ class GetAllNotificationModel {
 
   Map<String, dynamic> toJson() => _$GetAllNotificationModelToJson(this);
 
-  // ✅ copyWith
   GetAllNotificationModel copyWith({
     Notifications? notifications,
     int? unreadCount,
@@ -74,7 +73,6 @@ class Notifications {
 
   Map<String, dynamic> toJson() => _$NotificationsToJson(this);
 
-  // ✅ copyWith
   Notifications copyWith({
     int? currentPage,
     List<NotificationItem>? data,
@@ -139,6 +137,29 @@ class NotificationItem {
       _$NotificationItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$NotificationItemToJson(this);
+
+  // ✅ copyWith
+  NotificationItem copyWith({
+    String? id,
+    String? type,
+    String? notifiableType,
+    int? notifiableId,
+    NotificationData? data,
+    DateTime? readAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return NotificationItem(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      notifiableType: notifiableType ?? this.notifiableType,
+      notifiableId: notifiableId ?? this.notifiableId,
+      data: data ?? this.data,
+      readAt: readAt ?? this.readAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }
 
 @JsonSerializable(explicitToJson: true)

@@ -1,74 +1,35 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
+import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_state.dart';
 
-class CountdownTimerInvoice extends StatefulWidget {
+class CountdownTimerInvoice extends StatelessWidget {
   final DateTime expiresAt;
 
   const CountdownTimerInvoice({super.key, required this.expiresAt});
 
   @override
-  State<CountdownTimerInvoice> createState() => _CountdownTimerInvoiceState();
-}
+  Widget build(BuildContext context) {
+    return BlocBuilder<WebSocketCubit, WebSocketState>(
+      builder: (context, state) {
+        final webSocketCubit = WebSocketCubit();
+        final now = webSocketCubit.getCurrentServerTime();
+        final diff = expiresAt.difference(now);
+        final remainingTime = diff.isNegative ? Duration.zero : diff;
 
-class _CountdownTimerInvoiceState extends State<CountdownTimerInvoice> {
-  late Timer _timer;
-  late Duration _remainingTime;
-
-  @override
-  void initState() {
-    super.initState();
-    _calculateRemainingTime();
-    _startTimer();
-  }
-
-  void _calculateRemainingTime() {
-    final now = DateTime.now();
-    final diff = widget.expiresAt.difference(now);
-    _remainingTime = diff.isNegative ? Duration.zero : diff;
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _calculateRemainingTime();
-
-        if (_remainingTime.inSeconds <= 0) {
-          _timer.cancel();
-        }
-      });
-    });
+        return Text(
+          _formatDuration(remainingTime),
+          style: R.textStyles.font16primaryW600Light,
+        );
+      },
+    );
   }
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
-
     final totalMinutes = duration.inMinutes;
     final seconds = twoDigits(duration.inSeconds.remainder(60));
-
     return '$totalMinutes:$seconds';
-  }
-
-  // String _formatDuration(Duration duration) {
-  //   String twoDigits(int n) => n.toString().padLeft(2, '0');
-  //   final hours = twoDigits(duration.inHours);
-  //   final minutes = twoDigits(duration.inMinutes.remainder(60));
-  //   final seconds = twoDigits(duration.inSeconds.remainder(60));
-  //   return '$hours:$minutes:$seconds'; // HH:MM:SS
-  // }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      _formatDuration(_remainingTime),
-      style: R.textStyles.font16primaryW600Light,
-    );
   }
 }
