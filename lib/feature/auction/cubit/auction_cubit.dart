@@ -2,11 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mzaodina_app/feature/action/model/actions_model.dart';
-import 'package:mzaodina_app/feature/action/model/actionstatus_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/qadim_cubit/qadim_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/jaraa_cubit/jaraa_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/sayantaliq_cubit/sayantaliq_cubit.dart';
+import 'package:mzaodina_app/feature/auction/model/actionstatus_model.dart';
+import 'package:mzaodina_app/feature/auction/model/auctions_model.dart';
+
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
