@@ -27,14 +27,14 @@ class GetNotificationCubit extends Cubit<GetAllNotificationState> {
         emit(GetAllNotificationFailure(failure.errMessage));
       },
       (data) {
+        isLoadingMore = false;
+
         currentPage = page;
         totalPages = data.notifications.lastPage;
 
         if (append && state is GetAllNotificationSuccess) {
-          final oldData = (state as GetAllNotificationSuccess)
-              .response
-              .notifications
-              .data;
+          final oldData =
+              (state as GetAllNotificationSuccess).response.notifications.data;
 
           final newData = [...oldData, ...data.notifications.data];
 
@@ -48,10 +48,29 @@ class GetNotificationCubit extends Cubit<GetAllNotificationState> {
         }
 
         isLoadingMore = false;
-
-        log('Current Page: $currentPage');
-        log('Total Pages: $totalPages');
       },
     );
+  }
+
+  void markNotificationAsReadLocally(String id) {
+    if (state is GetAllNotificationSuccess) {
+      final currentState = state as GetAllNotificationSuccess;
+
+      final updatedNotifications =
+          currentState.response.notifications.data.map((notif) {
+            if (notif.id == id) {
+               return notif.copyWith(readAt: DateTime.now());
+             }
+            return notif;
+          }).toList();
+
+      final updatedResponse = currentState.response.copyWith(
+        notifications: currentState.response.notifications.copyWith(
+          data: updatedNotifications,
+        ),
+      );
+
+      emit(GetAllNotificationSuccess(updatedResponse));
+    }
   }
 }

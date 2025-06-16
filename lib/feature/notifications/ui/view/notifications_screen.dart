@@ -62,17 +62,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 final getNotificationState = cubit.state;
 
                 if (getNotificationState is GetAllNotificationSuccess) {
-                  final allIds =
-                      getNotificationState.response.notifications.data
-                          .map((e) => e.id)
-                          .toList();
-                  context
-                      .read<MarkNotificationCubit>()
-                      .markAllNotifications(allIds)
-                      .then((_) {
-                        // Refresh notifications after marking all as read
-                        cubit.fetchNotifications(1);
-                      });
+                  final allIds = getNotificationState.response.notifications.data.map((e) => e.id).toList();
+
+                  context.read<MarkNotificationCubit>().markAllNotifications(allIds).then((_) {
+                    for (final id in allIds) {
+                      cubit.markNotificationAsReadLocally(id);
+                    }
+                  });
                 }
               },
               child: Text(
@@ -84,58 +80,53 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
-                  cubit.fetchNotifications(1);
+                  await cubit.fetchNotifications(1);
                 },
-                child:
-                    BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
-                      builder: (context, state) {
-                        if (state is GetAllNotificationLoading) {
-                          return Center(child: NotificationsShimmer());
-                        } else if (state is GetAllNotificationFailure) {
-                          return CustomErorrWidget(
-                            message: 'لا توجد اشعارات جديدة',
-                            onRefresh: () => cubit.fetchNotifications(1),
-                          );
-                        } else if (state is GetAllNotificationSuccess) {
-                          final notifications =
-                              state.response.notifications.data;
-                          if (notifications.isEmpty) {
-                            return Center(
-                              child: Text(
-                                'لا توجد إشعارات جديدة',
-                                style: R.textStyles.font14BlackW500Light,
+                child: BlocBuilder<GetNotificationCubit, GetAllNotificationState>(
+                  builder: (context, state) {
+                    if (state is GetAllNotificationLoading) {
+                      return Center(child: NotificationsShimmer());
+                    } else if (state is GetAllNotificationFailure) {
+                      return CustomErorrWidget(
+                        message: 'لا توجد اشعارات جديدة',
+                        onRefresh: () => cubit.fetchNotifications(1),
+                      );
+                    } else if (state is GetAllNotificationSuccess) {
+                      final notifications = state.response.notifications.data;
+                      if (notifications.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'لا توجد إشعارات جديدة',
+                            style: R.textStyles.font14BlackW500Light,
+                          ),
+                        );
+                      }
+
+                      return ListView.separated(
+                        controller: _scrollController,
+                        itemCount: notifications.length + 1,
+                        separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                        itemBuilder: (context, index) {
+                          if (index < notifications.length) {
+                            final notification = notifications[index];
+                            return CustomNotificationItem(notification: notification);
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Center(
+                                child: cubit.currentPage < cubit.totalPages
+                                    ? CircularProgressIndicator()
+                                    : SizedBox(),
                               ),
                             );
                           }
+                        },
+                      );
+                    }
 
-                          return ListView.separated(
-                            controller: _scrollController,
-                            itemCount: notifications.length + 1,
-                            separatorBuilder: (_, __) => SizedBox(height: 12.h),
-                            itemBuilder: (context, index) {
-                              if (index < notifications.length) {
-                                final notification = notifications[index];
-                                return CustomNotificationItem(
-                                  notification: notification,
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Center(
-                                    child:
-                                        cubit.currentPage < cubit.totalPages
-                                            ? CircularProgressIndicator()
-                                            : SizedBox(),
-                                  ),
-                                );
-                              }
-                            },
-                          );
-                        }
-
-                        return const SizedBox();
-                      },
-                    ),
+                    return const SizedBox();
+                  },
+                ),
               ),
             ),
           ],
@@ -169,18 +160,13 @@ class CustomNotificationSelected extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context
-            .read<MarkNotificationCubit>()
-            .markSingleNotification(id: notification.id)
-            .then((_) {
-              // Refresh notifications after marking as read
-              context.read<GetNotificationCubit>().fetchNotifications(1);
-            });
+        context.read<MarkNotificationCubit>().markSingleNotification(id: notification.id);
+        context.read<GetNotificationCubit>().markNotificationAsReadLocally(notification.id);
+
         if (notification.data.actions.isNotEmpty) {
           final url = notification.data.actions[0].url;
           extractIdFromUrl(url, context);
         } else {
-          // If no URL is available, go to home
           Navigator.pushNamed(context, AppRoutes.homeRoute);
         }
       },
@@ -193,14 +179,8 @@ class CustomNotificationSelected extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              notification.data.title,
-              style: R.textStyles.font12Grey3W500Light,
-            ),
-            Text(
-              notification.data.body,
-              style: R.textStyles.font14BlackW500Light,
-            ),
+            Text(notification.data.title, style: R.textStyles.font12Grey3W500Light),
+            Text(notification.data.body, style: R.textStyles.font14BlackW500Light),
           ],
         ),
       ),
@@ -217,19 +197,13 @@ class CustomNotificationUnSelected extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        log('==============${notification.data.actions[0].url}');
-        context
-            .read<MarkNotificationCubit>()
-            .markSingleNotification(id: notification.id)
-            .then((_) {
-              // Refresh notifications after marking as read
-              context.read<GetNotificationCubit>().fetchNotifications(1);
-            });
+        context.read<MarkNotificationCubit>().markSingleNotification(id: notification.id);
+        context.read<GetNotificationCubit>().markNotificationAsReadLocally(notification.id);
+
         if (notification.data.actions.isNotEmpty) {
           final url = notification.data.actions[0].url;
           extractIdFromUrl(url, context);
         } else {
-          // If no URL is available, go to home
           Navigator.pushNamed(context, AppRoutes.homeRoute);
         }
       },
@@ -242,14 +216,8 @@ class CustomNotificationUnSelected extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              notification.data.title,
-              style: R.textStyles.font12Grey3W500Light,
-            ),
-            Text(
-              notification.data.body,
-              style: R.textStyles.font14BlackW500Light,
-            ),
+            Text(notification.data.title, style: R.textStyles.font12Grey3W500Light),
+            Text(notification.data.body, style: R.textStyles.font14BlackW500Light),
           ],
         ),
       ),
@@ -271,23 +239,16 @@ void extractIdFromUrl(String url, BuildContext context) {
     return;
   }
 
-  // Handle invoice URLs
   if (pathSegments.contains('invoice')) {
-    String invoiceId = pathSegments.last;
     Navigator.pushNamed(context, AppRoutes.invoiceDetailsScreenRoute);
     return;
   }
 
-  // Handle shipping URLs
   if (pathSegments.contains('shipping')) {
-    Navigator.pushNamed(
-      context,
-      AppRoutes.completeShippingInformationScreenRoute,
-    );
+    Navigator.pushNamed(context, AppRoutes.completeShippingInformationScreenRoute);
     return;
   }
 
-  // Default to home if no specific pattern matches
   Navigator.pushNamed(context, AppRoutes.homeRoute);
 }
 
@@ -305,9 +266,7 @@ Widget _customAppBar({required String title, context}) {
           Align(
             alignment: Alignment.centerLeft,
             child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: () => Navigator.pop(context),
               child: SvgPicture.asset(R.images.backIcon),
             ),
           ),
