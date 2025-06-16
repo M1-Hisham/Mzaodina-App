@@ -12,8 +12,8 @@ import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_in
 import 'package:mzaodina_app/mzaodina_app.dart';
 
 class CustomOngoingListView extends StatefulWidget {
-  final int ongoingCounter;
-  const CustomOngoingListView({super.key, required this.ongoingCounter});
+  final int jaraaCounter;
+  const CustomOngoingListView({super.key, required this.jaraaCounter});
 
   @override
   State<CustomOngoingListView> createState() =>
@@ -54,7 +54,7 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
         if (state is OngoingLoading) {
           return const Center(child: MazadShimmer());
         } else if (state is OngoingError) {
-          if (widget.ongoingCounter == 0) {
+          if (widget.jaraaCounter == 0) {
             return CustomNotItem();
           } else {
             return CustomErorrWidget(
@@ -65,16 +65,17 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
           }
         } else if (state is OngoingSuccess) {
           final jaraaAuction = state.data;
-          // final filteredData =
-          //     context
-          //         .read<OngoingCubit>()
-          //         .filterData(AuctionCubit.get(context).auctionId!)
-          //           (auction) =>
-          //               auction.id.toString() !=
-          //               AuctionCubit.get(context).auctionId,
-          //         )
-          //         .toList();
-       
+
+          final totalPage = context.read<OngoingCubit>().totalPages;
+          final currentPage = context.read<OngoingCubit>().currentPage;
+          AuctionCubit.get(context).auctionsLoop(
+            ids:
+                state.data.data.auctions
+                    .map((toElement) => toElement.id.toString())
+                    .toList(),
+            state: 'finished',
+            context: context,
+          );
           return RefreshIndicator(
             onRefresh: () => context.read<OngoingCubit>().getOngoingAuctions(),
             child: ListView.builder(
@@ -99,7 +100,11 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: InkWell(
                                 onTap: () {
+                                  context
+                                      .read<OngoingCubit>()
+                                      .getOngoingAuctions(page: page);
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
