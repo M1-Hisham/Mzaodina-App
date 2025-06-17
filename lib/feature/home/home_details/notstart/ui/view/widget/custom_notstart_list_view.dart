@@ -38,6 +38,8 @@ class _CustomNotstartListViewState extends State<CustomNotstartListView>
 
   @override
   void dispose() {
+    AuctionCubit.get(context).disconnectWebSocket();
+
     // دايمًا لازم تلغي التسجيل
     routeObserver.unsubscribe(this);
     super.dispose();

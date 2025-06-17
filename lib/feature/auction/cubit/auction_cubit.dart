@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/auction/model/actionstatus_model.dart';
-import 'package:mzaodina_app/feature/auction/model/auctions_model.dart';
+import 'package:mzaodina_app/feature/auction/model/auction_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_cubit/finished_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_cubit/notstart_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
@@ -274,6 +274,13 @@ class AuctionCubit extends Cubit<AuctionState> {
   }
 
   void disconnectWebSocket() {
-    channel!.sink.close();
+    try {
+      if (channel != null && channel!.sink != null) {
+        channel!.sink.close();
+        channel = null;
+      }
+    } catch (e) {
+      print('Error closing WebSocket: $e');
+    }
   }
 }
