@@ -16,6 +16,7 @@ import 'package:mzaodina_app/feature/profile/account-details/view_model/update_p
 import 'package:mzaodina_app/feature/profile/data/model/user_model.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
 import 'package:mzaodina_app/feature/profile/view_model/user_data_cubit/user_data_cubit.dart';
+import 'package:mzaodina_app/core/router/app_routes.dart';
 
 class CompleteShippingInformationScreen extends StatefulWidget {
   const CompleteShippingInformationScreen({super.key});
@@ -52,8 +53,20 @@ class _CompleteShippingInformationScreenState
           await BlocProvider.of<UserDataCubit>(context).fetchUserData();
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('✅ تم استكمال معلومات الشحن')),
+              const SnackBar(
+                content: Text('✅ تم استكمال معلومات الشحن'),
+                duration: Duration(
+                  seconds: 2,
+                ), // تمنح المستخدم فرصة لقراءة الرسالة
+              ),
             );
+
+            // الانتقال إلى الشاشة الرئيسية بعد انتظار انتهاء الرسالة
+            Future.delayed(const Duration(seconds: 2), () {
+              if (mounted) {
+              Navigator.pushReplacementNamed(context, AppRoutes.navBarRoute);
+              }
+            });
           }
         } else if (state is UpdateProfileError) {
           if (mounted) {
