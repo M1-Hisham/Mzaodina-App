@@ -211,7 +211,7 @@ class AuctionCubit extends Cubit<AuctionState> {
                 };
                 channel!.sink.add(jsonEncode(subscribePayload));
               }
-
+              ///////////////////
               debugPrint('✅ Subscribed to all auction channels');
             }
 
@@ -229,7 +229,7 @@ class AuctionCubit extends Cubit<AuctionState> {
                 auctionId = auction['id'].toString();
                 BlocProvider.of<ActionsCountCubit>(context).fetchActionsCount();
                 if (state == "ongoing") {
-                  BlocProvider.of<OngoingCubit>(
+                  BlocProvider.of<ReadyCubit>(
                     context,
                   ).excludeAuctionById(auctionId.toString());
                 } else if (state == "ready") {
@@ -237,7 +237,7 @@ class AuctionCubit extends Cubit<AuctionState> {
                     context,
                   ).excludeAuctionById(auctionId.toString());
                 } else {
-                  BlocProvider.of<ReadyCubit>(
+                  BlocProvider.of<OngoingCubit>(
                     context,
                   ).excludeAuctionById(auctionId.toString());
                 }
