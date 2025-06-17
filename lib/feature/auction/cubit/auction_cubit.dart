@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/auction/model/actionstatus_model.dart';
 import 'package:mzaodina_app/feature/auction/model/auctions_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_cubit/finished_cubit.dart';
+import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_cubit/notstart_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/ready_cubit/ready_cubit.dart';
+import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
 import 'package:mzaodina_app/main.dart';
 
 import 'package:web_socket_channel/io.dart';
@@ -178,6 +180,8 @@ class AuctionCubit extends Cubit<AuctionState> {
   }) {
     emit(AuctionEventLoadingStates());
     print(ids);
+    print(state);
+
     try {
       final uri = Uri.parse(
         "wss://mzaodin.com/app/k5n849mwzstmvbgppimp?protocol=7&client=js&version=7.0.3&flash=false",
@@ -223,18 +227,19 @@ class AuctionCubit extends Cubit<AuctionState> {
               if (auction != null) {
                 print('[WebSocket] ✅ DATA: $auction');
                 auctionId = auction['id'].toString();
+                BlocProvider.of<ActionsCountCubit>(context).fetchActionsCount();
                 if (state == "ongoing") {
-                  context.read<OngoingCubit>().excludeAuctionById(
-                    auctionId.toString(),
-                  );
+                  BlocProvider.of<FinishedCubit>(
+                    context,
+                  ).excludeAuctionById(auctionId.toString());
                 } else if (state == "ready") {
-                  context.read<ReadyCubit>().excludeAuctionById(
-                    auctionId.toString(),
-                  );
+                  BlocProvider.of<NotstartCubit>(
+                    context,
+                  ).excludeAuctionById(auctionId.toString());
                 } else {
-                  context.read<FinishedCubit>().excludeAuctionById(
-                    auctionId.toString(),
-                  );
+                  BlocProvider.of<ReadyCubit>(
+                    context,
+                  ).excludeAuctionById(auctionId.toString());
                 }
 
                 print("sss");
@@ -272,8 +277,3 @@ class AuctionCubit extends Cubit<AuctionState> {
     channel!.sink.close();
   }
 }
-
-// void getModel(onGoaingModel ongoingModel) {
-//   ongoingModel.data.where((model) => model.id != auctionId);
-//   emit(UpdateState);
-// }
