@@ -6,6 +6,7 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
+import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_cubit/notstart_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_ongoing_list_view.dart';
@@ -48,6 +49,18 @@ class _CustomTapViewState extends State<CustomTapView>
         });
         if (newIndex == 0) {
           context.read<NotstartCubit>().getNotStartAuctions();
+          AuctionCubit.get(context).auctionsLoop(
+            ids:
+                context
+                    .read<NotstartCubit>()
+                    .notstartAuctionResponse!
+                    .data
+                    .auctions
+                    .map((toElement) => toElement.id.toString())
+                    .toList(),
+            state: 'ready',
+            context: context,
+          );
         }
         if (newIndex == 1) {
           context.read<ReadyCubit>().getReadyAuctions();

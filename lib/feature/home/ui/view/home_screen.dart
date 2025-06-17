@@ -18,44 +18,49 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: R.colors.whiteLight,
-      body: Column(
-        children: [
-          BlocProvider.value(
-            value: getIt<UserDataCubit>()..fetchUserData(),
-            child: CustomAppBarHome(),
-          ),
-          // SizedBox(height: 20),
-          Expanded(
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create:
-                      (context) =>
-                          getIt<NotstartCubit>()..getNotStartAuctions(),
+      body: BlocProvider(
+        create: (context) => getIt<ActionsCountCubit>()..fetchActionsCount(),
+        child: BlocBuilder<ActionsCountCubit, ActionsCountState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                BlocProvider.value(
+                  value: getIt<UserDataCubit>()..fetchUserData(),
+                  child: CustomAppBarHome(),
                 ),
+                // SizedBox(height: 20),
+                Expanded(
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create:
+                            (context) =>
+                                getIt<NotstartCubit>()..getNotStartAuctions(),
+                      ),
 
-                BlocProvider(
-                  create: (context) => getIt<ReadyCubit>()..getReadyAuctions(),
-                ),
-                BlocProvider(
-                  create:
-                      (context) => getIt<OngoingCubit>()..getOngoingAuctions(),
-                ),
-                BlocProvider(
-                  create:
-                      (context) =>
-                          getIt<FinishedCubit>()..getFinishedAuctions(),
-                ),
-                BlocProvider(
-                  create:
-                      (context) =>
-                          getIt<ActionsCountCubit>()..fetchActionsCount(),
+                      BlocProvider(
+                        create:
+                            (context) =>
+                                getIt<ReadyCubit>()..getReadyAuctions(),
+                      ),
+                      BlocProvider(
+                        create:
+                            (context) =>
+                                getIt<OngoingCubit>()..getOngoingAuctions(),
+                      ),
+                      BlocProvider(
+                        create:
+                            (context) =>
+                                getIt<FinishedCubit>()..getFinishedAuctions(),
+                      ),
+                    ],
+                    child: CustomTapView(),
+                  ),
                 ),
               ],
-              child: CustomTapView(),
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }

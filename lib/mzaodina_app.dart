@@ -25,11 +25,7 @@ class MzaodinaApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<WebSocketCubit>(create: (context) => WebSocketCubit()),
-        BlocProvider(
-          create:
-              (context) =>
-                  AuctionCubit()..auctionState(id: "7", state: "ready"),
-        ),
+        BlocProvider(create: (context) => AuctionCubit()),
         BlocProvider(create: (context) => getIt<MarkNotificationCubit>()),
         BlocProvider(
           create:
