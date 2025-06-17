@@ -83,7 +83,12 @@ class CustomFinishedCardViewItem extends StatelessWidget {
                       title: 'السعر بالأسواق',
                       price: finishedDataModel.product.price.toString(),
                     ),
-                    Padding(
+                    double.tryParse(finishedDataModel.winner.invoicePrice) != null
+                        ? CoustomRowItem(
+                                              title: ' ترسية المزاد',
+                      price: finishedDataModel.winner.invoicePrice.toString(),
+                          )
+                        :                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 6.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,6 +105,8 @@ class CustomFinishedCardViewItem extends StatelessWidget {
                         ],
                       ),
                     ),
+
+                  
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 6.h),
                       child: Row(

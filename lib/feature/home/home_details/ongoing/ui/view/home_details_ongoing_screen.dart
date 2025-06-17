@@ -173,13 +173,14 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                     price:
                                         AuctionCubit.get(
                                           context,
-                                        ).maxBid?.bid.toString() ??
+                                        ).maxBid?.bid?.toStringAsFixed(2) ??
                                         state
                                             .ongoingShowAuctionMode
                                             .data
                                             .maxBid
                                             .bid
-                                            .toString(),
+                                            ?.toStringAsFixed(2) ??
+                                        '0.00',
                                     style: R.textStyles.font14Grey3W500Light,
                                     priceStyle:
                                         R.textStyles.font14primaryW500Light,

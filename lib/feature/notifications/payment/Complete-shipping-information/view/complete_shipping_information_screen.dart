@@ -153,17 +153,6 @@ class _CompleteShippingInformationScreenState
                                       );
                                     },
                                   ),
-
-                                  //                                   EnterThePhoneNumber(
-                                  //                                   initialPhoneCode: await CountryHelper.getDialCodeFromIso(user.data?.phoneCode ?? 'SA'),
-                                  // initialPhoneFlag: CountryHelper.getFlagFromIsoCode(user.data?.phoneCode ?? 'SA'),
-
-                                  //                                     phoneNumberController: _phoneController,
-                                  //                                     isValidator: false,
-                                  //                                     fillColor: R.colors.whiteLight,
-                                  //                                     hintStyle:
-                                  //                                         R.textStyles.font12Grey3W500Light,
-                                  //                                   ),
                                   const SizedBox(height: 14),
                                   _buildLabel('المدينة'),
                                   CustomTextForm(

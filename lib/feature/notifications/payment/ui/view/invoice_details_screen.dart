@@ -9,7 +9,8 @@ import 'package:mzaodina_app/core/widgets/shimmer/invoice_shimmer.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view/widgets/countdown_timer_invoice.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
 import 'package:mzaodina_app/feature/profile/view/widget/custom_appbar_accounet.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 class InvoiceDetailsScreen extends StatelessWidget {
   const InvoiceDetailsScreen({super.key});
 
@@ -153,8 +154,14 @@ class InvoiceDetailsScreen extends StatelessWidget {
                             style: R.textStyles.font14BlackW500Light,
                           ),
                           SizedBox(height: 22.h),
-                          Align(
-                            alignment: Alignment.bottomRight,
+
+                          InkWell(
+                            onTap: () async {
+                              await launchUrlString(
+                                'https://wa.me/+966533576110?text=Hello,\ni\'m coming from App Mzaodina',
+                                mode: LaunchMode.externalApplication,
+                              );
+                            },
                             child: Container(
                               width: 136.w,
                               decoration: BoxDecoration(
@@ -166,12 +173,13 @@ class InvoiceDetailsScreen extends StatelessWidget {
                                 horizontal: 16.w,
                               ),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     'تواصل واتس أب',
                                     style: R.textStyles.font10whiteW500Light,
                                   ),
-                                  Spacer(),
                                   SvgPicture.asset(R.images.whatsIcon),
                                 ],
                               ),

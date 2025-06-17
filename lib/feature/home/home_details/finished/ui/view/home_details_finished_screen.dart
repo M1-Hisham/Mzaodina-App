@@ -89,20 +89,35 @@ class HomeDetailsFinishedScreen extends StatelessWidget {
                               horizontal: 16,
                             ),
                             color: R.colors.transparent,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'مبلغ ترسية المزاد',
-                                  style: R.textStyles.font14Grey3W500Light,
-                                ),
-                                Spacer(),
-                                Text(
-                                  data.winner.invoicePrice,
-                                  style: R.textStyles.font12primaryW600Light,
-                                ),
-                              ],
-                            ),
+                            child:
+                                double.tryParse(data.winner.invoicePrice) ==
+                                        null
+                                    ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'مبلغ ترسية المزاد',
+                                          style:
+                                              R.textStyles.font14Grey3W500Light,
+                                        ),
+                                        Spacer(),
+                                        Text(
+                                          data.winner.invoicePrice,
+                                          style:
+                                              R
+                                                  .textStyles
+                                                  .font12primaryW600Light,
+                                        ),
+                                      ],
+                                    )
+                                    : CoustomRowItem(
+                                      title: 'مبلغ ترسية المزاد',
+                                      price: data.winner.invoicePrice,
+                                      style: R.textStyles.font14Grey3W500Light,
+                                      priceStyle:
+                                          R.textStyles.font14primaryW500Light,
+                                    ),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(
