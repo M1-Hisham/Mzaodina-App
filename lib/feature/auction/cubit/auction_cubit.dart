@@ -229,7 +229,7 @@ class AuctionCubit extends Cubit<AuctionState> {
                 auctionId = auction['id'].toString();
                 BlocProvider.of<ActionsCountCubit>(context).fetchActionsCount();
                 if (state == "ongoing") {
-                  BlocProvider.of<FinishedCubit>(
+                  BlocProvider.of<OngoingCubit>(
                     context,
                   ).excludeAuctionById(auctionId.toString());
                 } else if (state == "ready") {
