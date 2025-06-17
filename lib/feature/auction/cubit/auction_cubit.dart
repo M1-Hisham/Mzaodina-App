@@ -211,7 +211,7 @@ class AuctionCubit extends Cubit<AuctionState> {
                 };
                 channel!.sink.add(jsonEncode(subscribePayload));
               }
-
+              ///////////////////
               debugPrint('✅ Subscribed to all auction channels');
             }
 
