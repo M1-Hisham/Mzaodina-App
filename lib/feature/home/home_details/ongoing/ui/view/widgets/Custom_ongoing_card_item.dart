@@ -85,8 +85,8 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                                     context
                                         .read<WebSocketCubit>()
                                         .getCurrentServerTime(),
-                            progressColor: R.colors.greenColor,
-                            backgroundColor: R.colors.greenColor2,
+                            progressColor: R.colors.greenColor2,
+                            backgroundColor: R.colors.greenColor,
                           );
                         },
                       ),

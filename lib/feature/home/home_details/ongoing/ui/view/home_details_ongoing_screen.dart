@@ -123,8 +123,8 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                             _webSocketCubit
                                                 .getCurrentServerTime() ??
                                             eventTimeFromApi,
-                                    progressColor: R.colors.greenColor,
-                                    backgroundColor: R.colors.greenColor2,
+                                    progressColor: R.colors.greenColor2,
+                                    backgroundColor: R.colors.greenColor,
                                   ),
                                 ),
                                 const SizedBox(height: 8),
