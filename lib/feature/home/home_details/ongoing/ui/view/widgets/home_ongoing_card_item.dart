@@ -141,7 +141,7 @@ class _HomeOngoingCardState extends State<HomeOngoingCard> {
                         context,
                         AppRoutes.homeDetailsOngoingScreenRoute,
                         arguments: {
-                          'eventTime': endAt,
+                          'endAt': endAt,
                           'ongoingDataModel': widget.ongoingDataModel,
                         },
                       );
