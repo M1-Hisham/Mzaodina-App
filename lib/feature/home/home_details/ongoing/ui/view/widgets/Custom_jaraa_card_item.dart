@@ -132,6 +132,11 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                     text: 'عرض التفاصيل',
                     onPressed: () {
                       AuctionCubit.get(context).disconnectWebSocket();
+
+                      AuctionCubit.get(context).auctionState(
+                        id: widget.jaraaDataModel.id.toString(),
+                        state: "ready",
+                      );
                       Navigator.pushNamed(
                         context,
                         AppRoutes.homeDetailsOngoingScreenRoute,

@@ -259,7 +259,12 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0,
                                   ),
-
+                                  /////////////////////////////////
+                                  /////////////////////هنا ضفنا او غيؤنا الحالة الوضع الاصلي هي الحالة الابتدائية بعدين لو حصل تغيرر بتتغير للحالة الحجديدة
+                                  ///دايما لما تكون عايز تستخدم اي متغير  كدا
+                                  ///////================ AuctionCubit.get(
+                                  //  context,
+                                  // ).auctionsModel?================
                                   child: Row(
                                     children: [
                                       Text(
@@ -280,7 +285,14 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                           ),
                                         ),
                                         child: Text(
-                                          'جاري',
+                                          AuctionCubit.get(context)
+                                                      .auctionsModel
+                                                      ?.status!
+                                                      .isNotEmpty ==
+                                                  true
+                                              ? "ممنتهي"
+                                              : 'جاري',
+
                                           style:
                                               R.textStyles.font10whiteW500Light,
                                         ),

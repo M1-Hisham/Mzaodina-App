@@ -39,3 +39,5 @@ class WebSocketDone extends WebSocketState {
   final String message;
   WebSocketDone(this.message);
 }
+
+class WebSocketDisconnected extends WebSocketState {}

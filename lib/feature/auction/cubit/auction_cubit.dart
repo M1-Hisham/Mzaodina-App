@@ -105,6 +105,7 @@ class AuctionCubit extends Cubit<AuctionState> {
   AuctionModel? auctionModel;
   String? auctionId = "";
   void auctionState({required String id, required String state}) {
+    print("++++++++++++++++++++++SSs");
     emit(AuctionEventLoadingStates());
 
     try {
@@ -138,6 +139,8 @@ class AuctionCubit extends Cubit<AuctionState> {
             }
 
             if (event == "pusher_internal:subscription_succeeded") {
+              print("++++++++++++++++++++++SSs");
+
               print('[WebSocket] ✅ تم الاشتراك بنجاح في القناة');
               return;
             }
@@ -147,9 +150,9 @@ class AuctionCubit extends Cubit<AuctionState> {
 
               final auction = payload['auction'];
               if (auction != null) {
-                print('[WebSocket] ✅ DATA: $auction');
-                auctionModel = AuctionModel.fromJson(auction);
-                print('[WebSocket] ✅ max_bid: ${auctionModel!.auction}');
+                print('[WebSocket] ✅ DATAStuTe: $auction');
+                auctionsModel = Auctions.fromJson(auction);
+                print('[WebSocket] ✅ max_bid: ${auctionsModel!.status}');
                 emit(AuctionEventSuccessStates());
               } else {
                 print('[WebSocket] ⚠️ لا يوجد max_bid في الرسالة');
@@ -166,7 +169,7 @@ class AuctionCubit extends Cubit<AuctionState> {
         onDone: () {
           print('[WebSocket] ℹ️ تم إغلاق الاتصال، سيتم إعادة المحاولة...');
           Future.delayed(Duration(seconds: 3), () {
-            connectToAuctionWebSocket(id: id);
+            auctionState(id: id, state: state);
           });
         },
       );
@@ -277,13 +280,11 @@ class AuctionCubit extends Cubit<AuctionState> {
   }
 
   void disconnectWebSocket() {
-    try {
-      if (channel != null && channel!.sink != null) {
-        channel!.sink.close();
-        channel = null;
-      }
-    } catch (e) {
-      print('Error closing WebSocket: $e');
-    }
+    channel?.sink.close();
+    channel = null;
+    auctionsModel = null;
+    auctionModel = null;
+    print("WebSocket disconnected.");
+    emit(AuctionDiscconectedWebSocketStates());
   }
 }

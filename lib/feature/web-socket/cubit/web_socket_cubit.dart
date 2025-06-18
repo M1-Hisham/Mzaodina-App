@@ -138,6 +138,7 @@ class WebSocketCubit extends Cubit<WebSocketState> {
     _keepAliveTimer?.cancel();
     _channel?.sink.close();
     _instance = null;
+    emit(WebSocketDisconnected());
     return super.close();
   }
 }

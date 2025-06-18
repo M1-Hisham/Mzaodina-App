@@ -34,3 +34,5 @@ class AuctionEventErrorStates extends AuctionState {
 }
 
 class AuctionChangeDateStates extends AuctionState {}
+
+class AuctionDiscconectedWebSocketStates extends AuctionState {}
