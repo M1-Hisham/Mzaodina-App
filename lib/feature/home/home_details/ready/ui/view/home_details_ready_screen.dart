@@ -213,17 +213,19 @@ class HomeDetailsReadyScreen extends StatelessWidget {
                                           final cubit =
                                               context.read<WebSocketCubit>();
                                           try {
-                                            return cubit.latestServerTime !=
-                                                    null
-                                                ? DateTime.parse(
-                                                  cubit.latestServerTime!,
-                                                )
-                                                : DateTime.now();
+                                            final latest =
+                                                cubit.latestServerTime;
+                                            if (latest != null) {
+                                              return DateTime.parse(latest);
+                                            } else {
+                                              return eventTimeFromApi;
+                                            }
                                           } catch (_) {
-                                            return DateTime.now();
+                                            return eventTimeFromApi;
                                           }
                                         },
                                       ),
+
                                   child: BlocBuilder<
                                     CounterCubit,
                                     CounterState
@@ -231,7 +233,7 @@ class HomeDetailsReadyScreen extends StatelessWidget {
                                     builder: (context, state) {
                                       if (state is CountdownRunning) {
                                         return Text(
-                                          '${state.hours}:${state.minutes}:${state.seconds}',
+                                          '${state.hours.toString().padLeft(2, '0')}:${state.minutes.toString().padLeft(2, '0')}:${state.seconds.toString().padLeft(2, '0')}',
                                           style:
                                               R
                                                   .textStyles

@@ -78,7 +78,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                       SizedBox(height: 12.h),
                       BlocBuilder<WebSocketCubit, WebSocketState>(
                         builder: (context, state) {
-                          return CustomBlocBuilderCountdown(
+                          return OngoingCountdown(
                             eventTime: eventTimeFromApi,
                             getNow:
                                 () =>

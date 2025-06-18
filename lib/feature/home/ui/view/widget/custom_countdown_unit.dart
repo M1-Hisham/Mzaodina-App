@@ -21,10 +21,7 @@ class CountdownUnitWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double progress =
-        1 -
-        (value /
-            maxValue); //ده علشا ن المؤشر يبدأ مليان وينتهي فاضي لو عاوز العكس استخدم اما لو عاوز العكس استخدم value / maxValue ع طول
+    double progress = 1 -(value /maxValue); //ده علشا ن المؤشر يبدأ مليان وينتهي فاضي لو عاوز العكس استخدم اما لو عاوز العكس استخدم value / maxValue ع طول
 
     progress = progress.clamp(0.0, 1.0);
 

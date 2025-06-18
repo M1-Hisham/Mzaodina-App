@@ -3,12 +3,12 @@
 // import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 // import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
-// class CustomBlocBuilderCountdown extends StatelessWidget {
+// class OngoingCountdown extends StatelessWidget {
 //   final DateTime eventTime;
 //   final DateTime Function() getNow;
 //   final Color progressColor;
 //   final Color backgroundColor;
-//   const CustomBlocBuilderCountdown({
+//   const OngoingCountdown({
 //     super.key,
 //     required this.eventTime,
 //     required this.getNow,
@@ -80,13 +80,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_countdown_unit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cubit.dart';
 
-class CustomBlocBuilderCountdown extends StatefulWidget {
+class OngoingCountdown extends StatefulWidget {
   final DateTime eventTime;
   final DateTime Function() getNow;
   final Color progressColor;
   final Color backgroundColor;
 
-  const CustomBlocBuilderCountdown({
+  const OngoingCountdown({
     super.key,
     required this.eventTime,
     required this.getNow,
@@ -95,12 +95,12 @@ class CustomBlocBuilderCountdown extends StatefulWidget {
   });
 
   @override
-  State<CustomBlocBuilderCountdown> createState() =>
-      _CustomBlocBuilderCountdownState();
+  State<OngoingCountdown> createState() =>
+      _OngoingCountdownState();
 }
 
-class _CustomBlocBuilderCountdownState
-    extends State<CustomBlocBuilderCountdown> {
+class _OngoingCountdownState
+    extends State<OngoingCountdown> {
   late CounterCubit _counterCubit;
 
   @override

@@ -116,12 +116,13 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                     horizontal: 35.w,
                                     vertical: 12.h,
                                   ),
-                                  child: CustomBlocBuilderCountdown(
+                                  child: OngoingCountdown(
                                     eventTime: eventTimeFromApi,
                                     getNow:
                                         () =>
                                             _webSocketCubit
-                                                .getCurrentServerTime(),
+                                                .getCurrentServerTime() ??
+                                            eventTimeFromApi,
                                     progressColor: R.colors.greenColor,
                                     backgroundColor: R.colors.greenColor2,
                                   ),

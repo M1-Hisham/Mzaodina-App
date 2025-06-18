@@ -126,9 +126,8 @@ class WebSocketCubit extends Cubit<WebSocketState> {
 
   DateTime getCurrentServerTime() {
     try {
-      return latestServerTime != null
-          ? DateTime.parse(latestServerTime!)
-          : DateTime.now();
+      return  DateTime.parse(latestServerTime!);
+
     } catch (_) {
       return DateTime.now();
     }

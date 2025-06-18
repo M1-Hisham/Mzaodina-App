@@ -92,7 +92,7 @@ class _CustomNotstartCardViewItemState extends State<CustomreadyListView>
                     BlocProvider.of<ReadyCubit>(
                       context,
                     ).readyAuctionResponse!.data.auctions.length) {
-                  return CustomSayantilqCardItem(
+                  return CustomReadyCardItem(
                     sayantaliqDataModel:
                         BlocProvider.of<ReadyCubit>(
                           context,

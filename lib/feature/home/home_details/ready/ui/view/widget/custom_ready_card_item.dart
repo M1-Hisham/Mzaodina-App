@@ -14,17 +14,16 @@ import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_state.dart';
 import 'package:share_plus/share_plus.dart';
 
-class CustomSayantilqCardItem extends StatefulWidget {
+class CustomReadyCardItem extends StatefulWidget {
   final ReadyAuction sayantaliqDataModel;
 
-  const CustomSayantilqCardItem({super.key, required this.sayantaliqDataModel});
+  const CustomReadyCardItem({super.key, required this.sayantaliqDataModel});
 
   @override
-  State<CustomSayantilqCardItem> createState() =>
-      _CustomSayantilqCardItemState();
+  State<CustomReadyCardItem> createState() => _CustomReadyCardItemState();
 }
 
-class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
+class _CustomReadyCardItemState extends State<CustomReadyCardItem> {
   late final DateTime eventTimeFromApi;
   late final Duration initialDuration;
   int d = 0, h = 0, m = 0, s = 0;
@@ -154,44 +153,43 @@ class _CustomSayantilqCardItemState extends State<CustomSayantilqCardItem> {
                                 style: R.textStyles.font12Grey3W500Light,
                               ),
                               const Spacer(),
-                              BlocBuilder<WebSocketCubit, WebSocketState>(
-                                builder: (context, state) {
-                                  return BlocProvider(
-                                    create:
-                                        (_) => CounterCubit(
-                                          eventTime: eventTimeFromApi,
-                                          getNow:
-                                              () =>
-                                                  context
-                                                      .read<WebSocketCubit>()
-                                                      .getCurrentServerTime(),
-                                        ),
-                                    child: BlocBuilder<
-                                      CounterCubit,
-                                      CounterState
-                                    >(
-                                      builder: (context, state) {
-                                        if (state is CountdownRunning) {
-                                          return Text(
-                                            '${state.hours.toString().padLeft(2, '0')}:${state.minutes.toString().padLeft(2, '0')}:${state.seconds.toString().padLeft(2, '0')}',
-                                            style:
-                                                R
-                                                    .textStyles
-                                                    .font16primaryW600Light,
-                                          );
-                                        } else {
-                                          return Text(
-                                            '00:00:00',
-                                            style:
-                                                R
-                                                    .textStyles
-                                                    .font16primaryW600Light,
-                                          );
+                              BlocProvider(
+                                create:
+                                    (_) => CounterCubit(
+                                      eventTime: eventTimeFromApi,
+                                      getNow: () {
+                                        final cubit =
+                                            context.read<WebSocketCubit>();
+                                        try {
+                                          final latest = cubit.latestServerTime;
+                                          if (latest != null) {
+                                            return DateTime.parse(latest);
+                                          } else {
+                                            return eventTimeFromApi;
+                                          }
+                                        } catch (_) {
+                                          return eventTimeFromApi;
                                         }
                                       },
                                     ),
-                                  );
-                                },
+
+                                child: BlocBuilder<CounterCubit, CounterState>(
+                                  builder: (context, state) {
+                                    if (state is CountdownRunning) {
+                                      return Text(
+                                        '${state.hours.toString().padLeft(2, '0')}:${state.minutes.toString().padLeft(2, '0')}:${state.seconds.toString().padLeft(2, '0')}',
+                                        style:
+                                            R.textStyles.font16primaryW600Light,
+                                      );
+                                    } else {
+                                      return Text(
+                                        '00:00:00',
+                                        style:
+                                            R.textStyles.font16primaryW600Light,
+                                      );
+                                    }
+                                  },
+                                ),
                               ),
                             ],
                           ),
