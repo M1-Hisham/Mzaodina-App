@@ -121,9 +121,8 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                     getNow:
                                         () =>
                                             _webSocketCubit
-                                                .getCurrentServerTime() ??
-                                            eventTimeFromApi,
-                                    progressColor: R.colors.greenColor2,
+                                                .getCurrentServerTime() ,
+                                    progressColor: R.colors.greenColor,
                                     backgroundColor: R.colors.greenColor,
                                   ),
                                 ),

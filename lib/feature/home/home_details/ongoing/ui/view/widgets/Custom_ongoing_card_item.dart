@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/router/app_routes.dart';
 import 'package:mzaodina_app/core/widgets/custom_elevated_button.dart';
@@ -10,14 +10,16 @@ import 'package:mzaodina_app/core/widgets/custom_row_item.dart';
 import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/ongoing_auction_response.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
-import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
-import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_state.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:ntp/ntp.dart'; // ✅ تمت الإضافة
 
 class CustomOngoingCardViewItem extends StatefulWidget {
   final OngoingAuction ongoingDataModel;
 
-  const CustomOngoingCardViewItem({super.key, required this.ongoingDataModel});
+  const CustomOngoingCardViewItem({
+    super.key,
+    required this.ongoingDataModel,
+  });
 
   @override
   State<CustomOngoingCardViewItem> createState() =>
@@ -26,11 +28,22 @@ class CustomOngoingCardViewItem extends StatefulWidget {
 
 class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
   late final DateTime eventTimeFromApi;
+  DateTime? currentNetworkTime;
 
   @override
   void initState() {
     super.initState();
     eventTimeFromApi = DateTime.parse(widget.ongoingDataModel.endAt);
+    _getAccurateTime();
+  }
+
+  Future<void> _getAccurateTime() async {
+    try {
+      final now = await NTP.now();
+      setState(() => currentNetworkTime = now);
+    } catch (_) {
+      setState(() => currentNetworkTime = DateTime.now()); // fallback
+    }
   }
 
   @override
@@ -56,11 +69,9 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                     width: 120.w,
                     height: 158.h,
                     fit: BoxFit.cover,
-                    placeholder:
-                        (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                    errorWidget:
-                        (context, url, error) => const Icon(Icons.error),
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
                 SizedBox(width: 16.w),
@@ -76,20 +87,18 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                         ),
                       ),
                       SizedBox(height: 12.h),
-                      BlocBuilder<WebSocketCubit, WebSocketState>(
-                        builder: (context, state) {
-                          return OngoingCountdown(
-                            eventTime: eventTimeFromApi,
-                            getNow:
-                                () =>
-                                    context
-                                        .read<WebSocketCubit>()
-                                        .getCurrentServerTime(),
-                            progressColor: R.colors.greenColor2,
-                            backgroundColor: R.colors.greenColor,
-                          );
-                        },
-                      ),
+
+                      // ✅ الكاونتر بناء على توقيت الإنترنت
+                      if (currentNetworkTime != null)
+                        OngoingCountdown(
+                          eventTime: eventTimeFromApi,
+                          getNow: () => currentNetworkTime!,
+                          progressColor: R.colors.greenColor2,
+                          backgroundColor: R.colors.greenColor,
+                        )
+                      else
+                        const Center(child: CircularProgressIndicator()),
+
                       SizedBox(height: 12.h),
                       CoustomRowItem(
                         title: 'السعر بالأسواق',
@@ -97,8 +106,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                       ),
                       CoustomRowItem(
                         title: 'أعلى مزاد',
-                        price: widget.ongoingDataModel.maxBid.bid
-                            .toStringAsFixed(2),
+                        price: widget.ongoingDataModel.maxBid.bid.toStringAsFixed(2),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -129,7 +137,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                   child: CustomElevatedButton(
                     text: 'عرض التفاصيل',
                     onPressed: () {
-                      AuctionCubit.get(context).disconnectWebSocket();
+                      // لم نعد بحاجة لفصل/ربط الويب سوكيت هنا
                       AuctionCubit.get(context).auctionState(
                         id: widget.ongoingDataModel.id.toString(),
                         state: "finished",
@@ -141,9 +149,6 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                           'eventTime': eventTimeFromApi,
                           'jaraaDataModel': widget.ongoingDataModel,
                         },
-                      );
-                      AuctionCubit.get(context).connectToAuctionWebSocket(
-                        id: widget.ongoingDataModel.id.toString(),
                       );
                     },
                     backgroundColor: R.colors.primaryColorLight,
@@ -163,8 +168,7 @@ class _CustomOngoingCardViewItemState extends State<CustomOngoingCardViewItem> {
                       SharePlus.instance.share(
                         ShareParams(
                           title: 'Mzaodin',
-                          text:
-                              'mzaodin.sa/auction/${widget.ongoingDataModel.slug}',
+                          text: 'mzaodin.sa/auction/${widget.ongoingDataModel.slug}',
                         ),
                       );
                     },
