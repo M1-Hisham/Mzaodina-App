@@ -4,12 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mzaodina_app/feature/auction/model/actionstatus_model.dart';
 import 'package:mzaodina_app/feature/auction/model/auction_model.dart';
-import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_cubit/finished_cubit.dart';
+import 'package:mzaodina_app/feature/auction/model/auctions_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_cubit/notstart_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ready/ui/view_model/ready_cubit/ready_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view_model/actions-count-cubit/actions_count_cubit.dart';
-import 'package:mzaodina_app/main.dart';
 
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -21,6 +20,7 @@ class AuctionCubit extends Cubit<AuctionState> {
   static AuctionCubit get(context) => BlocProvider.of(context);
 
   WebSocketChannel? channel;
+  Auctions? auctionsModel;
   // String auctionChannel = "auction.3";
   String btcUsdtPrice = "";
   MaxBid? maxBid;
@@ -69,8 +69,11 @@ class AuctionCubit extends Cubit<AuctionState> {
               final payload = jsonDecode(data);
 
               final maxBd = payload['auction']?['max_bid'];
+              final auctions = payload['auction']?['max_bid'];
+
               if (maxBd != null) {
                 // print('[max_bid: $maxBd');
+                auctionsModel = Auctions.fromJson(auctions);
                 maxBid = MaxBid.fromJson(maxBd);
                 // print(' max_bid: ${maxBid!.user}');
                 emit(AuctionSuccessStates(auctionStatusModel: maxBid!));

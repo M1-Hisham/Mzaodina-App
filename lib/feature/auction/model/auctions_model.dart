@@ -1,11 +1,11 @@
-class AuctionModel {
+class AuctionsModel {
   bool? status;
   String? message;
   Data? data;
 
-  AuctionModel({this.status, this.message, this.data});
+  AuctionsModel({this.status, this.message, this.data});
 
-  AuctionModel.fromJson(Map<String, dynamic> json) {
+  AuctionsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -71,7 +71,7 @@ class Auctions {
 
   Product? product;
   Winner? winner;
-  MaxBid? maxBid;
+  MaxXBid? maxXBid;
 
   Auctions({
     this.id,
@@ -91,7 +91,7 @@ class Auctions {
     this.startAt,
     this.product,
     this.winner,
-    this.maxBid,
+    this.maxXBid,
   });
 
   Auctions.fromJson(Map<String, dynamic> json) {
@@ -113,7 +113,8 @@ class Auctions {
     canBidding = json['canBidding'];
     endAt = json['end_at'];
     winner = json['winner'] != null ? Winner.fromJson(json['winner']) : null;
-    maxBid = json['max_bid'] != null ? MaxBid.fromJson(json['max_bid']) : null;
+    maxXBid =
+        json['max_bid'] != null ? MaxXBid.fromJson(json['max_bid']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -135,8 +136,8 @@ class Auctions {
     if (product != null) {
       data['product'] = product!.toJson();
     }
-    if (maxBid != null) {
-      data['max_bid'] = maxBid!.toJson();
+    if (maxXBid != null) {
+      data['max_bid'] = maxXBid!.toJson();
     }
     if (winner != null) {
       data['winner'] = winner!.toJson();
@@ -183,14 +184,14 @@ class Product {
   }
 }
 
-class MaxBid {
+class MaxXBid {
   int? id;
   int? bid;
   User? user;
 
-  MaxBid({this.id, this.bid, this.user});
+  MaxXBid({this.id, this.bid, this.user});
 
-  MaxBid.fromJson(Map<String, dynamic> json) {
+  MaxXBid.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     bid = json['bid'];
     user = json['user'] != null ? User.fromJson(json['user']) : null;

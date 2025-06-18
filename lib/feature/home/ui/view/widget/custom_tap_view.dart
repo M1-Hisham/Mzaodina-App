@@ -80,8 +80,6 @@ class _CustomTapViewState extends State<CustomTapView>
 
   @override
   void dispose() {
-    AuctionCubit.get(context).disconnectWebSocket();
-
     _tabController.dispose();
     super.dispose();
   }

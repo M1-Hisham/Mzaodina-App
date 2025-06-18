@@ -36,8 +36,6 @@ class _CustomNotstartCardViewItemState extends State<CustomreadyListView>
 
   @override
   void dispose() {
-    AuctionCubit.get(context).disconnectWebSocket();
-
     // دايمًا لازم تلغي التسجيل
     routeObserver.unsubscribe(this);
     super.dispose();
@@ -68,6 +66,7 @@ class _CustomNotstartCardViewItemState extends State<CustomreadyListView>
 
           final totalPage = context.read<ReadyCubit>().totalPages;
           final currentPage = context.read<ReadyCubit>().currentPage;
+          AuctionCubit.get(context).disconnectWebSocket();
 
           AuctionCubit.get(context).auctionsLoop(
             ids:
