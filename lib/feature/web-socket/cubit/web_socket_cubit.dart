@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -143,6 +142,7 @@ class WebSocketCubit extends Cubit<WebSocketState> {
     _keepAliveTimer?.cancel();
     _channel.sink.close();
     _instance = null;
+    emit(WebSocketDisconnected());
     return super.close();
   }
 }
