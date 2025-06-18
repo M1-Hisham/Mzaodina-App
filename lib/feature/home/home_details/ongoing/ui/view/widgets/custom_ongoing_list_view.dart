@@ -68,6 +68,8 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
 
           final totalPage = context.read<OngoingCubit>().totalPages;
           final currentPage = context.read<OngoingCubit>().currentPage;
+          AuctionCubit.get(context).disconnectWebSocket();
+
           AuctionCubit.get(context).auctionsLoop(
             ids:
                 state.data.data.auctions

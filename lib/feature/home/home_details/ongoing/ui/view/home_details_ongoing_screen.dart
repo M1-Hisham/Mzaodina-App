@@ -43,6 +43,8 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
 
   @override
   void initState() {
+    context.read<WebSocketCubit>().close();
+
     AuctionCubit.get(
       context,
     ).connectToAuctionWebSocket(id: widget.ongoingDetails.id.toString());

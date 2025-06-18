@@ -66,6 +66,8 @@ class _CustomNotstartCardViewItemState extends State<CustomreadyListView>
 
           final totalPage = context.read<ReadyCubit>().totalPages;
           final currentPage = context.read<ReadyCubit>().currentPage;
+          AuctionCubit.get(context).disconnectWebSocket();
+
           AuctionCubit.get(context).auctionsLoop(
             ids:
                 state.data.data.auctions
