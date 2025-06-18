@@ -16,20 +16,20 @@ import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/b
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_show_auction_cubit/ongoing_show_auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_card_image_details.dart';
-import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_bloc_builder_countdown.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_ongoing_price_card.dart';
+import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/ongoing_countdown.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/ongoing_bidding_card.dart';
 import 'package:mzaodina_app/feature/home/home_details/ui/view/widget/custom_dialog_taelimat_item.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_text_mazad_details.dart';
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class HomeDetailsOngoingScreen extends StatefulWidget {
-  final DateTime eventTimeFromApi;
+  final DateTime endAt;
   final OngoingAuction ongoingDetails;
 
   const HomeDetailsOngoingScreen({
     super.key,
     required this.ongoingDetails,
-    required this.eventTimeFromApi,
+    required this.endAt,
   });
 
   @override
@@ -38,7 +38,7 @@ class HomeDetailsOngoingScreen extends StatefulWidget {
 }
 
 class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
-  late DateTime eventTimeFromApi;
+  late DateTime endAt;
   late WebSocketCubit _webSocketCubit;
 
   @override
@@ -49,7 +49,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
       context,
     ).connectToAuctionWebSocket(id: widget.ongoingDetails.id.toString());
     super.initState();
-    eventTimeFromApi = DateTime.parse(widget.ongoingDetails.endAt);
+    endAt = DateTime.parse(widget.ongoingDetails.endAt);
     _webSocketCubit = context.read<WebSocketCubit>();
     AuctionCubit.get(
       context,
@@ -117,13 +117,13 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                     vertical: 12.h,
                                   ),
                                   child: OngoingCountdown(
-                                    eventTime: eventTimeFromApi,
+                                    endAt: endAt,
                                     getNow:
                                         () =>
                                             _webSocketCubit
-                                                .getCurrentServerTime() ,
+                                                .getCurrentServerTime(),
                                     progressColor: R.colors.greenColor,
-                                    backgroundColor: R.colors.greenColor,
+                                    backgroundColor: R.colors.greenColor2,
                                   ),
                                 ),
                                 const SizedBox(height: 8),
@@ -175,14 +175,13 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                     price:
                                         AuctionCubit.get(
                                           context,
-                                        ).maxBid?.bid?.toStringAsFixed(2) ??
+                                        ).maxBid?.bid.toString() ??
                                         state
                                             .ongoingShowAuctionMode
                                             .data
                                             .maxBid
                                             .bid
-                                            ?.toStringAsFixed(2) ??
-                                        '0.00',
+                                            .toString(),
                                     style: R.textStyles.font14Grey3W500Light,
                                     priceStyle:
                                         R.textStyles.font14primaryW500Light,
@@ -341,7 +340,7 @@ class _HomeDetailsOngoingScreenState extends State<HomeDetailsOngoingScreen> {
                                           horizontal: 16.0,
                                         ),
 
-                                        child: CustomOngoingPriceCard(
+                                        child: OngoingBiddingCard(
                                           slug:
                                               state
                                                   .ongoingShowAuctionMode

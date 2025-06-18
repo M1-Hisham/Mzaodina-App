@@ -9,7 +9,7 @@ import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
 import 'package:mzaodina_app/feature/home/data/model/tap_view_model.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view_model/notstart_cubit/notstart_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/custom_ongoing_list_view.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/ongoing_list_view.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view/widget/custom_finished_cart_view_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/finished/ui/view_model/finished_cubit/finished_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/notstart/ui/view/widget/custom_notstart_list_view.dart';
@@ -184,7 +184,7 @@ class _CustomTapViewState extends State<CustomTapView>
                         child: BlocProvider(
                           create: (context) => WebSocketCubit(),
                           child: CustomOngoingListView(
-                            jaraaCounter: ongoingCount ?? 0,
+                            ongoingCounter: ongoingCount ?? 0,
                           ),
                         ),
                       ),

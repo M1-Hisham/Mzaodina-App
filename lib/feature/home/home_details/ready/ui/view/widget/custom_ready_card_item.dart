@@ -25,14 +25,14 @@ class CustomReadyCardItem extends StatefulWidget {
 }
 
 class _CustomReadyCardItemState extends State<CustomReadyCardItem> {
-  late final DateTime eventTimeFromApi;
+  late final DateTime startAt;
   late final Duration initialDuration;
   int d = 0, h = 0, m = 0, s = 0;
 
   @override
   void initState() {
     super.initState();
-    eventTimeFromApi = DateTime.parse(
+    startAt = DateTime.parse(
       widget.sayantaliqDataModel.startAt ?? DateTime.now().toIso8601String(),
     );
     initialDuration = Duration(
@@ -157,7 +157,7 @@ class _CustomReadyCardItemState extends State<CustomReadyCardItem> {
                               BlocProvider(
                                 create:
                                     (_) => CounterCubit(
-                                      eventTime: eventTimeFromApi,
+                                      durationTime: startAt,
                                       getNow: () {
                                         final cubit =
                                             context.read<WebSocketCubit>();
@@ -166,10 +166,10 @@ class _CustomReadyCardItemState extends State<CustomReadyCardItem> {
                                           if (latest != null) {
                                             return DateTime.parse(latest);
                                           } else {
-                                            return eventTimeFromApi;
+                                            return startAt;
                                           }
                                         } catch (_) {
-                                          return eventTimeFromApi;
+                                          return startAt;
                                         }
                                       },
                                     ),
@@ -218,7 +218,7 @@ class _CustomReadyCardItemState extends State<CustomReadyCardItem> {
                           context,
                           AppRoutes.homeDetailsReadyScreenRoute,
                           arguments: {
-                            'eventTime': eventTimeFromApi,
+                            'startAt': startAt,
                             'sayantaliqDataModel': widget.sayantaliqDataModel,
                             's': s,
                             'm': m,

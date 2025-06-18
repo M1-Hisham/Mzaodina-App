@@ -114,7 +114,7 @@ class AppRouter {
                         (context) =>
                             getIt<OngoingShowAuctionCubit>()
                               ..getOngoingShowAuctionCubit(
-                                args['jaraaDataModel'].slug,
+                                args['ongoingDataModel'].slug,
                               ),
                   ),
                   BlocProvider(
@@ -122,7 +122,7 @@ class AppRouter {
                         (context) =>
                             getIt<AuctionsBiddingHistoryCubit>()
                               ..getAuctionsBiddingHistory(
-                                args['jaraaDataModel'].slug,
+                                args['ongoingDataModel'].slug,
                               ),
                   ),
                   BlocProvider(
@@ -130,8 +130,8 @@ class AppRouter {
                   ),
                 ],
                 child: HomeDetailsOngoingScreen(
-                  eventTimeFromApi: args['eventTime']!,
-                  ongoingDetails: args['jaraaDataModel'],
+                  endAt: args['endAt']!,
+                  ongoingDetails: args['ongoingDataModel'],
                 ),
               ),
         );
@@ -153,7 +153,7 @@ class AppRouter {
                   ),
                 ],
                 child: HomeDetailsReadyScreen(
-                  eventTimeFromApi: args['eventTime']!,
+                  startAt: args['startAt']!,
                   readyDetails: args['sayantaliqDataModel'],
                   s: args['s'] ?? 0,
                   m: args['m'] ?? 0,

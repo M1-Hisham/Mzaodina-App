@@ -7,21 +7,23 @@ import 'web_socket_state.dart';
 
 class WebSocketCubit extends Cubit<WebSocketState> {
   static WebSocketCubit? _instance;
-  WebSocketChannel? _channel;
+  late final WebSocketChannel _channel;
   Timer? _keepAliveTimer;
   String? latestServerTime;
   bool _isConnecting = false;
 
+  // Private constructor for singleton pattern
   WebSocketCubit._() : super(WebSocketInitial()) {
     _connect();
   }
 
+  // Factory constructor to ensure single instance
   factory WebSocketCubit() {
     _instance ??= WebSocketCubit._();
     return _instance!;
   }
 
-  bool get isConnected => _channel != null && _channel!.closeCode == null;
+  bool get isConnected => _channel.closeCode == null;
 
   void connect() {
     if (!isConnected && !_isConnecting) {
@@ -36,9 +38,6 @@ class WebSocketCubit extends Cubit<WebSocketState> {
     log('📨 Initializing WebSocketCubit...');
 
     try {
-      // Close previous connection if exists
-      _channel?.sink.close();
-
       _channel = WebSocketChannel.connect(
         Uri.parse(
           'wss://mzaodin.com/app/k5n849mwzstmvbgppimp?protocol=7&client=js&version=7.0.3&flash=false',
@@ -47,13 +46,13 @@ class WebSocketCubit extends Cubit<WebSocketState> {
 
       _keepAliveTimer?.cancel();
       _keepAliveTimer = Timer.periodic(Duration(seconds: 50), (_) {
-        if (_channel?.closeCode == null) {
-          _channel!.sink.add(jsonEncode({"event": "ping"}));
+        if (_channel.closeCode == null) {
+          _channel.sink.add(jsonEncode({"event": "ping"}));
           log('🔁 Sent ping');
         }
       });
 
-      _channel!.stream.listen(
+      _channel.stream.listen(
         (event) {
           try {
             final data = jsonDecode(event);
@@ -74,13 +73,16 @@ class WebSocketCubit extends Cubit<WebSocketState> {
             }
 
             if (eventType == 'pusher:connection_established') {
-              _channel!.sink.add(jsonEncode({
+              // Subscribe only to server-time channel
+              final subscribePayload = {
                 "event": "pusher:subscribe",
                 "data": {"channel": "server-time"},
-              }));
+              };
+              _channel.sink.add(jsonEncode(subscribePayload));
               log('✅ Subscribed to server-time channel');
             }
 
+            // Handle server time updates
             if (eventType == 'App\\Events\\ServerTimeUpdated' &&
                 decodedData != null) {
               final serverTime = decodedData['server_time'];
@@ -117,17 +119,19 @@ class WebSocketCubit extends Cubit<WebSocketState> {
 
   void _reconnect() {
     Future.delayed(Duration(seconds: 5), () {
-      if (_channel?.closeCode != null) {
+      if (_channel.closeCode != null) {
         log('🔁 Reconnecting...');
         _connect();
       }
     });
   }
 
+  // Get current server time or fallback to local time
   DateTime getCurrentServerTime() {
     try {
-      return  DateTime.parse(latestServerTime!);
-
+      return latestServerTime != null
+          ? DateTime.parse(latestServerTime!)
+          : DateTime.now();
     } catch (_) {
       return DateTime.now();
     }
@@ -136,7 +140,7 @@ class WebSocketCubit extends Cubit<WebSocketState> {
   @override
   Future<void> close() {
     _keepAliveTimer?.cancel();
-    _channel?.sink.close();
+    _channel.sink.close();
     _instance = null;
     emit(WebSocketDisconnected());
     return super.close();

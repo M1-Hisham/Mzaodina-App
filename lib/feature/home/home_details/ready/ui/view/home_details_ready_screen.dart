@@ -18,14 +18,14 @@ import 'package:mzaodina_app/feature/home/ui/view_model/counter_cubit/counter_cu
 import 'package:mzaodina_app/feature/web-socket/cubit/web_socket_cubit.dart';
 
 class HomeDetailsReadyScreen extends StatelessWidget {
-  final DateTime eventTimeFromApi;
+  final DateTime startAt;
   final ReadyAuction readyDetails;
   final int d, h, m, s;
   const HomeDetailsReadyScreen({
     super.key,
 
     required this.readyDetails,
-    required this.eventTimeFromApi,
+    required this.startAt,
     required this.d,
     required this.h,
     required this.m,
@@ -34,7 +34,7 @@ class HomeDetailsReadyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime eventTimeFromApi = DateTime.parse(readyDetails.startAt ?? '');
+    DateTime startAt = DateTime.parse(readyDetails.startAt ?? '');
     return Scaffold(
       backgroundColor: R.colors.whiteLight,
       body: Column(
@@ -220,7 +220,7 @@ class HomeDetailsReadyScreen extends StatelessWidget {
                                     BlocProvider(
                                       create:
                                           (_) => CounterCubit(
-                                            eventTime: eventTimeFromApi,
+                                            durationTime: startAt,
                                             getNow: () {
                                               final cubit =
                                                   context

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
-  final DateTime eventTime;
+  final DateTime durationTime;
   final DateTime Function() getNow; // ⬅️ دالة ترجع الوقت الحالي من WebSocket
   Timer? _timer;
 
-  CounterCubit({required this.eventTime, required this.getNow})
+  CounterCubit({required this.durationTime, required this.getNow})
     : super(CounterInitial()) {
     _start();
   }
@@ -15,7 +15,7 @@ class CounterCubit extends Cubit<CounterState> {
   void _start() {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       final now = getNow();
-      final diff = eventTime.difference(now);
+      final diff = durationTime.difference(now);
 
       if (diff.isNegative || diff == Duration.zero) {
         emit(CountdownFinished());

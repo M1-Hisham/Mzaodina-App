@@ -5,15 +5,16 @@ import 'package:mzaodina_app/core/resources/resources.dart';
 import 'package:mzaodina_app/core/widgets/custom_erorr_widget.dart';
 import 'package:mzaodina_app/core/widgets/shimmer/mazad_shimmer.dart';
 import 'package:mzaodina_app/feature/auction/cubit/auction_cubit.dart';
-import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/Custom_jaraa_card_item.dart';
+import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view/widgets/home_ongoing_card_item.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/ongoing_cubit/ongoing_cubit.dart';
 import 'package:mzaodina_app/feature/home/ui/view/widget/custom_not_item.dart';
 import 'package:mzaodina_app/feature/notifications/payment/ui/view_model/Last_invoice_cubit/last_invoice_cubit.dart';
+
 import 'package:mzaodina_app/mzaodina_app.dart';
 
 class CustomOngoingListView extends StatefulWidget {
-  final int jaraaCounter;
-  const CustomOngoingListView({super.key, required this.jaraaCounter});
+  final int ongoingCounter;
+  const CustomOngoingListView({super.key, required this.ongoingCounter});
 
   @override
   State<CustomOngoingListView> createState() =>
@@ -54,7 +55,7 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
         if (state is OngoingLoading) {
           return const Center(child: MazadShimmer());
         } else if (state is OngoingError) {
-          if (widget.jaraaCounter == 0) {
+          if (widget.ongoingCounter == 0) {
             return CustomNotItem();
           } else {
             return CustomErorrWidget(
@@ -64,7 +65,7 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
             );
           }
         } else if (state is OngoingSuccess) {
-          final jaraaAuction = state.data;
+          final ongoingAuction = state.data;
 
           final totalPage = context.read<OngoingCubit>().totalPages;
           final currentPage = context.read<OngoingCubit>().currentPage;
@@ -93,8 +94,8 @@ class _CustomNotstartCardViewItemState extends State<CustomOngoingListView>
                     BlocProvider.of<OngoingCubit>(
                       context,
                     ).ongoingAuctionResponse!.data.auctions.length) {
-                  return CustomOngoingCardViewItem(
-                    jaraaDataModel:
+                  return HomeOngoingCard(
+                    ongoingDataModel:
                         BlocProvider.of<OngoingCubit>(
                           context,
                         ).ongoingAuctionResponse!.data.auctions[index],

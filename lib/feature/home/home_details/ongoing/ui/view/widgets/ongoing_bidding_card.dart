@@ -11,15 +11,15 @@ import 'package:mzaodina_app/feature/home/home_details/ongoing/data/model/auctio
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auction_bidding_cubit/auction_bidding_cubit.dart';
 import 'package:mzaodina_app/feature/home/home_details/ongoing/ui/view_model/auctions_bidding_history_cubit/auctions_bidding_history_cubit.dart';
 
-class CustomOngoingPriceCard extends StatefulWidget {
+class OngoingBiddingCard extends StatefulWidget {
   final String slug;
-  const CustomOngoingPriceCard({super.key, required this.slug});
+  const OngoingBiddingCard({super.key, required this.slug});
 
   @override
-  State<CustomOngoingPriceCard> createState() => _CustomOngoingPriceCardState();
+  State<OngoingBiddingCard> createState() => _OngoingBiddingCardState();
 }
 
-class _CustomOngoingPriceCardState extends State<CustomOngoingPriceCard> {
+class _OngoingBiddingCardState extends State<OngoingBiddingCard> {
   TextEditingController? controller;
   int selectedIndex = 0;
   int selectedValue = 5;
